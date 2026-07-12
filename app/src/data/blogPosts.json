@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "id": "1",
+    "slug": "top-10-places-to-visit-in-kenya",
+    "title": "Top 10 Places to Visit in Kenya",
+    "image": "/src/assets/images/blog/top-10-places.jpg",
+    "excerpt": "From savannahs to beaches, discover the must-visit destinations.",
+    "publishedAt": "2024-05-12"
+  },
+  {
+    "id": "2",
+    "slug": "best-time-to-visit-kenya",
+    "title": "Best Time to Visit Kenya",
+    "image": "/src/assets/images/blog/best-time-to-visit.jpg",
+    "excerpt": "Find out the ideal time for safari, beach holidays and more.",
+    "publishedAt": "2024-04-28"
+  },
+  {
+    "id": "3",
+    "slug": "a-day-in-nairobi",
+    "title": "A Day in Nairobi",
+    "image": "/src/assets/images/blog/day-in-nairobi.jpg",
+    "excerpt": "Explore the best day trips and attractions in Kenya's capital.",
+    "publishedAt": "2024-04-15"
+  }
+]

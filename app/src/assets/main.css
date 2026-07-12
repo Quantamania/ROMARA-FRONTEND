@@ -19,8 +19,10 @@
 }
 
 @layer components {
-  /* Shared "container" width used by every section on the page */
+  /* Shared "container" width used by every section on the page.
+     Widened from Tailwind's default max-w-7xl (1280px) to 1440px so content
+     uses more of the screen on wide monitors instead of sitting narrow and centered. */
   .romara-container {
-    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+    @apply mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-12;
   }
 }

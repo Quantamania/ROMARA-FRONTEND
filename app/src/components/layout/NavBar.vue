@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRoute } from 'vue-router'
 import IconLion from '@/components/icons/IconLion.vue'
 import IconChevronDown from '@/components/icons/IconChevronDown.vue'
 import IconMenu from '@/components/icons/IconMenu.vue'
@@ -34,6 +35,7 @@ const navLinks: NavLink[] = [
   { label: 'Contact Us', href: '/contact' },
 ]
 
+const route = useRoute()
 const isMobileMenuOpen = ref(false)
 const openDropdownLabel = ref<string | null>(null)
 
@@ -44,12 +46,17 @@ function toggleMobileMenu() {
 function toggleDropdown(label: string) {
   openDropdownLabel.value = openDropdownLabel.value === label ? null : label
 }
+
+function isActiveLink(href: string) {
+  if (href === '/') return route.path === '/'
+  return route.path.startsWith(href)
+}
 </script>
 
 <template>
   <header class="sticky top-0 z-40 border-b border-black/5 bg-white">
-    <nav class="romara-container flex h-20 items-center justify-between">
-      <a href="/" class="flex items-center gap-2.5">
+    <nav class="romara-container flex h-20 items-center justify-between gap-6">
+      <a href="/" class="flex shrink-0 items-center gap-2.5">
         <IconLion class="h-10 w-10 text-romara-amber" />
         <span class="leading-tight">
           <span class="block font-heading text-lg font-bold text-romara-green">ROMARA</span>
@@ -57,27 +64,39 @@ function toggleDropdown(label: string) {
         </span>
       </a>
 
-      <ul class="hidden items-center gap-6 xl:flex">
-        <li v-for="link in navLinks" :key="link.label" class="relative">
+      <ul class="hidden items-center gap-x-5 xl:flex">
+        <li v-for="link in navLinks" :key="link.label" class="relative whitespace-nowrap">
           <button
             v-if="link.children"
             type="button"
-            class="flex items-center gap-1 text-sm font-medium text-romara-ink hover:text-romara-green"
+            class="flex items-center gap-1 py-2 text-xs font-semibold uppercase tracking-wide hover:text-romara-green"
+            :class="isActiveLink(link.href) ? 'text-romara-green' : 'text-romara-ink'"
             @click="toggleDropdown(link.label)"
           >
             {{ link.label }}
             <IconChevronDown class="h-3.5 w-3.5" />
           </button>
-          <a v-else :href="link.href" class="text-sm font-medium text-romara-ink hover:text-romara-green">
+          
+          <a
+            v-else
+            :href="link.href"
+            class="block py-2 text-xs font-semibold uppercase tracking-wide hover:text-romara-green"
+            :class="isActiveLink(link.href) ? 'text-romara-green' : 'text-romara-ink'"
+          >
             {{ link.label }}
           </a>
 
+          <span
+            v-if="isActiveLink(link.href)"
+            class="absolute bottom-0 left-0 h-0.5 w-5 rounded bg-romara-green"
+          />
+
           <ul
             v-if="link.children && openDropdownLabel === link.label"
-            class="absolute left-0 top-full mt-3 w-56 rounded-md border border-black/5 bg-white py-2 shadow-card"
+            class="absolute left-0 top-full mt-1 w-56 rounded-md border border-black/5 bg-white py-2 shadow-card"
           >
             <li v-for="child in link.children" :key="child.label">
-              <a :href="child.href" class="block px-4 py-2 text-sm text-romara-ink hover:bg-romara-cream hover:text-romara-green">
+              <a :href="child.href" class="block px-4 py-2 text-xs font-medium uppercase tracking-wide text-romara-ink hover:bg-romara-cream hover:text-romara-green">
                 {{ child.label }}
               </a>
             </li>
@@ -85,11 +104,11 @@ function toggleDropdown(label: string) {
         </li>
       </ul>
 
-      <div class="hidden xl:block">
+      <div class="hidden shrink-0 xl:block">
         <BaseButton as="a" href="/book-now" variant="primary">Book Now</BaseButton>
       </div>
 
-      <button type="button" class="text-romara-green xl:hidden" aria-label="Open menu" @click="toggleMobileMenu">
+      <button type="button" class="shrink-0 text-romara-green xl:hidden" aria-label="Open menu" @click="toggleMobileMenu">
         <IconMenu class="h-7 w-7" />
       </button>
     </nav>
@@ -97,7 +116,7 @@ function toggleDropdown(label: string) {
     <div v-if="isMobileMenuOpen" class="border-t border-black/5 bg-white xl:hidden">
       <ul class="romara-container flex flex-col gap-1 py-4">
         <li v-for="link in navLinks" :key="link.label">
-          <a :href="link.href" class="block rounded-md px-2 py-2.5 text-sm font-medium text-romara-ink hover:bg-romara-cream">
+          <a :href="link.href" class="block rounded-md px-2 py-2.5 text-xs font-semibold uppercase tracking-wide text-romara-ink hover:bg-romara-cream">
             {{ link.label }}
           </a>
         </li>
