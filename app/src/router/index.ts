@@ -10,6 +10,7 @@ const router = createRouter({
       component: DefaultLayout,
       children: [
         { path: '', name: 'home', component: HomeView },
+        { path: 'about', name: 'about', component: () => import('@/views/AboutView.vue') },
         // Add the rest of the routes from the frontend file-structure guide here as
         // each view gets built, e.g.:
         // { path: 'about', name: 'about', component: () => import('@/views/AboutView.vue') },

@@ -13,7 +13,7 @@ interface HeroSlide {
 
 const slides: HeroSlide[] = [
   {
-    image: '/src/assets/images/home/hero-elephants.jpg',
+    image: '/src/assets/images/home/hero-elephants.png',
     eyebrow: 'Discover Kenya',
     heading: 'Unforgettable Safari Experiences',
     subheading:

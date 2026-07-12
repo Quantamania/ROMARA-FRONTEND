@@ -10,21 +10,30 @@ import IconTripadvisor from '@/components/icons/IconTripadvisor.vue'
 import IconWhatsapp from '@/components/icons/IconWhatsapp.vue'
 
 const quickLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'About ROMARA', href: '/about' },
   { label: 'Safari Packages', href: '/safari-packages' },
   { label: 'Day Trips', href: '/day-trips' },
   { label: 'Airport Transfers', href: '/airport-transfers' },
   { label: 'Destinations', href: '/destinations' },
+  { label: 'Gallery', href: '/gallery' },
+  { label: 'Reviews', href: '/reviews' },
   { label: 'FAQs', href: '/faq' },
+  { label: 'Travel Blog', href: '/blog' },
   { label: 'Contact Us', href: '/contact' },
 ]
 
 const services = [
   'Wildlife Safaris',
-  'Multi-day Tours',
+  'Day Tours',
+  'Multi-Day Tours',
   'Mountain Hiking',
   'Beach Holidays',
+  'Airport Transfers',
   'Hotel Bookings',
-  'Group & Corporate Travel',
+  'Group Travel',
+  'Corporate Travel',
+  'Customised Tour Packages',
 ]
 
 const socialLinks = [

@@ -17,7 +17,6 @@
     @apply font-heading;
   }
 }
-
 @layer components {
   /* Shared "container" width used by every section on the page.
      Widened from Tailwind's default max-w-7xl (1280px) to 1440px so content
