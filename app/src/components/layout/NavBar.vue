@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
-import IconLion from '@/components/icons/IconLion.vue'
+import logoSrc from '@/assets/images/logos/logo-transparent.png'
 import IconChevronDown from '@/components/icons/IconChevronDown.vue'
 import IconMenu from '@/components/icons/IconMenu.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
@@ -57,7 +57,7 @@ function isActiveLink(href: string) {
   <header class="sticky top-0 z-40 border-b border-black/5 bg-white">
     <nav class="romara-container flex h-20 items-center justify-between gap-6">
       <a href="/" class="flex shrink-0 items-center gap-2.5">
-        <IconLion class="h-10 w-10 text-romara-amber" />
+        <img :src="logoSrc" alt="ROMARA logo" class="h-16 w-auto" />
         <span class="leading-tight">
           <span class="block font-heading text-lg font-bold text-romara-green">ROMARA</span>
           <span class="block text-[10px] font-semibold tracking-widest text-romara-ink/70">TOURS &amp; TRAVEL</span>

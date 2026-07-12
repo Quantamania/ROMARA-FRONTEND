@@ -8,15 +8,27 @@ import CallToAction from '@/features/about/sections/CallToAction.vue'
 </script>
 
 <template>
-  <AboutHero />
+  <div v-scroll-reveal>
+    <AboutHero />
+  </div>
 
-  <OurStory>
-    <template #mission>
-      <MissionValues />
-    </template>
-  </OurStory>
+  <div v-scroll-reveal>
+    <OurStory>
+      <template #mission>
+        <MissionValues />
+      </template>
+    </OurStory>
+  </div>
 
-  <WhoWeAre />
-  <StatsBanner />
-  <CallToAction />
+  <div v-scroll-reveal>
+    <WhoWeAre />
+  </div>
+
+  <div v-scroll-reveal>
+    <StatsBanner />
+  </div>
+
+  <div v-scroll-reveal>
+    <CallToAction />
+  </div>
 </template>

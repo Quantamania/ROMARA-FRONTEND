@@ -41,7 +41,7 @@ const socialLinks = [
           :aria-label="social.name"
           class="text-white/90 hover:text-romara-amber"
         >
-          <component :is="social.icon" class="h-3.5 w-3.5" />
+          <component :is="social.icon" class="h-5 w-5" />
         </a>
       </div>
     </div>

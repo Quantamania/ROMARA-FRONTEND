@@ -8,16 +8,26 @@ import BlogPreview from '@/features/home/sections/BlogPreview.vue'
 </script>
 
 <template>
-  <HeroBanner />
-  <TrustBuilding />
-  <FeaturedPackages />
+  <div v-scroll-reveal>
+    <HeroBanner />
+  </div>
 
-  <section class="bg-white py-16">
+  <div v-scroll-reveal="{ delay: 75 }">
+    <TrustBuilding />
+  </div>
+
+  <div v-scroll-reveal="{ delay: 150 }">
+    <FeaturedPackages />
+  </div>
+
+  <section v-scroll-reveal class="bg-white py-16">
     <div class="romara-container grid grid-cols-1 gap-10 lg:grid-cols-2">
       <TestimonialsPreview />
       <WhyChooseUs />
     </div>
   </section>
 
-  <BlogPreview />
+  <div v-scroll-reveal="{ delay: 225 }">
+    <BlogPreview />
+  </div>
 </template>

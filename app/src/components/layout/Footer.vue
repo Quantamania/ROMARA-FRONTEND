@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import IconLion from '@/components/icons/IconLion.vue'
+import logoSrc from '@/assets/images/logos/logo-transparent.png'
 import IconPhone from '@/components/icons/IconPhone.vue'
 import IconMail from '@/components/icons/IconMail.vue'
 import IconMapPin from '@/components/icons/IconMapPin.vue'
@@ -62,7 +62,7 @@ function handleNewsletterSubmit() {
     <div class="romara-container grid grid-cols-1 gap-10 py-14 sm:grid-cols-2 lg:grid-cols-5">
       <div class="lg:col-span-1">
         <div class="flex items-center gap-2.5">
-          <IconLion class="h-9 w-9 text-romara-amber" />
+          <img :src="logoSrc" alt="ROMARA logo" class="h-20 w-auto" />
           <span class="leading-tight">
             <span class="block font-heading text-base font-bold">ROMARA</span>
             <span class="block text-[9px] font-semibold tracking-widest text-white/70">TOURS &amp; TRAVEL</span>
