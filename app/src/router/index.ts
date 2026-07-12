@@ -1,10 +1,22 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { routes } from './routes'
-import { setupRouterGuards } from './guards'
+import DefaultLayout from '@/layouts/DefaultLayout.vue'
+import HomeView from '@/views/HomeView.vue'
 
-export const router = createRouter({
+const router = createRouter({
   history: createWebHistory(),
-  routes,
+  routes: [
+    {
+      path: '/',
+      component: DefaultLayout,
+      children: [
+        { path: '', name: 'home', component: HomeView },
+        // Add the rest of the routes from the frontend file-structure guide here as
+        // each view gets built, e.g.:
+        // { path: 'about', name: 'about', component: () => import('@/views/AboutView.vue') },
+        // { path: 'safari-packages', name: 'safari-packages', component: () => import('@/views/SafariPackagesView.vue') },
+      ],
+    },
+  ],
 })
 
-setupRouterGuards(router)
+export default router
