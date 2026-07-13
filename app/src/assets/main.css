@@ -24,9 +24,16 @@
   .romara-container {
     @apply mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-12;
   }
+
+  /* Horizontally stretches short logo text (e.g. "ROMARA") to visually
+     match the width of the tagline line below it, without adding
+     letter-spacing gaps. Used in NavBar.vue and AppFooter.vue. */
+  .romara-stretch {
+    display: inline-block;
+    transform-origin: left center;
+    white-space: nowrap;
+  }
 }
-/* Powers the v-scroll-reveal directive (src/directives/vScrollReveal.ts).
-   Elements start hidden/offset, then animate in once they enter the viewport. */
 @media (prefers-reduced-motion: no-preference) {
   .scroll-reveal {
     opacity: 0;

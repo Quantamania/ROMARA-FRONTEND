@@ -15,16 +15,7 @@ interface NavLink {
 const navLinks: NavLink[] = [
   { label: 'Home', href: '/' },
   { label: 'About Romara', href: '/about' },
-  {
-    label: 'Safari Packages',
-    href: '/safari-packages',
-    children: [
-      { label: 'Wildlife Safaris', href: '/safari-packages?type=wildlife' },
-      { label: 'Multi-Day Tours', href: '/safari-packages?type=multi-day' },
-      { label: 'Mountain Hiking', href: '/safari-packages?type=hiking' },
-      { label: 'Beach Holidays', href: '/safari-packages?type=beach' },
-    ],
-  },
+  { label: 'Safari Packages', href: '/safari-packages' },
   { label: 'Day Trips', href: '/day-trips' },
   { label: 'Airport Transfers', href: '/airport-transfers' },
   { label: 'Destinations', href: '/destinations' },
@@ -57,12 +48,13 @@ function isActiveLink(href: string) {
   <header class="sticky top-0 z-40 border-b border-black/5 bg-white">
     <nav class="romara-container flex h-20 items-center justify-between gap-6">
       <a href="/" class="flex shrink-0 items-center gap-2.5">
-        <img :src="logoSrc" alt="ROMARA logo" class="h-16 w-auto" />
-        <span class="leading-tight">
-          <span class="block font-heading text-lg font-bold text-romara-green">ROMARA</span>
-          <span class="block text-[10px] font-semibold tracking-widest text-romara-ink/70">TOURS &amp; TRAVEL</span>
-        </span>
-      </a>
+  <img :src="logoSrc" alt="ROMARA logo" class="h-16 w-auto" />
+  <span class="leading-tight">
+ <span class="romara-stretch block font-heading text-lg font-bold text-romara-green" style="transform: scaleX(1.25)">ROMARA</span>
+ <span class="romara-stretch block text-[10px] font-semibold text-romara-ink/70" style="transform: scaleX(1.25)">TOURS &amp; TRAVEL</span> 
+  <span class="block text-[9px] font-semibold text-romara-ink/60">Reaching Out to Your Next Adventure</span>
+</span>
+</a>
 
       <ul class="hidden items-center gap-x-5 xl:flex">
         <li v-for="link in navLinks" :key="link.label" class="relative whitespace-nowrap">

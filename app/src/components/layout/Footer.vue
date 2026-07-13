@@ -62,12 +62,13 @@ function handleNewsletterSubmit() {
     <div class="romara-container grid grid-cols-1 gap-10 py-14 sm:grid-cols-2 lg:grid-cols-5">
       <div class="lg:col-span-1">
         <div class="flex items-center gap-2.5">
-          <img :src="logoSrc" alt="ROMARA logo" class="h-20 w-auto" />
-          <span class="leading-tight">
-            <span class="block font-heading text-base font-bold">ROMARA</span>
-            <span class="block text-[9px] font-semibold tracking-widest text-white/70">TOURS &amp; TRAVEL</span>
-          </span>
-        </div>
+  <img :src="logoSrc" alt="ROMARA logo" class="h-20 w-auto" />
+  <span class="leading-tight">
+    <span class="block font-heading text-base font-bold tracking-[0.40em]">ROMARA</span>
+    <span class="block text-[10px] font-semibold tracking-[0.20em] text-romara-amber">TOURS &amp; TRAVEL</span>
+    <span class="block text-[9px] font-semibold text-romara-amber">Reaching Out to Your Next Adventure</span>
+  </span>
+</div>
         <p class="mt-4 text-sm leading-relaxed text-white/70">
           Your trusted travel partner for unforgettable experiences in Kenya and beyond.
         </p>
