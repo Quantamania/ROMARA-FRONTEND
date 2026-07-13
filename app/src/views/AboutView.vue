@@ -4,7 +4,7 @@ import OurStory from '@/features/about/sections/OurStory.vue'
 import MissionValues from '@/features/about/sections/MissionValues.vue'
 import WhoWeAre from '@/features/about/sections/WhoWeAre.vue'
 import StatsBanner from '@/features/about/sections/StatsBanner.vue'
-import CallToAction from '@/features/about/sections/CallToAction.vue'
+import CallToActionBar from '@/components/ui/CallToActionBar.vue'
 </script>
 
 <template>
@@ -29,6 +29,6 @@ import CallToAction from '@/features/about/sections/CallToAction.vue'
   </div>
 
   <div v-scroll-reveal>
-    <CallToAction />
+    <CallToActionBar />
   </div>
 </template>

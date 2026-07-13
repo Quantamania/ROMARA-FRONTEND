@@ -1,4 +1,5 @@
 export interface SafariPackage {
+  badge: any
   id: string
   slug: string
   name: string

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 interface Props {
-  variant?: 'primary' | 'outline' | 'amber'
+  variant?: 'primary' | 'outline' | 'amber' | 'ghost'
   size?: 'md' | 'lg'
   as?: 'button' | 'a'
   href?: string
@@ -17,6 +17,9 @@ const variantClasses: Record<string, string> = {
   primary: 'bg-romara-green text-white hover:bg-romara-green/90',
   outline: 'bg-white text-romara-green border border-romara-green/20 hover:bg-romara-cream',
   amber: 'bg-romara-amber text-white hover:bg-romara-amber/90',
+  // For buttons sitting on a dark/green background alongside a solid primary button —
+  // e.g. the "Chat on WhatsApp" button in CallToActionBar's green theme.
+  ghost: 'bg-white/10 text-white border border-white/25 hover:bg-white/20',
 }
 
 const sizeClasses: Record<string, string> = {
