@@ -29,7 +29,7 @@ const tailorMadePoints: TailorMadePoint[] = [
 
 <template>
   <!-- Hero -->
-  <section v-scroll-reveal class="relative isolate min-h-[420px] overflow-hidden bg-romara-green text-white sm:min-h-[460px]">
+  <section v-scroll-reveal class="relative isolate min-h-[700px] overflow-hidden bg-romara-green text-white sm:min-h-[700px]">
     <img
       src="/src/assets/images/safari-packages/hero-elephants-jeep.png"
       alt="Safari jeep alongside a herd of elephants"

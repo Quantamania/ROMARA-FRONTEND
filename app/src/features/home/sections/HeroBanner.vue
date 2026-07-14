@@ -65,7 +65,7 @@ onBeforeUnmount(function stopAutoplay() {
 </script>
 
 <template>
-  <section class="relative isolate min-h-[560px] overflow-hidden bg-romara-green text-white sm:min-h-[620px]">
+  <section class="relative isolate min-h-[700px] overflow-hidden bg-romara-green text-white sm:min-h-[700px]">
     <transition name="fade" mode="out-in">
       <img
         :key="activeSlideIndex"
