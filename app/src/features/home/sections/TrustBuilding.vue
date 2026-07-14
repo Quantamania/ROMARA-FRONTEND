@@ -11,6 +11,16 @@ interface Feature {
   description: string
 }
 
+interface Props {
+  /** true (default) = pulled up to overlap the hero's bottom edge (Home, Safari Packages).
+   *  false = sits below the hero with normal spacing, no overlap (Day Trips). */
+  overlap?: boolean
+}
+
+withDefaults(defineProps<Props>(), {
+  overlap: true,
+})
+
 const features: Feature[] = [
   { icon: IconBinoculars, title: 'Expert Local Guides', description: 'Experienced and passionate guides for the best experience' },
   { icon: IconShield, title: 'Safe & Reliable', description: 'Your safety and comfort are our priority' },
@@ -21,7 +31,10 @@ const features: Feature[] = [
 </script>
 
 <template>
-  <section class="romara-container relative z-10 -mt-14 sm:-mt-16">
+  <section
+    class="romara-container relative z-10"
+    :class="overlap ? '-mt-14 sm:-mt-16' : 'mt-10 sm:mt-12'"
+  >
     <div class="grid grid-cols-1 gap-6 rounded-lg bg-white p-6 shadow-overlap sm:grid-cols-2 lg:grid-cols-5 lg:gap-4">
       <div v-for="feature in features" :key="feature.title" class="flex items-start gap-3">
         <component :is="feature.icon" class="h-8 w-8 shrink-0 text-romara-amber" />

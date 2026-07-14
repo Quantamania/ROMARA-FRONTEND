@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import type { Component } from 'vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import IconSuitcase from '@/components/icons/IconSuitcase.vue'
 import IconLion from '@/components/icons/IconLion.vue'
@@ -9,17 +11,34 @@ interface Props {
   subtitle?: string
   primaryLabel?: string
   primaryHref?: string
-  /** 'cream' = light background, suitcase icon box (About page).
-   *  'green' = dark green background, lion watermark icon (Safari Packages page). */
+  /** 'cream' = light background (About page).
+   *  'green' = dark green background (Safari Packages, Day Trips pages). */
   theme?: 'cream' | 'green'
+  /** 'boxed' = icon sits in a small white/cream rounded box (About, Day Trips).
+   *  'bare' = icon rendered directly, no box, amber colored (Safari Packages).
+   *  Defaults based on theme if not set: cream -> boxed, green -> bare. */
+  iconStyle?: 'boxed' | 'bare'
+  /** Override which icon renders. Defaults: boxed -> suitcase, bare -> lion. */
+  icon?: Component
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   title: 'Ready to Start Your Adventure?',
   subtitle: 'Let ROMARA plan the perfect trip for you.',
   primaryLabel: 'Book Your Safari',
   primaryHref: '/book-now',
   theme: 'cream',
+  iconStyle: undefined,
+  icon: undefined,
+})
+
+const resolvedIconStyle = computed(function getIconStyle() {
+  return props.iconStyle ?? (props.theme === 'green' ? 'bare' : 'boxed')
+})
+
+const resolvedIcon = computed(function getIconComponent() {
+  if (props.icon) return props.icon
+  return resolvedIconStyle.value === 'bare' ? IconLion : IconSuitcase
 })
 </script>
 
@@ -31,12 +50,12 @@ withDefaults(defineProps<Props>(), {
     >
       <div class="flex items-center gap-4 text-center sm:text-left">
         <span
-          v-if="theme === 'cream'"
+          v-if="resolvedIconStyle === 'boxed'"
           class="hidden h-14 w-14 shrink-0 items-center justify-center rounded-md bg-white text-romara-green shadow-card sm:flex"
         >
-          <IconSuitcase class="h-7 w-7" />
+          <component :is="resolvedIcon" class="h-7 w-7" />
         </span>
-        <IconLion v-else class="hidden h-14 w-14 shrink-0 text-romara-amber sm:block" />
+        <component :is="resolvedIcon" v-else class="hidden h-14 w-14 shrink-0 text-romara-amber sm:block" />
 
         <div>
           <p class="text-lg font-bold" :class="theme === 'green' ? 'text-white' : 'text-romara-green'">{{ title }}</p>

@@ -12,6 +12,7 @@ const router = createRouter({
         { path: '', name: 'home', component: HomeView },
         { path: 'about', name: 'about', component: () => import('@/views/AboutView.vue') },
         { path: 'safari-packages', name: 'safari-packages', component: () => import('@/views/SafariPackagesView.vue') },
+        { path: 'day-trips', name: 'day-trips', component: () => import('@/views/DayTripsView.vue') },
         // Add the rest of the routes from the frontend file-structure guide here as
         // each view gets built, e.g.:
         // { path: 'about', name: 'about', component: () => import('@/views/AboutView.vue') },
