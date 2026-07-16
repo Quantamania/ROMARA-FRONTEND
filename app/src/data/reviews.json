@@ -1,1 +1,10 @@
-[]
+[
+  { "id": "1", "name": "Sarah Johnson", "countryFlag": "🇺🇸", "experience": "Maasai Mara Safari", "category": "safari", "rating": 5, "date": "2024-05-01", "text": "An unforgettable experience! Everything was perfectly organized from start to finish. Our guide was knowledgeable and made the safari truly special." },
+  { "id": "2", "name": "David Müller", "countryFlag": "🇩🇪", "experience": "Amboseli National Park", "category": "destinations", "rating": 5, "date": "2024-04-01", "text": "We saw amazing wildlife and the views of Mount Kilimanjaro were breathtaking. The team was professional and the service excellent." },
+  { "id": "3", "name": "Aiko Tanaka", "countryFlag": "🇯🇵", "experience": "Diani Beach Day Trip", "category": "day-trips", "rating": 5, "date": "2024-03-01", "text": "The beach was stunning and the day trip was so well planned. Great food, friendly staff, and a relaxing experience." },
+  { "id": "4", "name": "James Ochieng", "countryFlag": "🇰🇪", "experience": "Airport Transfer", "category": "airport-transfers", "rating": 5, "date": "2024-06-01", "text": "On time, professional and very comfortable. The driver was friendly and the vehicle was in perfect condition." },
+  { "id": "5", "name": "Emily Carter", "countryFlag": "🇬🇧", "experience": "7-Day Kenya Explorer", "category": "safari", "rating": 5, "date": "2024-02-01", "text": "Best trip of our lives. ROMARA thought of every detail, from the vehicles to the guides to the little touches along the way." },
+  { "id": "6", "name": "Lucas Silva", "countryFlag": "🇧🇷", "experience": "Lake Naivasha Boat Ride", "category": "day-trips", "rating": 4, "date": "2024-01-15", "text": "Beautiful scenery and a great guide. Would have loved a bit more time on the water, but overall a fantastic day out." },
+  { "id": "7", "name": "Priya Nair", "countryFlag": "🇮🇳", "experience": "Lake Nakuru", "category": "destinations", "rating": 5, "date": "2024-05-20", "text": "Flamingos everywhere! Our guide knew exactly where to find the best sightings. A must-do if you're visiting Kenya." },
+  { "id": "8", "name": "Noah Andersen", "countryFlag": "🇸🇪", "experience": "JKIA Airport Pick-Up", "category": "airport-transfers", "rating": 5, "date": "2024-06-10", "text": "Landed at midnight and our driver was waiting with a sign, water and a warm welcome. Made a long journey so much easier." }
+]

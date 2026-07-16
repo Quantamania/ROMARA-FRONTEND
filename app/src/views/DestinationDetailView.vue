@@ -62,20 +62,8 @@ function resetFilters() {
 </script>
 
 <template>
-  <!-- Intro -->
-  <section class="bg-romara-cream py-14 sm:py-16">
-    <div class="romara-container text-center">
-      <p class="text-sm font-bold uppercase tracking-[0.2em] text-romara-amber">Destinations Directory</p>
-      <h1 class="mt-3 font-heading text-3xl font-bold text-romara-green sm:text-4xl">
-        Explore Kenya's Top Destinations
-      </h1>
-      <p class="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-romara-ink/70">
-        Browse our full collection of destinations across Kenya — search by name, filter by type, and find
-        your next adventure.
-      </p>
-    </div>
-  </section>
 
+  
   <!-- Sticky filter bar -->
   <div class="sticky top-20 z-20 border-b border-black/5 bg-white/95 backdrop-blur">
     <div class="romara-container flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between">

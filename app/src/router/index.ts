@@ -17,7 +17,8 @@ const router = createRouter({
         { path: 'airport-transfers/book', name: 'airport-transfers-book', component: () => import('@/views/AirportTransferBookingView.vue') },
         { path: 'destinations', name: 'destinations', component: () => import('@/views/DestinationsView.vue') },
         { path: 'destinations/directory', name: 'destinations-directory', component: () => import('@/views/DestinationDetailView.vue') },
-        { path: 'gallery', name: 'gallery', component: () => import('@/views/GalleryView.vue') }
+        { path: 'gallery', name: 'gallery', component: () => import('@/views/GalleryView.vue') },
+        { path: 'reviews', name: 'reviews', component: () => import('@/views/ReviewsView.vue') }
         // Add the rest of the routes from the frontend file-structure guide here as
         // each view gets built, e.g.:
         // { path: 'about', name: 'about', component: () => import('@/views/AboutView.vue') },

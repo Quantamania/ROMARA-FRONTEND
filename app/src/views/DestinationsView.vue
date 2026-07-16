@@ -51,7 +51,7 @@ const stats: Stat[] = [
 
 <template>
   <!-- Hero: diagonal split, not full-bleed like every other page -->
-  <section class="relative overflow-hidden bg-romara-green">
+  <section  v-scroll-reveal class="relative overflow-hidden bg-romara-green">
     <div
       class="pointer-events-none absolute inset-y-0 right-0 hidden w-[58%] lg:block"
       style="clip-path: polygon(14% 0, 100% 0, 100% 100%, 0 100%)"
@@ -70,7 +70,7 @@ const stats: Stat[] = [
       class="h-56 w-full object-cover lg:hidden"
     />
 
-    <div class="romara-container relative z-10 py-14 lg:flex lg:min-h-[560px] lg:items-center lg:py-0">
+    <div class="romara-container relative z-10 py-14 lg:flex lg:min-h-[650px] lg:items-center lg:py-0">
       <div class="max-w-xl text-white">
         <p class="text-sm font-bold uppercase tracking-[0.2em] text-romara-amber">Destinations</p>
         <h1 class="mt-3 font-heading text-4xl font-bold leading-tight sm:text-5xl">
@@ -93,7 +93,7 @@ const stats: Stat[] = [
   </section>
 
   <!-- Floating search bar, replacing the usual trust-icon strip -->
-  <section class="romara-container relative z-10 -mt-8 sm:-mt-10">
+  <section  v-scroll-reveal class="romara-container relative z-10 -mt-8 sm:-mt-10">
     <form
       class="flex flex-col gap-3 rounded-2xl bg-white p-3 shadow-overlap sm:flex-row sm:items-center sm:rounded-full sm:p-2"
       @submit.prevent="handleSearchSubmit"
@@ -130,7 +130,7 @@ const stats: Stat[] = [
   </section>
 
   <!-- Popular Destinations: asymmetric bento grid -->
-  <section class="romara-container py-16">
+  <section v-scroll-reveal class="romara-container py-16">
     <div class="mb-8 flex items-end justify-between gap-4">
       <div>
         <h2 class="text-2xl font-bold text-romara-green sm:text-3xl">Popular Destinations in Kenya</h2>
@@ -162,7 +162,7 @@ const stats: Stat[] = [
   </section>
 
   <!-- Browse Destinations by Type: horizontal scroll reel -->
-  <section class="bg-romara-cream py-14">
+  <section v-scroll-reveal class="bg-romara-cream py-14">
     <div class="romara-container">
       <div class="text-center">
         <h2 class="text-2xl font-bold text-romara-green sm:text-3xl">Browse Destinations by Type</h2>
@@ -175,7 +175,7 @@ const stats: Stat[] = [
   </section>
 
   <!-- Why Visit Kenya: full-width stat + quote band, no photo this time -->
-  <section class="bg-romara-green py-16 text-white sm:py-20">
+  <section v-scroll-reveal class="bg-romara-green py-16 text-white sm:py-20">
     <div class="romara-container">
       <div class="mx-auto max-w-3xl text-center">
         <p class="text-sm font-bold uppercase tracking-[0.2em] text-romara-amber">Why Visit Kenya?</p>
