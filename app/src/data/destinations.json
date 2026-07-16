@@ -1,1 +1,62 @@
-[]
+[
+  {
+    "id": "1",
+    "slug": "maasai-mara",
+    "name": "Maasai Mara",
+    "image": "/src/assets/images/destinations/maasai-mara.jpg",
+    "county": "Narok County",
+    "description": "Famous for the Great Wildebeest Migration and incredible wildlife sightings all year round.",
+    "bestTimeToVisit": "July - October",
+    "activities": ["Morning Game Drives", "Evening Game Drives", "Balloon Safari", "Maasai Village Visit"],
+    "durationSuggestion": "3-5 Days",
+    "types": ["wildlife", "culture"]
+  },
+  {
+    "id": "2",
+    "slug": "amboseli-national-park",
+    "name": "Amboseli National Park",
+    "image": "/src/assets/images/destinations/amboseli.jpg",
+    "county": "Kajiado County",
+    "description": "Iconic views of Mount Kilimanjaro and large herds of elephants in open plains.",
+    "bestTimeToVisit": "June - October",
+    "activities": ["Game Drives", "Photography", "Cultural Visits"],
+    "durationSuggestion": "2-4 Days",
+    "types": ["wildlife"]
+  },
+  {
+    "id": "3",
+    "slug": "lake-nakuru",
+    "name": "Lake Nakuru",
+    "image": "/src/assets/images/destinations/lake-nakuru.jpg",
+    "county": "Nakuru County",
+    "description": "A birdwatcher's paradise and home to rhinos, scenic landscapes and beautiful viewpoints.",
+    "bestTimeToVisit": "Year-round",
+    "activities": ["Game Drives", "Bird Watching", "Nature Walks"],
+    "durationSuggestion": "1-2 Days",
+    "types": ["wildlife", "nature"]
+  },
+  {
+    "id": "4",
+    "slug": "diani-beach",
+    "name": "Diani Beach",
+    "image": "/src/assets/images/destinations/diani-beach.jpg",
+    "county": "Kwale County",
+    "description": "White sandy beaches, clear blue waters and the perfect coastal getaway.",
+    "bestTimeToVisit": "December - March",
+    "activities": ["Snorkelling", "Dhow Cruises", "Beach Relaxation"],
+    "durationSuggestion": "3-6 Days",
+    "types": ["beaches"]
+  },
+  {
+    "id": "5",
+    "slug": "nairobi",
+    "name": "Nairobi",
+    "image": "/src/assets/images/destinations/nairobi.jpg",
+    "county": "Nairobi County",
+    "description": "Kenya's vibrant capital city blending modern life with rich culture and history.",
+    "bestTimeToVisit": "Year-round",
+    "activities": ["City Tours", "Museum Visits", "Nightlife", "Shopping"],
+    "durationSuggestion": "1-3 Days",
+    "types": ["cities", "culture"]
+  }
+]
