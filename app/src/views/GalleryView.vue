@@ -60,7 +60,7 @@ function showNextImage() {
 
 <template>
   <!-- Hero: photo mosaic instead of a single image — fits a gallery page thematically -->
-  <section class="isolate relative bg-romara-green min-h-screen overflow-hidden text-white">
+  <section v-scroll-reveal class="isolate relative bg-romara-green min-h-screen overflow-hidden text-white">
     <div class="absolute inset-0 gap-1 grid grid-cols-4 grid-rows-2">
       <img :src="mosaicImages[0].src" :alt="mosaicImages[0].alt" class="col-span-2 row-span-2 w-full h-full object-cover" />
       <img :src="mosaicImages[1].src" :alt="mosaicImages[1].alt" class="w-full h-full object-cover" />
@@ -89,7 +89,7 @@ function showNextImage() {
   </section>
 
   <!-- Filter + masonry grid -->
-  <section class="px-6 sm:px-8 lg:px-12 py-16">
+  <section v-scroll-reveal-left class="px-6 sm:px-8 lg:px-12 py-16">
     <div class="mb-10">
       <GalleryCategoryFilter v-model="selectedCategory" />
     </div>
@@ -111,7 +111,7 @@ function showNextImage() {
   />
 
   <!-- CTA: photo-backed banner, per the brief's "striking lion image" -->
-  <section class="relative pt-14">
+  <section v-scroll-reveal-right class="relative pt-14">
     <img
       src="/src/assets/images/gallery/lion.jpeg"
       alt="Lion at sunset"

@@ -66,32 +66,32 @@ function loadMoreReviews() {
 
 <template>
   <!-- Hero: centered spotlight with the rating badge built in -->
-  <section class="relative isolate min-h-[520px] overflow-hidden bg-romara-green text-white sm:min-h-[560px]">
+  <section v-scroll-reveal class="isolate relative bg-romara-green min-h-[520px] sm:min-h-[560px] overflow-hidden text-white">
     <img
       src="/src/assets/images/reviews/hero.png"
       alt="Safari vehicle with elephants at sunset"
-      class="absolute inset-0 h-full w-full object-cover"
+      class="absolute inset-0 w-full h-full object-cover"
     />
     <div class="absolute inset-0 bg-black/70" />
 
-    <div class="romara-container relative flex min-h-[520px] flex-col items-center justify-center py-16 text-center sm:min-h-[560px]">
-      <div class="flex items-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-5 py-2.5 backdrop-blur-md">
-        <span class="font-heading text-xl font-bold text-romara-amber">4.9</span>
+    <div class="relative flex flex-col justify-center items-center py-16 min-h-[520px] sm:min-h-[560px] text-center romara-container">
+      <div class="flex items-center gap-2.5 bg-white/10 backdrop-blur-md px-5 py-2.5 border border-white/20 rounded-full">
+        <span class="font-heading font-bold text-romara-amber text-xl">4.9</span>
         <div class="flex gap-0.5 text-romara-amber">
-          <IconStar v-for="n in 5" :key="n" class="h-3.5 w-3.5" />
+          <IconStar v-for="n in 5" :key="n" class="w-3.5 h-3.5" />
         </div>
-        <span class="text-xs text-white/70">from 450+ reviews</span>
+        <span class="text-white/70 text-xs">from 450+ reviews</span>
       </div>
 
-      <p class="mt-6 text-sm font-bold uppercase tracking-[0.2em] text-romara-amber">Reviews</p>
-      <h1 class="mt-3 max-w-2xl font-heading text-4xl font-bold leading-tight sm:text-5xl">
+      <p class="mt-6 font-bold text-romara-amber text-sm uppercase tracking-[0.2em]">Reviews</p>
+      <h1 class="mt-3 max-w-2xl font-heading font-bold text-4xl sm:text-5xl leading-tight">
         Memories Shared. Experiences Trusted.
       </h1>
-      <p class="mx-auto mt-4 max-w-xl text-base leading-relaxed text-white/85">
+      <p class="mx-auto mt-4 max-w-xl text-white/85 text-base leading-relaxed">
         See what our guests have to say about their adventures with ROMARA Tours &amp; Travel.
       </p>
 
-      <div class="mt-8 flex flex-wrap justify-center gap-3">
+      <div class="flex flex-wrap justify-center gap-3 mt-8">
         <BaseButton as="a" href="#guest-reviews" variant="amber" size="lg">View Reviews</BaseButton>
         <BaseButton as="a" href="/book-now" variant="outline" size="lg">Book Your Adventure</BaseButton>
       </div>
@@ -99,34 +99,34 @@ function loadMoreReviews() {
   </section>
 
   <!-- Rating sidebar + reviews list, two-column instead of stacked full-width sections -->
-  <section id="guest-reviews" class="romara-container py-16">
-    <div class="grid grid-cols-1 gap-10 lg:grid-cols-[320px_1fr]">
-      <aside class="lg:sticky lg:top-24 lg:self-start">
+  <section id="guest-reviews" v-scroll-reveal-left class="py-16 romara-container">
+    <div class="gap-10 grid grid-cols-1 lg:grid-cols-[320px_1fr]">
+      <aside class="lg:top-24 lg:sticky lg:self-start">
         <RatingOverview />
       </aside>
 
       <div>
-        <div class="mb-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div class="flex lg:flex-row flex-col lg:justify-between lg:items-center gap-4 mb-8">
           <div>
-            <h2 class="text-2xl font-bold text-romara-green sm:text-3xl">What Our Guests Are Saying</h2>
-            <span class="mt-2 block h-1 w-14 rounded bg-romara-amber" />
+            <h2 class="font-bold text-romara-green text-2xl sm:text-3xl">What Our Guests Are Saying</h2>
+            <span class="block bg-romara-amber mt-2 rounded w-14 h-1" />
           </div>
 
           <select
             v-model="sortOption"
-            class="self-start rounded-md border border-black/10 bg-white px-3 py-2 text-xs font-semibold uppercase tracking-wide text-romara-ink focus:border-romara-green focus:outline-none lg:self-auto"
+            class="self-start lg:self-auto bg-white px-3 py-2 border border-black/10 focus:border-romara-green rounded-md focus:outline-none font-semibold text-romara-ink text-xs uppercase tracking-wide"
           >
             <option value="recent">Most Recent</option>
             <option value="highest">Highest Rated</option>
           </select>
         </div>
 
-        <div class="mb-6 flex flex-wrap gap-2">
+        <div class="flex flex-wrap gap-2 mb-6">
           <button
             v-for="tab in tabs"
             :key="tab.value"
             type="button"
-            class="rounded-md px-4 py-2 text-xs font-semibold uppercase tracking-wide transition-colors"
+            class="px-4 py-2 rounded-md font-semibold text-xs uppercase tracking-wide transition-colors"
             :class="
               selectedCategory === tab.value
                 ? 'bg-romara-green text-white'
@@ -138,11 +138,11 @@ function loadMoreReviews() {
           </button>
         </div>
 
-        <p v-if="visibleReviews.length === 0" class="text-sm text-romara-ink/60">
+        <p v-if="visibleReviews.length === 0" class="text-romara-ink/60 text-sm">
           No reviews in this category yet.
         </p>
 
-        <div v-else class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <div v-else class="gap-6 grid grid-cols-1 sm:grid-cols-2">
           <ReviewCard
             v-for="(review, index) in visibleReviews"
             :key="review.id"
@@ -151,10 +151,10 @@ function loadMoreReviews() {
           />
         </div>
 
-        <div v-if="hasMoreReviews" class="mt-8 flex justify-center lg:justify-start">
+        <div v-if="hasMoreReviews" class="flex justify-center lg:justify-start mt-8">
           <button
             type="button"
-            class="flex items-center gap-2 rounded-full border border-romara-green px-6 py-3 text-xs font-semibold uppercase tracking-wide text-romara-green transition-colors hover:bg-romara-green hover:text-white"
+            class="flex items-center gap-2 hover:bg-romara-green px-6 py-3 border border-romara-green rounded-full font-semibold text-romara-green hover:text-white text-xs uppercase tracking-wide transition-colors"
             @click="loadMoreReviews"
           >
             View More Reviews
@@ -165,46 +165,46 @@ function loadMoreReviews() {
   </section>
 
   <!-- Guest Moments: overlapping horizontal scroll strip -->
-  <section class="romara-container pb-16">
-    <h2 class="text-2xl font-bold text-romara-green sm:text-3xl">Guest Moments</h2>
-    <p class="mt-1 text-sm text-romara-ink/60">Real adventures. Real people. Real memories.</p>
+  <section v-scroll-reveal-right class="pb-16 romara-container">
+    <h2 class="font-bold text-romara-green text-2xl sm:text-3xl">Guest Moments</h2>
+    <p class="mt-1 text-romara-ink/60 text-sm">Real adventures. Real people. Real memories.</p>
 
-    <div class="mt-6 flex gap-4 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+    <div class="[&::-webkit-scrollbar]:hidden flex gap-4 mt-6 pb-2 [-ms-overflow-style:none] overflow-x-auto [scrollbar-width:none]">
       <a
         v-for="image in guestMoments"
         :key="image.id"
         href="/gallery"
-        class="group block h-48 w-40 shrink-0 overflow-hidden rounded-lg shadow-card transition-transform hover:-translate-y-1 sm:h-56 sm:w-48"
+        class="group block shadow-card rounded-lg w-40 sm:w-48 h-48 sm:h-56 overflow-hidden transition-transform hover:-translate-y-1 shrink-0"
       >
         <img
           :src="image.src"
           :alt="image.alt"
-          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           loading="lazy"
         />
       </a>
     </div>
 
-    <div class="mt-6 flex justify-center">
+    <div class="flex justify-center mt-6">
       <BaseButton as="a" href="/gallery" variant="outline">View More Photos</BaseButton>
     </div>
   </section>
 
   <!-- TripAdvisor CTA: split two-tone card -->
-  <section class="romara-container pb-8">
-    <div class="grid grid-cols-1 overflow-hidden rounded-2xl shadow-card sm:grid-cols-[220px_1fr]">
-      <div class="flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-[#34E0A1] to-[#00A680] p-8 text-center text-white">
-        <IconTripadvisor class="h-10 w-10" />
-        <p class="font-heading text-3xl font-bold">4.8</p>
+  <section v-scroll-reveal-scale class="pb-8 romara-container">
+    <div class="grid grid-cols-1 sm:grid-cols-[220px_1fr] shadow-card rounded-2xl overflow-hidden">
+      <div class="flex flex-col justify-center items-center gap-2 bg-gradient-to-br from-[#34E0A1] to-[#00A680] p-8 text-white text-center">
+        <IconTripadvisor class="w-10 h-10" />
+        <p class="font-heading font-bold text-3xl">4.8</p>
         <div class="flex gap-0.5">
-          <IconStar v-for="n in 5" :key="n" class="h-4 w-4" />
+          <IconStar v-for="n in 5" :key="n" class="w-4 h-4" />
         </div>
       </div>
 
-      <div class="flex flex-col gap-4 bg-romara-green p-6 text-white sm:flex-row sm:items-center sm:justify-between sm:p-8">
+      <div class="flex sm:flex-row flex-col sm:justify-between sm:items-center gap-4 bg-romara-green p-6 sm:p-8 text-white">
         <div>
-          <p class="text-lg font-bold">Top Rated On TripAdvisor</p>
-          <p class="mt-1 text-sm text-white/70">
+          <p class="font-bold text-lg">Top Rated On TripAdvisor</p>
+          <p class="mt-1 text-white/70 text-sm">
             Thank you to all our guests for your amazing reviews and for making us one of the top-rated safari
             companies in Kenya.
           </p>
@@ -217,32 +217,32 @@ function loadMoreReviews() {
   </section>
 
   <!-- Closing CTA: photo-split banner with a real-guest avatar stack -->
-  <section class="romara-container pb-16">
-    <div class="grid grid-cols-1 overflow-hidden rounded-2xl shadow-card lg:grid-cols-[1fr_380px]">
-      <div class="bg-romara-green p-8 text-white sm:p-12">
+  <section v-scroll-reveal-left class="pb-16 romara-container">
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_380px] shadow-card rounded-2xl overflow-hidden">
+      <div class="bg-romara-green p-8 sm:p-12 text-white">
         <div class="flex -space-x-3">
           <span
             v-for="(initial, index) in reviewerInitials"
             :key="index"
-            class="flex h-11 w-11 items-center justify-center rounded-full border-2 border-romara-green bg-romara-amber text-sm font-bold text-white"
+            class="flex justify-center items-center bg-romara-amber border-2 border-romara-green rounded-full w-11 h-11 font-bold text-white text-sm"
           >
             {{ initial }}
           </span>
         </div>
-        <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-white/60">
+        <p class="mt-3 font-semibold text-white/60 text-xs uppercase tracking-wide">
           Join 450+ Happy Travellers
         </p>
 
-        <h2 class="mt-4 font-heading text-2xl font-bold sm:text-3xl">Ready to Create Your Own Adventure?</h2>
-        <p class="mt-2 max-w-md text-sm text-white/75">
+        <h2 class="mt-4 font-heading font-bold text-2xl sm:text-3xl">Ready to Create Your Own Adventure?</h2>
+        <p class="mt-2 max-w-md text-white/75 text-sm">
           Join our happy travellers and discover the beauty of Kenya with ROMARA.
         </p>
 
-        <div class="mt-8 flex flex-wrap gap-3">
+        <div class="flex flex-wrap gap-3 mt-8">
           <BaseButton as="a" href="/book-now" variant="amber">Book Now</BaseButton>
           <BaseButton as="a" href="/contact" variant="outline">Request a Quote</BaseButton>
           <BaseButton as="a" href="https://wa.me/254700123456" variant="ghost">
-            <IconWhatsapp class="h-4 w-4" />
+            <IconWhatsapp class="w-4 h-4" />
             Chat on WhatsApp
           </BaseButton>
         </div>
@@ -251,7 +251,7 @@ function loadMoreReviews() {
       <img
         :src="guestMoments[0].src"
         :alt="guestMoments[0].alt"
-        class="hidden h-full min-h-[280px] w-full object-cover lg:block"
+        class="hidden lg:block w-full h-full min-h-[280px] object-cover"
       />
     </div>
   </section>

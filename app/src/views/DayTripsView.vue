@@ -39,33 +39,33 @@ const whyChooseItems: WhyChooseItem[] = [
 
 <template>
     <!-- Hero: full-bleed edge-to-edge, lighter overlay, dark text -->
-  <section v-scroll-reveal class="relative isolate min-h-[460px] overflow-hidden sm:min-h-[500px]">
+  <section v-scroll-reveal class="isolate relative min-h-[460px] sm:min-h-[500px] overflow-hidden">
     <img
       src="/src/assets/images/day-trips/hero.png"
       alt="Giraffe with the Nairobi skyline in the background"
-      class="absolute inset-0 h-full w-full object-cover"
+      class="absolute inset-0 w-full h-full object-cover"
     />
     <div class="absolute inset-0 bg-gradient-to-r from-white/85 via-white/45 to-transparent" />
 
-    <div class="romara-container relative flex min-h-[460px] items-center sm:min-h-[500px]">
-      <div class="max-w-xl py-16">
-        <p class="text-sm font-bold uppercase tracking-[0.2em] text-romara-amber">Day Trips</p>
-        <h1 class="mt-3 font-heading text-4xl font-bold leading-tight text-romara-green sm:text-5xl">
+    <div class="relative flex items-center min-h-[460px] sm:min-h-[500px] romara-container">
+      <div class="py-16 max-w-xl">
+        <p class="font-bold text-romara-amber text-sm uppercase tracking-[0.2em]">Day Trips</p>
+        <h1 class="mt-3 font-heading font-bold text-romara-green text-4xl sm:text-5xl leading-tight">
           Amazing Experiences. Unforgettable Memories.
         </h1>
-        <p class="mt-4 text-base leading-relaxed text-romara-ink/70">
+        <p class="mt-4 text-romara-ink/70 text-base leading-relaxed">
           Short on time? Our day trips are the perfect way to explore Kenya's top attractions in a single day.
           From wildlife encounters to cultural experiences, adventure and nature, we've got you covered.
         </p>
 
-        <div class="mt-8 flex flex-wrap gap-3">
+        <div class="flex flex-wrap gap-3 mt-8">
           <BaseButton as="a" href="/book-now" variant="primary" size="lg">
             Explore Day Trips
-            <IconChevronRight class="h-4 w-4" />
+            <IconChevronRight class="w-4 h-4" />
           </BaseButton>
           <BaseButton as="a" href="/contact" variant="outline" size="lg">
             Request a Quote
-            <IconChevronRight class="h-4 w-4" />
+            <IconChevronRight class="w-4 h-4" />
           </BaseButton>
         </div>
       </div>
@@ -76,18 +76,18 @@ const whyChooseItems: WhyChooseItem[] = [
     <TrustBuilding :overlap="false" />
   </div>
 
-  <!-- Featured day trips -->
-  <section v-scroll-reveal class="romara-container py-16">
-    <div class="mb-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-      <h2 class="text-2xl font-bold text-romara-green sm:text-3xl">Popular Day Trips</h2>
+  <!-- Services grid -->
+  <section v-scroll-reveal-left class="py-16 romara-container">
+    <div class="flex lg:flex-row flex-col lg:justify-between lg:items-center gap-4 mb-8">
+      <h2 class="font-bold text-romara-green text-2xl sm:text-3xl">Popular Day Trips</h2>
       <CategoryFilter v-model="selectedCategory" />
     </div>
 
-    <p v-if="filteredTrips.length === 0" class="text-sm text-romara-ink/60">
+    <p v-if="filteredTrips.length === 0" class="text-romara-ink/60 text-sm">
       No day trips match this category yet.
     </p>
 
-    <div v-else class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <div v-else class="gap-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
       <DayTripCard
         v-for="(trip, index) in filteredTrips"
         :key="trip.id"
@@ -98,27 +98,27 @@ const whyChooseItems: WhyChooseItem[] = [
   </section>
 
   <!-- Why Choose Our Day Trips -->
-  <section v-scroll-reveal class="romara-container pb-16">
-    <div class="rounded-lg bg-romara-cream p-6 sm:p-8">
-      <div class="grid grid-cols-1 items-center gap-8 lg:grid-cols-5">
+  <section v-scroll-reveal-right class="pb-16 romara-container">
+    <div class="bg-romara-cream p-6 sm:p-8 rounded-lg">
+      <div class="items-center gap-8 grid grid-cols-1 lg:grid-cols-5">
         <img
           src="/src/assets/images/day-trips/why.png"
           alt="Safari vehicle with rhino on a day trip"
-          class="h-56 w-full rounded-md object-cover lg:col-span-2 lg:h-64"
+          class="lg:col-span-2 rounded-md w-full h-56 lg:h-64 object-cover"
         />
 
         <div class="lg:col-span-3">
-          <h2 class="text-2xl font-bold text-romara-green sm:text-3xl">Why Choose Our Day Trips?</h2>
-          <span class="mt-2 block h-1 w-14 rounded bg-romara-amber" />
-          <p class="mt-3 text-sm leading-relaxed text-romara-ink/70">
+          <h2 class="font-bold text-romara-green text-2xl sm:text-3xl">Why Choose Our Day Trips?</h2>
+          <span class="block bg-romara-amber mt-2 rounded w-14 h-1" />
+          <p class="mt-3 text-romara-ink/70 text-sm leading-relaxed">
             Our day trips are thoughtfully planned to give you maximum experience in minimum time.
           </p>
 
-          <div class="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-5">
+          <div class="gap-6 grid grid-cols-2 sm:grid-cols-5 mt-8">
             <div v-for="(item, index) in whyChooseItems" :key="item.title" v-scroll-reveal="{ delay: index * 75 }">
-              <component :is="item.icon" class="h-7 w-7 text-romara-green" />
-              <p class="mt-2 text-sm font-bold text-romara-green">{{ item.title }}</p>
-              <p class="mt-1 text-xs leading-relaxed text-romara-ink/60">{{ item.description }}</p>
+              <component :is="item.icon" class="w-7 h-7 text-romara-green" />
+              <p class="mt-2 font-bold text-romara-green text-sm">{{ item.title }}</p>
+              <p class="mt-1 text-romara-ink/60 text-xs leading-relaxed">{{ item.description }}</p>
             </div>
           </div>
         </div>
