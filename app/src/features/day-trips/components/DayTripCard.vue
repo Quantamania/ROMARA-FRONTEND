@@ -16,36 +16,36 @@ function formatPrice(amount: number) {
 </script>
 
 <template>
-  <article class="overflow-hidden rounded-lg bg-white shadow-card">
-    <img :src="props.trip.image" :alt="props.trip.name" class="h-44 w-full object-cover" loading="lazy" />
+  <article class="bg-white shadow-card rounded-lg overflow-hidden card-hover">
+    <img :src="props.trip.image" :alt="props.trip.name" class="w-full h-44 object-cover" loading="lazy" />
 
     <div class="p-4">
-      <h3 class="font-heading text-base font-bold text-romara-green">{{ props.trip.name }}</h3>
+      <h3 class="font-heading font-bold text-romara-green text-base">{{ props.trip.name }}</h3>
 
-      <div class="mt-2 flex items-center gap-4 text-xs text-romara-ink/60">
+      <div class="flex items-center gap-4 mt-2 text-romara-ink/60 text-xs">
         <span class="flex items-center gap-1">
-          <IconClock class="h-3.5 w-3.5" />
+          <IconClock class="w-3.5 h-3.5" />
           {{ props.trip.duration }}
         </span>
         <span class="flex items-center gap-1">
-          <IconMapPin class="h-3.5 w-3.5" />
+          <IconMapPin class="w-3.5 h-3.5" />
           {{ props.trip.location }}
         </span>
       </div>
 
-      <p class="mt-2 text-sm text-romara-ink/70">{{ props.trip.description }}</p>
+      <p class="mt-2 text-romara-ink/70 text-sm">{{ props.trip.description }}</p>
 
-      <p class="mt-3 text-sm text-romara-ink/60">
-        From <span class="text-base font-bold text-romara-amber">KES {{ formatPrice(props.trip.priceFromKES) }}</span>
+      <p class="mt-3 text-romara-ink/60 text-sm">
+        From <span class="font-bold text-romara-amber text-base">KES {{ formatPrice(props.trip.priceFromKES) }}</span>
         <span class="text-xs"> / person</span>
       </p>
 
       <a
         :href="`/day-trips/${props.trip.slug}`"
-        class="mt-4 flex items-center justify-center gap-1 rounded-md bg-romara-green py-2.5 text-xs font-semibold uppercase tracking-wide text-white hover:bg-romara-green/90"
+        class="flex justify-center items-center gap-1 bg-romara-green hover:bg-romara-green/90 mt-4 py-2.5 rounded-md font-semibold text-white text-xs uppercase tracking-wide"
       >
         View Trip Details
-        <IconChevronRight class="h-3.5 w-3.5" />
+        <IconChevronRight class="w-3.5 h-3.5" />
       </a>
     </div>
   </article>

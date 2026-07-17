@@ -22,7 +22,7 @@
      Widened from Tailwind's default max-w-7xl (1280px) to 1440px so content
      uses more of the screen on wide monitors instead of sitting narrow and centered. */
   .romara-container {
-    @apply mx-auto w-full max-w-[1490px] px-5 sm:px-8 lg:px-14;
+    @apply mx-auto px-5 sm:px-8 lg:px-14 w-full max-w-[1490px];
   }
 
   /* Horizontally stretches short logo text (e.g. "ROMARA") to visually
@@ -45,4 +45,90 @@
     opacity: 1;
     transform: translateY(0);
   }
+
+  /* Fade from left */
+  .scroll-reveal-left {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .scroll-reveal-left-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Fade from right */
+  .scroll-reveal-right {
+    opacity: 0;
+    transform: translateX(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .scroll-reveal-right-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Scale up */
+  .scroll-reveal-scale {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .scroll-reveal-scale-visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Global hover effects */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.15);
+}
+
+.hover-scale {
+  transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.02);
+}
+
+.hover-glow {
+  transition: box-shadow 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.2);
+}
+
+/* Button hover effects */
+.btn-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-hover:active {
+  transform: translateY(0);
 }

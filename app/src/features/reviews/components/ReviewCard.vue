@@ -26,58 +26,58 @@ function getInitial(name: string) {
   <!-- Feed layout: larger, horizontal on desktop, decorative quote mark -->
   <article
     v-if="props.layout === 'feed'"
-    class="flex flex-col gap-5 rounded-lg bg-white p-6 shadow-card sm:flex-row sm:p-8"
+    class="flex sm:flex-row flex-col gap-5 bg-white shadow-card p-6 sm:p-8 rounded-lg card-hover"
   >
-    <div class="flex shrink-0 flex-row items-center gap-3 sm:w-44 sm:flex-col sm:items-start">
-      <span class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-romara-cream text-lg font-bold text-romara-green">
+    <div class="flex flex-row sm:flex-col items-center sm:items-start gap-3 sm:w-44 shrink-0">
+      <span class="flex justify-center items-center bg-romara-cream rounded-full w-14 h-14 font-bold text-romara-green text-lg shrink-0">
         {{ getInitial(props.review.name) }}
       </span>
       <div class="min-w-0">
-        <p class="flex items-center gap-1.5 text-base font-bold text-romara-green">
+        <p class="flex items-center gap-1.5 font-bold text-romara-green text-base">
           {{ props.review.name }}
           <span aria-hidden="true">{{ props.review.countryFlag }}</span>
         </p>
-        <p class="text-xs text-romara-ink/50">{{ props.review.experience }}</p>
-        <div class="mt-1.5 flex gap-0.5 text-romara-amber">
-          <IconStar v-for="n in props.review.rating" :key="n" class="h-4 w-4" />
+        <p class="text-romara-ink/50 text-xs">{{ props.review.experience }}</p>
+        <div class="flex gap-0.5 mt-1.5 text-romara-amber">
+          <IconStar v-for="n in props.review.rating" :key="n" class="w-4 h-4" />
         </div>
       </div>
     </div>
 
     <div class="flex-1">
-      <p class="text-base leading-relaxed text-romara-ink/70">
-        <span class="mr-1 font-heading text-3xl leading-none text-romara-amber/70">&ldquo;</span>{{ props.review.text }}
+      <p class="text-romara-ink/70 text-base leading-relaxed">
+        <span class="mr-1 font-heading text-romara-amber/70 text-3xl leading-none">&ldquo;</span>{{ props.review.text }}
       </p>
-      <p class="mt-4 flex items-center gap-1.5 text-xs text-romara-ink/40">
-        <IconCalendar class="h-3.5 w-3.5" />
+      <p class="flex items-center gap-1.5 mt-4 text-romara-ink/40 text-xs">
+        <IconCalendar class="w-3.5 h-3.5" />
         {{ formatDate(props.review.date) }}
       </p>
     </div>
   </article>
 
   <!-- Grid layout: original compact card -->
-  <article v-else class="flex h-full flex-col rounded-lg bg-white p-5 shadow-card">
+  <article v-else class="flex flex-col bg-white shadow-card p-5 rounded-lg h-full card-hover">
     <div class="flex items-start gap-3">
-      <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-romara-cream text-sm font-bold text-romara-green">
+      <span class="flex justify-center items-center bg-romara-cream rounded-full w-11 h-11 font-bold text-romara-green text-sm shrink-0">
         {{ getInitial(props.review.name) }}
       </span>
       <div class="min-w-0">
-        <p class="flex items-center gap-1.5 text-sm font-bold text-romara-green">
+        <p class="flex items-center gap-1.5 font-bold text-romara-green text-sm">
           {{ props.review.name }}
           <span aria-hidden="true">{{ props.review.countryFlag }}</span>
         </p>
-        <p class="text-xs text-romara-ink/50">{{ props.review.experience }}</p>
+        <p class="text-romara-ink/50 text-xs">{{ props.review.experience }}</p>
       </div>
     </div>
 
-    <div class="mt-3 flex gap-0.5 text-romara-amber">
-      <IconStar v-for="n in props.review.rating" :key="n" class="h-4 w-4" />
+    <div class="flex gap-0.5 mt-3 text-romara-amber">
+      <IconStar v-for="n in props.review.rating" :key="n" class="w-4 h-4" />
     </div>
 
-    <p class="mt-3 flex-1 text-sm leading-relaxed text-romara-ink/70">{{ props.review.text }}</p>
+    <p class="flex-1 mt-3 text-romara-ink/70 text-sm leading-relaxed">{{ props.review.text }}</p>
 
-    <p class="mt-4 flex items-center gap-1.5 text-xs text-romara-ink/40">
-      <IconCalendar class="h-3.5 w-3.5" />
+    <p class="flex items-center gap-1.5 mt-4 text-romara-ink/40 text-xs">
+      <IconCalendar class="w-3.5 h-3.5" />
       {{ formatDate(props.review.date) }}
     </p>
   </article>

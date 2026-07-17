@@ -33,7 +33,7 @@ const sizeClasses: Record<string, string> = {
     :is="as"
     :href="as === 'a' ? href : undefined"
     :class="[variantClasses[variant], sizeClasses[size]]"
-    class="inline-flex items-center justify-center gap-2 rounded-md font-semibold uppercase tracking-wide transition-colors"
+    class="inline-flex justify-center items-center gap-2 rounded-md font-semibold uppercase tracking-wide transition-colors btn-hover"
   >
     <slot />
   </component>

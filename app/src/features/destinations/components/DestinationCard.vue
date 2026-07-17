@@ -14,7 +14,7 @@ const props = withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <article class="group flex h-full flex-col overflow-hidden rounded-lg bg-white shadow-card">
+  <article class="group flex flex-col bg-white shadow-card rounded-lg h-full overflow-hidden card-hover">
     <div
       class="relative overflow-hidden"
       :class="props.featured ? 'min-h-[280px] flex-1 lg:min-h-[320px]' : 'h-56'"
@@ -22,16 +22,16 @@ const props = withDefaults(defineProps<Props>(), {
       <img
         :src="props.destination.image"
         :alt="props.destination.name"
-        class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         loading="lazy"
       />
       <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
 
-      <div class="absolute inset-x-0 bottom-0" :class="props.featured ? 'p-6' : 'p-4'">
+      <div class="bottom-0 absolute inset-x-0" :class="props.featured ? 'p-6' : 'p-4'">
         <h3 class="font-heading font-bold text-white" :class="props.featured ? 'text-2xl' : 'text-lg'">
           {{ props.destination.name }}
         </h3>
-        <p class="mt-1 flex items-center gap-1 text-white/80" :class="props.featured ? 'text-sm' : 'text-xs'">
+        <p class="flex items-center gap-1 mt-1 text-white/80" :class="props.featured ? 'text-sm' : 'text-xs'">
           <IconMapPin :class="props.featured ? 'h-4 w-4' : 'h-3.5 w-3.5'" />
           {{ props.destination.county }}
         </p>
@@ -45,10 +45,10 @@ const props = withDefaults(defineProps<Props>(), {
 
       <a
         :href="`/destinations/${props.destination.slug}`"
-        class="mt-4 flex items-center justify-center gap-1 rounded-md bg-romara-green py-2.5 text-xs font-semibold uppercase tracking-wide text-white hover:bg-romara-green/90"
+        class="flex justify-center items-center gap-1 bg-romara-green hover:bg-romara-green/90 mt-4 py-2.5 rounded-md font-semibold text-white text-xs uppercase tracking-wide"
       >
         Explore
-        <IconChevronRight class="h-3.5 w-3.5" />
+        <IconChevronRight class="w-3.5 h-3.5" />
       </a>
     </div>
   </article>

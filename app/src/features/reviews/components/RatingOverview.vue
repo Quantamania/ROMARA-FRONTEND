@@ -27,33 +27,34 @@ const platforms = [
 </script>
 
 <template>
-  <div class="grid grid-cols-1 gap-px overflow-hidden rounded-lg bg-black/5 shadow-overlap sm:grid-cols-2 lg:grid-cols-4">
-    <!-- Overall score -->
-    <div class="flex flex-col items-center justify-center bg-white p-6 text-center">
-      <p class="text-xs font-semibold uppercase tracking-wide text-romara-ink/50">Overall Rating</p>
-      <p class="mt-2 font-heading text-5xl font-bold text-romara-green">{{ overallRating }}</p>
-      <div class="mt-2 flex gap-0.5 text-romara-amber">
-        <IconStar v-for="n in 5" :key="n" class="h-5 w-5" />
+  <div class="rounded-2xl bg-white p-6 shadow-card">
+    <!-- Big score -->
+    <div class="text-center">
+      <p class="font-heading text-5xl font-bold text-romara-green">{{ overallRating }}</p>
+      <div class="mt-2 flex justify-center gap-0.5 text-romara-amber">
+        <IconStar v-for="n in 5" :key="n" class="h-4 w-4" />
       </div>
       <p class="mt-2 text-xs text-romara-ink/50">Based on {{ totalReviews }} reviews</p>
     </div>
 
+    <hr class="my-6 border-black/5" />
+
     <!-- Distribution bars -->
-    <div class="bg-white p-6">
-      <div class="flex h-full flex-col justify-center space-y-2">
-        <div v-for="row in breakdown" :key="row.stars" class="flex items-center gap-3 text-xs">
-          <span class="w-10 shrink-0 text-romara-ink/60">{{ row.stars }} Star</span>
-          <span class="h-1.5 flex-1 overflow-hidden rounded-full bg-romara-cream">
-            <span class="block h-full rounded-full bg-romara-amber" :style="{ width: `${row.percentage}%` }" />
-          </span>
-          <span class="w-9 shrink-0 text-right text-romara-ink/50">{{ row.percentage }}%</span>
-        </div>
+    <div class="space-y-2.5">
+      <div v-for="row in breakdown" :key="row.stars" class="flex items-center gap-3 text-xs">
+        <span class="w-10 shrink-0 text-romara-ink/60">{{ row.stars }} Star</span>
+        <span class="h-1.5 flex-1 overflow-hidden rounded-full bg-romara-cream">
+          <span class="block h-full rounded-full bg-romara-amber" :style="{ width: `${row.percentage}%` }" />
+        </span>
+        <span class="w-9 shrink-0 text-right text-romara-ink/50">{{ row.percentage }}%</span>
       </div>
     </div>
 
+    <hr class="my-6 border-black/5" />
+
     <!-- Platform ratings -->
-    <div class="flex flex-col justify-center gap-4 bg-white p-6">
-      <p class="text-xs font-semibold uppercase tracking-wide text-romara-ink/50">Rated Excellent On</p>
+    <p class="mb-3 text-xs font-semibold uppercase tracking-wide text-romara-ink/50">Rated Excellent On</p>
+    <div class="space-y-3">
       <div v-for="platform in platforms" :key="platform.name" class="flex items-center justify-between gap-3">
         <span class="flex items-center gap-2 text-sm font-semibold text-romara-green">
           <IconTripadvisor v-if="platform.name === 'TripAdvisor'" class="h-5 w-5 text-[#34E0A1]" />
@@ -67,11 +68,15 @@ const platforms = [
       </div>
     </div>
 
+    <hr class="my-6 border-black/5" />
+
     <!-- Recommend % -->
-    <div class="flex flex-col items-center justify-center gap-2 bg-white p-6 text-center">
-      <IconUsers class="h-7 w-7 text-romara-amber" />
-      <p class="font-heading text-3xl font-bold text-romara-green">{{ recommendPercentage }}%</p>
-      <p class="text-xs leading-snug text-romara-ink/50">of our guests recommend ROMARA Tours &amp; Travel</p>
+    <div class="flex items-center gap-3 rounded-lg bg-romara-cream p-4">
+      <IconUsers class="h-7 w-7 shrink-0 text-romara-amber" />
+      <p class="text-sm text-romara-ink/70">
+        <span class="font-heading text-lg font-bold text-romara-green">{{ recommendPercentage }}%</span>
+        of guests recommend ROMARA
+      </p>
     </div>
   </div>
 </template>
