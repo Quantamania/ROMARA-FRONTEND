@@ -1,31 +1,47 @@
+<script setup lang="ts">
+import IconBinoculars from '@/components/icons/IconBinoculars.vue'
+import IconShield from '@/components/icons/IconShield.vue'
+import IconTag from '@/components/icons/IconTag.vue'
+import IconHeadset from '@/components/icons/IconHeadset.vue'
+import IconCalendarCheck from '@/components/icons/IconCalendarCheck.vue'
+
+interface Feature {
+  icon: typeof IconBinoculars
+  title: string
+  description: string
+}
+
+interface Props {
+  /** true (default) = pulled up to overlap the hero's bottom edge (Home, Safari Packages).
+   *  false = sits below the hero with normal spacing, no overlap (Day Trips). */
+  overlap?: boolean
+}
+
+withDefaults(defineProps<Props>(), {
+  overlap: true,
+})
+
+const features: Feature[] = [
+  { icon: IconBinoculars, title: 'Expert Local Guides', description: 'Experienced and passionate guides for the best experience' },
+  { icon: IconShield, title: 'Safe & Reliable', description: 'Your safety and comfort are our priority' },
+  { icon: IconTag, title: 'Best Value', description: 'Quality services at competitive prices' },
+  { icon: IconHeadset, title: '24/7 Support', description: 'We are here for you anytime, anywhere' },
+  { icon: IconCalendarCheck, title: 'Easy Booking', description: 'Simple, fast and secure bookings' },
+]
+</script>
+
 <template>
-  <section class="bg-white px-6 py-16 lg:px-12">
-    <div class="mx-auto max-w-7xl">
-      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        <article class="rounded-[1.75rem] bg-emerald-50 p-8 shadow-sm ring-1 ring-slate-200">
-          <h3 class="text-xl font-semibold text-slate-950">Expert local guides</h3>
-          <p class="mt-3 text-sm leading-6 text-slate-600">Travel with trusted guides who know the best wildlife routes and hidden viewpoints.</p>
-        </article>
-        <article class="rounded-[1.75rem] bg-slate-950 p-8 text-white shadow-sm ring-1 ring-slate-900/10">
-          <h3 class="text-xl font-semibold">Safe & reliable</h3>
-          <p class="mt-3 text-sm leading-6 text-slate-200">We handle all logistics so your safari stays comfortable, secure, and worry-free.</p>
-        </article>
-        <article class="rounded-[1.75rem] bg-emerald-50 p-8 shadow-sm ring-1 ring-slate-200">
-          <h3 class="text-xl font-semibold text-slate-950">Transparent pricing</h3>
-          <p class="mt-3 text-sm leading-6 text-slate-600">Clear package details with no hidden fees, plus flexible add-ons to match your budget.</p>
-        </article>
-        <article class="rounded-[1.75rem] bg-slate-950 p-8 text-white shadow-sm ring-1 ring-slate-900/10">
-          <h3 class="text-xl font-semibold">24/7 support</h3>
-          <p class="mt-3 text-sm leading-6 text-slate-200">Our team is available day and night to help with bookings, transfers, or itinerary changes.</p>
-        </article>
-        <article class="rounded-[1.75rem] bg-emerald-50 p-8 shadow-sm ring-1 ring-slate-200">
-          <h3 class="text-xl font-semibold text-slate-950">Flexible bookings</h3>
-          <p class="mt-3 text-sm leading-6 text-slate-600">Change your travel plans easily with adaptable packages and payment terms.</p>
-        </article>
-        <article class="rounded-[1.75rem] bg-slate-950 p-8 text-white shadow-sm ring-1 ring-slate-900/10">
-          <h3 class="text-xl font-semibold">Quality service</h3>
-          <p class="mt-3 text-sm leading-6 text-slate-200">Every detail is handled professionally, from vehicles to accommodation and park permits.</p>
-        </article>
+  <section
+    class="romara-container relative z-10"
+    :class="overlap ? '-mt-14 sm:-mt-16' : 'mt-10 sm:mt-12'"
+  >
+    <div class="grid grid-cols-1 gap-6 rounded-lg bg-white p-6 shadow-overlap sm:grid-cols-2 lg:grid-cols-5 lg:gap-4">
+      <div v-for="feature in features" :key="feature.title" class="flex items-start gap-3">
+        <component :is="feature.icon" class="h-8 w-8 shrink-0 text-romara-amber" />
+        <div>
+          <p class="text-sm font-bold text-romara-green">{{ feature.title }}</p>
+          <p class="mt-1 text-xs leading-relaxed text-romara-ink/60">{{ feature.description }}</p>
+        </div>
       </div>
     </div>
   </section>

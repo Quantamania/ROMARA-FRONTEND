@@ -1,1 +1,43 @@
-[]
+[
+  {
+    "id": "1",
+    "slug": "3-day-maasai-mara-safari",
+    "name": "3-Day Maasai Mara Safari",
+    "image": "/src/assets/images/safari-packages/maasai-mara.jpeg",
+    "durationDays": 3,
+    "location": "Maasai Mara",
+    "description": "Experience the Big Five and the magic of the Mara with exciting game drives and stunning landscapes.",
+    "priceFromKES": 38000,
+    "badge": "Best Seller"
+  },
+  {
+    "id": "2",
+    "slug": "5-day-amboseli-tsavo-safari",
+    "name": "5-Day Amboseli & Tsavo Safari",
+    "image": "/src/assets/images/safari-packages/amboseli.jpg",
+    "durationDays": 5,
+    "location": "Amboseli, Tsavo",
+    "description": "Explore two iconic parks famous for elephant herds, scenic beauty and diverse wildlife.",
+    "priceFromKES": 62000
+  },
+  {
+    "id": "3",
+    "slug": "7-day-kenya-explorer",
+    "name": "7-Day Kenya Explorer",
+    "image": "/src/assets/images/safari-packages/kenya-explorer.jpeg",
+    "durationDays": 7,
+    "location": "Multiple Parks",
+    "description": "A complete Kenyan adventure combining wildlife, culture and breathtaking landscapes.",
+    "priceFromKES": 95000
+  },
+  {
+    "id": "4",
+    "slug": "4-day-lake-nakuru-safari",
+    "name": "4-Day Lake Nakuru Safari",
+    "image": "/src/assets/images/safari-packages/lake-nakuru.jpeg",
+    "durationDays": 4,
+    "location": "Lake Nakuru",
+    "description": "Discover spectacular birdlife, rhinos and scenic views at this beautiful rift valley lake.",
+    "priceFromKES": 44000
+  }
+]

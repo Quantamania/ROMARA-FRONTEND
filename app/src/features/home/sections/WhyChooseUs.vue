@@ -1,28 +1,34 @@
+<script setup lang="ts">
+import IconCompass from '@/components/icons/IconCompass.vue'
+import IconMapPinRoute from '@/components/icons/IconMapPinRoute.vue'
+import IconHandshake from '@/components/icons/IconHandshake.vue'
+import IconUsers from '@/components/icons/IconUsers.vue'
+
+interface WhyChooseItem {
+  icon: typeof IconCompass
+  title: string
+  description: string
+}
+
+const whyChooseItems: WhyChooseItem[] = [
+  { icon: IconMapPinRoute, title: 'Personalized Itineraries', description: 'Tailored to your needs and budget' },
+  { icon: IconCompass, title: 'Wide Range of Destinations', description: 'Discover the best of Kenya & beyond' },
+  { icon: IconHandshake, title: 'Trusted Travel Partner', description: 'Years of experience you can rely on' },
+  { icon: IconUsers, title: 'Customer Focused', description: 'Your satisfaction is our commitment' },
+]
+</script>
+
 <template>
-  <section class="bg-emerald-50 px-6 py-16 lg:px-12">
-    <div class="mx-auto max-w-7xl">
-      <div class="max-w-2xl space-y-4">
-        <p class="text-sm uppercase tracking-[0.32em] text-emerald-700">Why choose ROMARA</p>
-        <h2 class="text-3xl font-semibold text-slate-950 sm:text-4xl">Why travelers trust our safari experiences</h2>
-      </div>
-      <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        <article class="rounded-[1.75rem] bg-white p-8 shadow-sm ring-1 ring-slate-200">
-          <h3 class="text-xl font-semibold text-slate-950">Personalized itineraries</h3>
-          <p class="mt-3 text-sm leading-6 text-slate-600">Each trip is designed for your schedule, interests and group size.</p>
-        </article>
-        <article class="rounded-[1.75rem] bg-white p-8 shadow-sm ring-1 ring-slate-200">
-          <h3 class="text-xl font-semibold text-slate-950">Wide destinations</h3>
-          <p class="mt-3 text-sm leading-6 text-slate-600">From national parks to coastal escapes, we cover Kenya’s most iconic routes.</p>
-        </article>
-        <article class="rounded-[1.75rem] bg-white p-8 shadow-sm ring-1 ring-slate-200">
-          <h3 class="text-xl font-semibold text-slate-950">Trusted travel partner</h3>
-          <p class="mt-3 text-sm leading-6 text-slate-600">Years of local experience and positive guest reviews back every journey.</p>
-        </article>
-        <article class="rounded-[1.75rem] bg-white p-8 shadow-sm ring-1 ring-slate-200">
-          <h3 class="text-xl font-semibold text-slate-950">Customer focused</h3>
-          <p class="mt-3 text-sm leading-6 text-slate-600">We support you at every step, from planning to post-trip follow-up.</p>
-        </article>
+  <div>
+    <h2 class="text-xl font-bold text-romara-green">Why Choose Romara</h2>
+    <span class="mt-2 block h-1 w-14 rounded bg-romara-amber" />
+
+    <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
+      <div v-for="item in whyChooseItems" :key="item.title">
+        <component :is="item.icon" class="h-8 w-8 text-romara-amber" />
+        <p class="mt-3 text-sm font-bold text-romara-green">{{ item.title }}</p>
+        <p class="mt-1 text-xs leading-relaxed text-romara-ink/60">{{ item.description }}</p>
       </div>
     </div>
-  </section>
+  </div>
 </template>

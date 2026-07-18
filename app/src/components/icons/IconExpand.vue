@@ -1,0 +1,8 @@
+<script setup lang="ts">
+</script>
+
+<template>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8 4H4v4M16 4h4v4M8 20H4v-4M16 20h4v-4" />
+  </svg>
+</template>
