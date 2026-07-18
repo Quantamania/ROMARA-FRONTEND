@@ -18,11 +18,12 @@ const router = createRouter({
         { path: 'destinations', name: 'destinations', component: () => import('@/views/DestinationsView.vue') },
         { path: 'destinations/directory', name: 'destinations-directory', component: () => import('@/views/DestinationDetailView.vue') },
         { path: 'gallery', name: 'gallery', component: () => import('@/views/GalleryView.vue') },
-        { path: 'reviews', name: 'reviews', component: () => import('@/views/ReviewsView.vue') }
-        // Add the rest of the routes from the frontend file-structure guide here as
-        // each view gets built, e.g.:
-        // { path: 'about', name: 'about', component: () => import('@/views/AboutView.vue') },
-        // { path: 'safari-packages', name: 'safari-packages', component: () => import('@/views/SafariPackagesView.vue') },
+        { path: 'reviews', name: 'reviews', component: () => import('@/views/ReviewsView.vue') },
+        { path: 'faq', name: 'faq', component: () => import('@/views/FaqView.vue') },
+        { path: 'blog', name: 'blog', component: () => import('@/views/BlogView.vue') },
+        { path: 'blog/:slug', name: 'blog-post', component: () => import('@/views/BlogPostView.vue') },
+        { path: 'contact', name: 'contact', component: () => import('@/views/ContactView.vue') },
+        { path: 'booking', name: 'booking', component: () => import('@/views/BookingView.vue') },
       ],
     },
   ],

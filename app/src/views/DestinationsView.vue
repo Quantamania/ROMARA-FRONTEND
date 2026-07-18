@@ -2,7 +2,6 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import BaseButton from '@/components/ui/BaseButton.vue'
-import CallToActionBar from '@/components/ui/CallToActionBar.vue'
 import DestinationCard from '@/features/destinations/components/DestinationCard.vue'
 import DestinationFilters from '@/features/destinations/components/DestinationFilters.vue'
 import IconMapPin from '@/components/icons/IconMapPin.vue'
@@ -37,16 +36,6 @@ const whyVisitPoints = [
   'Warm, welcoming people',
 ]
 
-interface Stat {
-  value: string
-  label: string
-}
-
-const stats: Stat[] = [
-  { value: '47', label: 'Counties to Explore' },
-  { value: '50+', label: 'Destinations' },
-  { value: '1000+', label: 'Happy Explorers' },
-]
 </script>
 
 <template>

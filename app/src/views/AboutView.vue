@@ -5,7 +5,6 @@ import MissionValues from '@/features/about/sections/MissionValues.vue'
 import WhoWeAre from '@/features/about/sections/WhoWeAre.vue'
 import StatsBanner from '@/features/about/sections/StatsBanner.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
-import IconWhatsapp from '@/components/icons/IconWhatsapp.vue'
 </script>
 
 <template>

@@ -1,26 +1,122 @@
 [
   {
     "id": "1",
-    "slug": "top-10-places-to-visit-in-kenya",
-    "title": "Top 10 Places to Visit in Kenya",
-    "image": "/src/assets/images/blog/top-10.jpg",
-    "excerpt": "From savannahs to beaches, discover the must-visit destinations.",
-    "publishedAt": "2024-05-12"
+    "slug": "top-10-safari-tips-for-first-time-visitors-to-kenya",
+    "title": "Top 10 Safari Tips for First-Time Visitors to Kenya",
+    "image": "/src/assets/images/blog/safari-tips-hero.jpg",
+    "excerpt": "Planning your first safari? Here are essential tips to help you make the most of your adventure in the wild.",
+    "publishedAt": "2024-05-10",
+    "category": "safari-tips",
+    "readTimeMinutes": 5,
+    "views": 1240,
+    "featured": true
   },
   {
     "id": "2",
-    "slug": "best-time-to-visit-kenya",
-    "title": "Best Time to Visit Kenya",
+    "slug": "best-beaches-in-kenya-for-your-next-getaway",
+    "title": "Best Beaches in Kenya for Your Next Getaway",
     "image": "/src/assets/images/blog/best-time.jpg",
-    "excerpt": "Find out the ideal time for safari, beach holidays and more.",
-    "publishedAt": "2024-04-28"
+    "excerpt": "From Diani to Watamu, discover the Kenyan coast's most beautiful stretches of sand.",
+    "publishedAt": "2024-04-28",
+    "category": "destinations",
+    "readTimeMinutes": 4,
+    "views": 980,
+    "featured": true
   },
   {
     "id": "3",
-    "slug": "a-day-in-nairobi",
-    "title": "A Day in Nairobi",
-    "image": "/src/assets/images/blog/day-in-nairobi.jpeg",
-    "excerpt": "Explore the best day trips and attractions in Kenya's capital.",
-    "publishedAt": "2024-04-15"
+    "slug": "the-big-five-where-and-how-to-spot-them",
+    "title": "The Big Five: Where and How to Spot Them",
+    "image": "/src/assets/images/blog/bigfive.jpeg",
+    "excerpt": "Lion, leopard, elephant, buffalo and rhino — your guide to Kenya's most iconic wildlife.",
+    "publishedAt": "2024-04-20",
+    "category": "wildlife",
+    "readTimeMinutes": 6,
+    "views": 1560,
+    "featured": true
+  },
+  {
+    "id": "4",
+    "slug": "experience-kenyas-rich-culture-and-traditions",
+    "title": "Experience Kenya's Rich Culture and Traditions",
+    "image": "/src/assets/images/blog/culture.jpeg",
+    "excerpt": "Meet the Maasai and other communities keeping Kenya's traditions alive today.",
+    "publishedAt": "2024-04-12",
+    "category": "culture-people",
+    "readTimeMinutes": 4,
+    "views": 720,
+    "featured": true
+  },
+  {
+    "id": "5",
+    "slug": "best-time-to-visit-kenya-a-month-by-month-guide",
+    "title": "Best Time to Visit Kenya: A Month-by-Month Guide",
+    "image": "/src/assets/images/blog/month-by-month-guide.jpg",
+    "excerpt": "Discover the best time to visit Kenya based on weather, wildlife, and seasonal events.",
+    "publishedAt": "2024-05-05",
+    "category": "travel-guides",
+    "readTimeMinutes": 4,
+    "views": 890,
+    "featured": false
+  },
+  {
+    "id": "6",
+    "slug": "top-things-to-do-in-nairobi",
+    "title": "Top Things to Do in Nairobi",
+    "image": "/src/assets/images/blog/nairobi-things-to-do.jpg",
+    "excerpt": "From Nairobi National Park to museums and markets, explore the best experiences in the city.",
+    "publishedAt": "2024-04-30",
+    "category": "destinations",
+    "readTimeMinutes": 5,
+    "views": 1050,
+    "featured": false
+  },
+  {
+    "id": "7",
+    "slug": "what-to-pack-for-a-safari-in-kenya",
+    "title": "What to Pack for a Safari in Kenya",
+    "image": "/src/assets/images/blog/safari-packing-list.jpg",
+    "excerpt": "A complete packing list to ensure you are ready for your safari adventure.",
+    "publishedAt": "2024-04-25",
+    "category": "safari-tips",
+    "readTimeMinutes": 4,
+    "views": 640,
+    "featured": false
+  },
+  {
+    "id": "8",
+    "slug": "romara-opens-new-safari-camp-in-maasai-mara",
+    "title": "ROMARA Opens New Safari Camp in Maasai Mara",
+    "image": "/src/assets/images/blog/new-camp-maasai-mara.jpg",
+    "excerpt": "We are excited to welcome you to our new eco-friendly safari camp in Maasai Mara.",
+    "publishedAt": "2024-04-18",
+    "category": "travel-news",
+    "readTimeMinutes": 3,
+    "views": 410,
+    "featured": false
+  },
+  {
+    "id": "9",
+    "slug": "a-guide-to-kenyas-national-parks",
+    "title": "A Guide to Kenya's National Parks",
+    "image": "/src/assets/images/blog/national-parks-guide.jpg",
+    "excerpt": "An overview of Kenya's most famous parks and reserves, and what makes each one unique.",
+    "publishedAt": "2024-03-22",
+    "category": "travel-guides",
+    "readTimeMinutes": 6,
+    "views": 1120,
+    "featured": false
+  },
+  {
+    "id": "10",
+    "slug": "conservation-efforts-protecting-kenyas-wildlife",
+    "title": "Conservation Efforts Protecting Kenya's Wildlife",
+    "image": "/src/assets/images/blog/conservation-efforts.jpg",
+    "excerpt": "How local and international organisations are working to protect Kenya's iconic species.",
+    "publishedAt": "2024-03-10",
+    "category": "wildlife",
+    "readTimeMinutes": 5,
+    "views": 530,
+    "featured": false
   }
 ]
