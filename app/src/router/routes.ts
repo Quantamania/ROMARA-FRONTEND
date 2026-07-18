@@ -4,7 +4,7 @@ export const routes: RouteRecordRaw[] = [
   { path: '/', name: 'Home', component: () => import('../views/HomeView.vue') },
   { path: '/about', name: 'About', component: () => import('../views/AboutView.vue') },
   { path: '/safari-packages', name: 'SafariPackages', component: () => import('../views/SafariPackagesView.vue') },
-  { path: '/safari-packages/:id', name: 'SafariPackageDetail', component: () => import('../views/SafariPackageDetailView.vue') },
+  { path: '/safari-packages/:slug', name: 'SafariPackageDetail', component: () => import('../views/SafariPackageDetailView.vue') },
   { path: '/day-trips', name: 'DayTrips', component: () => import('../views/DayTripsView.vue') },
   { path: '/airport-transfers', name: 'AirportTransfers', component: () => import('../views/AirportTransfersView.vue') },
   { path: '/destinations', name: 'Destinations', component: () => import('../views/DestinationsView.vue') },
@@ -16,4 +16,5 @@ export const routes: RouteRecordRaw[] = [
   { path: '/blog/:slug', name: 'BlogPost', component: () => import('../views/BlogPostView.vue') },
   { path: '/contact', name: 'Contact', component: () => import('../views/ContactView.vue') },
   { path: '/booking', name: 'Booking', component: () => import('../views/BookingView.vue') },
+  { path: '/:pathMatch(.*)*', name: 'NotFound', component: () => import('../views/HomeView.vue') },
 ]

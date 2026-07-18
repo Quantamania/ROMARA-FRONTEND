@@ -48,7 +48,7 @@ function formatPrice(amount: number) {
 
       <a
         :href="`/safari-packages/${props.package.slug}`"
-        class="flex justify-center items-center gap-1 bg-romara-green hover:bg-romara-green/90 mt-4 py-2.5 rounded-md font-semibold text-white text-xs uppercase tracking-wide"
+        class="flex justify-center items-center gap-1 bg-romara-green hover:bg-romara-green/90 mt-4 py-2.5 rounded-md w-full font-semibold text-white text-xs uppercase tracking-wide"
       >
         View Package
         <IconChevronRight class="w-3.5 h-3.5" />

@@ -12,6 +12,7 @@ const router = createRouter({
         { path: '', name: 'home', component: HomeView },
         { path: 'about', name: 'about', component: () => import('@/views/AboutView.vue') },
         { path: 'safari-packages', name: 'safari-packages', component: () => import('@/views/SafariPackagesView.vue') },
+        { path: 'safari-packages/:slug', name: 'safari-package-detail', component: () => import('@/views/SafariPackageDetailView.vue') },
         { path: 'day-trips', name: 'day-trips', component: () => import('@/views/DayTripsView.vue') },
         { path: 'airport-transfers', name: 'airport-transfers', component: () => import('@/views/AirportTransfersView.vue') },
         { path: 'airport-transfers/book', name: 'airport-transfers-book', component: () => import('@/views/AirportTransferBookingView.vue') },
