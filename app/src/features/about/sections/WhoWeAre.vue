@@ -41,13 +41,19 @@ const reasons: Reason[] = [
         <span class="mx-auto mt-2 block h-1 w-14 rounded bg-romara-amber" />
       </div>
 
-      <div class="mt-10 grid grid-cols-1 gap-8 text-center sm:grid-cols-2 lg:grid-cols-3">
-        <div v-for="reason in reasons" :key="reason.title" class="flex flex-col items-center">
-          <span class="flex h-14 w-14 items-center justify-center rounded-full border-2 border-romara-amber text-romara-amber">
-            <component :is="reason.icon" class="h-6 w-6" />
-          </span>
-          <p class="mt-3 text-sm font-bold text-romara-green">{{ reason.title }}</p>
-          <p class="mt-1 max-w-[220px] text-xs leading-relaxed text-romara-ink/60">{{ reason.description }}</p>
+      <div class="mt-10 overflow-x-auto pb-4 sm:overflow-visible sm:pb-0">
+        <div class="flex gap-4 text-center sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-8">
+          <div
+            v-for="reason in reasons"
+            :key="reason.title"
+            class="min-w-[220px] flex-shrink-0 flex flex-col items-center sm:min-w-0"
+          >
+            <span class="flex h-14 w-14 items-center justify-center rounded-full border-2 border-romara-amber text-romara-amber">
+              <component :is="reason.icon" class="h-6 w-6" />
+            </span>
+            <p class="mt-3 text-sm font-bold text-romara-green">{{ reason.title }}</p>
+            <p class="mt-1 max-w-[220px] text-xs leading-relaxed text-romara-ink/60">{{ reason.description }}</p>
+          </div>
         </div>
       </div>
     </div>

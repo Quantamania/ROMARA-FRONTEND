@@ -4,7 +4,7 @@ import BlogCard from '@/features/blog/components/BlogCard.vue'
 import blogPostsData from '@/data/blogPosts.json'
 import type { BlogPost } from '@/features/blog/types/blog.types'
 
-const latestPosts = blogPostsData as BlogPost[]
+const latestPosts = (blogPostsData as BlogPost[]).slice(0, 3)
 </script>
 
 <template>
@@ -15,7 +15,7 @@ const latestPosts = blogPostsData as BlogPost[]
       Blog articles are coming soon.
     </p>
 
-    <div v-else class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div v-else class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
       <BlogCard v-for="post in latestPosts" :key="post.id" :post="post" />
     </div>
   </section>

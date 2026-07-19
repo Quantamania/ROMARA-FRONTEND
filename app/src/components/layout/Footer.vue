@@ -58,8 +58,14 @@ function handleNewsletterSubmit() {
 </script>
 
 <template>
-  <footer class="bg-romara-green-dark text-white">
-    <div class="romara-container grid grid-cols-1 gap-10 py-14 sm:grid-cols-2 lg:grid-cols-5">
+  <div class="relative overflow-visible">
+    <div class="hidden md:block pointer-events-none absolute left-1/2 -top-56 -translate-x-1/2 z-[-1]">
+      <span class="block text-[10rem] font-heading uppercase tracking-[0.2em] text-romara-green-dark/10 leading-none sm:text-[12rem] md:text-[14rem] lg:text-[16rem] xl:text-[18rem]">
+        ROMARA
+      </span>
+    </div>
+    <footer class="relative z-10 overflow-visible bg-romara-green-dark text-white">
+      <div class="relative romara-container grid grid-cols-1 gap-10 py-14 sm:grid-cols-2 lg:grid-cols-5">
       <div class="lg:col-span-1">
         <div class="flex items-center gap-2.5">
   <img :src="logoSrc" alt="ROMARA logo" class="h-20 w-auto" />
@@ -89,7 +95,7 @@ function handleNewsletterSubmit() {
 
       <div>
         <h3 class="text-sm font-bold uppercase tracking-wide text-white">Quick Links</h3>
-        <ul class="mt-4 space-y-2.5">
+        <ul class="mt-4 grid grid-cols-2 lg:grid-cols-1 gap-x-4 gap-y-2.5">
           <li v-for="link in quickLinks" :key="link.label">
             <a :href="link.href" class="text-sm text-white/70 hover:text-romara-amber">{{ link.label }}</a>
           </li>
@@ -98,7 +104,7 @@ function handleNewsletterSubmit() {
 
       <div>
         <h3 class="text-sm font-bold uppercase tracking-wide text-white">Services</h3>
-        <ul class="mt-4 space-y-2.5">
+        <ul class="mt-4 grid grid-cols-2 lg:grid-cols-1 gap-x-6 gap-y-2.5">
           <li v-for="service in services" :key="service" class="text-sm text-white/70">{{ service }}</li>
         </ul>
       </div>
@@ -149,4 +155,5 @@ function handleNewsletterSubmit() {
       </p>
     </div>
   </footer>
+</div>
 </template>
