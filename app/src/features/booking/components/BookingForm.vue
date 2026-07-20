@@ -14,9 +14,9 @@ import {
 const bookingStore = useBookingStore()
 
 const inputClasses =
-  'w-full rounded-md border border-black/10 bg-white px-4 py-2.5 text-sm text-romara-ink placeholder:text-romara-ink/40 transition-colors focus:border-romara-green focus:outline-none focus:ring-2 focus:ring-romara-green/15'
-const labelClasses = 'mb-1.5 block text-sm text-romara-ink'
-const errorClasses = 'mt-1 text-xs text-red-600'
+  'w-full rounded-lg border border-romara-green/20 bg-white px-4 py-3 text-sm text-romara-ink placeholder:text-romara-ink/40 transition-all duration-200 focus:border-romara-green focus:outline-none focus:ring-2 focus:ring-romara-green/20 focus:shadow-lg focus:shadow-romara-green/10'
+const labelClasses = 'mb-2 block text-sm font-semibold text-romara-green-dark'
+const errorClasses = 'mt-2 text-xs font-medium text-red-600 bg-red-50 px-2 py-1 rounded inline-block'
 
 const adultsOptions = [1, 2, 3, 4, 5, 6, 7]
 const childrenOptions = [0, 1, 2, 3, 4]
@@ -32,34 +32,41 @@ function formatDate(isoDate: string) {
 </script>
 
 <template>
-  <div class="rounded-lg bg-white p-6 shadow-card sm:p-8">
+  <div class="relative bg-gradient-to-br from-white to-romara-cream/30 shadow-2xl shadow-romara-green/10 p-6 sm:p-8 border border-romara-green/10 rounded-2xl overflow-hidden">
+    <!-- Decorative green accent -->
+    <div class="top-0 left-0 absolute bg-gradient-to-r from-romara-green via-romara-amber to-romara-green w-full h-1"></div>
+    <div class="top-4 right-4 absolute bg-romara-green/5 blur-3xl rounded-full w-24 h-24"></div>
     <!-- Confirmation state, replaces the whole form -->
-    <div v-if="bookingStore.isSubmitted" class="py-6 text-center">
-      <span class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-romara-cream text-romara-green">
-        <IconCheckSquare class="h-7 w-7" />
-      </span>
-      <h2 class="mt-4 text-xl font-bold text-romara-green">Booking request submitted!</h2>
-      <p class="mx-auto mt-2 max-w-md text-sm leading-relaxed text-romara-ink/70">
+    <div v-if="bookingStore.isSubmitted" class="z-10 relative py-12 text-center">
+      <div class="flex justify-center items-center bg-gradient-to-br from-romara-green to-romara-green-dark shadow-romara-green/30 shadow-xl mx-auto rounded-full w-20 h-20 text-white">
+        <IconCheckSquare class="w-10 h-10" />
+      </div>
+      <h2 class="mt-6 font-heading font-bold text-romara-green text-2xl">Booking Request Submitted!</h2>
+      <p class="mx-auto mt-3 max-w-md text-romara-ink/70 text-base leading-relaxed">
         Thank you for choosing ROMARA Tours &amp; Travel. A confirmation email is on its way, and our
         reservations team will follow up shortly to finalize your trip.
       </p>
       <button
         type="button"
-        class="mt-5 text-sm font-semibold text-romara-green underline hover:text-romara-amber"
+        class="inline-flex items-center gap-2 bg-romara-green hover:bg-romara-green-dark hover:shadow-lg hover:shadow-romara-green/30 mt-6 px-6 py-3 rounded-lg font-semibold text-white text-sm transition-all"
         @click="bookingStore.resetBooking"
       >
-        Start a new booking
+        <IconArrowRight class="w-4 h-4" />
+        Start a New Booking
       </button>
     </div>
 
     <template v-else>
       <!-- Step 1: Trip Details -->
-      <div v-if="bookingStore.currentStep === 1">
-        <h2 class="text-xl font-bold text-romara-green">Let's Plan Your Trip</h2>
-        <p class="mt-1 text-sm text-romara-ink/60">Tell us about your travel plans and we'll create the perfect experience for you.</p>
+      <div v-if="bookingStore.currentStep === 1" class="z-10 relative">
+        <div class="flex items-center gap-3 mb-2">
+          <div class="flex justify-center items-center bg-romara-green rounded-full w-8 h-8 font-bold text-white text-sm">1</div>
+          <h2 class="font-heading font-bold text-romara-green text-2xl">Let's Plan Your Trip</h2>
+        </div>
+        <p class="ml-11 text-romara-ink/60 text-sm">Tell us about your travel plans and we'll create the perfect experience for you.</p>
 
-        <div class="mt-6 space-y-5">
-          <div>
+        <div class="space-y-5 mt-6">
+          <div class="group">
             <label :class="labelClasses">What would you like to book? *</label>
             <select v-model="bookingStore.tripDetails.service" :class="inputClasses">
               <option value="" disabled>Select an option</option>
@@ -77,7 +84,7 @@ function formatDate(isoDate: string) {
             <p v-if="bookingStore.stepErrors.travelType" :class="errorClasses">{{ bookingStore.stepErrors.travelType }}</p>
           </div>
 
-          <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+          <div class="gap-5 grid grid-cols-1 sm:grid-cols-2">
             <div>
               <label :class="labelClasses">Destination *</label>
               <input
@@ -99,7 +106,7 @@ function formatDate(isoDate: string) {
             </div>
           </div>
 
-          <div class="grid grid-cols-1 gap-5 sm:grid-cols-3">
+          <div class="gap-5 grid grid-cols-1 sm:grid-cols-3">
             <div>
               <label :class="labelClasses">Number of Adults *</label>
               <select v-model.number="bookingStore.tripDetails.adults" :class="inputClasses">
@@ -138,11 +145,14 @@ function formatDate(isoDate: string) {
       </div>
 
       <!-- Step 2: Your Details -->
-      <div v-else-if="bookingStore.currentStep === 2">
-        <h2 class="text-xl font-bold text-romara-green">Your Details</h2>
-        <p class="mt-1 text-sm text-romara-ink/60">So we know who we're preparing this trip for, and how to reach you.</p>
+      <div v-else-if="bookingStore.currentStep === 2" class="z-10 relative">
+        <div class="flex items-center gap-3 mb-2">
+          <div class="flex justify-center items-center bg-romara-green rounded-full w-8 h-8 font-bold text-white text-sm">2</div>
+          <h2 class="font-heading font-bold text-romara-green text-2xl">Your Details</h2>
+        </div>
+        <p class="ml-11 text-romara-ink/60 text-sm">So we know who we're preparing this trip for, and how to reach you.</p>
 
-        <div class="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2">
+        <div class="gap-6 grid grid-cols-1 sm:grid-cols-2 mt-8">
           <div class="sm:col-span-2">
             <label :class="labelClasses">Full Name *</label>
             <input v-model="bookingStore.yourDetails.fullName" type="text" placeholder="Jane Wanjiru" :class="inputClasses" />
@@ -166,23 +176,26 @@ function formatDate(isoDate: string) {
       </div>
 
       <!-- Step 3: Additional Information -->
-      <div v-else-if="bookingStore.currentStep === 3">
-        <h2 class="text-xl font-bold text-romara-green">Additional Information</h2>
-        <p class="mt-1 text-sm text-romara-ink/60">Optional — but this helps us tailor every detail of your trip.</p>
+      <div v-else-if="bookingStore.currentStep === 3" class="z-10 relative">
+        <div class="flex items-center gap-3 mb-2">
+          <div class="flex justify-center items-center bg-romara-green rounded-full w-8 h-8 font-bold text-white text-sm">3</div>
+          <h2 class="font-heading font-bold text-romara-green text-2xl">Additional Information</h2>
+        </div>
+        <p class="ml-11 text-romara-ink/60 text-sm">Optional — but this helps us tailor every detail of your trip.</p>
 
-        <div class="mt-6 space-y-5">
+        <div class="space-y-5 mt-6">
           <div>
             <label :class="labelClasses">Preferred Accommodation Level</label>
-            <div class="flex flex-wrap gap-2">
+            <div class="flex flex-wrap gap-3">
               <button
                 v-for="level in (['luxury', 'mid-range', 'budget'] as const)"
                 :key="level"
                 type="button"
-                class="rounded-md px-4 py-2 text-xs font-semibold uppercase tracking-wide transition-colors"
+                class="px-5 py-3 rounded-lg font-semibold text-xs uppercase tracking-wide transition-all duration-200"
                 :class="
                   bookingStore.additionalInfo.preferredAccommodation === level
-                    ? 'bg-romara-green text-white'
-                    : 'bg-white text-romara-ink border border-black/10 hover:border-romara-green'
+                    ? 'bg-romara-green-dark text-white'
+                    : 'bg-white text-romara-ink border-2 border-romara-green-dark/30 hover:border-romara-green-dark'
                 "
                 @click="bookingStore.additionalInfo.preferredAccommodation = level"
               >
@@ -191,7 +204,7 @@ function formatDate(isoDate: string) {
             </div>
           </div>
 
-          <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+          <div class="gap-5 grid grid-cols-1 sm:grid-cols-2">
             <div>
               <label :class="labelClasses">Dietary Requirements</label>
               <input v-model="bookingStore.additionalInfo.dietaryRequirements" type="text" placeholder="e.g. vegetarian, gluten-free" :class="inputClasses" />
@@ -207,22 +220,28 @@ function formatDate(isoDate: string) {
             <input v-model="bookingStore.additionalInfo.accessibilityRequirements" type="text" placeholder="Let us know how we can accommodate you" :class="inputClasses" />
           </div>
 
-          <label class="flex items-center gap-2.5 text-sm text-romara-ink/70">
-            <input v-model="bookingStore.additionalInfo.airportPickupRequired" type="checkbox" class="h-4 w-4 rounded border-black/20 text-romara-green focus:ring-romara-green" />
-            Airport pickup required
+          <label class="flex items-center gap-3 bg-romara-green/5 hover:bg-romara-green/10 p-4 border border-romara-green/20 hover:border-romara-green/40 rounded-lg text-romara-ink/80 text-sm transition-all cursor-pointer">
+            <input v-model="bookingStore.additionalInfo.airportPickupRequired" type="checkbox" class="border-romara-green/30 rounded focus:ring-2 focus:ring-romara-green/20 w-5 h-5 text-romara-green" />
+            <span class="font-medium">Airport pickup required</span>
           </label>
         </div>
       </div>
 
       <!-- Step 4: Review & Confirm -->
-      <div v-else-if="bookingStore.currentStep === 4">
-        <h2 class="text-xl font-bold text-romara-green">Review &amp; Confirm</h2>
-        <p class="mt-1 text-sm text-romara-ink/60">Please check your details below before submitting your booking request.</p>
+      <div v-else-if="bookingStore.currentStep === 4" class="z-10 relative">
+        <div class="flex items-center gap-3 mb-2">
+          <div class="flex justify-center items-center bg-romara-green rounded-full w-8 h-8 font-bold text-white text-sm">4</div>
+          <h2 class="font-heading font-bold text-romara-green text-2xl">Review &amp; Confirm</h2>
+        </div>
+        <p class="ml-11 text-romara-ink/60 text-sm">Please check your details below before submitting your booking request.</p>
 
-        <div class="mt-6 space-y-6">
-          <div class="rounded-lg bg-romara-cream p-5">
-            <p class="text-xs font-bold uppercase tracking-wide text-romara-amber">Trip Details</p>
-            <dl class="mt-3 space-y-2 text-sm">
+        <div class="space-y-6 mt-8">
+          <div class="bg-gradient-to-br from-romara-cream to-white shadow-sm p-6 border border-romara-green/10 rounded-xl">
+            <div class="flex items-center gap-2 mb-4">
+              <div class="bg-romara-amber rounded w-8 h-1"></div>
+              <p class="font-bold text-romara-green text-xs uppercase tracking-widest">Trip Details</p>
+            </div>
+            <dl class="space-y-2 mt-3 text-sm">
               <div class="flex justify-between gap-4"><dt class="text-romara-ink/60">Service</dt><dd class="font-semibold text-romara-green">{{ serviceLabel }}</dd></div>
               <div class="flex justify-between gap-4"><dt class="text-romara-ink/60">Travel Type</dt><dd class="font-semibold text-romara-green">{{ travelTypeLabel }}</dd></div>
               <div class="flex justify-between gap-4"><dt class="text-romara-ink/60">Destination</dt><dd class="font-semibold text-romara-green">{{ bookingStore.tripDetails.destination || '—' }}</dd></div>
@@ -237,9 +256,12 @@ function formatDate(isoDate: string) {
             </dl>
           </div>
 
-          <div class="rounded-lg bg-romara-cream p-5">
-            <p class="text-xs font-bold uppercase tracking-wide text-romara-amber">Your Details</p>
-            <dl class="mt-3 space-y-2 text-sm">
+          <div class="bg-gradient-to-br from-romara-cream to-white shadow-sm p-6 border border-romara-green/10 rounded-xl">
+            <div class="flex items-center gap-2 mb-4">
+              <div class="bg-romara-amber rounded w-8 h-1"></div>
+              <p class="font-bold text-romara-green text-xs uppercase tracking-widest">Your Details</p>
+            </div>
+            <dl class="space-y-2 mt-3 text-sm">
               <div class="flex justify-between gap-4"><dt class="text-romara-ink/60">Full Name</dt><dd class="font-semibold text-romara-green">{{ bookingStore.yourDetails.fullName }}</dd></div>
               <div class="flex justify-between gap-4"><dt class="text-romara-ink/60">Email</dt><dd class="font-semibold text-romara-green">{{ bookingStore.yourDetails.email }}</dd></div>
               <div class="flex justify-between gap-4"><dt class="text-romara-ink/60">Phone</dt><dd class="font-semibold text-romara-green">{{ bookingStore.yourDetails.phone }}</dd></div>
@@ -249,11 +271,14 @@ function formatDate(isoDate: string) {
 
           <div
             v-if="bookingStore.additionalInfo.preferredAccommodation || bookingStore.additionalInfo.dietaryRequirements || bookingStore.additionalInfo.celebratingOccasion || bookingStore.additionalInfo.accessibilityRequirements || bookingStore.additionalInfo.airportPickupRequired"
-            class="rounded-lg bg-romara-cream p-5"
+            class="bg-gradient-to-br from-romara-cream to-white shadow-sm p-6 border border-romara-green/10 rounded-xl"
           >
-            <p class="text-xs font-bold uppercase tracking-wide text-romara-amber">Additional Information</p>
-            <dl class="mt-3 space-y-2 text-sm">
-              <div v-if="bookingStore.additionalInfo.preferredAccommodation" class="flex justify-between gap-4"><dt class="text-romara-ink/60">Accommodation</dt><dd class="font-semibold capitalize text-romara-green">{{ bookingStore.additionalInfo.preferredAccommodation }}</dd></div>
+            <div class="flex items-center gap-2 mb-4">
+              <div class="bg-romara-amber rounded w-8 h-1"></div>
+              <p class="font-bold text-romara-green text-xs uppercase tracking-widest">Additional Information</p>
+            </div>
+            <dl class="space-y-2 mt-3 text-sm">
+              <div v-if="bookingStore.additionalInfo.preferredAccommodation" class="flex justify-between gap-4"><dt class="text-romara-ink/60">Accommodation</dt><dd class="font-semibold text-romara-green capitalize">{{ bookingStore.additionalInfo.preferredAccommodation }}</dd></div>
               <div v-if="bookingStore.additionalInfo.dietaryRequirements" class="flex justify-between gap-4"><dt class="text-romara-ink/60">Dietary</dt><dd class="font-semibold text-romara-green">{{ bookingStore.additionalInfo.dietaryRequirements }}</dd></div>
               <div v-if="bookingStore.additionalInfo.celebratingOccasion" class="flex justify-between gap-4"><dt class="text-romara-ink/60">Occasion</dt><dd class="font-semibold text-romara-green">{{ bookingStore.additionalInfo.celebratingOccasion }}</dd></div>
               <div v-if="bookingStore.additionalInfo.accessibilityRequirements" class="flex justify-between gap-4"><dt class="text-romara-ink/60">Accessibility</dt><dd class="font-semibold text-romara-green">{{ bookingStore.additionalInfo.accessibilityRequirements }}</dd></div>
@@ -261,10 +286,10 @@ function formatDate(isoDate: string) {
             </dl>
           </div>
 
-          <div>
-            <label class="flex items-start gap-2.5 text-sm text-romara-ink/70">
-              <input v-model="bookingStore.agreedToTerms" type="checkbox" class="mt-0.5 h-4 w-4 shrink-0 rounded border-black/20 text-romara-green focus:ring-romara-green" />
-              <span>I confirm the above details are correct and agree to be contacted by ROMARA Tours &amp; Travel regarding this request.</span>
+          <div class="bg-romara-green/5 p-4 border border-romara-green/20 rounded-lg">
+            <label class="flex items-start gap-3 text-romara-ink/80 text-sm">
+              <input v-model="bookingStore.agreedToTerms" type="checkbox" class="mt-0.5 border-romara-green/30 rounded focus:ring-2 focus:ring-romara-green/20 w-5 h-5 text-romara-green shrink-0" />
+              <span class="leading-relaxed">I confirm the above details are correct and agree to be contacted by ROMARA Tours &amp; Travel regarding this request.</span>
             </label>
             <p v-if="bookingStore.stepErrors.agreedToTerms" :class="errorClasses">{{ bookingStore.stepErrors.agreedToTerms }}</p>
           </div>
@@ -272,7 +297,7 @@ function formatDate(isoDate: string) {
       </div>
 
       <!-- Navigation -->
-      <div class="mt-8 flex items-center justify-between gap-3">
+      <div class="z-10 relative flex justify-between items-center gap-4 mt-10 pt-6 border-romara-green/10 border-t">
         <BaseButton v-if="bookingStore.currentStep > 1" variant="outline" @click="bookingStore.goToPreviousStep">
           Back
         </BaseButton>
@@ -280,15 +305,18 @@ function formatDate(isoDate: string) {
 
         <BaseButton v-if="!bookingStore.isLastStep" variant="primary" @click="bookingStore.goToNextStep">
           Next Step
-          <IconArrowRight class="h-4 w-4" />
+          <IconArrowRight class="w-4 h-4" />
         </BaseButton>
         <BaseButton v-else variant="amber" :disabled="bookingStore.isSubmitting" @click="bookingStore.submitBooking">
           {{ bookingStore.isSubmitting ? 'Submitting...' : 'Submit Booking Request' }}
-          <IconArrowRight class="h-4 w-4" />
+          <IconArrowRight class="w-4 h-4" />
         </BaseButton>
       </div>
 
-      <p class="mt-4 text-center text-xs text-romara-ink/50">🔒 Your booking is secure and your details are protected.</p>
+      <div class="z-10 relative flex justify-center items-center gap-2 mt-6 text-romara-ink/50 text-xs">
+        <span class="text-romara-green">🔒</span>
+        <span>Your booking is secure and your details are protected.</span>
+      </div>
     </template>
   </div>
 </template>

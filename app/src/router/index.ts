@@ -25,6 +25,7 @@ const router = createRouter({
         { path: 'blog/:slug', name: 'blog-post', component: () => import('@/views/BlogPostView.vue') },
         { path: 'contact', name: 'contact', component: () => import('@/views/ContactView.vue') },
         { path: 'booking', name: 'booking', component: () => import('@/views/BookingView.vue') },
+        { path: 'book-now', redirect: '/booking' },
       ],
     },
   ],
