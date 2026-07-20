@@ -29,9 +29,9 @@ function handleStepClick(stepNumber: number) {
         <span
           class="flex justify-center items-center shadow-md rounded-full w-12 h-12 font-bold text-sm transition-all duration-300 shrink-0"
           :class="[
-            step.number === bookingStore.currentStep && 'bg-gradient-to-br from-romara-amber to-romara-amber-light text-white shadow-lg shadow-romara-amber/30 scale-110',
-            step.number < bookingStore.currentStep && 'bg-gradient-to-br from-romara-green to-romara-green-dark text-white shadow-md shadow-romara-green/20',
-            step.number > bookingStore.currentStep && 'bg-white text-romara-ink/30 border-2 border-romara-green/20',
+            step.number === bookingStore.currentStep && 'bg-romara-green-dark text-white shadow-lg scale-110',
+            step.number < bookingStore.currentStep && 'bg-romara-green-dark text-white shadow-md',
+            step.number > bookingStore.currentStep && 'bg-white text-romara-ink/30 border-2 border-romara-green-dark/20',
           ]"
         >
           <IconCheckSquare v-if="step.number < bookingStore.currentStep" class="w-5 h-5" />
@@ -39,7 +39,7 @@ function handleStepClick(stepNumber: number) {
         </span>
         <span
           class="hidden sm:block font-semibold text-xs transition-colors"
-          :class="step.number === bookingStore.currentStep ? 'text-romara-amber font-bold' : step.number < bookingStore.currentStep ? 'text-romara-green' : 'text-romara-ink/40'"
+          :class="step.number === bookingStore.currentStep ? 'text-romara-green-dark font-bold' : step.number < bookingStore.currentStep ? 'text-romara-green-dark' : 'text-romara-ink/40'"
         >
           {{ step.label }}
         </span>
@@ -51,7 +51,7 @@ function handleStepClick(stepNumber: number) {
       >
         <div
           class="rounded-full h-full transition-all duration-500 ease-out"
-          :class="step.number < bookingStore.currentStep ? 'w-full bg-gradient-to-r from-romara-green to-romara-green-dark' : 'w-full bg-romara-green/10'"
+          :class="step.number < bookingStore.currentStep ? 'w-full bg-romara-green-dark' : 'w-full bg-romara-green-dark/10'"
         />
       </div>
     </template>

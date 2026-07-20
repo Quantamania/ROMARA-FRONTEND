@@ -32,10 +32,13 @@ function formatDate(isoDate: string) {
 </script>
 
 <template>
-  <div class="relative bg-gradient-to-br from-white to-romara-cream/30 shadow-2xl shadow-romara-green/10 p-6 sm:p-8 border border-romara-green/10 rounded-2xl overflow-hidden">
-    <!-- Decorative green accent -->
-    <div class="top-0 left-0 absolute bg-gradient-to-r from-romara-green via-romara-amber to-romara-green w-full h-1"></div>
-    <div class="top-4 right-4 absolute bg-romara-green/5 blur-3xl rounded-full w-24 h-24"></div>
+  <div class="relative bg-gradient-to-br from-white via-romara-cream/20 to-romara-cream/40 shadow-2xl shadow-romara-green/10 p-6 sm:p-8 border border-romara-green/10 rounded-2xl overflow-hidden">
+    <!-- Creative background elements -->
+    <div class="top-0 right-0 absolute bg-romara-green/5 blur-3xl rounded-full w-64 h-64 -translate-y-1/2 translate-x-1/2"></div>
+    <div class="bottom-0 left-0 absolute bg-romara-amber/5 blur-3xl rounded-full w-48 h-48 -translate-x-1/2 translate-y-1/2"></div>
+    <div class="top-1/4 left-1/4 absolute bg-romara-green/20 rounded-full w-2 h-2"></div>
+    <div class="top-1/3 right-1/3 absolute bg-romara-amber/20 rounded-full w-3 h-3"></div>
+    <div class="right-1/4 bottom-1/4 absolute bg-romara-green/30 rounded-full w-2 h-2"></div>
     <!-- Confirmation state, replaces the whole form -->
     <div v-if="bookingStore.isSubmitted" class="z-10 relative py-12 text-center">
       <div class="flex justify-center items-center bg-gradient-to-br from-romara-green to-romara-green-dark shadow-romara-green/30 shadow-xl mx-auto rounded-full w-20 h-20 text-white">
@@ -59,11 +62,14 @@ function formatDate(isoDate: string) {
     <template v-else>
       <!-- Step 1: Trip Details -->
       <div v-if="bookingStore.currentStep === 1" class="z-10 relative">
-        <div class="flex items-center gap-3 mb-2">
-          <div class="flex justify-center items-center bg-romara-green rounded-full w-8 h-8 font-bold text-white text-sm">1</div>
-          <h2 class="font-heading font-bold text-romara-green text-2xl">Let's Plan Your Trip</h2>
+        <div class="flex items-center gap-4 mb-3">
+          <div class="flex justify-center items-center bg-gradient-to-br from-romara-green to-romara-green-dark shadow-lg shadow-romara-green/20 rounded-full w-10 h-10 font-bold text-white text-sm">1</div>
+          <div>
+            <h2 class="font-heading font-bold text-romara-green-dark text-2xl">Let's Plan Your Trip</h2>
+            <div class="bg-gradient-to-r from-romara-green to-romara-amber mt-1 rounded w-16 h-1"></div>
+          </div>
         </div>
-        <p class="ml-11 text-romara-ink/60 text-sm">Tell us about your travel plans and we'll create the perfect experience for you.</p>
+        <p class="ml-14 text-romara-ink/60 text-sm">Tell us about your travel plans and we'll create the perfect experience for you.</p>
 
         <div class="space-y-5 mt-6">
           <div class="group">
@@ -146,11 +152,14 @@ function formatDate(isoDate: string) {
 
       <!-- Step 2: Your Details -->
       <div v-else-if="bookingStore.currentStep === 2" class="z-10 relative">
-        <div class="flex items-center gap-3 mb-2">
-          <div class="flex justify-center items-center bg-romara-green rounded-full w-8 h-8 font-bold text-white text-sm">2</div>
-          <h2 class="font-heading font-bold text-romara-green text-2xl">Your Details</h2>
+        <div class="flex items-center gap-4 mb-3">
+          <div class="flex justify-center items-center bg-gradient-to-br from-romara-green to-romara-green-dark shadow-lg shadow-romara-green/20 rounded-full w-10 h-10 font-bold text-white text-sm">2</div>
+          <div>
+            <h2 class="font-heading font-bold text-romara-green-dark text-2xl">Your Details</h2>
+            <div class="bg-gradient-to-r from-romara-green to-romara-amber mt-1 rounded w-16 h-1"></div>
+          </div>
         </div>
-        <p class="ml-11 text-romara-ink/60 text-sm">So we know who we're preparing this trip for, and how to reach you.</p>
+        <p class="ml-14 text-romara-ink/60 text-sm">So we know who we're preparing this trip for, and how to reach you.</p>
 
         <div class="gap-6 grid grid-cols-1 sm:grid-cols-2 mt-8">
           <div class="sm:col-span-2">
@@ -177,11 +186,14 @@ function formatDate(isoDate: string) {
 
       <!-- Step 3: Additional Information -->
       <div v-else-if="bookingStore.currentStep === 3" class="z-10 relative">
-        <div class="flex items-center gap-3 mb-2">
-          <div class="flex justify-center items-center bg-romara-green rounded-full w-8 h-8 font-bold text-white text-sm">3</div>
-          <h2 class="font-heading font-bold text-romara-green text-2xl">Additional Information</h2>
+        <div class="flex items-center gap-4 mb-3">
+          <div class="flex justify-center items-center bg-gradient-to-br from-romara-green to-romara-green-dark shadow-lg shadow-romara-green/20 rounded-full w-10 h-10 font-bold text-white text-sm">3</div>
+          <div>
+            <h2 class="font-heading font-bold text-romara-green-dark text-2xl">Additional Information</h2>
+            <div class="bg-gradient-to-r from-romara-green to-romara-amber mt-1 rounded w-16 h-1"></div>
+          </div>
         </div>
-        <p class="ml-11 text-romara-ink/60 text-sm">Optional — but this helps us tailor every detail of your trip.</p>
+        <p class="ml-14 text-romara-ink/60 text-sm">Optional — but this helps us tailor every detail of your trip.</p>
 
         <div class="space-y-5 mt-6">
           <div>
@@ -229,11 +241,14 @@ function formatDate(isoDate: string) {
 
       <!-- Step 4: Review & Confirm -->
       <div v-else-if="bookingStore.currentStep === 4" class="z-10 relative">
-        <div class="flex items-center gap-3 mb-2">
-          <div class="flex justify-center items-center bg-romara-green rounded-full w-8 h-8 font-bold text-white text-sm">4</div>
-          <h2 class="font-heading font-bold text-romara-green text-2xl">Review &amp; Confirm</h2>
+        <div class="flex items-center gap-4 mb-3">
+          <div class="flex justify-center items-center bg-gradient-to-br from-romara-green to-romara-green-dark shadow-lg shadow-romara-green/20 rounded-full w-10 h-10 font-bold text-white text-sm">4</div>
+          <div>
+            <h2 class="font-heading font-bold text-romara-green-dark text-2xl">Review &amp; Confirm</h2>
+            <div class="bg-gradient-to-r from-romara-green to-romara-amber mt-1 rounded w-16 h-1"></div>
+          </div>
         </div>
-        <p class="ml-11 text-romara-ink/60 text-sm">Please check your details below before submitting your booking request.</p>
+        <p class="ml-14 text-romara-ink/60 text-sm">Please check your details below before submitting your booking request.</p>
 
         <div class="space-y-6 mt-8">
           <div class="bg-gradient-to-br from-romara-cream to-white shadow-sm p-6 border border-romara-green/10 rounded-xl">
