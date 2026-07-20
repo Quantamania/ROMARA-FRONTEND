@@ -10,19 +10,41 @@ interface NavLink {
   label: string
   href: string
   children?: { label: string; href: string }[]
+  image?: string
 }
 
 const navLinks: NavLink[] = [
   { label: 'Home', href: '/' },
   { label: 'About Romara', href: '/about' },
-  { label: 'Safari Packages', href: '/safari-packages' },
-  { label: 'Day Trips', href: '/day-trips' },
-  { label: 'Airport Transfers', href: '/airport-transfers' },
+  {
+    label: 'Experiences',
+    href: '/safari-packages',
+    image: '/src/assets/images/booking/maasai-mara-safari.jpg',
+    children: [
+      { label: 'Safari Packages', href: '/safari-packages' },
+      { label: 'Day Trips', href: '/day-trips' },
+      { label: 'Airport Transfers', href: '/airport-transfers' },
+    ]
+  },
   { label: 'Destinations', href: '/destinations' },
-  { label: 'Gallery', href: '/gallery' },
-  { label: 'Reviews', href: '/reviews' },
-  { label: 'FAQs', href: '/faq' },
-  { label: 'Travel Blog', href: '/blog' },
+  {
+    label: 'Explore',
+    href: '/gallery',
+    image: '/src/assets/images/gallery/cheetah.jpeg',
+    children: [
+      { label: 'Gallery', href: '/gallery' },
+      { label: 'Reviews', href: '/reviews' },
+    ]
+  },
+  {
+    label: 'Resources',
+    href: '/faq',
+    image: '/src/assets/images/blog/hero.png',
+    children: [
+      { label: 'FAQs', href: '/faq' },
+      { label: 'Travel Blog', href: '/blog' },
+    ]
+  },
   { label: 'Contact Us', href: '/contact' },
 ]
 
@@ -45,77 +67,127 @@ function isActiveLink(href: string) {
 </script>
 
 <template>
-  <header class="sticky top-0 z-40 border-b border-black/5 bg-white">
-    <nav class="romara-container flex h-20 items-center justify-between gap-6">
-      <a href="/" class="flex shrink-0 items-center gap-2.5">
-  <img :src="logoSrc" alt="ROMARA logo" class="h-16 w-auto" />
+  <header class="top-0 z-40 sticky bg-white border-black/5 border-b">
+    <nav class="flex justify-between items-center gap-6 h-20 romara-container">
+      <a href="/" class="flex items-center gap-2.5 shrink-0">
+  <img :src="logoSrc" alt="ROMARA logo" class="w-auto h-16" />
   <span class="leading-tight">
- <span class="romara-stretch block font-heading text-lg font-bold text-romara-green" style="transform: scaleX(1.25)">ROMARA</span>
- <span class="romara-stretch block text-[10px] font-semibold text-romara-ink/70" style="transform: scaleX(1.25)">TOURS &amp; TRAVEL</span> 
-  <span class="block text-[9px] font-semibold text-romara-ink/60">Reaching Out to Your Next Adventure</span>
+ <span class="block font-heading font-bold text-romara-green text-lg romara-stretch" style="transform: scaleX(1.25)">ROMARA</span>
+ <span class="block font-semibold text-[10px] text-romara-ink/70 romara-stretch" style="transform: scaleX(1.25)">TOURS &amp; TRAVEL</span> 
+  <span class="block font-semibold text-[9px] text-romara-ink/60">Reaching Out to Your Next Adventure</span>
 </span>
 </a>
 
-      <ul class="hidden items-center gap-x-5 xl:flex">
-        <li v-for="link in navLinks" :key="link.label" class="relative whitespace-nowrap">
+      <ul class="hidden xl:flex items-center gap-x-5">
+        <li v-for="link in navLinks" :key="link.label" class="group relative whitespace-nowrap">
           <button
             v-if="link.children"
             type="button"
-            class="flex items-center gap-1 py-2 text-xs font-semibold uppercase tracking-wide hover:text-romara-green"
+            class="group relative flex items-center gap-1 py-2 font-semibold hover:text-romara-green text-xs uppercase tracking-wide"
             :class="isActiveLink(link.href) ? 'text-romara-green' : 'text-romara-ink'"
-            @click="toggleDropdown(link.label)"
+            @mouseenter="openDropdownLabel = link.label"
+            @mouseleave="openDropdownLabel = null"
           >
             {{ link.label }}
-            <IconChevronDown class="h-3.5 w-3.5" />
+            <IconChevronDown class="w-3.5 h-3.5" />
+            <span class="bottom-0 left-0 absolute bg-romara-amber rounded w-0 group-hover:w-full h-0.5 transition-all duration-300" :class="isActiveLink(link.href) ? 'w-full' : ''"></span>
           </button>
-          
+
           <a
             v-else
             :href="link.href"
-            class="block py-2 text-xs font-semibold uppercase tracking-wide hover:text-romara-green"
+            class="group block relative py-2 font-semibold hover:text-romara-green text-xs uppercase tracking-wide"
             :class="isActiveLink(link.href) ? 'text-romara-green' : 'text-romara-ink'"
           >
             {{ link.label }}
+            <span class="bottom-0 left-0 absolute bg-romara-amber rounded w-0 group-hover:w-full h-0.5 transition-all duration-300" :class="isActiveLink(link.href) ? 'w-full' : ''"></span>
           </a>
 
-          <span
-            v-if="isActiveLink(link.href)"
-            class="absolute bottom-0 left-0 h-0.5 w-5 rounded bg-romara-green"
-          />
-
-          <ul
-            v-if="link.children && openDropdownLabel === link.label"
-            class="absolute left-0 top-full mt-1 w-56 rounded-md border border-black/5 bg-white py-2 shadow-card"
+          <div
+            v-if="link.children"
+            class="invisible group-hover:visible top-full left-0 absolute bg-white opacity-0 group-hover:opacity-100 shadow-2xl mt-3 border border-romara-green/10 rounded-2xl w-[48rem] overflow-hidden transition-all duration-300"
+            @mouseenter="openDropdownLabel = link.label"
+            @mouseleave="openDropdownLabel = null"
           >
-            <li v-for="child in link.children" :key="child.label">
-              <a :href="child.href" class="block px-4 py-2 text-xs font-medium uppercase tracking-wide text-romara-ink hover:bg-romara-cream hover:text-romara-green">
-                {{ child.label }}
-              </a>
-            </li>
-          </ul>
+            <div class="flex">
+              <div class="relative w-1/2">
+                <div class="top-0 left-0 absolute bg-gradient-to-r from-romara-green to-romara-amber w-full h-1"></div>
+                <img v-if="link.image" :src="link.image" :alt="link.label" class="w-full h-56 object-cover" />
+                <div v-else class="flex justify-center items-center bg-gradient-to-br from-romara-green/5 to-romara-cream w-full h-56">
+                  <span class="font-heading font-bold text-romara-green/50 text-lg">{{ link.label }}</span>
+                </div>
+                <div class="right-0 bottom-0 left-0 absolute bg-gradient-to-t from-black/50 to-transparent p-4">
+                  <p class="font-heading font-bold text-white text-sm">{{ link.label }}</p>
+                </div>
+              </div>
+              <div class="bg-gradient-to-br from-white to-romara-cream/30 p-6 w-1/2">
+                <div class="flex items-center gap-2 mb-4">
+                  <div class="bg-romara-amber rounded w-8 h-1"></div>
+                  <p class="font-bold text-romara-green-dark text-xs uppercase tracking-widest">Explore</p>
+                </div>
+                <ul class="space-y-1">
+                  <li v-for="child in link.children" :key="child.label">
+                    <a :href="child.href" class="group block hover:bg-romara-green/5 px-3 py-3 rounded-lg font-medium text-romara-ink hover:text-romara-green text-sm uppercase tracking-wide transition-all">
+                      {{ child.label }}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </li>
       </ul>
 
-      <div class="hidden shrink-0 xl:block">
+      <div class="hidden xl:block shrink-0">
         <BaseButton as="a" href="/book-now" variant="primary">Book Now</BaseButton>
       </div>
 
-      <button type="button" class="shrink-0 text-romara-green xl:hidden" aria-label="Open menu" @click="toggleMobileMenu">
-        <IconMenu class="h-7 w-7" />
+      <button type="button" class="xl:hidden text-romara-green shrink-0" aria-label="Open menu" @click="toggleMobileMenu">
+        <IconMenu class="w-7 h-7" />
       </button>
     </nav>
 
-    <div v-if="isMobileMenuOpen" class="border-t border-black/5 bg-white xl:hidden">
-      <ul class="romara-container flex flex-col gap-1 py-4">
-        <li v-for="link in navLinks" :key="link.label">
-          <a :href="link.href" class="block rounded-md px-2 py-2.5 text-xs font-semibold uppercase tracking-wide text-romara-ink hover:bg-romara-cream">
-            {{ link.label }}
-          </a>
-        </li>
-        <li class="pt-2">
-          <BaseButton as="a" href="/book-now" variant="primary" class="w-full">Book Now</BaseButton>
-        </li>
-      </ul>
+    <div v-if="isMobileMenuOpen" class="xl:hidden z-50 fixed inset-0">
+      <div class="absolute inset-0 bg-black/50" @click="toggleMobileMenu"></div>
+      <div class="top-0 right-0 absolute bg-romara-green-dark shadow-2xl w-80 h-full">
+        <div class="flex justify-between items-center p-6 border-white/10 border-b">
+          <span class="font-heading font-bold text-white text-xl">Menu</span>
+          <button type="button" class="text-white hover:text-white/80" @click="toggleMobileMenu">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <ul class="flex flex-col gap-1 p-6">
+          <li v-for="link in navLinks" :key="link.label">
+            <div v-if="link.children">
+              <button
+                type="button"
+                class="flex items-center gap-2 hover:bg-white/10 px-4 py-3 rounded-md w-full font-semibold text-white text-sm uppercase tracking-wide"
+                @click="toggleDropdown(link.label)"
+              >
+                {{ link.label }}
+                <svg class="w-4 h-4 transition-transform shrink-0" :class="openDropdownLabel === link.label ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <ul v-if="openDropdownLabel === link.label" class="flex flex-col gap-1 mt-1 ml-4">
+                <li v-for="child in link.children" :key="child.label">
+                  <a :href="child.href" class="block hover:bg-white/10 px-4 py-2 rounded-md font-medium text-white/90 text-sm uppercase tracking-wide" @click="toggleMobileMenu">
+                    {{ child.label }}
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <a v-else :href="link.href" class="block hover:bg-white/10 px-4 py-3 rounded-md font-semibold text-white text-sm uppercase tracking-wide" @click="toggleMobileMenu">
+              {{ link.label }}
+            </a>
+          </li>
+          <li class="pt-4">
+            <BaseButton as="a" href="/book-now" variant="primary" class="w-full">Book Now</BaseButton>
+          </li>
+        </ul>
+      </div>
     </div>
   </header>
 </template>
