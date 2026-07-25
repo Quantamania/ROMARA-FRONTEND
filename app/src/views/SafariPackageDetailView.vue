@@ -142,7 +142,7 @@ const excluded = [
               <div class="bg-romara-amber mb-6 rounded w-16 h-1"></div>
               <div class="space-y-6">
                 <div
-                  v-for="(day, index) in itinerary"
+                  v-for="(day) in itinerary"
                   :key="day.day"
                   class="flex gap-6 bg-white shadow-sm hover:shadow-md p-6 border border-romara-green/10 hover:border-romara-green/30 rounded-lg transition-all duration-300"
                 >
