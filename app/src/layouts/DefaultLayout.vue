@@ -9,6 +9,7 @@ import WhatsAppFloatButton from '@/components/layout/WhatsAppFloatButton.vue'
   <div class="flex min-h-screen flex-col">
     <TopContactBar />
     <NavBar />
+    <div class="h-20" />
 
     <main class="flex-1">
       <router-view v-slot="{ Component }">

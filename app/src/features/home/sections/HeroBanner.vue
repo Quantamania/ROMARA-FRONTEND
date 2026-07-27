@@ -11,13 +11,13 @@ const images: HeroSlide[] = [
     image: '/src/assets/images/home/hero-elephants.png',
   },
   {
-    image: '/src/assets/images/home/hero-mara.jpg',
+    image: '/src/assets/images/home/cruiser.jpeg',
   },
   {
-    image: '/src/assets/images/home/hero-coast.jpg',
+    image: '/src/assets/images/home/mara.jpeg',
   },
   {
-    image: '/src/assets/images/home/hero-culture.jpg',
+    image: '/src/assets/images/home/nairobi.png',
   },
 ]
 

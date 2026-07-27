@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 import logoSrc from '@/assets/images/logos/logo-transparent.png'
 import IconChevronDown from '@/components/icons/IconChevronDown.vue'
@@ -51,10 +51,54 @@ const navLinks: NavLink[] = [
 const route = useRoute()
 const isMobileMenuOpen = ref(false)
 const openDropdownLabel = ref<string | null>(null)
+const isNavHidden = ref(false)
+let lastScrollY = 0
 
 function toggleMobileMenu() {
   isMobileMenuOpen.value = !isMobileMenuOpen.value
+  if (isMobileMenuOpen.value) {
+    isNavHidden.value = false
+  }
 }
+
+function getScrollY() {
+  const scrollingElement = document.scrollingElement || document.documentElement
+  return scrollingElement ? scrollingElement.scrollTop : window.pageYOffset || window.scrollY || 0
+}
+
+function handleScroll() {
+  const currentScrollY = getScrollY()
+  const delta = currentScrollY - lastScrollY
+
+  if (currentScrollY <= 60 || isMobileMenuOpen.value) {
+    isNavHidden.value = false
+  } else if (delta > 0) {
+    isNavHidden.value = true
+  } else if (delta < 0) {
+    isNavHidden.value = false
+  }
+
+  lastScrollY = currentScrollY
+}
+
+function handleTouchStart() {
+  lastScrollY = getScrollY()
+}
+
+onMounted(() => {
+  lastScrollY = getScrollY()
+  window.addEventListener('scroll', handleScroll, { passive: true })
+  window.addEventListener('touchstart', handleTouchStart, { passive: true })
+  window.addEventListener('touchmove', handleScroll, { passive: true })
+  document.addEventListener('scroll', handleScroll, { passive: true })
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+  window.removeEventListener('touchstart', handleTouchStart)
+  window.removeEventListener('touchmove', handleScroll)
+  document.removeEventListener('scroll', handleScroll)
+})
 
 function toggleDropdown(label: string) {
   openDropdownLabel.value = openDropdownLabel.value === label ? null : label
@@ -67,7 +111,7 @@ function isActiveLink(href: string) {
 </script>
 
 <template>
-  <header class="top-0 z-40 sticky bg-white border-black/5 border-b">
+  <header class="left-0 right-0 z-40 fixed bg-white border-black/5 border-b transition-[top,opacity] duration-500 ease-in-out will-change-transform" :style="{ top: isNavHidden ? '-120px' : '40px', opacity: isNavHidden ? 0 : 1, pointerEvents: isNavHidden ? 'none' : 'auto' }">
     <nav class="flex justify-between items-center gap-6 h-20 romara-container">
       <a href="/" class="flex items-center gap-2.5 shrink-0">
   <img :src="logoSrc" alt="ROMARA logo" class="w-auto h-16" />

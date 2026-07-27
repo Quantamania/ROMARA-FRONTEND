@@ -60,17 +60,17 @@ function showNextImage() {
 
 <template>
   <!-- Hero: photo mosaic instead of a single image — fits a gallery page thematically -->
-  <section v-scroll-reveal class="isolate relative bg-romara-green min-h-screen overflow-hidden text-white">
-    <div class="absolute inset-0 gap-1 grid grid-cols-4 grid-rows-2">
-      <img :src="mosaicImages[0].src" :alt="mosaicImages[0].alt" class="col-span-2 row-span-2 w-full h-full object-cover" />
+  <section v-scroll-reveal class="isolate relative bg-romara-green min-h-[680px] lg:min-h-screen overflow-hidden text-white">
+    <div class="absolute inset-0 gap-1 grid grid-cols-2 grid-rows-3 sm:grid-cols-4 sm:grid-rows-2">
+      <img :src="mosaicImages[0].src" :alt="mosaicImages[0].alt" class="col-span-2 row-span-2 sm:col-span-2 sm:row-span-2 w-full h-full object-cover" />
       <img :src="mosaicImages[1].src" :alt="mosaicImages[1].alt" class="w-full h-full object-cover" />
       <img :src="mosaicImages[2].src" :alt="mosaicImages[2].alt" class="w-full h-full object-cover" />
-      <img :src="mosaicImages[3].src" :alt="mosaicImages[3].alt" class="w-full h-full object-cover" />
-      <img :src="mosaicImages[4].src" :alt="mosaicImages[4].alt" class="w-full h-full object-cover" />
+      <img :src="mosaicImages[3].src" :alt="mosaicImages[3].alt" class="col-span-2 sm:col-span-1 w-full h-full object-cover" />
+      <img :src="mosaicImages[4].src" :alt="mosaicImages[4].alt" class="col-span-2 sm:col-span-1 w-full h-full object-cover" />
     </div>
     <div class="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/25" />
 
-    <div class="relative flex justify-start items-start pt-32 sm:pt-40 lg:pt-48 h-screen romara-container">
+    <div class="relative flex h-full items-end pt-24 sm:pt-32 lg:pt-40 romara-container">
       <div class="max-w-xl">
         <h1 class="font-heading font-bold text-4xl sm:text-5xl">Gallery</h1>
         <p class="mt-2 font-semibold text-romara-amber text-lg">Moments. Memories. Adventures.</p>

@@ -1,25 +1,14 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import type { BlogCategory, BlogPost } from '@/features/blog/types/blog.types'
+import type { BlogPost } from '@/features/blog/types/blog.types'
 import blogPostsData from '@/data/blogPosts.json'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import IconArrowLeft from '@/components/icons/IconArrowLeft.vue'
-import IconMail from '@/components/icons/IconMail.vue'
-import NewsletterForm from '@/features/blog/components/NewsletterForm.vue'
 
 const route = useRoute()
 const router = useRouter()
 const allPosts = blogPostsData as BlogPost[]
-
-const categoryLabels: Record<BlogCategory, string> = {
-  'safari-tips': 'Safari Tips',
-  destinations: 'Destinations',
-  'travel-guides': 'Travel Guides',
-  wildlife: 'Wildlife',
-  'travel-news': 'Travel News',
-  'culture-people': 'Culture & People',
-}
 
 const slugParam = computed(() => route.params.slug as string)
 
@@ -101,19 +90,6 @@ const contentSections = computed(() => {
 
 <template>
   <div v-if="currentPost" class="bg-white min-h-screen">
-    <!-- Back button -->
-    <div class="bg-gradient-to-r from-romara-green/5 to-romara-amber/5 py-4">
-      <div class="flex justify-between items-center romara-container">
-        <button
-          @click="goBack"
-          class="flex items-center gap-2 font-semibold text-romara-green hover:text-romara-amber text-sm transition-colors"
-        >
-          <IconArrowLeft class="w-4 h-4" />
-          Back to Blog
-        </button>
-      </div>
-    </div>
-
     <!-- Hero: Full-width image with overlay content -->
     <section class="relative bg-romara-green min-h-[600px] overflow-hidden">
       <!-- Full-width background image -->
@@ -127,43 +103,30 @@ const contentSections = computed(() => {
         <div class="right-0 bottom-0 left-0 absolute bg-gradient-to-t from-romara-green-dark to-transparent h-32"></div>
       </div>
 
+      <div class="absolute inset-x-0 top-4 romara-container">
+        <button
+          type="button"
+          @click="goBack"
+          class="inline-flex items-center gap-2 text-sm font-semibold text-romara-amber transition-colors"
+        >
+          <IconArrowLeft class="w-4 h-4" />
+          <span class="hidden sm:inline text-romara-amber">Back to Blog</span>
+        </button>
+      </div>
+
       <!-- Decorative number -->
       <div class="hidden lg:block top-10 right-10 absolute font-heading font-bold text-white/5 text-9xl">BLOG</div>
 
-      <div class="relative py-20 lg:py-32 romara-container">
+      <div class="relative flex items-end py-36 lg:py-56 romara-container">
         <div class="max-w-3xl">
-          <!-- Category badge -->
-          <div class="inline-flex mb-6">
-            <span class="bg-romara-amber px-4 py-2 rounded-full font-semibold text-white text-sm uppercase tracking-widest">
-              {{ categoryLabels[currentPost.category] }}
-            </span>
-          </div>
+          <!-- Category badge removed per design -->
 
           <!-- Title -->
           <h1 class="mb-6 font-heading font-bold text-white text-4xl sm:text-5xl lg:text-6xl leading-tight">
             {{ currentPost.title }}
           </h1>
 
-          <!-- Excerpt -->
-          <p class="mb-8 max-w-2xl text-white/90 text-lg sm:text-xl leading-relaxed">
-            {{ currentPost.excerpt }}
-          </p>
-
-          <!-- Meta info -->
-          <div class="flex flex-wrap items-center gap-6 text-white/80 text-sm">
-            <div class="flex items-center gap-2">
-              <span class="font-semibold text-romara-amber">Published</span>
-              <span>{{ formatDate(currentPost.publishedAt) }}</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="font-semibold text-romara-amber">Read</span>
-              <span>{{ currentPost.readTimeMinutes }} min</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="font-semibold text-romara-amber">Views</span>
-              <span>{{ currentPost.views.toLocaleString() }}</span>
-            </div>
-          </div>
+          <!-- Excerpt removed per design -->
 
           <!-- Decorative accent line -->
           <div class="bg-romara-amber mt-10 rounded w-24 h-1"></div>
@@ -205,19 +168,35 @@ const contentSections = computed(() => {
                 <a
                   v-if="previousPost"
                   :href="`/blog/${previousPost.slug}`"
-                  class="group bg-romara-green/5 hover:bg-romara-green/10 p-6 border border-romara-green/20 hover:border-romara-green rounded-lg transition-colors"
+                  class="group relative overflow-hidden rounded-lg border border-romara-green/20 transition hover:border-romara-green"
+                  :style="{
+                    backgroundImage: `url(${previousPost.image})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                  }"
                 >
-                  <span class="font-semibold text-romara-green text-sm uppercase tracking-wide">← Previous Post</span>
-                  <h4 class="mt-2 font-bold text-romara-green group-hover:text-romara-amber text-lg">{{ previousPost.title }}</h4>
+                  <div class="absolute inset-0 bg-romara-green/60 transition group-hover:bg-romara-green/70"></div>
+                  <div class="relative p-6 min-h-[180px]">
+                    <span class="font-semibold text-white text-sm uppercase tracking-wide">← Previous Post</span>
+                    <h4 class="mt-2 font-bold text-white text-lg">{{ previousPost.title }}</h4>
+                  </div>
                 </a>
 
                 <a
                   v-if="nextPost"
                   :href="`/blog/${nextPost.slug}`"
-                  class="group bg-romara-green/5 hover:bg-romara-green/10 p-6 border border-romara-green/20 hover:border-romara-green rounded-lg text-right transition-colors"
+                  class="group relative overflow-hidden rounded-lg border border-romara-green/20 transition hover:border-romara-green"
+                  :style="{
+                    backgroundImage: `url(${nextPost.image})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                  }"
                 >
-                  <span class="font-semibold text-romara-green text-sm uppercase tracking-wide">Next Post →</span>
-                  <h4 class="mt-2 font-bold text-romara-green group-hover:text-romara-amber text-lg">{{ nextPost.title }}</h4>
+                  <div class="absolute inset-0 bg-romara-green/60 transition group-hover:bg-romara-green/70"></div>
+                  <div class="relative p-6 text-right min-h-[180px]">
+                    <span class="font-semibold text-white text-sm uppercase tracking-wide">Next Post →</span>
+                    <h4 class="mt-2 font-bold text-white text-lg">{{ nextPost.title }}</h4>
+                  </div>
                 </a>
               </div>
             </nav>
@@ -268,25 +247,23 @@ const contentSections = computed(() => {
       </section>
     </div>
 
-    <!-- Newsletter Section -->
-    <section class="relative bg-gradient-to-r from-romara-amber/10 via-romara-green/5 to-romara-amber/10 py-12 overflow-hidden">
+    <!-- Ready for Adventure CTA Section -->
+    <section class="relative bg-gradient-to-r from-romara-green/5 via-romara-amber/5 to-romara-green/5 py-12 overflow-hidden">
       <!-- Decorative shapes -->
       <div class="top-0 right-0 absolute bg-romara-amber/3 blur-3xl rounded-full w-96 h-96 pointer-events-none" />
       <div class="bottom-0 left-0 absolute bg-romara-green/3 blur-3xl rounded-full w-80 h-80 pointer-events-none" />
       
       <div class="z-10 relative romara-container">
-        <div class="flex sm:flex-row flex-col sm:justify-between sm:items-center gap-6 py-6">
-          <div class="flex items-center gap-4">
-            <span class="flex justify-center items-center bg-gradient-to-br from-romara-green to-romara-amber shadow-lg rounded-full w-14 h-14 text-white shrink-0">
-              <IconMail class="w-6 h-6" />
-            </span>
-            <div>
-              <p class="font-bold text-romara-green text-lg">Stay Updated</p>
-              <p class="mt-1 text-romara-ink/60 text-sm">Get the latest travel stories delivered to your inbox.</p>
-            </div>
+        <div class="flex sm:flex-row flex-col sm:justify-between sm:items-center gap-8 py-6">
+          <div class="flex-1">
+            <p class="font-bold text-romara-green text-lg">Inspired by This Story?</p>
+            <p class="mt-2 text-romara-ink/70 text-base leading-relaxed">Ready to experience the adventures you just read about? Explore our carefully curated safari packages and make your travel dreams a reality.</p>
           </div>
 
-          <NewsletterForm />
+          <div class="flex flex-col sm:flex-row gap-3 sm:shrink-0">
+            <BaseButton as="a" href="/safari-packages" variant="primary" size="md">Browse Packages</BaseButton>
+            <BaseButton as="a" href="/contact" variant="outline" size="md">Plan Your Trip</BaseButton>
+          </div>
         </div>
       </div>
     </section>
