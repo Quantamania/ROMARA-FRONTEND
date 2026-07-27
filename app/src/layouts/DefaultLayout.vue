@@ -9,12 +9,40 @@ import WhatsAppFloatButton from '@/components/layout/WhatsAppFloatButton.vue'
   <div class="flex min-h-screen flex-col">
     <TopContactBar />
     <NavBar />
+    <div class="h-20" />
 
     <main class="flex-1">
-      <router-view />
+      <router-view v-slot="{ Component }">
+        <transition name="page" mode="out-in">
+          <component :is="Component" :key="$route.fullPath" />
+        </transition>
+      </router-view>
     </main>
 
     <Footer />
     <WhatsAppFloatButton />
   </div>
 </template>
+
+<style scoped>
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+.page-enter-from {
+  opacity: 0;
+  transform: translateX(40px);
+}
+.page-enter-to {
+  opacity: 1;
+  transform: translateX(0);
+}
+.page-leave-from {
+  opacity: 1;
+  transform: translateX(0);
+}
+.page-leave-to {
+  opacity: 0;
+  transform: translateX(-40px);
+}
+</style>

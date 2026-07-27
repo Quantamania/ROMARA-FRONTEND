@@ -32,14 +32,20 @@ import BaseButton from '@/components/ui/BaseButton.vue'
           <p class="mt-4 text-white/90 text-lg leading-relaxed">
             ROMARA Tours & Travel was founded with a simple yet powerful vision: to connect people with the untamed beauty of Kenya through experiences that transform, inspire, and create lasting memories.
           </p>
-          <div class="flex flex-wrap gap-4 mt-8">
-            <div class="flex items-center gap-3 bg-white/20 px-4 py-2 rounded-full">
-              <div class="bg-romara-amber rounded-full w-3 h-3"></div>
-              <span class="font-medium text-white">Kenyan Owned</span>
+          <div class="flex items-center gap-6 mt-8">
+            <div class="text-center">
+              <div class="font-heading font-bold text-romara-amber text-4xl">10+</div>
+              <div class="mt-1 text-white/70 text-sm">Years Experience</div>
             </div>
-            <div class="flex items-center gap-3 bg-white/20 px-4 py-2 rounded-full">
-              <div class="bg-romara-amber rounded-full w-3 h-3"></div>
-              <span class="font-medium text-white">Local Experts</span>
+            <div class="bg-white/30 w-px h-12"></div>
+            <div class="text-center">
+              <div class="font-heading font-bold text-romara-amber text-4xl">5000+</div>
+              <div class="mt-1 text-white/70 text-sm">Happy Travelers</div>
+            </div>
+            <div class="bg-white/30 w-px h-12"></div>
+            <div class="text-center">
+              <div class="font-heading font-bold text-romara-amber text-4xl">50+</div>
+              <div class="mt-1 text-white/70 text-sm">Destinations</div>
             </div>
           </div>
         </div>

@@ -1,1 +1,43 @@
-<template><div>Payment info</div></template>
+<script setup lang="ts">
+import IconLock from '@/components/icons/IconLock.vue'
+import IconShield from '@/components/icons/IconShield.vue'
+
+const paymentMethods = ['Visa', 'Mastercard', 'M-Pesa', 'Bank Transfer']
+</script>
+
+<template>
+  <div class="gap-6 grid grid-cols-1 sm:grid-cols-3 bg-romara-green-dark/5 shadow-lg p-8 sm:p-10 border border-romara-green-dark/10 rounded-2xl">
+    <div class="flex items-start gap-4">
+      <div class="flex justify-center items-center bg-romara-green-dark shadow-lg rounded-xl w-12 h-12 text-white shrink-0">
+        <IconLock class="w-6 h-6" />
+      </div>
+      <div>
+        <p class="font-bold text-romara-green-dark text-sm">Secure Payments</p>
+        <p class="mt-1 text-romara-ink/60 text-xs leading-relaxed">Your payments are 100% secure with trusted partners.</p>
+      </div>
+    </div>
+
+    <div class="flex flex-col">
+      <p class="mb-3 font-bold text-romara-green-dark text-sm">We Accept</p>
+      <div class="flex flex-wrap gap-2">
+        <span
+          v-for="method in paymentMethods"
+          :key="method"
+          class="bg-white shadow-sm hover:shadow-md px-4 py-2 border-2 border-romara-green-dark/20 hover:border-romara-green-dark rounded-lg font-semibold text-romara-green-dark text-xs transition-all"
+        >
+          {{ method }}
+        </span>
+      </div>
+    </div>
+
+    <div class="flex items-start gap-4">
+      <div class="flex justify-center items-center bg-romara-green-dark shadow-lg rounded-xl w-12 h-12 text-white shrink-0">
+        <IconShield class="w-6 h-6" />
+      </div>
+      <div>
+        <p class="font-bold text-romara-green-dark text-sm">Best Price Guarantee</p>
+        <p class="mt-1 text-romara-ink/60 text-xs leading-relaxed">Get the best value for your safari and holiday.</p>
+      </div>
+    </div>
+  </div>
+</template>

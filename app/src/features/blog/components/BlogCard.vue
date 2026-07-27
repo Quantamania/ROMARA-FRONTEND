@@ -17,13 +17,14 @@ function formatDate(isoDate: string) {
 </script>
 
 <template>
-  <a :href="`/blog/${props.post.slug}`" class="block bg-white shadow-card rounded-lg overflow-hidden card-hover">
-    <img :src="props.post.image" :alt="props.post.title" class="w-full h-44 object-cover" loading="lazy" />
+  <a :href="`/blog/${props.post.slug}`" class="block relative rounded-lg overflow-hidden card-hover h-72">
+    <img :src="props.post.image" :alt="props.post.title" class="w-full h-full object-cover" loading="lazy" />
 
-    <div class="p-4">
-      <p class="font-medium text-romara-ink/50 text-xs">{{ formatDate(props.post.publishedAt) }}</p>
-      <h3 class="mt-1 font-heading font-bold text-romara-green text-base">{{ props.post.title }}</h3>
-      <p class="mt-2 text-romara-ink/70 text-sm">{{ props.post.excerpt }}</p>
+    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent"></div>
+
+    <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+      <h3 class="font-heading font-bold text-white text-lg">{{ props.post.title }}</h3>
+      <p class="mt-2 text-white/90 text-sm line-clamp-2">{{ props.post.excerpt }}</p>
     </div>
   </a>
 </template>

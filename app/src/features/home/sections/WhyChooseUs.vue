@@ -23,8 +23,8 @@ const whyChooseItems: WhyChooseItem[] = [
     <h2 class="text-xl font-bold text-romara-green">Why Choose Romara</h2>
     <span class="mt-2 block h-1 w-14 rounded bg-romara-amber" />
 
-    <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
-      <div v-for="item in whyChooseItems" :key="item.title">
+    <div class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-2">
+      <div v-for="item in whyChooseItems" :key="item.title" class="min-w-0">
         <component :is="item.icon" class="h-8 w-8 text-romara-amber" />
         <p class="mt-3 text-sm font-bold text-romara-green">{{ item.title }}</p>
         <p class="mt-1 text-xs leading-relaxed text-romara-ink/60">{{ item.description }}</p>
