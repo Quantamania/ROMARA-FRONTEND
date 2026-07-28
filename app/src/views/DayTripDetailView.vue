@@ -2,8 +2,6 @@
 import { computed, ref, watchEffect } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getDayTripBySlug } from '@/features/day-trips/api/dayTrips.api'
-import IconClock from '@/components/icons/IconClock.vue'
-import IconMapPin from '@/components/icons/IconMapPin.vue'
 import IconChevronRight from '@/components/icons/IconChevronRight.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import type { DayTrip } from '@/features/day-trips/types/dayTrip.types'
