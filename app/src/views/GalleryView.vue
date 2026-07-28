@@ -113,7 +113,7 @@ function showNextImage() {
   <!-- CTA: photo-backed banner, per the brief's "striking lion image" -->
   <section v-scroll-reveal-right class="relative pt-14">
     <img
-      src="/src/assets/images/gallery/lion.jpeg"
+      src="https://res.cloudinary.com/ry9vpche/image/upload/v1785232064/lion.jpeg"
       alt="Lion at sunset"
       class="absolute inset-0 w-full h-full object-cover"
     />

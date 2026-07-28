@@ -281,8 +281,8 @@ function bookAnotherTransfer() {
     </div>
 
     <!-- Sticky summary -->
-    <aside class="lg:sticky lg:top-24">
-      <div class="overflow-hidden rounded-2xl bg-white shadow-card">
+    <aside class="lg:self-start">
+      <div class="lg:h-fit overflow-hidden rounded-2xl bg-white shadow-card" style="position: sticky; top: 6rem;">
         <div class="flex items-center gap-3 bg-romara-green px-6 py-5 text-white">
           <IconSuitcase class="h-5 w-5 text-romara-amber" />
           <h2 class="text-sm font-bold uppercase tracking-wide">Booking Summary</h2>

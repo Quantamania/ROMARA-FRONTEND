@@ -59,10 +59,6 @@ const whyChooseItems: WhyChooseItem[] = [
         </p>
 
         <div class="flex flex-wrap gap-3 mt-8">
-          <BaseButton as="a" href="/book-now" variant="primary" size="lg">
-            Explore Day Trips
-            <IconChevronRight class="w-4 h-4" />
-          </BaseButton>
           <BaseButton as="a" href="/contact" variant="outline" size="lg">
             Request a Quote
             <IconChevronRight class="w-4 h-4" />
