@@ -20,10 +20,10 @@ import BlogPreview from '@/features/home/sections/BlogPreview.vue'
     <FeaturedPackages />
   </div>
 
-  <section v-scroll-reveal class="bg-white py-16">
-    <div class="romara-container grid grid-cols-1 gap-10 lg:grid-cols-2">
-      <TestimonialsPreview />
+  <section v-scroll-reveal class="section-y bg-romara-sand">
+    <div class="romara-container grid grid-cols-1 items-stretch gap-8 lg:grid-cols-2 lg:gap-12">
       <WhyChooseUs />
+      <TestimonialsPreview />
     </div>
   </section>
 

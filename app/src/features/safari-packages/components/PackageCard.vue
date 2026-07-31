@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import IconClock from '@/components/icons/IconClock.vue'
 import IconMapPin from '@/components/icons/IconMapPin.vue'
-import IconChevronRight from '@/components/icons/IconChevronRight.vue'
+import IconArrowRight from '@/components/icons/IconArrowRight.vue'
 import type { SafariPackage } from '@/types/package.types'
 
 interface Props {
@@ -16,43 +16,65 @@ function formatPrice(amount: number) {
 </script>
 
 <template>
-  <article class="relative bg-white shadow-card rounded-lg overflow-hidden card-hover">
-    <span
-      v-if="props.package.badge"
-      class="top-3 left-3 z-10 absolute bg-romara-amber px-2.5 py-1 rounded font-bold text-[10px] text-white uppercase tracking-wide"
-    >
-      {{ props.package.badge }}
-    </span>
+  <article
+    class="group relative flex flex-col overflow-hidden rounded-card bg-white shadow-card transition-all duration-500 ease-out-expo hover:-translate-y-1.5 hover:shadow-elevated"
+  >
+    <!-- Image -->
+    <div class="relative h-52 overflow-hidden">
+      <img
+        :src="props.package.image"
+        :alt="props.package.name"
+        loading="lazy"
+        class="h-full w-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-105"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-black/5 to-transparent" />
 
-    <img :src="props.package.image" :alt="props.package.name" class="w-full h-44 object-cover" loading="lazy" />
+      <span
+        v-if="props.package.badge"
+        class="absolute left-3 top-3 inline-flex items-center rounded-full bg-romara-amber px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-white shadow-soft"
+      >
+        {{ props.package.badge }}
+      </span>
 
-    <div class="p-4">
-      <h3 class="font-heading font-bold text-romara-green text-base">{{ props.package.name }}</h3>
-
-      <div class="flex items-center gap-4 mt-2 text-romara-ink/60 text-xs">
-        <span class="flex items-center gap-1">
-          <IconClock class="w-3.5 h-3.5" />
+      <!-- Meta chips over image -->
+      <div class="absolute inset-x-3 bottom-3 flex items-center gap-2 text-[11px] font-semibold text-white">
+        <span class="glass inline-flex items-center gap-1.5 rounded-full px-2.5 py-1">
+          <IconClock class="h-3.5 w-3.5" />
           {{ props.package.durationDays }} Days
         </span>
-        <span class="flex items-center gap-1">
-          <IconMapPin class="w-3.5 h-3.5" />
+        <span class="glass inline-flex items-center gap-1.5 rounded-full px-2.5 py-1">
+          <IconMapPin class="h-3.5 w-3.5" />
           {{ props.package.location }}
         </span>
       </div>
+    </div>
 
-      <p class="mt-2 text-romara-ink/70 text-sm">{{ props.package.description }}</p>
+    <!-- Body -->
+    <div class="flex flex-1 flex-col p-5">
+      <h3 class="font-heading text-lg font-semibold leading-snug text-romara-green">
+        {{ props.package.name }}
+      </h3>
 
-      <p class="mt-3 text-romara-ink/60 text-sm">
-        From <span class="font-bold text-romara-amber text-base">KES {{ formatPrice(props.package.priceFromKES) }}</span>
+      <p class="mt-2 line-clamp-2 text-sm leading-relaxed text-romara-ink/70">
+        {{ props.package.description }}
       </p>
 
-      <a
-        :href="`/safari-packages/${props.package.slug}`"
-        class="flex justify-center items-center gap-1 bg-romara-green hover:bg-romara-green/90 mt-4 py-2.5 rounded-md w-full font-semibold text-white text-xs uppercase tracking-wide"
-      >
-        View Package
-        <IconChevronRight class="w-3.5 h-3.5" />
-      </a>
+      <div class="mt-4 flex items-end justify-between border-t border-romara-green/10 pt-4">
+        <div>
+          <p class="text-[11px] font-medium uppercase tracking-[0.12em] text-romara-ink/50">From</p>
+          <p class="font-heading text-xl font-semibold text-romara-amber">
+            KES {{ formatPrice(props.package.priceFromKES) }}
+          </p>
+        </div>
+
+        <a
+          :href="`/safari-packages/${props.package.slug}`"
+          class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-romara-green text-white transition-all duration-300 ease-out-expo group-hover:bg-romara-amber"
+          :aria-label="`View ${props.package.name}`"
+        >
+          <IconArrowRight class="h-4 w-4" />
+        </a>
+      </div>
     </div>
   </article>
 </template>

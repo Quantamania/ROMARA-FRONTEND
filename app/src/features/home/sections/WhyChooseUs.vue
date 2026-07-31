@@ -20,14 +20,28 @@ const whyChooseItems: WhyChooseItem[] = [
 
 <template>
   <div>
-    <h2 class="text-xl font-bold text-romara-green">Why Choose Romara</h2>
-    <span class="mt-2 block h-1 w-14 rounded bg-romara-amber" />
+    <p class="eyebrow mb-3">
+      <span class="h-px w-6 bg-romara-amber" />
+      Why ROMARA
+    </p>
+    <h2 class="font-heading text-display-sm font-semibold text-romara-green">
+      Travel with people who know Kenya
+    </h2>
+    <span class="accent-rule mt-4" />
 
-    <div class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-2">
-      <div v-for="item in whyChooseItems" :key="item.title" class="min-w-0">
-        <component :is="item.icon" class="h-8 w-8 text-romara-amber" />
-        <p class="mt-3 text-sm font-bold text-romara-green">{{ item.title }}</p>
-        <p class="mt-1 text-xs leading-relaxed text-romara-ink/60">{{ item.description }}</p>
+    <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div
+        v-for="item in whyChooseItems"
+        :key="item.title"
+        class="group flex items-start gap-4 rounded-2xl border border-romara-green/10 bg-white p-5 transition-all duration-300 ease-out-expo hover:-translate-y-1 hover:border-romara-amber/40 hover:shadow-soft"
+      >
+        <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-romara-green text-romara-amber transition-colors duration-300 group-hover:bg-romara-amber group-hover:text-white">
+          <component :is="item.icon" class="h-6 w-6" />
+        </span>
+        <div class="min-w-0">
+          <p class="text-sm font-bold text-romara-green">{{ item.title }}</p>
+          <p class="mt-1 text-xs leading-relaxed text-romara-ink/60">{{ item.description }}</p>
+        </div>
       </div>
     </div>
   </div>

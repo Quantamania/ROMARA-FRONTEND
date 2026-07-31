@@ -8,15 +8,28 @@ const latestPosts = (blogPostsData as BlogPost[]).slice(0, 3)
 </script>
 
 <template>
-  <section class="romara-container py-16">
-    <SectionHeading title="Latest From Our Travel Blog" link-text="View All Articles" link-href="/blog" />
+  <section class="section-y bg-white">
+    <div class="romara-container">
+      <SectionHeading
+        eyebrow="Field Notes"
+        title="Latest from our travel blog"
+        description="Tips, guides and inspiration to help you plan the perfect Kenyan adventure."
+        link-text="View All Articles"
+        link-href="/blog"
+      />
 
-    <p v-if="latestPosts.length === 0" class="text-sm text-romara-ink/60">
-      Blog articles are coming soon.
-    </p>
+      <p v-if="latestPosts.length === 0" class="text-sm text-romara-ink/60">
+        Blog articles are coming soon.
+      </p>
 
-    <div v-else class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
-      <BlogCard v-for="post in latestPosts" :key="post.id" :post="post" />
+      <div v-else class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <BlogCard
+          v-for="(post, index) in latestPosts"
+          :key="post.id"
+          :post="post"
+          v-scroll-reveal="{ delay: index * 90 }"
+        />
+      </div>
     </div>
   </section>
 </template>

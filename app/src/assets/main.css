@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Merriweather:wght@700;900&family=Inter:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -56,6 +56,46 @@
     display: inline-block;
     transform-origin: left center;
     white-space: nowrap;
+  }
+
+  /* ---- Editorial design-system helpers -------------------------------- */
+
+  /* Small gold uppercase kicker that sits above section/hero titles. */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 font-sans text-eyebrow font-bold uppercase text-romara-amber;
+  }
+
+  /* The short gold rule used under headings across the site. */
+  .accent-rule {
+    @apply block h-1 w-14 rounded-full bg-romara-amber;
+  }
+
+  /* Consistent vertical rhythm for full-width sections. */
+  .section-y {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+
+  /* Frosted-glass surface for chips/controls sitting over imagery. */
+  .glass {
+    @apply border border-white/20 bg-white/10 backdrop-blur-md;
+  }
+
+  /* Prevents ragged single words on large display headings. */
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer utilities {
+  /* Gentle, slow zoom for hero/background imagery. Respects reduced motion. */
+  .ken-burns {
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ken-burns {
+    animation: kenburns 20s ease-out both;
   }
 }
 @media (prefers-reduced-motion: no-preference) {
