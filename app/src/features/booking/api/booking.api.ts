@@ -1,4 +1,5 @@
 import type { BookingRequest, BookingService, LengthOfStay, TravelType } from '@/features/booking/types/booking.types'
+import { supabase } from '@/shared/api/supabaseClient'
 
 export const serviceOptions: { value: BookingService; label: string }[] = [
   { value: 'wildlife-safari', label: 'Wildlife Safari' },
@@ -54,19 +55,27 @@ export const lengthOfStayOptions: { value: LengthOfStay; label: string }[] = [
   { value: '7plus', label: 'More than 7 Days' },
 ]
 
-/**
- * Submits a booking request.
- * No backend endpoint exists yet — this stub resolves after a short delay so
- * the wizard's loading/success states can be built and tested now. Swap the
- * body for a real POST /api/v1/bookings call once the backend is ready,
- * following the same pattern as
- * features/airport-transfers/api/transfers.api.ts.
- */
 export async function submitBookingRequest(request: BookingRequest): Promise<{ success: boolean }> {
-  return new Promise(function resolveAfterDelay(resolve) {
-    window.setTimeout(function markSubmitted() {
-      console.info('Booking request submitted (mock):', request)
-      resolve({ success: true })
-    }, 700)
+  const { error } = await supabase.from('booking_requests').insert({
+    service: request.tripDetails.service,
+    travel_type: request.tripDetails.travelType,
+    destination: request.tripDetails.destination,
+    travel_date: request.tripDetails.travelDate || null,
+    adults: request.tripDetails.adults,
+    children: request.tripDetails.children,
+    length_of_stay: request.tripDetails.lengthOfStay,
+    special_requests: request.tripDetails.specialRequests,
+    full_name: request.yourDetails.fullName,
+    email: request.yourDetails.email,
+    phone: request.yourDetails.phone,
+    country: request.yourDetails.country,
+    preferred_accommodation: request.additionalInfo.preferredAccommodation || null,
+    dietary_requirements: request.additionalInfo.dietaryRequirements,
+    airport_pickup_required: request.additionalInfo.airportPickupRequired,
+    celebrating_occasion: request.additionalInfo.celebratingOccasion,
+    accessibility_requirements: request.additionalInfo.accessibilityRequirements,
   })
+
+  if (error) throw error
+  return { success: true }
 }

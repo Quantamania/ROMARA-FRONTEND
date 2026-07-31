@@ -26,11 +26,11 @@ defineEmits<{ rowClick: [row: Record<string, any>] }>()
     <!-- Desktop / tablet table -->
     <table class="hidden sm:table w-full border-collapse text-sm">
       <thead>
-        <tr class="border-b border-sand-300 text-left">
+        <tr class="border-b border-romara-ink/10 text-left">
           <th
             v-for="col in columns"
             :key="col.key"
-            class="py-3 px-4 font-sans font-semibold text-ink-light uppercase tracking-wide text-xs"
+            class="py-3 px-4 font-sans font-semibold text-romara-ink/60 uppercase tracking-wide text-xs"
           >
             {{ col.label }}
           </th>
@@ -40,15 +40,15 @@ defineEmits<{ rowClick: [row: Record<string, any>] }>()
         <tr
           v-for="(row, i) in rows"
           :key="i"
-          class="border-b border-sand-200 hover:bg-sand-50 cursor-pointer transition-colors"
+          class="border-b border-romara-ink/10 hover:bg-romara-cream cursor-pointer transition-colors"
           @click="$emit('rowClick', row)"
         >
-          <td v-for="col in columns" :key="col.key" class="py-3 px-4 text-ink">
+          <td v-for="col in columns" :key="col.key" class="py-3 px-4 text-romara-ink">
             <slot :name="`cell-${col.key}`" :row="row">{{ row[col.key] }}</slot>
           </td>
         </tr>
         <tr v-if="rows.length === 0">
-          <td :colspan="columns.length" class="py-8 text-center text-ink-light">
+          <td :colspan="columns.length" class="py-8 text-center text-romara-ink/60">
             {{ emptyLabel || 'Nothing here yet.' }}
           </td>
         </tr>
@@ -60,10 +60,10 @@ defineEmits<{ rowClick: [row: Record<string, any>] }>()
       <button
         v-for="(row, i) in rows"
         :key="i"
-        class="w-full text-left bg-white border border-sand-300 rounded-lg p-4 active:bg-sand-50"
+        class="w-full text-left bg-white border border-romara-ink/10 rounded-lg p-4 active:bg-romara-cream"
         @click="$emit('rowClick', row)"
       >
-        <p class="font-display text-lg text-ink mb-2">
+        <p class="font-heading text-lg text-romara-ink mb-2">
           {{ row[columns.find(c => c.primary)?.key || columns[0].key] }}
         </p>
         <dl class="space-y-1">
@@ -72,14 +72,14 @@ defineEmits<{ rowClick: [row: Record<string, any>] }>()
             :key="col.key"
             class="flex justify-between text-sm"
           >
-            <dt class="text-ink-light">{{ col.label }}</dt>
-            <dd class="text-ink">
+            <dt class="text-romara-ink/60">{{ col.label }}</dt>
+            <dd class="text-romara-ink">
               <slot :name="`cell-${col.key}`" :row="row">{{ row[col.key] }}</slot>
             </dd>
           </div>
         </dl>
       </button>
-      <p v-if="rows.length === 0" class="text-center text-ink-light py-8">
+      <p v-if="rows.length === 0" class="text-center text-romara-ink/60 py-8">
         {{ emptyLabel || 'Nothing here yet.' }}
       </p>
     </div>

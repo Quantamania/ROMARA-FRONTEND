@@ -32,9 +32,9 @@ async function setStatus(status: string) {
 
 <template>
   <div>
-    <h1 class="font-display text-3xl text-ink mb-6">Enquiries</h1>
+    <h1 class="font-heading text-3xl text-romara-ink mb-6">Enquiries</h1>
 
-    <div class="bg-white border border-sand-300 rounded-xl overflow-hidden">
+    <div class="bg-white border border-romara-ink/10 rounded-xl overflow-hidden">
       <DataTable :columns="columns" :rows="items" empty-label="No enquiries yet." @row-click="openRow">
         <template #cell-status="{ row }"><StatusStamp :status="row.status" /></template>
       </DataTable>
@@ -43,31 +43,31 @@ async function setStatus(status: string) {
     <SlideOver :open="drawerOpen" title="Enquiry" @close="drawerOpen = false">
       <div v-if="active" class="space-y-4">
         <div>
-          <p class="text-xs text-ink-light uppercase tracking-wide">From</p>
-          <p class="text-ink font-medium">{{ active.name }}</p>
+          <p class="text-xs text-romara-ink/60 uppercase tracking-wide">From</p>
+          <p class="text-romara-ink font-medium">{{ active.name }}</p>
         </div>
         <div v-if="active.email">
-          <p class="text-xs text-ink-light uppercase tracking-wide">Email</p>
-          <a :href="`mailto:${active.email}`" class="text-terracotta hover:underline">{{ active.email }}</a>
+          <p class="text-xs text-romara-ink/60 uppercase tracking-wide">Email</p>
+          <a :href="`mailto:${active.email}`" class="text-romara-amber hover:underline">{{ active.email }}</a>
         </div>
         <div v-if="active.phone">
-          <p class="text-xs text-ink-light uppercase tracking-wide">Phone</p>
-          <a :href="`tel:${active.phone}`" class="text-terracotta hover:underline">{{ active.phone }}</a>
+          <p class="text-xs text-romara-ink/60 uppercase tracking-wide">Phone</p>
+          <a :href="`tel:${active.phone}`" class="text-romara-amber hover:underline">{{ active.phone }}</a>
         </div>
         <div>
-          <p class="text-xs text-ink-light uppercase tracking-wide">Message</p>
-          <p class="text-ink whitespace-pre-wrap">{{ active.message }}</p>
+          <p class="text-xs text-romara-ink/60 uppercase tracking-wide">Message</p>
+          <p class="text-romara-ink whitespace-pre-wrap">{{ active.message }}</p>
         </div>
-        <div class="pt-3 border-t border-sand-200 flex gap-2">
+        <div class="pt-3 border-t border-romara-ink/10 flex gap-2">
           <button
-            class="flex-1 bg-safari-green text-white text-sm font-medium rounded-lg py-2.5 disabled:opacity-50"
+            class="flex-1 bg-romara-green text-white text-sm font-medium rounded-lg py-2.5 disabled:opacity-50"
             :disabled="active.status === 'responded'"
             @click="setStatus('responded')"
           >
             Mark responded
           </button>
           <button
-            class="flex-1 bg-sand-100 border border-sand-300 text-ink text-sm font-medium rounded-lg py-2.5 disabled:opacity-50"
+            class="flex-1 bg-romara-cream border border-romara-ink/10 text-romara-ink text-sm font-medium rounded-lg py-2.5 disabled:opacity-50"
             :disabled="active.status === 'closed'"
             @click="setStatus('closed')"
           >

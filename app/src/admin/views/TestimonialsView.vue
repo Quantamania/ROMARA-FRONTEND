@@ -50,16 +50,16 @@ async function remove() {
 <template>
   <div>
     <div class="flex items-center justify-between mb-6">
-      <h1 class="font-display text-3xl text-ink">Testimonials</h1>
+      <h1 class="font-heading text-3xl text-romara-ink">Testimonials</h1>
       <button
-        class="bg-terracotta hover:bg-terracotta-dark text-white text-sm font-medium rounded-lg px-4 py-2.5 transition-colors"
+        class="bg-romara-amber hover:bg-romara-amber text-white text-sm font-medium rounded-lg px-4 py-2.5 transition-colors"
         @click="openNew"
       >
         + Add testimonial
       </button>
     </div>
 
-    <div class="bg-white border border-sand-300 rounded-xl overflow-hidden">
+    <div class="bg-white border border-romara-ink/10 rounded-xl overflow-hidden">
       <DataTable :columns="columns" :rows="items" empty-label="No testimonials yet." @row-click="openRow">
         <template #cell-rating="{ row }">{{ '★'.repeat(row.rating) }}</template>
         <template #cell-approved="{ row }"><StatusStamp :status="row.approved ? 'approved' : 'pending'" /></template>
@@ -69,27 +69,27 @@ async function remove() {
     <SlideOver :open="drawerOpen" :title="active?.id ? 'Edit testimonial' : 'New testimonial'" @close="drawerOpen = false">
       <form v-if="active" class="space-y-4" @submit.prevent="save">
         <div>
-          <label class="block text-sm font-medium text-ink mb-1.5">Customer name</label>
-          <input v-model="active.customer_name" required class="w-full rounded-lg border border-sand-300 px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-terracotta" />
+          <label class="block text-sm font-medium text-romara-ink mb-1.5">Customer name</label>
+          <input v-model="active.customer_name" required class="w-full rounded-lg border border-romara-ink/10 px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-romara-amber" />
         </div>
         <div>
-          <label class="block text-sm font-medium text-ink mb-1.5">Quote</label>
-          <textarea v-model="active.quote" rows="4" required class="w-full rounded-lg border border-sand-300 px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-terracotta" />
+          <label class="block text-sm font-medium text-romara-ink mb-1.5">Quote</label>
+          <textarea v-model="active.quote" rows="4" required class="w-full rounded-lg border border-romara-ink/10 px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-romara-amber" />
         </div>
         <div>
-          <label class="block text-sm font-medium text-ink mb-1.5">Rating</label>
-          <select v-model.number="active.rating" class="w-full rounded-lg border border-sand-300 px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-terracotta">
+          <label class="block text-sm font-medium text-romara-ink mb-1.5">Rating</label>
+          <select v-model.number="active.rating" class="w-full rounded-lg border border-romara-ink/10 px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-romara-amber">
             <option v-for="n in 5" :key="n" :value="n">{{ n }} star{{ n > 1 ? 's' : '' }}</option>
           </select>
         </div>
         <label class="flex items-center gap-2.5">
-          <input v-model="active.approved" type="checkbox" class="w-4 h-4 rounded border-sand-300 text-terracotta focus:ring-terracotta" />
-          <span class="text-sm text-ink">Approved (visible on live site)</span>
+          <input v-model="active.approved" type="checkbox" class="w-4 h-4 rounded border-romara-ink/10 text-romara-amber focus:ring-romara-amber" />
+          <span class="text-sm text-romara-ink">Approved (visible on live site)</span>
         </label>
         <div class="flex items-center justify-between pt-2">
-          <button v-if="active.id" type="button" class="text-terracotta-dark text-sm font-medium hover:underline" @click="remove">Delete</button>
+          <button v-if="active.id" type="button" class="text-romara-amber text-sm font-medium hover:underline" @click="remove">Delete</button>
           <div v-else />
-          <button type="submit" class="bg-terracotta hover:bg-terracotta-dark text-white font-medium rounded-lg px-5 py-2.5">Save</button>
+          <button type="submit" class="bg-romara-amber hover:bg-romara-amber text-white font-medium rounded-lg px-5 py-2.5">Save</button>
         </div>
       </form>
     </SlideOver>

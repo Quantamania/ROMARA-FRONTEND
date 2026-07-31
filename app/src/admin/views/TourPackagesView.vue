@@ -33,16 +33,16 @@ function openTour(row: any) {
 <template>
   <div>
     <div class="flex items-center justify-between mb-6">
-      <h1 class="font-display text-3xl text-ink">Tour Packages</h1>
+      <h1 class="font-heading text-3xl text-romara-ink">Tour Packages</h1>
       <RouterLink
         to="/admin/tours/new"
-        class="bg-terracotta hover:bg-terracotta-dark text-white text-sm font-medium rounded-lg px-4 py-2.5 transition-colors"
+        class="bg-romara-amber hover:bg-romara-amber text-white text-sm font-medium rounded-lg px-4 py-2.5 transition-colors"
       >
         + Add tour
       </RouterLink>
     </div>
 
-    <div class="bg-white border border-sand-300 rounded-xl overflow-hidden">
+    <div class="bg-white border border-romara-ink/10 rounded-xl overflow-hidden">
       <DataTable
         :columns="columns"
         :rows="tours"
