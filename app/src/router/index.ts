@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
 import HomeView from '@/views/HomeView.vue'
+import { adminRoutes, adminAuthGuard } from '@/admin/router/adminRoutes'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -29,7 +30,17 @@ const router = createRouter({
         { path: 'book-now', redirect: '/booking' },
       ],
     },
+    ...adminRoutes,
   ],
+})
+
+router.beforeEach(async (to, _from, next) => {
+  const result = await adminAuthGuard(to)
+  if (result === true) {
+    next()
+  } else {
+    next(result)
+  }
 })
 
 export default router
