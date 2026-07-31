@@ -10,13 +10,14 @@ const drawerOpen = ref(false)
 const active = ref<any>(null)
 
 const columns = [
-  { key: 'name', label: 'From', primary: true },
-  { key: 'phone', label: 'Phone' },
+  { key: 'full_name', label: 'From', primary: true },
+  { key: 'destination', label: 'Destination' },
+  { key: 'travel_date', label: 'Travel date' },
   { key: 'status', label: 'Status' },
 ]
 
 async function load() {
-  const { data } = await supabase.from('enquiries').select('*').order('created_at', { ascending: false })
+  const { data } = await supabase.from('booking_requests').select('*').order('created_at', { ascending: false })
   items.value = data || []
 }
 onMounted(load)
@@ -24,7 +25,7 @@ onMounted(load)
 function openRow(row: any) { active.value = { ...row }; drawerOpen.value = true }
 
 async function setStatus(status: string) {
-  await supabase.from('enquiries').update({ status }).eq('id', active.value.id)
+  await supabase.from('booking_requests').update({ status }).eq('id', active.value.id)
   active.value.status = status
   load()
 }
@@ -32,39 +33,43 @@ async function setStatus(status: string) {
 
 <template>
   <div>
-    <h1 class="font-heading text-3xl text-romara-ink mb-6">Enquiries</h1>
+    <h1 class="font-heading text-3xl text-romara-ink mb-6">Booking Requests</h1>
 
     <div class="bg-white border border-romara-ink/10 rounded-xl overflow-hidden">
-      <DataTable :columns="columns" :rows="items" empty-label="No enquiries yet." @row-click="openRow">
+      <DataTable :columns="columns" :rows="items" empty-label="No booking requests yet." @row-click="openRow">
         <template #cell-status="{ row }"><StatusStamp :status="row.status" /></template>
       </DataTable>
     </div>
 
-    <SlideOver :open="drawerOpen" title="Enquiry" @close="drawerOpen = false">
+    <SlideOver :open="drawerOpen" title="Booking Request" @close="drawerOpen = false">
       <div v-if="active" class="space-y-4">
         <div>
           <p class="text-xs text-romara-ink/60 uppercase tracking-wide">From</p>
-          <p class="text-romara-ink font-medium">{{ active.name }}</p>
+          <p class="text-romara-ink font-medium">{{ active.full_name }}</p>
         </div>
-        <div v-if="active.email">
-          <p class="text-xs text-romara-ink/60 uppercase tracking-wide">Email</p>
-          <a :href="`mailto:${active.email}`" class="text-romara-amber hover:underline">{{ active.email }}</a>
-        </div>
-        <div v-if="active.phone">
-          <p class="text-xs text-romara-ink/60 uppercase tracking-wide">Phone</p>
+        <div>
+          <p class="text-xs text-romara-ink/60 uppercase tracking-wide">Contact</p>
+          <a :href="`mailto:${active.email}`" class="text-romara-amber hover:underline block">{{ active.email }}</a>
           <a :href="`tel:${active.phone}`" class="text-romara-amber hover:underline">{{ active.phone }}</a>
         </div>
         <div>
-          <p class="text-xs text-romara-ink/60 uppercase tracking-wide">Message</p>
-          <p class="text-romara-ink whitespace-pre-wrap">{{ active.message }}</p>
+          <p class="text-xs text-romara-ink/60 uppercase tracking-wide">Trip</p>
+          <p class="text-romara-ink">{{ active.service }} — {{ active.travel_type }}</p>
+          <p class="text-romara-ink">{{ active.destination }}</p>
+          <p class="text-romara-ink">{{ active.travel_date }} · {{ active.length_of_stay }}</p>
+          <p class="text-romara-ink">{{ active.adults }} adults, {{ active.children }} children</p>
+        </div>
+        <div v-if="active.special_requests">
+          <p class="text-xs text-romara-ink/60 uppercase tracking-wide">Special requests</p>
+          <p class="text-romara-ink whitespace-pre-wrap">{{ active.special_requests }}</p>
         </div>
         <div class="pt-3 border-t border-romara-ink/10 flex gap-2">
           <button
             class="flex-1 bg-romara-green text-white text-sm font-medium rounded-lg py-2.5 disabled:opacity-50"
-            :disabled="active.status === 'responded'"
-            @click="setStatus('responded')"
+            :disabled="active.status === 'contacted'"
+            @click="setStatus('contacted')"
           >
-            Mark responded
+            Mark contacted
           </button>
           <button
             class="flex-1 bg-romara-cream border border-romara-ink/10 text-romara-ink text-sm font-medium rounded-lg py-2.5 disabled:opacity-50"

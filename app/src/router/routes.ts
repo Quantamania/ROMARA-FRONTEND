@@ -1,5 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router'
-
+import { adminRoutes } from '@/admin/router/adminRoutes'
 export const routes: RouteRecordRaw[] = [
   { path: '/', name: 'Home', component: () => import('../views/HomeView.vue') },
   { path: '/about', name: 'About', component: () => import('../views/AboutView.vue') },
@@ -16,5 +16,6 @@ export const routes: RouteRecordRaw[] = [
   { path: '/blog/:slug', name: 'BlogPost', component: () => import('../views/BlogPostView.vue') },
   { path: '/contact', name: 'Contact', component: () => import('../views/ContactView.vue') },
   { path: '/booking', name: 'Booking', component: () => import('../views/BookingView.vue') },
+  ...adminRoutes,
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: () => import('../views/HomeView.vue') },
 ]

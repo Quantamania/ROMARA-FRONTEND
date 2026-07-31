@@ -5,6 +5,12 @@ import MissionValues from '@/features/about/sections/MissionValues.vue'
 import WhoWeAre from '@/features/about/sections/WhoWeAre.vue'
 import StatsBanner from '@/features/about/sections/StatsBanner.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
+
+const channels = [
+  { label: 'Call us', value: '+254 700 000 000', href: 'tel:+254700000000' },
+  { label: 'WhatsApp', value: 'Chat with an expert', href: 'https://wa.me/254700000000' },
+  { label: 'Email', value: 'hello@romaratravel.com', href: 'mailto:hello@romaratravel.com' },
+]
 </script>
 
 <template>
@@ -13,41 +19,59 @@ import BaseButton from '@/components/ui/BaseButton.vue'
     <AboutHero />
   </div>
 
-  <!-- Unique diagonal split section with parallax -->
-  <section class="relative min-h-[600px] overflow-hidden" style="background-image: url('/src/assets/images/about/cheetah1.jpeg'); background-attachment: fixed; background-position: center; background-size: cover;">
-    <div class="absolute inset-0 bg-romara-green/70"></div>
-    <div class="relative py-20 romara-container">
-      <div class="items-center gap-8 grid grid-cols-1 lg:grid-cols-12">
-        <!-- Decorative number -->
-        <div class="lg:col-span-2">
-          <div class="font-heading font-bold text-white/10 text-9xl">01</div>
-        </div>
-        
-        <!-- Content -->
-        <div class="lg:col-span-10">
-          <h2 class="font-heading font-bold text-white text-4xl sm:text-5xl">
-            Born from
-            <span class="text-romara-amber">Passion</span>
-          </h2>
-          <p class="mt-4 text-white/90 text-lg leading-relaxed">
-            ROMARA Tours & Travel was founded with a simple yet powerful vision: to connect people with the untamed beauty of Kenya through experiences that transform, inspire, and create lasting memories.
-          </p>
-          <div class="flex items-center gap-6 mt-8">
-            <div class="text-center">
-              <div class="font-heading font-bold text-romara-amber text-4xl">10+</div>
-              <div class="mt-1 text-white/70 text-sm">Years Experience</div>
-            </div>
-            <div class="bg-white/30 w-px h-12"></div>
-            <div class="text-center">
-              <div class="font-heading font-bold text-romara-amber text-4xl">5000+</div>
-              <div class="mt-1 text-white/70 text-sm">Happy Travelers</div>
-            </div>
-            <div class="bg-white/30 w-px h-12"></div>
-            <div class="text-center">
-              <div class="font-heading font-bold text-romara-amber text-4xl">50+</div>
-              <div class="mt-1 text-white/70 text-sm">Destinations</div>
-            </div>
+  <!--
+    Section 01 — Origin.
+    Signature device: instead of decorative "01" numerals (which don't
+    encode a real sequence here), each custom section is tagged with the
+    actual coordinates of the place the copy is talking about — a waypoint
+    log, the way you'd annotate a trip. Nairobi here, since that's where
+    ROMARA started.
+  -->
+  <section
+    class="relative min-h-[640px] overflow-hidden"
+    style="background-image: url('/src/assets/images/about/cheetah1.jpeg'); background-attachment: fixed; background-position: center; background-size: cover;"
+  >
+    <div class="absolute inset-0 bg-romara-green/80"></div>
+
+    <div class="relative py-24 md:py-32 romara-container">
+      <div class="gap-x-12 gap-y-16 grid grid-cols-1 lg:grid-cols-12">
+        <!-- Story, offset left -->
+        <div class="lg:col-span-7">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="bg-romara-amber rounded-full w-1.5 h-1.5" aria-hidden="true"></span>
+            <span class="font-mono text-white/60 text-xs tracking-[0.2em] uppercase">
+              01°17&#39;S 36°49&#39;E — Nairobi, where it began
+            </span>
           </div>
+
+          <h2 class="font-heading font-bold text-white text-4xl sm:text-5xl lg:text-6xl leading-[1.05]">
+            Born from
+            <span class="block text-romara-amber">passion.</span>
+          </h2>
+
+          <p class="mt-6 max-w-lg text-white/85 text-lg leading-relaxed">
+            ROMARA Tours &amp; Travel was founded with a simple yet powerful vision: to connect
+            people with the untamed beauty of Kenya through experiences that transform, inspire,
+            and create lasting memories.
+          </p>
+        </div>
+
+        <!-- Stat ledger, offset right, stacked as a manifest rather than a horizontal row -->
+        <div class="lg:col-span-4 lg:col-start-9 self-end">
+          <dl class="divide-y divide-white/15 border-white/20 border-t">
+            <div class="flex justify-between items-baseline py-4">
+              <dt class="text-white/60 text-sm">Years of experience</dt>
+              <dd class="font-heading font-bold text-romara-amber text-3xl">10+</dd>
+            </div>
+            <div class="flex justify-between items-baseline py-4">
+              <dt class="text-white/60 text-sm">Happy travelers</dt>
+              <dd class="font-heading font-bold text-romara-amber text-3xl">5000+</dd>
+            </div>
+            <div class="flex justify-between items-baseline py-4">
+              <dt class="text-white/60 text-sm">Destinations covered</dt>
+              <dd class="font-heading font-bold text-romara-amber text-3xl">50+</dd>
+            </div>
+          </dl>
         </div>
       </div>
     </div>
@@ -82,48 +106,61 @@ import BaseButton from '@/components/ui/BaseButton.vue'
     <StatsBanner />
   </div>
 
-  <!-- Creative CTA with card design -->
-  <section class="relative bg-romara-green-dark py-24 overflow-hidden">
-    <!-- Abstract decorative elements -->
-    <div class="top-0 right-0 absolute bg-romara-green/10 blur-3xl rounded-full w-96 h-96 -translate-y-1/2 translate-x-1/2"></div>
-    <div class="bottom-0 left-0 absolute bg-romara-amber/10 blur-3xl rounded-full w-80 h-80 -translate-x-1/2 translate-y-1/2"></div>
+  <!--
+    Closing CTA — immersive full-bleed image with a centered headline,
+    plus a floating action bar (call / WhatsApp / email) that straddles
+    the section boundary so the next step is right where the eye lands.
+    Waypoint tag still spans the geography the copy covers (Mara to coast).
+  -->
+  <section class="relative isolate overflow-hidden bg-romara-green-dark pb-28 pt-28 text-white sm:pb-32 md:pt-36">
+    <img
+      src="/src/assets/images/gallery/lion.jpeg"
+      alt="Lion resting in the Maasai Mara at golden hour"
+      class="absolute inset-0 h-full w-full object-cover opacity-40"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-romara-green-dark/95 via-romara-green-dark/70 to-romara-green-dark" />
 
-    <div class="relative romara-container">
-      <div class="relative gap-0 grid grid-cols-1 lg:grid-cols-2">
-        <!-- Left side - image with creative shape -->
-        <div class="hidden lg:block relative">
-          <div class="z-10 absolute inset-0 bg-gradient-to-r from-transparent via-romara-green-dark/60 to-romara-green-dark"></div>
-          <img
-            src="/src/assets/images/gallery/lion.jpeg"
-            alt="Lion"
-            class="w-full h-full object-cover"
-          />
-        </div>
+    <div class="romara-container relative flex flex-col items-center text-center">
+      <div class="mb-6 flex items-center gap-3">
+        <span class="h-1.5 w-1.5 rounded-full bg-romara-amber" aria-hidden="true"></span>
+        <span class="font-mono text-xs uppercase tracking-[0.2em] text-white/60">
+          01°30&#39;S 35°08&#39;E — 04°03&#39;S 39°40&#39;E — Mara to coast
+        </span>
+      </div>
 
-        <!-- Right side - content without card -->
-        <div class="z-20 relative flex flex-col justify-center lg:-ml-16">
-          <div class="relative pl-6">
-            <h2 class="font-heading font-bold text-white text-4xl sm:text-5xl leading-tight">
-              Your Kenyan
-              <span class="text-romara-amber">Adventure</span>
-              <br />
-              Awaits
-            </h2>
+      <h2 class="font-heading max-w-2xl text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
+        Your Kenyan
+        <span class="text-romara-amber">adventure</span>
+        awaits
+      </h2>
 
-            <p class="mt-4 text-white/80 text-lg leading-relaxed">
-              From the vast savannas of the Maasai Mara to the pristine beaches of the Kenyan coast, let us craft your perfect journey.
-            </p>
+      <p class="mt-5 max-w-lg text-lg leading-relaxed text-white/80">
+        From the vast savannas of the Maasai Mara to the pristine beaches of the Kenyan coast,
+        let us craft your perfect journey.
+      </p>
 
-            <div class="gap-4 grid grid-cols-1 sm:grid-cols-3 mt-8">
-              <BaseButton as="a" href="/safari-packages" variant="amber" size="lg" class="col-span-1 sm:col-span-2 rounded-full">
-                Browse Packages
-              </BaseButton>
-              <BaseButton as="a" href="/contact" variant="outline" class="col-span-1 rounded-full">
-                Get Quote
-              </BaseButton>
-            </div>
-          </div>
-        </div>
+      <div class="mt-9 flex flex-wrap items-center justify-center gap-4">
+        <BaseButton as="a" href="/safari-packages" variant="amber" size="lg" class="rounded-full">
+          Browse packages
+        </BaseButton>
+        <BaseButton as="a" href="/contact" variant="outline" size="lg" class="rounded-full">
+          Get a custom quote
+        </BaseButton>
+      </div>
+    </div>
+
+    <!-- Floating action bar — straddles the section's bottom edge -->
+    <div class="romara-container relative z-10 -mb-28 mt-16 hidden sm:block">
+      <div class="grid grid-cols-3 divide-x divide-white/10 rounded-sm border border-white/15 bg-romara-green/90 backdrop-blur-md">
+        <a
+          v-for="c in channels"
+          :key="c.label"
+          :href="c.href"
+          class="group flex flex-col items-center gap-1 px-6 py-6 text-center transition-colors hover:bg-white/5"
+        >
+          <span class="text-xs uppercase tracking-[0.2em] text-romara-amber">{{ c.label }}</span>
+          <span class="text-sm font-medium text-white/85 group-hover:text-white">{{ c.value }}</span>
+        </a>
       </div>
     </div>
   </section>

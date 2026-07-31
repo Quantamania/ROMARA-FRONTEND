@@ -30,15 +30,15 @@ async function setStatus(id: string, status: string) {
 
 <template>
   <div>
-    <h1 class="font-display text-3xl text-ink mb-6">Bookings</h1>
+    <h1 class="font-heading text-3xl text-romara-ink mb-6">Bookings</h1>
 
-    <div class="bg-white border border-sand-300 rounded-xl overflow-hidden">
+    <div class="bg-white border border-romara-ink/10 rounded-xl overflow-hidden">
       <DataTable :columns="columns" :rows="items" empty-label="No bookings yet.">
         <template #cell-status="{ row }">
           <div class="flex items-center gap-2">
             <StatusStamp :status="row.status" />
             <select
-              class="text-xs border border-sand-300 rounded px-1.5 py-1"
+              class="text-xs border border-romara-ink/10 rounded px-1.5 py-1"
               :value="row.status"
               @click.stop
               @change="setStatus(row.id, ($event.target as HTMLSelectElement).value)"

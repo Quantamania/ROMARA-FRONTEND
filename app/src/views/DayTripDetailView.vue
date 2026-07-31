@@ -3,7 +3,8 @@ import { computed, ref, watchEffect } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getDayTripBySlug } from '@/features/day-trips/api/dayTrips.api'
 import IconChevronRight from '@/components/icons/IconChevronRight.vue'
-import BaseButton from '@/components/ui/BaseButton.vue'
+import IconCheck from '@/components/icons/IconCheck.vue'
+import IconX from '@/components/icons/IconX.vue'
 import type { DayTrip } from '@/features/day-trips/types/dayTrip.types'
 
 const route = useRoute()
@@ -13,6 +14,14 @@ const slug = computed(() => route.params.slug as string)
 const trip = ref<DayTrip | null>(null)
 const isLoading = ref(true)
 const notFound = ref(false)
+
+// Stamp strip content — edit freely per trip, or wire to trip data later
+const wildlife = [
+  { label: 'Lion' },
+  { label: 'Rhino' },
+  { label: 'Giraffe' },
+  { label: 'Zebra' },
+]
 
 function formatPrice(amount: number) {
   return new Intl.NumberFormat('en-KE').format(amount)
@@ -41,132 +50,197 @@ function goBack() {
 </script>
 
 <template>
-  <section class="relative overflow-hidden">
-    <div v-if="trip" class="absolute inset-0">
-      <img :src="trip.image" :alt="trip.name" class="w-full h-full object-cover" />
-      <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/40 to-transparent" />
+  <div class="bg-romara-cream min-h-screen">
+
+    <!-- Loading State -->
+    <div v-if="isLoading" class="flex justify-center items-center bg-romara-green-dark min-h-screen">
+      <div class="text-center">
+        <div class="mx-auto mb-4 border-4 border-romara-amber/30 border-t-romara-amber rounded-full w-16 h-16 animate-spin"></div>
+        <p class="font-light text-white/80 text-lg">Loading trip details&hellip;</p>
+      </div>
     </div>
 
-    <div class="relative romara-container py-28">
-      <div class="max-w-4xl text-white">
-        <button type="button" @click="goBack" class="inline-flex items-center gap-2 text-white/70 hover:text-white mb-6">
-          <IconChevronRight class="w-4 h-4 rotate-180" />
+    <!-- Not Found State -->
+    <div v-else-if="notFound" class="flex justify-center items-center bg-romara-green-dark min-h-screen">
+      <div class="px-6 max-w-md text-center">
+        <div class="flex justify-center items-center mx-auto mb-6 border border-romara-amber/30 rounded-full w-20 h-20">
+          <IconX class="w-9 h-9 text-romara-amber" />
+        </div>
+        <p class="mb-4 font-heading font-bold text-white text-3xl">Trip Not Found</p>
+        <p class="mb-8 text-white/70 text-lg leading-relaxed">
+          The day trip you're looking for doesn't exist or may have been removed.
+        </p>
+        <button
+          @click="goBack"
+          class="inline-flex items-center gap-3 border border-romara-amber px-8 py-4 font-semibold text-romara-amber hover:text-romara-green-dark transition-colors hover:bg-romara-amber duration-300"
+        >
+          <IconChevronRight class="w-5 h-5 rotate-180" />
           Back to Day Trips
         </button>
-
-        <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/10 border border-white/10 text-xs uppercase tracking-[0.3em] font-semibold text-romara-amber">
-          Day Trips
-        </div>
-
-        <h1 v-if="trip" class="mt-6 font-heading font-black text-5xl sm:text-6xl leading-tight tracking-tight">{{ trip.name }}</h1>
-        <p v-if="trip" class="mt-6 max-w-2xl text-white/80 text-lg leading-relaxed">{{ trip.description }}</p>
-
-        <div v-if="trip" class="mt-10 grid gap-4 sm:grid-cols-3 text-white/90">
-          <div class="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-[0_20px_80px_rgba(0,0,0,0.18)]">
-            <p class="text-2xl font-bold">{{ trip.duration }}</p>
-            <p class="mt-2 text-sm text-white/60">Duration</p>
-          </div>
-          <div class="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-[0_20px_80px_rgba(0,0,0,0.18)]">
-            <p class="text-2xl font-bold">{{ trip.location }}</p>
-            <p class="mt-2 text-sm text-white/60">Location</p>
-          </div>
-          <div class="rounded-3xl border border-white/10 bg-romara-amber/10 p-5 shadow-[0_20px_80px_rgba(0,0,0,0.18)]">
-            <p class="text-2xl font-bold text-romara-amber">KES {{ formatPrice(trip.priceFromKES) }}</p>
-            <p class="mt-2 text-sm text-romara-amber/80">From / person</p>
-          </div>
-        </div>
-
-        <div class="mt-12 flex flex-col gap-4 sm:flex-row">
-          <BaseButton as="a" href="/booking" variant="primary" size="lg">Book This Trip</BaseButton>
-          <BaseButton as="a" href="/contact" variant="outline" size="lg">Request a Quote</BaseButton>
-        </div>
       </div>
     </div>
-  </section>
 
-  <section class="romara-container py-16">
-    <div class="grid gap-8 lg:grid-cols-[1.5fr_0.95fr]">
-      <div class="space-y-8">
-        <div class="overflow-hidden rounded-[2rem] bg-white p-8 shadow-[0_30px_80px_rgba(15,23,42,0.08)]">
-          <h2 class="font-heading text-3xl text-romara-green-dark">A beautifully simple day trip</h2>
-          <p class="mt-4 max-w-2xl text-romara-ink/75 leading-relaxed">{{ trip?.description }}</p>
+    <!-- Trip Content -->
+    <div v-else-if="trip" class="overflow-x-hidden">
 
-          <div class="mt-8 grid gap-4 sm:grid-cols-2">
-            <div class="rounded-3xl border border-romara-green/10 bg-romara-cream p-6">
-              <p class="text-sm uppercase tracking-[0.3em] text-romara-green-dark">Best for</p>
-              <p class="mt-3 text-romara-ink/80 text-sm">Travelers who want a full experience without overnight travel.</p>
-            </div>
-            <div class="rounded-3xl border border-romara-green/10 bg-romara-cream p-6">
-              <p class="text-sm uppercase tracking-[0.3em] text-romara-green-dark">What makes it special</p>
-              <p class="mt-3 text-romara-ink/80 text-sm">Comfortable pace, handpicked stops and genuine local guidance.</p>
-            </div>
+      <!-- Hero -->
+      <section class="relative isolate bg-romara-green-dark min-h-[600px] overflow-hidden text-white">
+        <img :src="trip.image" :alt="trip.name" class="absolute inset-0 w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-b from-romara-green-dark/70 via-romara-green-dark/35 to-romara-green-dark" />
+
+        <div class="relative flex flex-col justify-between py-8 min-h-[600px] romara-container">
+          <button
+            @click="goBack"
+            class="inline-flex items-center gap-2 self-start font-semibold text-romara-amber/90 hover:text-romara-amber text-sm transition"
+          >
+            <IconChevronRight class="w-4 h-4 rotate-180" />
+            Back to Day Trips
+          </button>
+
+          <div class="mt-16 max-w-3xl">
+            <p class="font-semibold text-romara-amber text-xs uppercase tracking-[0.35em]">
+              Day Trip &middot; {{ trip.category }}
+            </p>
+            <h1 class="mt-5 font-heading font-bold text-4xl sm:text-5xl lg:text-6xl leading-tight">
+              {{ trip.name }}
+            </h1>
           </div>
         </div>
+      </section>
 
-        <div class="grid gap-6 sm:grid-cols-2">
-          <div class="rounded-[2rem] bg-romara-green/5 p-8 border border-romara-green/10 shadow-[0_25px_60px_rgba(15,23,42,0.08)]">
-            <h3 class="text-romara-green font-semibold text-xl">Included</h3>
-            <ul class="mt-4 space-y-3 text-sm text-romara-ink/75 leading-relaxed">
-              <li>Expert guide and transport</li>
-              <li>Park entry or activity fee</li>
-              <li>Refreshments</li>
-            </ul>
+      <!-- Waypoints strip -->
+      <div class="border-romara-green-dark/10 bg-romara-cream border-b romara-container">
+        <div class="flex sm:flex-row flex-col divide-y sm:divide-y-0 divide-romara-green-dark/10 sm:divide-x">
+          <div class="flex-1 py-6 sm:pr-8">
+            <p class="font-semibold text-romara-ink/45 text-[11px] uppercase tracking-[0.3em]">Duration</p>
+            <p class="mt-1 font-heading font-bold text-romara-green-dark text-xl">{{ trip.duration }}</p>
           </div>
-          <div class="rounded-[2rem] bg-white p-8 border border-black/5 shadow-[0_25px_60px_rgba(15,23,42,0.08)]">
-            <h3 class="text-romara-green font-semibold text-xl">What’s not included</h3>
-            <ul class="mt-4 space-y-3 text-sm text-romara-ink/75 leading-relaxed">
-              <li>Meals not listed</li>
-              <li>Personal souvenirs</li>
-              <li>Tips and gratuities</li>
-            </ul>
+          <div class="flex-1 py-6 sm:px-8">
+            <p class="font-semibold text-romara-ink/45 text-[11px] uppercase tracking-[0.3em]">Location</p>
+            <p class="mt-1 font-heading font-bold text-romara-green-dark text-xl">{{ trip.location }}</p>
+          </div>
+          <div class="flex-1 py-6 sm:px-8">
+            <p class="font-semibold text-romara-ink/45 text-[11px] uppercase tracking-[0.3em]">Category</p>
+            <p class="mt-1 font-heading font-bold text-romara-green-dark text-xl capitalize">{{ trip.category }}</p>
+          </div>
+          <div class="flex-1 py-6 sm:pl-8">
+            <p class="font-semibold text-romara-ink/45 text-[11px] uppercase tracking-[0.3em]">From</p>
+            <p class="mt-1 font-heading font-bold text-romara-amber text-xl">KES {{ formatPrice(trip.priceFromKES) }}</p>
           </div>
         </div>
       </div>
 
-      <aside class="space-y-6">
-        <div class="rounded-[2rem] bg-white p-8 border border-black/5 shadow-[0_25px_60px_rgba(15,23,42,0.08)]">
-          <p class="text-sm uppercase tracking-[0.3em] text-romara-ink/70">Quick details</p>
-          <dl class="mt-6 grid gap-4">
-            <div>
-              <dt class="text-sm text-romara-ink/70">Duration</dt>
-              <dd class="mt-2 text-lg font-semibold text-romara-ink">{{ trip?.duration }}</dd>
-            </div>
-            <div>
-              <dt class="text-sm text-romara-ink/70">Location</dt>
-              <dd class="mt-2 text-lg font-semibold text-romara-ink">{{ trip?.location }}</dd>
-            </div>
-            <div>
-              <dt class="text-sm text-romara-ink/70">Price</dt>
-              <dd class="mt-2 text-lg font-semibold text-romara-ink">KES {{ trip ? formatPrice(trip.priceFromKES) : '' }}</dd>
-            </div>
-            <div>
-              <dt class="text-sm text-romara-ink/70">Category</dt>
-              <dd class="mt-2 text-lg font-semibold text-romara-ink capitalize">{{ trip?.category }}</dd>
-            </div>
-          </dl>
-        </div>
+      <!-- Overview -->
+      <section class="py-16 lg:py-24 romara-container">
+        <div class="gap-16 lg:gap-20 grid lg:grid-cols-[2fr_1fr]">
 
-        <div class="rounded-[2rem] bg-romara-cream p-8 border border-romara-green/10 shadow-[0_25px_60px_rgba(15,23,42,0.08)]">
-          <h3 class="font-semibold text-romara-green text-xl">Ready to book?</h3>
-          <p class="mt-3 text-romara-ink/75 text-sm leading-relaxed">Get in touch and we’ll help you lock in the perfect date for your trip.</p>
-          <div class="mt-6 flex flex-col gap-3">
-            <BaseButton as="a" href="/contact" variant="primary" size="md">Contact us</BaseButton>
-            <BaseButton as="a" href="/booking" variant="outline" size="md">Start booking</BaseButton>
+          <div>
+            <h2 class="mb-8 font-heading font-bold text-romara-green-dark text-3xl lg:text-4xl">Experience Overview</h2>
+            <p class="max-w-2xl text-romara-ink/80 text-lg leading-relaxed first-letter:float-left first-letter:mr-3 first-letter:mt-1 first-letter:font-heading first-letter:font-bold first-letter:text-romara-amber first-letter:text-6xl first-letter:leading-none">
+              {{ trip.description }}
+            </p>
+
+            <!-- Wildlife stamp strip: fills the space under the copy, ties directly to what the description promises -->
+            <div class="mt-12">
+              <p class="font-semibold text-romara-ink/45 text-[11px] uppercase tracking-[0.3em]">On the Watch List</p>
+              <div class="flex flex-wrap gap-5 mt-5">
+                <div
+                  v-for="(animal, i) in wildlife"
+                  :key="animal.label"
+                  class="inline-flex items-center gap-2 px-5 py-2.5 border-2 rounded-full font-heading font-bold text-sm uppercase tracking-wider"
+                  :class="[
+                    i % 2 === 0 ? 'border-romara-green text-romara-green' : 'border-romara-amber text-romara-amber',
+                    i % 3 === 0 ? '-rotate-2' : 'rotate-1',
+                  ]"
+                >
+                  {{ animal.label }}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:border-romara-green-dark/15 lg:pl-10 lg:border-l">
+            <div class="pb-8 border-romara-green-dark/10 border-b">
+              <p class="font-heading font-bold text-romara-amber/50 text-4xl leading-none">01</p>
+              <p class="mt-3 font-semibold text-romara-green-dark text-sm uppercase tracking-[0.2em]">Perfect For</p>
+              <p class="mt-2 text-romara-ink/70 leading-relaxed">Travelers seeking a complete experience without overnight commitments.</p>
+            </div>
+            <div class="pt-8">
+              <p class="font-heading font-bold text-romara-amber/50 text-4xl leading-none">02</p>
+              <p class="mt-3 font-semibold text-romara-green-dark text-sm uppercase tracking-[0.2em]">What's Special</p>
+              <p class="mt-2 text-romara-ink/70 leading-relaxed">Curated stops, expert local guidance, and a comfortable, immersive pace.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Included + Field Note (replaces the old Not Included column) -->
+      <section class="pb-16 lg:pb-24 romara-container">
+        <div class="border-romara-green-dark/10 border-t border-b">
+          <div class="sm:divide-x divide-romara-green-dark/10 grid sm:grid-cols-2">
+
+            <div class="py-10 sm:pr-10">
+              <h3 class="inline-block pb-3 border-romara-amber border-b-2 font-bold text-romara-green-dark text-xl">Included</h3>
+              <ul class="space-y-4 mt-6">
+                <li class="flex items-start gap-3 text-romara-ink/80 leading-relaxed">
+                  <IconCheck class="flex-shrink-0 mt-0.5 w-5 h-5 text-romara-green" />
+                  <span>Expert guide and comfortable transport</span>
+                </li>
+                <li class="flex items-start gap-3 text-romara-ink/80 leading-relaxed">
+                  <IconCheck class="flex-shrink-0 mt-0.5 w-5 h-5 text-romara-green" />
+                  <span>Park entry or activity fees</span>
+                </li>
+                <li class="flex items-start gap-3 text-romara-ink/80 leading-relaxed">
+                  <IconCheck class="flex-shrink-0 mt-0.5 w-5 h-5 text-romara-green" />
+                  <span>Complimentary refreshments</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="relative py-10 sm:pl-10">
+              <span class="top-4 font-heading text-romara-amber/25 text-8xl leading-none select-none">&ldquo;</span>
+              <p class="relative mt-2 font-heading text-romara-green-dark text-2xl italic leading-snug">
+                You don't need three days in the bush to feel small in front of a lion.
+              </p>
+              <p class="mt-5 font-semibold text-romara-ink/50 text-xs uppercase tracking-[0.25em]">
+                &mdash; Notes from the field
+              </p>
+            </div>
+
           </div>
         </div>
-      </aside>
-    </div>
-  </section>
+      </section>
 
-  <div v-if="isLoading" class="absolute inset-0 bg-black/50 flex items-center justify-center text-white text-xl">Loading trip details...</div>
-  <div v-if="notFound && !isLoading" class="absolute inset-0 bg-black/60 flex items-center justify-center text-white text-center px-6">
-    <div>
-      <p class="text-2xl font-bold">Trip not found</p>
-      <p class="mt-3 text-white/70">The day trip you are looking for doesn’t exist or may have been removed.</p>
-      <button @click="goBack" class="mt-6 inline-flex items-center gap-2 bg-romara-green text-white px-5 py-3 rounded-lg font-semibold">
-        <IconChevronRight class="w-4 h-4 rotate-180" />
-        Back to Day Trips
-      </button>
+      <!-- Booking -->
+      <section class="bg-romara-green-dark py-16 lg:py-20 text-white">
+        <div class="flex md:flex-row flex-col md:justify-between md:items-end gap-8 romara-container">
+          <div class="max-w-xl">
+            <h3 class="font-heading font-bold text-3xl lg:text-4xl">Ready to book this trip?</h3>
+            <p class="mt-4 text-white/70 text-lg leading-relaxed">
+              Secure your spot today and let us craft an unforgettable day trip experience for you.
+            </p>
+          </div>
+          <div class="flex sm:flex-row flex-col gap-4 shrink-0">
+            <BaseButton
+              as="a"
+              href="/booking"
+              class="inline-flex justify-center items-center gap-2 bg-romara-amber hover:bg-romara-amber-light px-8 py-4 rounded-none font-semibold text-romara-green-dark whitespace-nowrap transition-colors"
+            >
+              Start Booking
+              <IconChevronRight class="w-4 h-4" />
+            </BaseButton>
+            <BaseButton
+              as="a"
+              href="/contact"
+              class="inline-flex justify-center items-center gap-2 hover:bg-white/10 px-8 py-4 border border-white/30 rounded-none font-semibold text-white whitespace-nowrap transition-colors"
+            >
+              Contact Us
+            </BaseButton>
+          </div>
+        </div>
+      </section>
+
     </div>
   </div>
 </template>
