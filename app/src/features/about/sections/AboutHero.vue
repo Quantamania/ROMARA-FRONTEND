@@ -13,57 +13,56 @@ const destinations = [
 </script>
 
 <template>
-  <section class="relative isolate min-h-screen overflow-hidden text-white">
+  <section class="relative isolate min-h-screen overflow-hidden bg-romara-green text-white">
     <!-- Full Background Image -->
     <img
       src="/src/assets/images/about/hero-safari-vehicle.png"
       alt="ROMARA safari vehicle crossing the Maasai Mara at sunset"
-      class="absolute inset-0 h-full w-full object-cover"
+      class="ken-burns absolute inset-0 h-full w-full object-cover"
     />
 
-    <!-- Dark Green Gradient Overlay -->
-    <div class="absolute inset-0 bg-gradient-to-r from-romara-green via-romara-green/95 via-romara-green/80 via-romara-green/50 to-transparent"></div>
+    <!-- Layered scrims for legibility + brand tint -->
+    <div class="absolute inset-0 bg-gradient-to-r from-romara-green via-romara-green/90 via-30% to-transparent"></div>
+    <div class="absolute inset-0 bg-scrim-b"></div>
 
     <!-- Content -->
-    <div class="relative z-10 flex min-h-screen items-center px-6 sm:px-10 lg:px-16">
-      <div class="max-w-xl">
-        <div class="mb-6">
-          <span class="font-mono text-xs uppercase tracking-[0.2em] text-white/60">
-            Kenya
-          </span>
-        </div>
+    <div class="relative z-10 flex min-h-screen items-center">
+      <div class="romara-container">
+        <div class="max-w-xl">
+          <p class="eyebrow text-romara-amber-300 animate-fade-up">
+            
+            About ROMARA
+          </p>
 
-        <h1 class="font-heading text-5xl font-bold leading-[1.02] sm:text-6xl">
-          About
-          <span class="block text-romara-amber">ROMARA.</span>
-        </h1>
-
-        <p class="mt-5 text-lg font-semibold uppercase tracking-wide text-white/75">
-          Reaching Out to Your Next Adventure
-        </p>
-
-        <p class="mt-5 text-base leading-relaxed text-white/75 sm:text-lg">
-          A Kenyan travel company passionate about creating memorable, safe,
-          and seamless experiences across Kenya and beyond.
-        </p>
-
-        <div class="mt-9 flex flex-wrap items-center gap-6">
-          <BaseButton
-            as="a"
-            href="/safari-packages"
-            size="lg"
-            class="!bg-romara-amber hover:!bg-romara-amber/90 !text-white"
+          <h1
+            class="mt-5 font-heading text-display-lg font-semibold leading-[1.02] text-balance animate-fade-up"
+            style="animation-delay: 90ms"
           >
-            Explore Our Tours
-            <IconArrowRight class="h-4 w-4" />
-          </BaseButton>
+            Reaching out to your
+            <span class="block text-romara-amber">next adventure.</span>
+          </h1>
+
+          <p
+            class="mt-6 max-w-lg text-base leading-relaxed text-white/80 sm:text-lg animate-fade-up"
+            style="animation-delay: 180ms"
+          >
+            A Kenyan travel company passionate about creating memorable, safe,
+            and seamless experiences across Kenya and beyond.
+          </p>
+
+          <div class="mt-9 flex flex-wrap items-center gap-4 animate-fade-up" style="animation-delay: 270ms">
+            <BaseButton as="a" href="/safari-packages" variant="amber" size="lg">
+              Explore Our Tours
+              <IconArrowRight class="h-4 w-4" />
+            </BaseButton>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Destination Marquee -->
     <div
-      class="absolute bottom-8 left-0 right-0 z-10 overflow-hidden border-t border-white/10 pt-6"
+      class="absolute inset-x-0 bottom-8 z-10 overflow-hidden border-t border-white/10 pt-6"
     >
       <div
         class="marquee flex w-max gap-10 text-xs uppercase tracking-[0.2em] text-white/40"
@@ -72,8 +71,9 @@ const destinations = [
           <span
             v-for="destination in destinations"
             :key="destination"
-            class="whitespace-nowrap"
+            class="flex items-center gap-10 whitespace-nowrap"
           >
+            <span class="h-1 w-1 shrink-0 rounded-full bg-romara-amber/70" aria-hidden="true" />
             {{ destination }}
           </span>
         </span>
@@ -82,9 +82,10 @@ const destinations = [
 
     <!-- Image Caption -->
     <div
-      class="absolute bottom-8 right-8 z-10 flex items-center gap-2 rounded-sm border border-white/20 bg-black/30 px-4 py-2 backdrop-blur-md"
+      class="glass absolute bottom-8 right-6 z-10 hidden items-center gap-2 rounded-full px-4 py-2 sm:flex"
     >
-      <span class="text-xs uppercase tracking-wide text-white/85">
+      <span class="h-1.5 w-1.5 rounded-full bg-romara-amber" aria-hidden="true" />
+      <span class="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/85">
         Maasai Mara, Kenya
       </span>
     </div>

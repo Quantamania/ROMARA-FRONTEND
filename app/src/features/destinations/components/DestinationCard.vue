@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import IconMapPin from '@/components/icons/IconMapPin.vue'
-import IconChevronRight from '@/components/icons/IconChevronRight.vue'
-import type { Destination } from '@/features/destinations/types/destination.types'
+import IconArrowRight from '@/components/icons/IconArrowRight.vue'
+import IconCalendar from '@/components/icons/IconCalendar.vue'
+import IconClock from '@/components/icons/IconClock.vue'
+import type { Destination, DestinationType } from '@/features/destinations/types/destination.types'
 
 interface Props {
   destination: Destination
@@ -11,45 +13,93 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   featured: false,
 })
+
+const typeLabels: Record<DestinationType, string> = {
+  wildlife: 'Wildlife',
+  mountains: 'Mountains',
+  beaches: 'Beaches',
+  cities: 'City',
+  culture: 'Culture',
+  nature: 'Nature',
+}
 </script>
 
 <template>
-  <article class="group flex flex-col bg-white shadow-card rounded-lg h-full overflow-hidden card-hover">
-    <div
-      class="relative overflow-hidden"
-      :class="props.featured ? 'min-h-[280px] flex-1 lg:min-h-[320px]' : 'h-56'"
-    >
-      <img
-        :src="props.destination.image"
-        :alt="props.destination.name"
-        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-        loading="lazy"
-      />
-      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
+  <!-- Cinematic, full-bleed editorial card: image fills the frame, content sits over a scrim. -->
+  <a
+    :href="`/destinations/${props.destination.slug}`"
+    class="group relative flex h-full flex-col justify-end overflow-hidden rounded-card shadow-card transition-all duration-500 ease-out-expo hover:-translate-y-1.5 hover:shadow-elevated"
+    :class="props.featured ? 'min-h-[440px] lg:min-h-[540px]' : 'min-h-[340px]'"
+    :aria-label="`Explore ${props.destination.name}`"
+  >
+    <img
+      :src="props.destination.image"
+      :alt="props.destination.name"
+      loading="lazy"
+      class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-105"
+    />
 
-      <div class="bottom-0 absolute inset-x-0" :class="props.featured ? 'p-6' : 'p-4'">
-        <h3 class="font-heading font-bold text-white" :class="props.featured ? 'text-2xl' : 'text-lg'">
-          {{ props.destination.name }}
-        </h3>
-        <p class="flex items-center gap-1 mt-1 text-white/80" :class="props.featured ? 'text-sm' : 'text-xs'">
-          <IconMapPin :class="props.featured ? 'h-4 w-4' : 'h-3.5 w-3.5'" />
-          {{ props.destination.county }}
-        </p>
-      </div>
+    <!-- Layered scrims for legibility -->
+    <div class="absolute inset-0 bg-scrim-b" />
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-romara-green-dark/50 via-transparent to-transparent opacity-70 transition-opacity duration-500 group-hover:opacity-100"
+    />
+
+    <!-- Top row: type kicker + optional featured flag -->
+    <div class="absolute inset-x-0 top-0 flex items-start justify-between gap-2 p-4" :class="props.featured ? 'sm:p-6' : ''">
+      <span
+        v-if="props.destination.types.length"
+        class="glass inline-flex items-center rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white"
+      >
+        {{ typeLabels[props.destination.types[0]] }}
+      </span>
+      <span
+        v-if="props.featured"
+        class="inline-flex items-center rounded-full bg-romara-amber px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white shadow-soft"
+      >
+        Featured
+      </span>
     </div>
 
-    <div :class="props.featured ? 'p-6' : 'p-4'">
-      <p class="text-romara-ink/70" :class="props.featured ? 'text-base' : 'text-sm'">
+    <!-- Content -->
+    <div class="relative p-5 text-white" :class="props.featured ? 'sm:p-7' : ''">
+      <p class="flex items-center gap-1.5 text-white/80" :class="props.featured ? 'text-sm' : 'text-xs'">
+        <IconMapPin :class="props.featured ? 'h-4 w-4' : 'h-3.5 w-3.5'" />
+        {{ props.destination.county }}
+      </p>
+
+      <h3
+        class="mt-1.5 font-heading font-semibold leading-tight text-balance"
+        :class="props.featured ? 'text-3xl sm:text-4xl' : 'text-xl'"
+      >
+        {{ props.destination.name }}
+      </h3>
+
+      <p
+        class="mt-2 leading-relaxed text-white/75"
+        :class="props.featured ? 'max-w-xl text-base line-clamp-3' : 'text-sm line-clamp-2'"
+      >
         {{ props.destination.description }}
       </p>
 
-      <a
-        :href="`/destinations/${props.destination.slug}`"
-        class="flex justify-center items-center gap-1 bg-romara-green hover:bg-romara-green/90 mt-4 py-2.5 rounded-md font-semibold text-white text-xs uppercase tracking-wide"
+      <!-- Editorial meta chips drawn from destination data -->
+      <div class="mt-4 flex flex-wrap items-center gap-2 text-[11px] font-semibold text-white/85">
+        <span class="glass inline-flex items-center gap-1.5 rounded-full px-2.5 py-1">
+          <IconCalendar class="h-3.5 w-3.5" />
+          {{ props.destination.bestTimeToVisit }}
+        </span>
+        <span class="glass inline-flex items-center gap-1.5 rounded-full px-2.5 py-1">
+          <IconClock class="h-3.5 w-3.5" />
+          {{ props.destination.durationSuggestion }}
+        </span>
+      </div>
+
+      <span
+        class="mt-5 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.16em] text-romara-amber-300 transition-colors group-hover:text-romara-amber"
       >
         Explore
-        <IconChevronRight class="w-3.5 h-3.5" />
-      </a>
+        <IconArrowRight class="h-4 w-4 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" />
+      </span>
     </div>
-  </article>
+  </a>
 </template>

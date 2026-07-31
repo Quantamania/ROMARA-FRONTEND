@@ -17,28 +17,46 @@ function toggleFaq(id: string) {
 </script>
 
 <template>
-  <div v-if="faqs.length === 0" class="rounded-xl bg-romara-cream/60 p-10 text-center">
-    <p class="text-sm text-romara-ink/70">
+  <div
+    v-if="faqs.length === 0"
+    class="rounded-card border border-romara-green/10 bg-romara-bone p-12 text-center"
+  >
+    <p class="text-sm leading-relaxed text-romara-ink-soft">
       No matching questions found. Please contact our team for further assistance.
     </p>
-    <a href="/contact" class="mt-3 inline-block text-sm font-semibold text-romara-green underline hover:text-romara-amber">
+    <a
+      href="/contact"
+      class="mt-4 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.14em] text-romara-green transition-colors hover:text-romara-amber"
+    >
       Contact Us
     </a>
   </div>
 
-  <div v-else class="divide-y divide-black/5 rounded-xl bg-white shadow-card">
-    <div v-for="faq in faqs" :key="faq.id" class="px-5 sm:px-7">
+  <div v-else class="space-y-3">
+    <div
+      v-for="faq in faqs"
+      :key="faq.id"
+      class="overflow-hidden rounded-card border bg-white shadow-card transition-colors duration-300"
+      :class="openId === faq.id ? 'border-romara-amber/40' : 'border-romara-green/10'"
+    >
       <button
         type="button"
-        class="flex w-full items-center justify-between gap-4 py-5 text-left"
+        class="flex w-full items-center justify-between gap-5 px-6 py-5 text-left transition-colors sm:px-8 sm:py-6"
         :aria-expanded="openId === faq.id"
         @click="toggleFaq(faq.id)"
       >
-        <span class="text-sm font-bold text-romara-green sm:text-base">{{ faq.question }}</span>
-        <IconChevronDown
-          class="h-4 w-4 shrink-0 text-romara-amber transition-transform duration-300"
-          :class="openId === faq.id && 'rotate-180'"
-        />
+        <span class="font-heading text-base font-semibold text-romara-green sm:text-lg">
+          {{ faq.question }}
+        </span>
+        <span
+          class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-all duration-300 ease-out-expo"
+          :class="openId === faq.id ? 'bg-romara-green text-white' : 'bg-romara-cream text-romara-amber'"
+        >
+          <IconChevronDown
+            class="h-4 w-4 transition-transform duration-300 ease-out-expo"
+            :class="openId === faq.id && 'rotate-180'"
+          />
+        </span>
       </button>
 
       <div
@@ -46,7 +64,9 @@ function toggleFaq(id: string) {
         :style="{ gridTemplateRows: openId === faq.id ? '1fr' : '0fr' }"
       >
         <div class="overflow-hidden">
-          <p class="pb-5 pr-8 text-sm leading-relaxed text-romara-ink/70">{{ faq.answer }}</p>
+          <p class="px-6 pb-6 pr-10 text-sm leading-relaxed text-romara-ink-soft sm:px-8 sm:pb-7">
+            {{ faq.answer }}
+          </p>
         </div>
       </div>
     </div>

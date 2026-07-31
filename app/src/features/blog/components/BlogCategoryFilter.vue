@@ -39,17 +39,26 @@ function selectCategory(value: BlogCategory, isActive: boolean) {
 </script>
 
 <template>
-  <div class="flex gap-3 overflow-x-auto pb-1 sm:flex-wrap sm:justify-center sm:overflow-visible [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+  <div
+    class="flex gap-3 overflow-x-auto pb-1 sm:flex-wrap sm:justify-center sm:overflow-visible [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+  >
     <button
       v-for="category in categories"
       :key="category.value"
       type="button"
-      class="flex shrink-0 flex-col items-center gap-2 rounded-lg border bg-white px-5 py-4 text-center transition-all hover:-translate-y-0.5 hover:shadow-card"
-      :class="modelValue === category.value ? 'border-romara-amber ring-1 ring-romara-amber' : 'border-black/10'"
+      class="group inline-flex shrink-0 items-center gap-2.5 rounded-full border px-5 py-3 text-sm font-semibold transition-all duration-300 ease-out-expo focus:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber/40 focus-visible:ring-offset-2"
+      :class="modelValue === category.value
+        ? 'border-transparent bg-amber-fade text-white shadow-soft'
+        : 'border-romara-green/15 bg-white text-romara-green hover:-translate-y-0.5 hover:border-romara-green/30 hover:shadow-card'"
+      :aria-pressed="modelValue === category.value"
       @click="selectCategory(category.value, modelValue === category.value)"
     >
-      <component :is="category.icon" class="h-6 w-6" :class="modelValue === category.value ? 'text-romara-amber' : 'text-romara-green'" />
-      <p class="text-xs font-semibold text-romara-green">{{ category.label }}</p>
+      <component
+        :is="category.icon"
+        class="h-4 w-4 transition-colors"
+        :class="modelValue === category.value ? 'text-white' : 'text-romara-amber'"
+      />
+      {{ category.label }}
     </button>
   </div>
 </template>

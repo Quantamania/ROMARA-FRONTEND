@@ -8,52 +8,66 @@ import { romaraOffice } from '@/features/contact/api/contact.api'
 </script>
 
 <template>
-  <div>
-    <h2 class="text-2xl font-bold text-romara-green sm:text-3xl">Our Office</h2>
-    <p class="mt-1 text-sm text-romara-ink/60">Visit us at our office or find us on the map.</p>
+  <div class="rounded-card bg-white p-6 shadow-card sm:p-7">
+    <p class="eyebrow mb-3">
+      
+      Visit Us
+    </p>
+    <h2 class="font-heading text-xl font-semibold text-romara-green sm:text-2xl">Our Office</h2>
+    <span class="accent-rule mt-4" />
 
-    <ul class="mt-6 space-y-4">
-      <li class="flex items-start gap-3 text-sm">
-        <IconMapPin class="mt-0.5 h-5 w-5 shrink-0 text-romara-amber" />
+    <ul class="mt-6 space-y-4 text-sm">
+      <li class="flex items-start gap-3.5">
+        <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-romara-amber-100 text-romara-amber">
+          <IconMapPin class="h-4 w-4" />
+        </span>
         <div>
-          <p class="font-bold text-romara-green">{{ romaraOffice.name }}</p>
+          <p class="font-semibold text-romara-green">{{ romaraOffice.name }}</p>
           <a
             :href="`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(romaraOffice.addressLines.join(', '))}`"
             target="_blank"
             rel="noopener"
-            class="text-romara-ink/70 hover:text-romara-green"
+            class="text-romara-ink-soft transition-colors hover:text-romara-amber"
           >
             <span v-for="line in romaraOffice.addressLines" :key="line" class="block">{{ line }}</span>
           </a>
         </div>
       </li>
 
-      <li class="flex items-center gap-3 text-sm">
-        <IconPhone class="h-5 w-5 shrink-0 text-romara-amber" />
-        <a :href="`tel:${romaraOffice.phone.replace(/\s/g, '')}`" class="text-romara-ink/70 hover:text-romara-green">
+      <li class="flex items-center gap-3.5">
+        <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-romara-amber-100 text-romara-amber">
+          <IconPhone class="h-4 w-4" />
+        </span>
+        <a :href="`tel:${romaraOffice.phone.replace(/\s/g, '')}`" class="text-romara-ink-soft transition-colors hover:text-romara-amber">
           {{ romaraOffice.phone }}
         </a>
       </li>
 
-      <li class="flex items-center gap-3 text-sm">
-        <IconMail class="h-5 w-5 shrink-0 text-romara-amber" />
-        <a :href="`mailto:${romaraOffice.email}`" class="text-romara-ink/70 hover:text-romara-green">
+      <li class="flex items-center gap-3.5">
+        <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-romara-amber-100 text-romara-amber">
+          <IconMail class="h-4 w-4" />
+        </span>
+        <a :href="`mailto:${romaraOffice.email}`" class="text-romara-ink-soft transition-colors hover:text-romara-amber">
           {{ romaraOffice.email }}
         </a>
       </li>
 
-      <li class="flex items-center gap-3 text-sm">
-        <IconClock class="h-5 w-5 shrink-0 text-romara-amber" />
-        <span class="text-romara-ink/70">{{ romaraOffice.hours }}</span>
+      <li class="flex items-center gap-3.5">
+        <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-romara-amber-100 text-romara-amber">
+          <IconClock class="h-4 w-4" />
+        </span>
+        <span class="text-romara-ink-soft">{{ romaraOffice.hours }}</span>
       </li>
 
-      <li class="flex items-center gap-3 text-sm">
-        <IconCompass class="h-5 w-5 shrink-0 text-romara-amber" />
-        <a href="/" class="text-romara-ink/70 hover:text-romara-green">{{ romaraOffice.website }}</a>
+      <li class="flex items-center gap-3.5">
+        <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-romara-amber-100 text-romara-amber">
+          <IconCompass class="h-4 w-4" />
+        </span>
+        <a href="/" class="text-romara-ink-soft transition-colors hover:text-romara-amber">{{ romaraOffice.website }}</a>
       </li>
     </ul>
 
-    <div class="mt-6 overflow-hidden rounded-lg shadow-card">
+    <div class="mt-6 overflow-hidden rounded-card border border-romara-green/10 shadow-soft">
       <iframe
         :src="romaraOffice.mapEmbedSrc"
         title="ROMARA Tours & Travel office location"

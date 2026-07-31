@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import TransferBookingForm from '@/features/airport-transfers/components/TransferBookingForm.vue'
-import IconSuitcase from '@/components/icons/IconSuitcase.vue'
+import PageHero from '@/components/ui/PageHero.vue'
 import IconShield from '@/components/icons/IconShield.vue'
 import IconClock from '@/components/icons/IconClock.vue'
 import IconDollarCircle from '@/components/icons/IconDollarCircle.vue'
@@ -18,58 +18,48 @@ const reassurances: Reassurance[] = [
 </script>
 
 <template>
-  <!-- Full page background -->
-  <div class="relative min-h-screen">
-    <img
-      src="/src/assets/images/airport-transfers/airport-van.png"
-      alt="Airport transfer background"
-      class="absolute inset-0 w-full h-full object-cover"
-    />
-    <div class="absolute inset-0 bg-white/75" />
-
-    <!-- Content -->
-    <div class="relative">
-      <!-- Intro band -->
-      <section class="py-16 sm:py-20">
-        <div class="romara-container">
-          <div class="items-center gap-12 grid grid-cols-1 lg:grid-cols-2">
-            <!-- Left content -->
-            <div class="text-romara-ink">
-              <span class="inline-flex justify-center items-center bg-romara-green rounded-full w-14 h-14 text-white">
-                <IconSuitcase class="w-7 h-7" />
-              </span>
-
-              <p class="mt-5 font-bold text-romara-amber text-sm uppercase tracking-[0.2em]">Airport Transfer Booking</p>
-              <h1 class="mt-3 font-heading font-bold text-romara-green text-3xl sm:text-4xl leading-tight">
-                Travel with Comfort, Safety and Confidence
-              </h1>
-              <span class="block bg-romara-amber mt-3 rounded w-14 h-1" />
-
-              <p class="mt-5 text-romara-ink/70 text-base leading-relaxed">
-                ROMARA Tours &amp; Travel provides reliable, punctual, and professional airport transfer services for stress-free journeys.
-              </p>
-              <p class="mt-2 text-romara-ink/70 text-base">
-                Complete the booking form and we'll confirm your reservation promptly.
-              </p>
-
-              <div class="gap-4 grid grid-cols-1 sm:grid-cols-3 mt-8">
-                <div v-for="item in reassurances" :key="item.label" class="flex items-center gap-3 bg-white shadow-card p-4 border border-romara-ink/10 rounded-lg">
-                  <component :is="item.icon" class="w-5 h-5 text-romara-amber shrink-0" />
-                  <span class="font-semibold text-romara-ink text-sm">{{ item.label }}</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Right content - empty for now -->
-            <div class="hidden lg:block"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Form -->
-      <section class="pb-16 romara-container">
-        <TransferBookingForm />
-      </section>
+  <!-- Hero masthead -->
+  <PageHero
+    eyebrow="Airport Transfer Booking"
+    title="Travel with Comfort, Safety and Confidence"
+    subtitle="ROMARA Tours &amp; Travel provides reliable, punctual, and professional airport transfer services for stress-free journeys. Complete the booking form and we'll confirm your reservation promptly."
+    image="/src/assets/images/airport-transfers/airport-van.png"
+    size="md"
+    :breadcrumbs="[
+      { label: 'Home', href: '/' },
+      { label: 'Airport Transfers', href: '/airport-transfers' },
+      { label: 'Book' },
+    ]"
+  >
+    <div class="flex flex-wrap gap-3">
+      <div
+        v-for="item in reassurances"
+        :key="item.label"
+        class="glass inline-flex items-center gap-2.5 rounded-full px-4 py-2 text-sm font-semibold text-white"
+      >
+        <component :is="item.icon" class="h-4 w-4 text-romara-amber-300" />
+        <span>{{ item.label }}</span>
+      </div>
     </div>
-  </div>
+  </PageHero>
+
+  <!-- Booking form -->
+  <section class="section-y bg-romara-bone">
+    <div class="romara-container">
+      <div class="mb-10 max-w-2xl">
+        <p class="eyebrow mb-3">
+          
+          Reservation Details
+        </p>
+        <h2 class="font-heading text-display-sm font-semibold text-romara-green">Complete Your Booking</h2>
+        <span class="accent-rule mt-4" />
+        <p class="mt-4 text-sm leading-relaxed text-romara-ink-soft">
+          Fill in the details below and a travel consultant will confirm your reservation promptly. Your live summary
+          updates as you go.
+        </p>
+      </div>
+
+      <TransferBookingForm />
+    </div>
+  </section>
 </template>

@@ -7,9 +7,9 @@ import { submitContactForm } from '@/features/contact/api/contact.api'
 import type { ContactFormData, EnquirySubject } from '@/features/contact/api/contact.api'
 
 const inputClasses =
-  'w-full rounded-md border border-black/10 bg-white px-4 py-2.5 text-sm text-romara-ink placeholder:text-romara-ink/40 transition-colors focus:border-romara-green focus:outline-none focus:ring-2 focus:ring-romara-green/15'
-const labelClasses = 'mb-1.5 block text-sm font-medium text-romara-ink'
-const errorClasses = 'mt-1 text-xs text-red-600'
+  'w-full rounded-lg border border-romara-green/15 bg-romara-bone px-4 py-3 text-sm text-romara-ink placeholder:text-romara-ink-soft/50 transition-all duration-200 focus:border-romara-green focus:bg-white focus:outline-none focus:ring-2 focus:ring-romara-green/20'
+const labelClasses = 'mb-1.5 block text-xs font-semibold uppercase tracking-[0.1em] text-romara-ink-soft'
+const errorClasses = 'mt-1.5 text-xs font-medium text-red-600'
 
 const isSubmitting = ref(false)
 const isSubmitted = ref(false)

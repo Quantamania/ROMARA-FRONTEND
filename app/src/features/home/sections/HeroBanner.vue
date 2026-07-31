@@ -62,7 +62,7 @@ onUnmounted(() => {
     <div class="romara-container relative flex min-h-[88vh] flex-col justify-center py-28">
       <div class="max-w-2xl">
         <p class="eyebrow text-romara-amber-300 animate-fade-up">
-          <span class="h-px w-8 bg-romara-amber" />
+          
           {{ content.eyebrow }}
         </p>
 

@@ -2,6 +2,7 @@
 import IconPhone from '@/components/icons/IconPhone.vue'
 import IconMail from '@/components/icons/IconMail.vue'
 import IconWhatsapp from '@/components/icons/IconWhatsapp.vue'
+import IconArrowRight from '@/components/icons/IconArrowRight.vue'
 
 interface ContactOption {
   icon: typeof IconPhone
@@ -37,23 +38,37 @@ const options: ContactOption[] = [
 </script>
 
 <template>
-  <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-    <a
-      v-for="option in options"
-      :key="option.label"
-      :href="option.href"
-      :target="option.href.startsWith('http') ? '_blank' : undefined"
-      :rel="option.href.startsWith('http') ? 'noopener' : undefined"
-      class="flex items-center gap-4 rounded-lg bg-white p-5 shadow-card transition-transform hover:-translate-y-0.5"
-    >
-      <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-romara-amber text-white">
-        <component :is="option.icon" class="h-5 w-5" />
-      </span>
-      <div class="min-w-0">
-        <p class="text-sm font-bold text-romara-green">{{ option.label }}</p>
-        <p class="mt-0.5 truncate text-sm font-semibold text-romara-amber">{{ option.value }}</p>
-        <p class="mt-0.5 text-xs text-romara-ink/50">{{ option.hours }}</p>
-      </div>
-    </a>
+  <div class="rounded-card bg-white p-6 shadow-card sm:p-7">
+    <p class="eyebrow mb-3">
+      
+      Talk to Us
+    </p>
+    <h2 class="font-heading text-xl font-semibold text-romara-green sm:text-2xl">Reach Us Directly</h2>
+    <span class="accent-rule mt-4" />
+
+    <div class="mt-6 space-y-3">
+      <a
+        v-for="option in options"
+        :key="option.label"
+        :href="option.href"
+        :target="option.href.startsWith('http') ? '_blank' : undefined"
+        :rel="option.href.startsWith('http') ? 'noopener' : undefined"
+        class="group flex items-center gap-4 rounded-card border border-romara-green/10 bg-romara-bone p-4 transition-all duration-300 ease-out-expo hover:-translate-y-0.5 hover:border-romara-amber/30 hover:shadow-card"
+      >
+        <span
+          class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-amber-fade text-white shadow-soft transition-transform duration-300 ease-out-expo group-hover:scale-105"
+        >
+          <component :is="option.icon" class="h-5 w-5" />
+        </span>
+        <div class="min-w-0 flex-1">
+          <p class="text-[11px] font-bold uppercase tracking-[0.14em] text-romara-ink-soft">{{ option.label }}</p>
+          <p class="mt-0.5 truncate font-heading text-base font-semibold text-romara-green">{{ option.value }}</p>
+          <p class="mt-0.5 text-xs text-romara-ink-soft/80">{{ option.hours }}</p>
+        </div>
+        <IconArrowRight
+          class="h-4 w-4 shrink-0 text-romara-amber transition-transform duration-300 ease-out-expo group-hover:translate-x-1"
+        />
+      </a>
+    </div>
   </div>
 </template>

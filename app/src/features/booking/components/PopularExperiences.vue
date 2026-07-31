@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import IconArrowRight from '@/components/icons/IconArrowRight.vue'
+
 interface Experience {
   name: string
   description: string
@@ -29,31 +31,43 @@ const experiences: Experience[] = [
 </script>
 
 <template>
-  <div class="bg-white shadow-xl p-6 border-romara-green-dark border-t-4 rounded-2xl">
-    <div class="flex items-center gap-2 mb-4">
-      <div class="bg-romara-green-dark rounded w-8 h-1"></div>
-      <p class="font-heading font-bold text-romara-green-dark text-lg">Popular Experiences</p>
-    </div>
+  <div class="rounded-card bg-white p-6 shadow-card sm:p-7">
+    <p class="eyebrow mb-3">
+      
+      Get Inspired
+    </p>
+    <h2 class="font-heading text-xl font-semibold text-romara-green">Popular Experiences</h2>
+    <span class="accent-rule mt-4" />
 
-    <div class="space-y-4 mt-4">
-      <a v-for="experience in experiences" :key="experience.name" :href="experience.href" class="group flex gap-4 hover:bg-romara-green-dark/5 hover:shadow-md p-3 rounded-xl transition-all duration-200">
-        <div class="relative rounded-lg overflow-hidden shrink-0">
-          <img :src="experience.image" :alt="experience.name" class="w-20 h-16 object-cover group-hover:scale-110 transition-transform duration-300" loading="lazy" />
-          <div class="absolute inset-0 bg-romara-green-dark/30 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+    <div class="mt-6 space-y-3">
+      <a
+        v-for="experience in experiences"
+        :key="experience.name"
+        :href="experience.href"
+        class="group flex gap-4 rounded-card border border-romara-green/10 bg-romara-bone p-3 transition-all duration-300 ease-out-expo hover:-translate-y-0.5 hover:border-romara-amber/30 hover:shadow-card"
+      >
+        <div class="relative shrink-0 overflow-hidden rounded-lg">
+          <img
+            :src="experience.image"
+            :alt="experience.name"
+            class="h-16 w-20 object-cover transition-transform duration-500 ease-out-expo group-hover:scale-110"
+            loading="lazy"
+          />
+          <div class="absolute inset-0 bg-scrim-b opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
         </div>
-        <div class="flex flex-col justify-center min-w-0">
-          <p class="font-bold text-romara-green-dark group-hover:text-romara-green text-sm transition-colors">{{ experience.name }}</p>
-          <p class="mt-1 text-romara-ink/60 text-xs leading-relaxed">{{ experience.description }}</p>
+        <div class="flex min-w-0 flex-col justify-center">
+          <p class="font-heading text-sm font-semibold text-romara-green transition-colors group-hover:text-romara-amber-600">{{ experience.name }}</p>
+          <p class="mt-1 text-xs leading-relaxed text-romara-ink-soft">{{ experience.description }}</p>
         </div>
       </a>
     </div>
 
     <a
       href="/safari-packages"
-      class="group inline-flex items-center gap-2 mt-6 font-semibold text-romara-green-dark hover:text-romara-green text-sm transition-colors"
+      class="group mt-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-romara-green transition-colors hover:text-romara-amber-600"
     >
       Explore All Packages
-      <span class="transition-transform group-hover:translate-x-1 transform">→</span>
+      <IconArrowRight class="h-4 w-4 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" />
     </a>
   </div>
 </template>

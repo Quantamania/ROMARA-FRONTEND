@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import IconStar from '@/components/icons/IconStar.vue'
 import IconCalendar from '@/components/icons/IconCalendar.vue'
+import IconCheck from '@/components/icons/IconCheck.vue'
 import type { Review } from '@/features/reviews/api/reviews.api'
 
 interface Props {
@@ -55,30 +56,45 @@ function getInitial(name: string) {
     </div>
   </article>
 
-  <!-- Grid layout: original compact card -->
-  <article v-else class="flex flex-col bg-white shadow-card p-5 rounded-lg h-full card-hover">
-    <div class="flex items-start gap-3">
-      <span class="flex justify-center items-center bg-romara-cream rounded-full w-11 h-11 font-bold text-romara-green text-sm shrink-0">
+  <!-- Grid layout: quote-led card for the masonry quote wall. Natural height
+       (no h-full) + break-inside-avoid so cards vary and tile cleanly in a
+       CSS-columns wall. The quote leads; the guest is the footer. -->
+  <article
+    v-else
+    class="group relative mb-6 flex break-inside-avoid flex-col overflow-hidden rounded-card bg-white p-6 shadow-card ring-1 ring-black/5 transition-shadow duration-500 ease-out-expo hover:shadow-elevated sm:p-7"
+  >
+    <!-- Oversized decorative quote mark -->
+    <span
+      class="pointer-events-none absolute -top-4 right-3 select-none font-heading text-8xl leading-none text-romara-amber/10"
+      aria-hidden="true"
+    >&rdquo;</span>
+
+    <div class="relative flex items-center justify-between gap-3">
+      <div class="flex gap-0.5 text-romara-amber">
+        <IconStar v-for="n in props.review.rating" :key="n" class="h-4 w-4" />
+      </div>
+      <span class="inline-flex items-center gap-1 rounded-full bg-romara-green-100 px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-[0.1em] text-romara-green">
+        <IconCheck class="h-3 w-3" />
+        Verified
+      </span>
+    </div>
+
+    <p class="relative mt-4 font-heading text-lg font-medium leading-snug text-romara-green">
+      &ldquo;{{ props.review.text }}&rdquo;
+    </p>
+
+    <div class="relative mt-6 flex items-center gap-3 border-t border-black/5 pt-5">
+      <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-romara-cream font-bold text-romara-green">
         {{ getInitial(props.review.name) }}
       </span>
-      <div class="min-w-0">
-        <p class="flex items-center gap-1.5 font-bold text-romara-green text-sm">
+      <div class="min-w-0 flex-1">
+        <p class="flex items-center gap-1.5 text-sm font-bold text-romara-green">
           {{ props.review.name }}
           <span aria-hidden="true">{{ props.review.countryFlag }}</span>
         </p>
-        <p class="text-romara-ink/50 text-xs">{{ props.review.experience }}</p>
+        <p class="truncate text-xs text-romara-ink-soft">{{ props.review.experience }}</p>
       </div>
+      <span class="shrink-0 text-xs text-romara-ink/40">{{ formatDate(props.review.date) }}</span>
     </div>
-
-    <div class="flex gap-0.5 mt-3 text-romara-amber">
-      <IconStar v-for="n in props.review.rating" :key="n" class="w-4 h-4" />
-    </div>
-
-    <p class="flex-1 mt-3 text-romara-ink/70 text-sm leading-relaxed">{{ props.review.text }}</p>
-
-    <p class="flex items-center gap-1.5 mt-4 text-romara-ink/40 text-xs">
-      <IconCalendar class="w-3.5 h-3.5" />
-      {{ formatDate(props.review.date) }}
-    </p>
   </article>
 </template>

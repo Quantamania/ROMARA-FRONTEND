@@ -45,21 +45,26 @@ const resolvedIcon = computed(function getIconComponent() {
 <template>
   <section class="romara-container pb-16">
     <div
-      class="flex flex-col items-center gap-6 rounded-lg p-6 sm:flex-row sm:justify-between sm:p-8"
-      :class="theme === 'green' ? 'bg-romara-green' : 'bg-romara-cream'"
+      class="relative flex flex-col items-center gap-6 overflow-hidden rounded-card p-8 shadow-elevated sm:flex-row sm:justify-between sm:p-10"
+      :class="theme === 'green' ? 'bg-green-fade text-white' : 'bg-romara-cream'"
     >
-      <div class="flex items-center gap-4 text-center sm:text-left">
+      <span
+        class="pointer-events-none absolute -right-6 -top-10 select-none font-heading text-[9rem] leading-none text-romara-amber/10"
+        aria-hidden="true"
+      >&rdquo;</span>
+
+      <div class="relative flex items-center gap-5 text-center sm:text-left">
         <span
           v-if="resolvedIconStyle === 'boxed'"
-          class="hidden h-14 w-14 shrink-0 items-center justify-center rounded-md bg-white text-romara-green shadow-card sm:flex"
+          class="hidden h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-romara-amber/10 text-romara-amber sm:flex"
         >
-          <component :is="resolvedIcon" class="h-7 w-7" />
+          <component :is="resolvedIcon" class="h-8 w-8" />
         </span>
         <component :is="resolvedIcon" v-else class="hidden h-14 w-14 shrink-0 text-romara-amber sm:block" />
 
         <div>
-          <p class="text-lg font-bold" :class="theme === 'green' ? 'text-white' : 'text-romara-green'">{{ title }}</p>
-          <p class="mt-1 text-sm" :class="theme === 'green' ? 'text-white/70' : 'text-romara-ink/60'">{{ subtitle }}</p>
+          <p class="font-heading text-xl font-semibold sm:text-2xl" :class="theme === 'green' ? 'text-white' : 'text-romara-green'">{{ title }}</p>
+          <p class="mt-1.5 text-sm" :class="theme === 'green' ? 'text-white/70' : 'text-romara-ink/60'">{{ subtitle }}</p>
         </div>
       </div>
 

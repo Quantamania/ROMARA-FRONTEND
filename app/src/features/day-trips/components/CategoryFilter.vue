@@ -33,17 +33,18 @@ function selectCategory(value: DayTripCategory | 'all') {
 </script>
 
 <template>
-  <div class="flex flex-wrap gap-2">
+  <div class="flex flex-wrap gap-1.5 rounded-full border border-romara-green/10 bg-white p-1.5 shadow-soft">
     <button
       v-for="category in categories"
       :key="category.value"
       type="button"
-      class="rounded-md px-4 py-2 text-xs font-semibold uppercase tracking-wide transition-colors"
+      class="rounded-full px-4 py-2 text-[11px] font-bold uppercase tracking-[0.12em] transition-all duration-300 ease-out-expo focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber/50"
       :class="
         modelValue === category.value
-          ? 'bg-romara-green text-white'
-          : 'bg-white text-romara-ink border border-black/10 hover:border-romara-green'
+          ? 'bg-romara-green text-white shadow-soft'
+          : 'text-romara-ink/60 hover:bg-romara-bone hover:text-romara-green'
       "
+      :aria-pressed="modelValue === category.value"
       @click="selectCategory(category.value)"
     >
       {{ category.label }}

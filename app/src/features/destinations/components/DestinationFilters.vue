@@ -24,18 +24,22 @@ const typeOptions: TypeOption[] = [
 </script>
 
 <template>
-  <!-- Horizontal scrollable "reel" of circular badges, snap-scrolling on mobile -->
-  <div class="flex flex-wrap justify-center gap-8">
+  <!-- Refined reel of category badges that link into the filtered directory. -->
+  <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
     <a
       v-for="option in typeOptions"
       :key="option.value"
       :href="`/destinations/directory?type=${option.value}`"
-     class="group flex w-24 shrink-0 flex-col items-center gap-2.5 text-center"
+      class="group flex w-24 shrink-0 flex-col items-center gap-3 text-center sm:w-28"
     >
-      <span class="flex h-16 w-16 items-center justify-center rounded-full bg-white text-romara-green shadow-card transition-all group-hover:-translate-y-1 group-hover:bg-romara-green group-hover:text-white">
-        <component :is="option.icon" class="h-7 w-7" />
+      <span
+        class="flex h-16 w-16 items-center justify-center rounded-full bg-white text-romara-green shadow-soft ring-1 ring-romara-green/10 transition-all duration-500 ease-out-expo group-hover:-translate-y-1.5 group-hover:bg-romara-green group-hover:text-white group-hover:shadow-elevated group-hover:ring-romara-amber/40 sm:h-20 sm:w-20"
+      >
+        <component :is="option.icon" class="h-7 w-7 sm:h-8 sm:w-8" />
       </span>
-      <p class="text-xs font-bold leading-snug text-romara-green">{{ option.label }}</p>
+      <p class="text-xs font-bold leading-snug text-romara-green transition-colors group-hover:text-romara-amber">
+        {{ option.label }}
+      </p>
     </a>
   </div>
 </template>

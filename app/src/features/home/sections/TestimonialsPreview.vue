@@ -21,7 +21,7 @@ function goToTestimonial(index: number) {
     >&rdquo;</span>
 
     <p class="eyebrow text-romara-amber-300">
-      <span class="h-px w-6 bg-romara-amber" />
+      
       Traveller Stories
     </p>
     <h2 class="mt-3 font-heading text-2xl font-semibold text-white">What our clients say</h2>

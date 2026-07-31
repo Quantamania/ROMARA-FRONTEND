@@ -6,24 +6,27 @@ const paymentMethods = ['Visa', 'Mastercard', 'M-Pesa', 'Bank Transfer']
 </script>
 
 <template>
-  <div class="gap-6 grid grid-cols-1 sm:grid-cols-3 bg-romara-green-dark/5 shadow-lg p-8 sm:p-10 border border-romara-green-dark/10 rounded-2xl">
+  <div class="grid grid-cols-1 items-center gap-8 rounded-card border border-romara-green/10 bg-white p-8 shadow-card sm:grid-cols-3 sm:p-10">
     <div class="flex items-start gap-4">
-      <div class="flex justify-center items-center bg-romara-green-dark shadow-lg rounded-xl w-12 h-12 text-white shrink-0">
-        <IconLock class="w-6 h-6" />
-      </div>
+      <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-green-fade text-white shadow-soft">
+        <IconLock class="h-6 w-6" />
+      </span>
       <div>
-        <p class="font-bold text-romara-green-dark text-sm">Secure Payments</p>
-        <p class="mt-1 text-romara-ink/60 text-xs leading-relaxed">Your payments are 100% secure with trusted partners.</p>
+        <p class="font-heading text-base font-semibold text-romara-green">Secure Payments</p>
+        <p class="mt-1 text-xs leading-relaxed text-romara-ink-soft">Your payments are 100% secure with trusted partners.</p>
       </div>
     </div>
 
-    <div class="flex flex-col">
-      <p class="mb-3 font-bold text-romara-green-dark text-sm">We Accept</p>
+    <div class="sm:border-x sm:border-romara-green/10 sm:px-8">
+      <p class="eyebrow mb-3">
+        
+        We Accept
+      </p>
       <div class="flex flex-wrap gap-2">
         <span
           v-for="method in paymentMethods"
           :key="method"
-          class="bg-white shadow-sm hover:shadow-md px-4 py-2 border-2 border-romara-green-dark/20 hover:border-romara-green-dark rounded-lg font-semibold text-romara-green-dark text-xs transition-all"
+          class="rounded-lg border border-romara-green/15 bg-romara-bone px-4 py-2 text-xs font-semibold text-romara-green transition-all duration-300 ease-out-expo hover:border-romara-amber/40 hover:shadow-soft"
         >
           {{ method }}
         </span>
@@ -31,12 +34,12 @@ const paymentMethods = ['Visa', 'Mastercard', 'M-Pesa', 'Bank Transfer']
     </div>
 
     <div class="flex items-start gap-4">
-      <div class="flex justify-center items-center bg-romara-green-dark shadow-lg rounded-xl w-12 h-12 text-white shrink-0">
-        <IconShield class="w-6 h-6" />
-      </div>
+      <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-green-fade text-white shadow-soft">
+        <IconShield class="h-6 w-6" />
+      </span>
       <div>
-        <p class="font-bold text-romara-green-dark text-sm">Best Price Guarantee</p>
-        <p class="mt-1 text-romara-ink/60 text-xs leading-relaxed">Get the best value for your safari and holiday.</p>
+        <p class="font-heading text-base font-semibold text-romara-green">Best Price Guarantee</p>
+        <p class="mt-1 text-xs leading-relaxed text-romara-ink-soft">Get the best value for your safari and holiday.</p>
       </div>
     </div>
   </div>

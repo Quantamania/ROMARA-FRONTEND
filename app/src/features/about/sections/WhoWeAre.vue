@@ -87,13 +87,14 @@ onUnmounted(() => {
       <div class="lg:col-span-4">
         <div class="flex items-center gap-3 mb-5">
           <span class="bg-romara-amber rounded-full w-1.5 h-1.5" aria-hidden="true"></span>
-          <span class="font-mono text-romara-ink/50 text-xs tracking-[0.2em] uppercase">Field notes</span>
+          <span class="font-mono text-romara-ink-soft text-xs tracking-[0.2em] uppercase">Field notes</span>
         </div>
-        <h2 class="font-heading font-bold text-romara-green text-3xl sm:text-4xl leading-tight">
+        <h2 class="font-heading font-semibold text-romara-green text-display-sm leading-tight">
           Why travel
-          <span class="text-romara-amber">with ROMARA?</span>
+          <span class="block text-romara-amber">with ROMARA?</span>
         </h2>
-        <p class="mt-4 max-w-xs text-romara-ink/60 text-sm leading-relaxed">
+        <span class="accent-rule mt-5" />
+        <p class="mt-6 max-w-xs text-romara-ink-soft text-sm leading-relaxed">
           Six things every ROMARA traveler can count on, from the first itinerary draft to the
           ride home from the airport.
         </p>
@@ -108,15 +109,20 @@ onUnmounted(() => {
         >
           <div class="flex lg:grid lg:grid-cols-2 gap-x-10 gap-y-0 px-4 lg:px-0 snap-x lg:snap-none snap-mandatory">
             <div
-              v-for="reason in reasons"
+              v-for="(reason, i) in reasons"
               :key="reason.title"
-              class="flex-shrink-0 snap-start border-romara-green/15 border-t min-w-[240px] lg:min-w-0"
+              class="group flex-shrink-0 snap-start border-romara-green/15 border-t min-w-[240px] lg:min-w-0"
             >
               <div class="flex items-start gap-4 py-6">
-                <component :is="reason.icon" class="flex-shrink-0 mt-0.5 w-5 h-5 text-romara-amber" />
+                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-romara-green/5 text-romara-amber transition-colors duration-300 ease-out-expo group-hover:bg-romara-green group-hover:text-romara-amber">
+                  <component :is="reason.icon" class="w-5 h-5" />
+                </span>
                 <div>
-                  <p class="font-bold text-romara-green text-sm">{{ reason.title }}</p>
-                  <p class="mt-1 max-w-[220px] text-romara-ink/60 text-xs leading-relaxed">{{ reason.description }}</p>
+                  <div class="flex items-baseline gap-2">
+                    <span class="font-mono text-[10px] tracking-[0.2em] text-romara-amber/70">{{ String(i + 1).padStart(2, '0') }}</span>
+                    <p class="font-semibold text-romara-green text-sm">{{ reason.title }}</p>
+                  </div>
+                  <p class="mt-1 max-w-[220px] text-romara-ink-soft text-xs leading-relaxed">{{ reason.description }}</p>
                 </div>
               </div>
             </div>
@@ -141,19 +147,25 @@ onUnmounted(() => {
     micro-label above each icon, title below. Reads like an itinerary
     manifest rather than six identical centered blocks.
   -->
-  <section v-else class="bg-romara-cream py-14">
+  <section v-else class="section-y bg-romara-cream">
     <div class="romara-container">
-      <div class="text-center">
-        <h2 class="font-bold text-romara-green text-2xl sm:text-3xl">Why Travel with ROMARA?</h2>
-        <span class="block bg-romara-amber mx-auto mt-2 rounded w-14 h-1" />
+      <div class="flex flex-col items-center text-center">
+        <p class="eyebrow mb-3 justify-center">
+          
+          Field notes
+        </p>
+        <h2 class="font-heading font-semibold text-romara-green text-display-sm">Why travel with ROMARA?</h2>
+        <span class="accent-rule mx-auto mt-4" />
       </div>
 
-      <div class="gap-y-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 lg:divide-x mt-10 divide-romara-green/15">
-        <div v-for="(reason, i) in reasons" :key="reason.title" class="flex flex-col items-center px-4 text-center">
-          <span class="font-mono text-romara-green/40 text-[10px] tracking-[0.2em] uppercase">{{ String(i + 1).padStart(2, '0') }}</span>
-          <component :is="reason.icon" class="mt-2 w-7 h-7 text-romara-green" />
-          <p class="mt-3 font-bold text-romara-green text-sm">{{ reason.title }}</p>
-          <p class="mt-1 max-w-[160px] text-romara-ink/60 text-xs leading-relaxed">{{ reason.description }}</p>
+      <div class="gap-y-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 lg:divide-x mt-12 divide-romara-green/15">
+        <div v-for="(reason, i) in reasons" :key="reason.title" class="group flex flex-col items-center px-4 text-center">
+          <span class="font-mono text-romara-amber/70 text-[10px] tracking-[0.2em] uppercase">{{ String(i + 1).padStart(2, '0') }}</span>
+          <span class="mt-3 flex h-12 w-12 items-center justify-center rounded-xl bg-white text-romara-green shadow-soft transition-colors duration-300 ease-out-expo group-hover:bg-romara-green group-hover:text-romara-amber">
+            <component :is="reason.icon" class="w-6 h-6" />
+          </span>
+          <p class="mt-4 font-semibold text-romara-green text-sm">{{ reason.title }}</p>
+          <p class="mt-1.5 max-w-[160px] text-romara-ink-soft text-xs leading-relaxed">{{ reason.description }}</p>
         </div>
       </div>
     </div>

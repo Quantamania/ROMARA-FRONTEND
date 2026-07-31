@@ -3,6 +3,8 @@ import IconUserCheck from '@/components/icons/IconUserCheck.vue'
 import IconHandshake from '@/components/icons/IconHandshake.vue'
 import IconClock from '@/components/icons/IconClock.vue'
 import IconUsers from '@/components/icons/IconUsers.vue'
+import PageHero from '@/components/ui/PageHero.vue'
+import SectionHeading from '@/components/ui/SectionHeading.vue'
 import QuickContactOptions from '@/features/contact/components/QuickContactOptions.vue'
 import ContactForm from '@/features/contact/components/ContactForm.vue'
 import OfficeMap from '@/features/contact/components/OfficeMap.vue'
@@ -23,64 +25,68 @@ const whyContactItems: WhyContactItem[] = [
 
 <template>
   <!-- Hero -->
-  <section class="relative isolate min-h-[420px] overflow-hidden bg-romara-green text-white sm:min-h-[460px]">
-    <img
-      src="/src/assets/images/contact/hero.png"
-      alt="Safari vehicle at sunset"
-      class="absolute inset-0 h-full w-full object-cover"
-    />
-    <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/10" />
+  <PageHero
+    eyebrow="Contact Us"
+    title="We'd Love to Hear From You"
+    subtitle="Whether you have a question, need travel advice, or want to plan your next adventure, our team is here to help."
+    image="/src/assets/images/contact/hero.png"
+    size="lg"
+    :breadcrumbs="[{ label: 'Home', href: '/' }, { label: 'Contact' }]"
+  />
 
-    <div class="romara-container relative flex min-h-[420px] items-center py-16 sm:min-h-[460px]">
-      <div class="max-w-xl">
-        <p class="text-sm font-bold uppercase tracking-[0.2em] text-romara-amber">Contact Us</p>
-        <h1 class="mt-3 font-heading text-4xl font-bold leading-tight sm:text-5xl">We'd Love to Hear From You</h1>
-        <span class="mt-3 block h-1 w-14 rounded bg-romara-amber" />
-        <p class="mt-4 text-base leading-relaxed text-white/85">
-          Whether you have a question, need travel advice, or want to plan your next adventure, our team is
-          here to help!
-        </p>
-      </div>
-    </div>
-  </section>
+  <!-- Contact form + quick options / office, two-column -->
+  <section class="section-y bg-romara-bone">
+    <div class="romara-container">
+      <div class="grid grid-cols-1 gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-10">
+        <!-- Form card -->
+        <div class="rounded-card bg-white p-6 shadow-card sm:p-9">
+          <p class="eyebrow mb-3">
+            
+            Send a Message
+          </p>
+          <h2 class="font-heading text-display-sm font-semibold text-romara-green">Start the Conversation</h2>
+          <span class="accent-rule mt-4" />
+          <p class="mt-4 max-w-md text-sm leading-relaxed text-romara-ink-soft">
+            Fill in the form below and a member of our team will get back to you as soon as possible.
+          </p>
 
-  <!-- Quick Contact Options, overlapping the hero bottom -->
-  <section class="romara-container relative z-10 -mt-10 sm:-mt-12">
-    <QuickContactOptions />
-  </section>
+          <div class="mt-8">
+            <ContactForm />
+          </div>
+        </div>
 
-  <!-- Contact form + office info, two-column -->
-  <section class="romara-container py-16">
-    <div class="grid grid-cols-1 gap-12 lg:grid-cols-2">
-      <div>
-        <h2 class="text-2xl font-bold text-romara-green sm:text-3xl">Send Us a Message</h2>
-        <p class="mt-1 text-sm text-romara-ink/60">Fill in the form below and we'll get back to you as soon as possible.</p>
-
-        <div class="mt-6">
-          <ContactForm />
+        <!-- Quick contact + office -->
+        <div class="space-y-8">
+          <QuickContactOptions />
+          <OfficeMap />
         </div>
       </div>
-
-      <OfficeMap />
     </div>
   </section>
 
   <!-- Why Contact ROMARA -->
-  <section class="romara-container pb-16">
-    <div class="rounded-lg bg-romara-cream p-8 sm:p-10">
-      <div class="text-center">
-        <h2 class="text-2xl font-bold text-romara-green sm:text-3xl">Why Contact ROMARA?</h2>
-        <p class="mx-auto mt-2 max-w-xl text-sm text-romara-ink/60">
-          We are here to make your travel experience seamless and unforgettable.
-        </p>
-      </div>
+  <section class="section-y bg-white">
+    <div class="romara-container">
+      <SectionHeading
+        align="center"
+        eyebrow="Why ROMARA"
+        title="Travel Planning, Beautifully Handled"
+        description="We are here to make your travel experience seamless and unforgettable."
+      />
 
-      <div class="mt-10 grid grid-cols-2 gap-8 sm:grid-cols-4">
-        <div v-for="item in whyContactItems" :key="item.title" class="flex flex-col items-center text-center">
-          <IconUserCheck v-if="false" />
-          <component :is="item.icon" class="h-8 w-8 text-romara-amber" />
-          <p class="mt-3 text-sm font-bold text-romara-green">{{ item.title }}</p>
-          <p class="mt-1 text-xs leading-relaxed text-romara-ink/60">{{ item.description }}</p>
+      <div class="mt-4 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+        <div
+          v-for="item in whyContactItems"
+          :key="item.title"
+          class="group rounded-card border border-romara-green/10 bg-romara-bone p-6 text-center transition-all duration-500 ease-out-expo hover:-translate-y-1.5 hover:border-romara-amber/30 hover:shadow-elevated sm:p-8"
+        >
+          <span
+            class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-amber-fade text-white shadow-soft transition-transform duration-500 ease-out-expo group-hover:scale-105"
+          >
+            <component :is="item.icon" class="h-6 w-6" />
+          </span>
+          <p class="mt-5 font-heading text-lg font-semibold text-romara-green">{{ item.title }}</p>
+          <p class="mt-2 text-xs leading-relaxed text-romara-ink-soft">{{ item.description }}</p>
         </div>
       </div>
     </div>

@@ -68,6 +68,7 @@ const route = useRoute()
 const isMobileMenuOpen = ref(false)
 const openDropdownLabel = ref<string | null>(null)
 const isNavHidden = ref(false)
+const isScrolled = ref(false)
 let lastScrollY = 0
 
 function toggleMobileMenu() {
@@ -85,6 +86,8 @@ function getScrollY() {
 function handleScroll() {
   const currentScrollY = getScrollY()
   const delta = currentScrollY - lastScrollY
+
+  isScrolled.value = currentScrollY > 8
 
   if (currentScrollY <= 60 || isMobileMenuOpen.value) {
     isNavHidden.value = false
@@ -132,7 +135,7 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
 </script>
 
 <template>
-  <header class="left-0 right-0 z-40 fixed bg-white border-black/5 border-b transition-[top,opacity] duration-500 ease-in-out will-change-transform" :style="{ top: isNavHidden ? '-160px' : '0px', opacity: isNavHidden ? 0 : 1, pointerEvents: isNavHidden ? 'none' : 'auto' }">
+  <header class="left-0 right-0 z-40 fixed bg-white border-b transition-[top,opacity,box-shadow] duration-500 ease-in-out will-change-transform" :class="isScrolled ? 'border-transparent shadow-soft' : 'border-black/5'" :style="{ top: isNavHidden ? '-160px' : '0px', opacity: isNavHidden ? 0 : 1, pointerEvents: isNavHidden ? 'none' : 'auto' }">
     <!-- Contact Bar -->
     <div class="bg-romara-green text-white">
       <div class="romara-container flex h-10 items-center justify-between text-xs">

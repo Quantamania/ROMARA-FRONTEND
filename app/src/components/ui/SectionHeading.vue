@@ -33,7 +33,7 @@ withDefaults(defineProps<Props>(), {
   >
     <div :class="align === 'center' ? 'max-w-2xl' : ''">
       <p v-if="eyebrow" class="eyebrow mb-3" :class="align === 'center' ? 'justify-center' : ''">
-        <span class="h-px w-6 bg-romara-amber" />
+        
         {{ eyebrow }}
       </p>
 

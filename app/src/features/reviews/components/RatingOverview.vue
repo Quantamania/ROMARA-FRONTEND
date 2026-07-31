@@ -30,8 +30,11 @@ const platforms = [
   <div class="rounded-2xl bg-white p-6 shadow-card">
     <!-- Big score -->
     <div class="text-center">
-      <p class="font-heading text-5xl font-bold text-romara-green">{{ overallRating }}</p>
-      <div class="mt-2 flex justify-center gap-0.5 text-romara-amber">
+      <p class="font-heading font-bold leading-none text-romara-green">
+        <span class="text-6xl">{{ overallRating }}</span>
+        <span class="text-2xl text-romara-ink/30">/5</span>
+      </p>
+      <div class="mt-3 flex justify-center gap-0.5 text-romara-amber">
         <IconStar v-for="n in 5" :key="n" class="h-4 w-4" />
       </div>
       <p class="mt-2 text-xs text-romara-ink/50">Based on {{ totalReviews }} reviews</p>

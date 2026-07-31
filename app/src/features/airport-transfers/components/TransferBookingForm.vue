@@ -8,9 +8,9 @@ import { submitTransferBooking } from '@/features/airport-transfers/api/transfer
 import type { TransferBookingFormData } from '@/features/airport-transfers/types/transfer.types'
 
 const inputClasses =
-  'w-full rounded-lg border border-black/10 bg-white px-4 py-2.5 text-sm text-romara-ink placeholder:text-romara-ink/40 transition-colors focus:border-romara-green focus:outline-none focus:ring-2 focus:ring-romara-green/15'
-const labelClasses = 'mb-1.5 block text-xs font-semibold uppercase tracking-wide text-romara-ink/60'
-const sectionLabelClasses = 'mb-4 text-xs font-bold uppercase tracking-[0.15em] text-romara-amber'
+  'w-full rounded-lg border border-romara-green/15 bg-romara-bone px-4 py-3 text-sm text-romara-ink placeholder:text-romara-ink-soft/50 transition-all duration-200 focus:border-romara-green focus:bg-white focus:outline-none focus:ring-2 focus:ring-romara-green/20'
+const labelClasses = 'mb-1.5 block text-xs font-semibold uppercase tracking-[0.1em] text-romara-ink-soft'
+const sectionLabelClasses = 'eyebrow mb-5'
 
 const isSubmitting = ref(false)
 const isSubmitted = ref(false)
@@ -89,12 +89,13 @@ function bookAnotherTransfer() {
 
 <template>
   <!-- Confirmation state -->
-  <div v-if="isSubmitted" class="mx-auto max-w-xl rounded-2xl bg-white p-8 text-center shadow-card sm:p-12">
-    <span class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-romara-cream text-romara-green">
-      <IconCheckSquare class="h-7 w-7" />
+  <div v-if="isSubmitted" class="mx-auto max-w-xl rounded-card bg-white p-8 text-center shadow-elevated sm:p-12">
+    <span class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-amber-fade text-white shadow-soft">
+      <IconCheckSquare class="h-8 w-8" />
     </span>
-    <h2 class="mt-5 text-xl font-bold text-romara-green">Thank you for choosing ROMARA Tours &amp; Travel.</h2>
-    <p class="mx-auto mt-3 max-w-md text-sm leading-relaxed text-romara-ink/70">
+    <h2 class="mt-6 font-heading text-2xl font-semibold text-romara-green">Thank you for choosing ROMARA Tours &amp; Travel.</h2>
+    <span class="accent-rule mx-auto mt-4" />
+    <p class="mx-auto mt-4 max-w-md text-sm leading-relaxed text-romara-ink-soft">
       Your booking request has been received successfully. A travel consultant will contact you shortly to
       confirm your reservation and provide payment instructions (where applicable).
     </p>
@@ -109,7 +110,7 @@ function bookAnotherTransfer() {
 
   <!-- Two-column: form + sticky summary -->
   <form v-else class="grid grid-cols-1 items-start gap-8 lg:grid-cols-[1fr_320px]" @submit.prevent="handleSubmit">
-    <div class="space-y-8 rounded-2xl bg-white p-6 shadow-card sm:p-8">
+    <div class="space-y-8 rounded-card bg-white p-6 shadow-card sm:p-9">
       <!-- Personal Information -->
       <div>
         <p :class="sectionLabelClasses">Personal Information</p>
@@ -129,7 +130,7 @@ function bookAnotherTransfer() {
         </div>
       </div>
 
-      <hr class="border-black/5" />
+      <hr class="border-romara-green/10" />
 
       <!-- Transfer Details -->
       <div>
@@ -170,7 +171,7 @@ function bookAnotherTransfer() {
         </div>
       </div>
 
-      <hr class="border-black/5" />
+      <hr class="border-romara-green/10" />
 
       <!-- Destination -->
       <div>
@@ -192,7 +193,7 @@ function bookAnotherTransfer() {
         </div>
       </div>
 
-      <hr class="border-black/5" />
+      <hr class="border-romara-green/10" />
 
       <!-- Number of Travellers -->
       <div>
@@ -213,7 +214,7 @@ function bookAnotherTransfer() {
         </div>
       </div>
 
-      <hr class="border-black/5" />
+      <hr class="border-romara-green/10" />
 
       <!-- Luggage -->
       <div>
@@ -238,7 +239,7 @@ function bookAnotherTransfer() {
         </div>
       </div>
 
-      <hr class="border-black/5" />
+      <hr class="border-romara-green/10" />
 
       <!-- Vehicle Preference -->
       <div>
@@ -253,7 +254,7 @@ function bookAnotherTransfer() {
         </select>
       </div>
 
-      <hr class="border-black/5" />
+      <hr class="border-romara-green/10" />
 
       <!-- Additional Requests -->
       <div>
@@ -266,7 +267,7 @@ function bookAnotherTransfer() {
         />
       </div>
 
-      <hr class="border-black/5" />
+      <hr class="border-romara-green/10" />
 
       <!-- Payment Preference -->
       <div>
@@ -282,52 +283,52 @@ function bookAnotherTransfer() {
 
     <!-- Sticky summary -->
     <aside class="lg:self-start">
-      <div class="lg:h-fit overflow-hidden rounded-2xl bg-white shadow-card" style="position: sticky; top: 6rem;">
-        <div class="flex items-center gap-3 bg-romara-green px-6 py-5 text-white">
-          <IconSuitcase class="h-5 w-5 text-romara-amber" />
-          <h2 class="text-sm font-bold uppercase tracking-wide">Booking Summary</h2>
+      <div class="lg:h-fit overflow-hidden rounded-card bg-white shadow-elevated" style="position: sticky; top: 6rem;">
+        <div class="flex items-center gap-3 bg-green-fade px-6 py-5 text-white">
+          <IconSuitcase class="h-5 w-5 text-romara-amber-300" />
+          <h2 class="font-heading text-sm font-semibold uppercase tracking-[0.14em]">Booking Summary</h2>
         </div>
 
         <dl class="space-y-4 px-6 py-6 text-sm">
           <div class="flex items-start justify-between gap-3">
-            <dt class="text-romara-ink/50">Transfer Type</dt>
+            <dt class="text-romara-ink-soft">Transfer Type</dt>
             <dd class="text-right font-semibold text-romara-green">{{ transferTypeLabels[formData.transferType] }}</dd>
           </div>
           <div class="flex items-start justify-between gap-3">
-            <dt class="text-romara-ink/50">Airport</dt>
+            <dt class="text-romara-ink-soft">Airport</dt>
             <dd class="text-right font-semibold text-romara-green">{{ airportLabels[formData.airport] }}</dd>
           </div>
           <div class="flex items-start justify-between gap-3">
-            <dt class="text-romara-ink/50">Date &amp; Time</dt>
+            <dt class="text-romara-ink-soft">Date &amp; Time</dt>
             <dd class="text-right font-semibold text-romara-green">{{ formattedDateTime }}</dd>
           </div>
           <div class="flex items-start justify-between gap-3">
-            <dt class="text-romara-ink/50">Destination</dt>
+            <dt class="text-romara-ink-soft">Destination</dt>
             <dd class="max-w-[160px] text-right font-semibold text-romara-green">
               {{ formData.destinationAddress || 'Not set yet' }}
             </dd>
           </div>
           <div class="flex items-start justify-between gap-3">
-            <dt class="text-romara-ink/50">Travellers</dt>
+            <dt class="text-romara-ink-soft">Travellers</dt>
             <dd class="text-right font-semibold text-romara-green">{{ totalTravellers }}</dd>
           </div>
           <div class="flex items-start justify-between gap-3">
-            <dt class="text-romara-ink/50">Vehicle</dt>
+            <dt class="text-romara-ink-soft">Vehicle</dt>
             <dd class="text-right font-semibold text-romara-green">{{ vehicleLabels[formData.vehiclePreference] }}</dd>
           </div>
           <div class="flex items-start justify-between gap-3">
-            <dt class="text-romara-ink/50">Payment</dt>
+            <dt class="text-romara-ink-soft">Payment</dt>
             <dd class="text-right font-semibold text-romara-green">{{ paymentLabels[formData.paymentPreference] }}</dd>
           </div>
         </dl>
 
-        <div class="space-y-3 border-t border-black/5 bg-romara-cream/40 px-6 py-6">
-          <BaseButton type="submit" variant="primary" class="w-full justify-center" :disabled="isSubmitting">
+        <div class="space-y-3 border-t border-romara-green/10 bg-romara-cream/50 px-6 py-6">
+          <BaseButton type="submit" variant="primary" block class="justify-center" :disabled="isSubmitting">
             {{ isSubmitting ? 'Submitting...' : 'Book My Transfer' }}
             <IconArrowRight class="h-4 w-4" />
           </BaseButton>
-          <BaseButton as="a" href="/contact" variant="outline" class="w-full justify-center">Request a Quote</BaseButton>
-          <p class="pt-1 text-center text-xs text-romara-ink/50">
+          <BaseButton as="a" href="/contact" variant="outline" block class="justify-center">Request a Quote</BaseButton>
+          <p class="pt-1 text-center text-xs text-romara-ink-soft">
             A travel consultant will confirm your reservation shortly after you submit.
           </p>
         </div>

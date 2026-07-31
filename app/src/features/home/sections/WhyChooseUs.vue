@@ -21,7 +21,7 @@ const whyChooseItems: WhyChooseItem[] = [
 <template>
   <div>
     <p class="eyebrow mb-3">
-      <span class="h-px w-6 bg-romara-amber" />
+      
       Why ROMARA
     </p>
     <h2 class="font-heading text-display-sm font-semibold text-romara-green">

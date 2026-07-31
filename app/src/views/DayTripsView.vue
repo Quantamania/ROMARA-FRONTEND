@@ -3,6 +3,7 @@ import { computed, ref } from 'vue'
 import TrustBuilding from '@/features/home/sections/TrustBuilding.vue'
 import CallToActionBar from '@/components/ui/CallToActionBar.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
+import PageHero from '@/components/ui/PageHero.vue'
 import DayTripCard from '@/features/day-trips/components/DayTripCard.vue'
 import CategoryFilter from '@/features/day-trips/components/CategoryFilter.vue'
 import IconCalendarCheck from '@/components/icons/IconCalendarCheck.vue'
@@ -38,44 +39,36 @@ const whyChooseItems: WhyChooseItem[] = [
 </script>
 
 <template>
-    <!-- Hero: full-bleed edge-to-edge, lighter overlay, dark text -->
-  <section v-scroll-reveal class="isolate relative min-h-[460px] sm:min-h-[500px] overflow-hidden">
-    <img
-      src="/src/assets/images/day-trips/hero.png"
-      alt="Giraffe with the Nairobi skyline in the background"
-      class="absolute inset-0 w-full h-full object-cover"
-    />
-    <div class="absolute inset-0 bg-gradient-to-r from-white/85 via-white/45 to-transparent" />
-
-    <div class="relative flex items-center min-h-[460px] sm:min-h-[500px] romara-container">
-      <div class="py-16 max-w-xl">
-        <p class="font-bold text-romara-amber text-sm uppercase tracking-[0.2em]">Day Trips</p>
-        <h1 class="mt-3 font-heading font-bold text-romara-green text-4xl sm:text-5xl leading-tight">
-          Amazing Experiences. Unforgettable Memories.
-        </h1>
-        <p class="mt-4 text-romara-ink/70 text-base leading-relaxed">
-          Short on time? Our day trips are the perfect way to explore Kenya's top attractions in a single day.
-          From wildlife encounters to cultural experiences, adventure and nature, we've got you covered.
-        </p>
-
-        <div class="flex flex-wrap gap-3 mt-8">
-          <BaseButton as="a" href="/contact" variant="outline" size="lg">
-            Request a Quote
-            <IconChevronRight class="w-4 h-4" />
-          </BaseButton>
-        </div>
-      </div>
+  <!-- Hero -->
+  <PageHero
+    v-scroll-reveal
+    eyebrow="Day Trips"
+    title="Amazing Experiences. Unforgettable Memories."
+    subtitle="Short on time? Our day trips are the perfect way to explore Kenya's top attractions in a single day — from wildlife encounters to cultural experiences, adventure and nature."
+    image="/src/assets/images/day-trips/hero.png"
+    size="lg"
+    :breadcrumbs="[{ label: 'Home', href: '/' }, { label: 'Day Trips' }]"
+  >
+    <div class="flex flex-wrap gap-3">
+      <BaseButton as="a" href="/contact" variant="amber" size="lg">Request a Quote</BaseButton>
     </div>
-  </section>
+  </PageHero>
 
   <div v-scroll-reveal="{ delay: 75 }">
     <TrustBuilding :overlap="false" />
   </div>
 
   <!-- Services grid -->
-  <section v-scroll-reveal-left class="py-16 romara-container">
-    <div class="flex lg:flex-row flex-col lg:justify-between lg:items-center gap-4 mb-8">
-      <h2 class="font-bold text-romara-green text-2xl sm:text-3xl">Popular Day Trips</h2>
+  <section v-scroll-reveal-left class="section-y romara-container">
+    <div class="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+      <div>
+        <p class="eyebrow mb-3">
+          
+          Explore Kenya
+        </p>
+        <h2 class="font-heading text-display-sm font-semibold text-romara-green">Popular Day Trips</h2>
+        <span class="accent-rule mt-4" />
+      </div>
       <CategoryFilter v-model="selectedCategory" />
     </div>
 
@@ -94,26 +87,36 @@ const whyChooseItems: WhyChooseItem[] = [
   </section>
 
   <!-- Why Choose Our Day Trips -->
-  <section v-scroll-reveal-right class="pb-16 romara-container">
-    <div class="bg-romara-cream p-6 sm:p-8 rounded-lg">
-      <div class="items-center gap-8 grid grid-cols-1 lg:grid-cols-5">
-        <img
-          src="/src/assets/images/day-trips/why.png"
-          alt="Safari vehicle with rhino on a day trip"
-          class="lg:col-span-2 rounded-md w-full h-56 lg:h-64 object-cover"
-        />
+  <section v-scroll-reveal-right class="pb-20 romara-container">
+    <div class="overflow-hidden rounded-card bg-romara-cream shadow-soft">
+      <div class="items-stretch gap-8 grid grid-cols-1 lg:grid-cols-5">
+        <div class="lg:col-span-2 relative min-h-[240px] overflow-hidden">
+          <img
+            src="/src/assets/images/day-trips/why.png"
+            alt="Safari vehicle with rhino on a day trip"
+            loading="lazy"
+            class="absolute inset-0 h-full w-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-romara-green-dark/40 to-transparent" />
+        </div>
 
-        <div class="lg:col-span-3">
-          <h2 class="font-bold text-romara-green text-2xl sm:text-3xl">Why Choose Our Day Trips?</h2>
-          <span class="block bg-romara-amber mt-2 rounded w-14 h-1" />
-          <p class="mt-3 text-romara-ink/70 text-sm leading-relaxed">
+        <div class="lg:col-span-3 p-8 sm:p-10">
+          <p class="eyebrow mb-3">
+            
+            The ROMARA Difference
+          </p>
+          <h2 class="font-heading text-display-sm font-semibold text-romara-green">Why Choose Our Day Trips?</h2>
+          <span class="accent-rule mt-4" />
+          <p class="mt-4 max-w-xl text-sm leading-relaxed text-romara-ink-soft">
             Our day trips are thoughtfully planned to give you maximum experience in minimum time.
           </p>
 
           <div class="gap-6 grid grid-cols-2 sm:grid-cols-5 mt-8">
             <div v-for="(item, index) in whyChooseItems" :key="item.title" v-scroll-reveal="{ delay: index * 75 }">
-              <component :is="item.icon" class="w-7 h-7 text-romara-green" />
-              <p class="mt-2 font-bold text-romara-green text-sm">{{ item.title }}</p>
+              <span class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white text-romara-green shadow-soft">
+                <component :is="item.icon" class="h-5 w-5" />
+              </span>
+              <p class="mt-3 font-heading font-semibold text-romara-green text-sm">{{ item.title }}</p>
               <p class="mt-1 text-romara-ink/60 text-xs leading-relaxed">{{ item.description }}</p>
             </div>
           </div>

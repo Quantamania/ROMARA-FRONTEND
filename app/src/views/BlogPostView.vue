@@ -4,7 +4,19 @@ import { useRoute, useRouter } from 'vue-router'
 import type { BlogPost } from '@/features/blog/types/blog.types'
 import blogPostsData from '@/data/blogPosts.json'
 import BaseButton from '@/components/ui/BaseButton.vue'
+import Pill from '@/components/ui/Pill.vue'
 import IconArrowLeft from '@/components/icons/IconArrowLeft.vue'
+import IconArrowRight from '@/components/icons/IconArrowRight.vue'
+import IconClock from '@/components/icons/IconClock.vue'
+
+const categoryLabels: Record<string, string> = {
+  'safari-tips': 'Safari Tips',
+  destinations: 'Destinations',
+  'travel-guides': 'Travel Guides',
+  wildlife: 'Wildlife',
+  'travel-news': 'Travel News',
+  'culture-people': 'Culture & People',
+}
 
 const route = useRoute()
 const router = useRouter()
@@ -89,180 +101,252 @@ const contentSections = computed(() => {
 </script>
 
 <template>
-  <div v-if="currentPost" class="bg-white min-h-screen">
-    <!-- Hero: Full-width image with overlay content -->
-    <section class="relative bg-romara-green min-h-[600px] overflow-hidden">
-      <!-- Full-width background image -->
-      <div class="absolute inset-0">
-        <img
-          :src="currentPost.image"
-          :alt="currentPost.title"
-          class="w-full h-full object-cover"
-        />
-        <div class="absolute inset-0 bg-gradient-to-r from-romara-green/95 via-romara-green/70 to-romara-green/40"></div>
-        <div class="right-0 bottom-0 left-0 absolute bg-gradient-to-t from-romara-green-dark to-transparent h-32"></div>
+  <div v-if="currentPost" class="bg-white">
+    <!-- Hero: full-bleed image masthead with an editorial title -->
+    <section class="relative isolate flex min-h-[560px] items-end overflow-hidden bg-romara-green text-white lg:min-h-[640px]">
+      <img
+        :src="currentPost.image"
+        :alt="currentPost.title"
+        class="ken-burns absolute inset-0 -z-10 h-full w-full object-cover"
+      />
+      <div class="absolute inset-0 -z-10 bg-scrim-b" />
+      <div class="absolute inset-0 -z-10 bg-gradient-to-r from-romara-green-dark/80 via-romara-green-dark/30 to-transparent" />
+
+      <div class="absolute inset-x-0 top-6">
+        <div class="romara-container">
+          <button
+            type="button"
+            @click="goBack"
+            class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white backdrop-blur-sm transition-colors hover:border-romara-amber hover:text-romara-amber-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber/50"
+          >
+            <IconArrowLeft class="h-4 w-4" />
+            <span>Back to Blog</span>
+          </button>
+        </div>
       </div>
 
-      <div class="absolute inset-x-0 top-4 romara-container">
-        <button
-          type="button"
-          @click="goBack"
-          class="inline-flex items-center gap-2 text-sm font-semibold text-romara-amber transition-colors"
-        >
-          <IconArrowLeft class="w-4 h-4" />
-          <span class="hidden sm:inline text-romara-amber">Back to Blog</span>
-        </button>
-      </div>
-
-      <!-- Decorative number -->
-      <div class="hidden lg:block top-10 right-10 absolute font-heading font-bold text-white/5 text-9xl">BLOG</div>
-
-      <div class="relative flex items-end py-36 lg:py-56 romara-container">
+      <div class="romara-container relative pb-16 pt-32 lg:pb-20">
         <div class="max-w-3xl">
-          <!-- Category badge removed per design -->
-
-          <!-- Title -->
-          <h1 class="mb-6 font-heading font-bold text-white text-4xl sm:text-5xl lg:text-6xl leading-tight">
+          <p class="eyebrow text-romara-amber-300">
+            
+            {{ categoryLabels[currentPost.category] ?? currentPost.category }}
+          </p>
+          <h1 class="mt-5 font-heading text-display font-semibold leading-[1.05] text-balance">
             {{ currentPost.title }}
           </h1>
-
-          <!-- Excerpt removed per design -->
-
-          <!-- Decorative accent line -->
-          <div class="bg-romara-amber mt-10 rounded w-24 h-1"></div>
+          <div class="mt-7 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium text-white/75">
+            <span class="inline-flex items-center gap-2">
+              <span class="h-8 w-8 shrink-0 rounded-full bg-gradient-to-br from-romara-amber to-romara-green-dark" />
+              ROMARA Team
+            </span>
+            <span class="h-1 w-1 rounded-full bg-white/40" />
+            <span>{{ formatDate(currentPost.publishedAt) }}</span>
+            <span class="h-1 w-1 rounded-full bg-white/40" />
+            <span class="inline-flex items-center gap-1.5">
+              <IconClock class="h-4 w-4 text-romara-amber-300" />
+              {{ currentPost.readTimeMinutes }} min read
+            </span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Main Content -->
-    <div class="bg-gradient-to-b from-white to-romara-green/5 py-16 lg:py-20">
-      <section class="romara-container">
-        <article class="gap-12 grid grid-cols-1 lg:grid-cols-[1fr_320px]">
-          <!-- Main content -->
-          <div class="max-w-none">
-            <div v-scroll-reveal class="max-w-none prose-headings:font-heading prose-headings:font-bold prose-a:text-romara-green prose-headings:text-romara-green prose-p:text-romara-ink/80 hover:prose-a:underline prose-a:no-underline prose-p:leading-relaxed prose prose-lg">
-              <template v-for="(section, index) in contentSections" :key="index">
-                <p v-if="section.type === 'paragraph'" class="mb-6 text-lg leading-relaxed">
-                  {{ section.content }}
-                </p>
+    <!-- Long-form article -->
+    <section class="section-y bg-white">
+      <div class="romara-container">
+        <article class="mx-auto max-w-3xl">
+          <div v-scroll-reveal>
+            <template v-for="(section, index) in contentSections" :key="index">
+              <p
+                v-if="section.type === 'paragraph'"
+                class="leading-[1.9] text-romara-ink-soft"
+                :class="index === 0 ? 'mb-8 text-xl text-romara-ink' : 'mb-7 text-lg'"
+              >
+                {{ section.content }}
+              </p>
 
-                <h2 v-else-if="section.type === 'heading'" class="mt-12 mb-6 font-bold text-romara-green text-3xl">
-                  {{ section.content }}
-                </h2>
+              <h2
+                v-else-if="section.type === 'heading'"
+                class="mb-5 mt-12 font-heading text-2xl font-semibold text-romara-green sm:text-3xl"
+              >
+                {{ section.content }}
+              </h2>
 
-                <ul v-else-if="section.type === 'list'" class="space-y-3 mb-6 pl-6">
-                  <li v-for="(item, itemIndex) in section.items" :key="itemIndex" class="text-romara-ink/80 text-lg leading-relaxed">
-                    {{ item }}
-                  </li>
-                </ul>
-              </template>
-            </div>
-
-            <div v-scroll-reveal="{ delay: 100 }" class="bg-romara-green mt-12 p-6 border-romara-amber border-l-4 rounded-r-lg">
-              <h3 class="font-bold text-white text-lg">Quick Travel Tip</h3>
-              <p class="mt-2 text-white/90 text-base leading-relaxed">Use the golden hours of sunrise and sunset for the best safari photos — keep your camera ready.</p>
-            </div>
-
-            <nav v-if="previousPost || nextPost" v-scroll-reveal="{ delay: 200 }" class="mt-16 pt-8 border-romara-green/20 border-t">
-              <div class="gap-6 grid grid-cols-1 sm:grid-cols-2">
-                <a
-                  v-if="previousPost"
-                  :href="`/blog/${previousPost.slug}`"
-                  class="group relative overflow-hidden rounded-lg border border-romara-green/20 transition hover:border-romara-green"
-                  :style="{
-                    backgroundImage: `url(${previousPost.image})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                  }"
+              <ul v-else-if="section.type === 'list'" class="my-8 space-y-3.5">
+                <li
+                  v-for="(item, itemIndex) in section.items"
+                  :key="itemIndex"
+                  class="flex gap-3 text-lg leading-relaxed text-romara-ink-soft"
                 >
-                  <div class="absolute inset-0 bg-romara-green/60 transition group-hover:bg-romara-green/70"></div>
-                  <div class="relative p-6 min-h-[180px]">
-                    <span class="font-semibold text-white text-sm uppercase tracking-wide">← Previous Post</span>
-                    <h4 class="mt-2 font-bold text-white text-lg">{{ previousPost.title }}</h4>
-                  </div>
-                </a>
-
-                <a
-                  v-if="nextPost"
-                  :href="`/blog/${nextPost.slug}`"
-                  class="group relative overflow-hidden rounded-lg border border-romara-green/20 transition hover:border-romara-green"
-                  :style="{
-                    backgroundImage: `url(${nextPost.image})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                  }"
-                >
-                  <div class="absolute inset-0 bg-romara-green/60 transition group-hover:bg-romara-green/70"></div>
-                  <div class="relative p-6 text-right min-h-[180px]">
-                    <span class="font-semibold text-white text-sm uppercase tracking-wide">Next Post →</span>
-                    <h4 class="mt-2 font-bold text-white text-lg">{{ nextPost.title }}</h4>
-                  </div>
-                </a>
-              </div>
-            </nav>
+                  <span class="mt-[0.7rem] h-1.5 w-1.5 shrink-0 rounded-full bg-romara-amber" />
+                  <span>{{ item }}</span>
+                </li>
+              </ul>
+            </template>
           </div>
 
-          <!-- Sidebar with animations -->
-          <aside class="lg:top-24 lg:sticky space-y-8 lg:h-fit">
-            <div v-scroll-reveal-right class="bg-romara-green shadow-lg p-6 rounded-lg">
-              <div class="flex items-center gap-4">
-                <div class="bg-gradient-to-br from-romara-amber to-romara-green-dark rounded-full w-12 h-12 animate-pulse" />
-                <div>
-                  <p class="font-bold text-white">ROMARA Team</p>
-                  <p class="text-white/70 text-xs">Travel Experts</p>
-                </div>
-              </div>
-              <p class="mt-4 text-white/90 text-sm leading-relaxed">Sharing insights and experiences from years of safari adventures.</p>
+          <blockquote
+            v-scroll-reveal="{ delay: 100 }"
+            class="relative my-12 overflow-hidden rounded-r-card border-l-4 border-romara-amber bg-romara-green px-7 py-7 shadow-elevated"
+          >
+            <div class="absolute inset-0 bg-green-fade opacity-50" />
+            <div class="relative">
+              <p class="eyebrow text-romara-amber-300">
+                
+                Quick Travel Tip
+              </p>
+              <p class="mt-3 font-heading text-lg leading-relaxed text-white">
+                Use the golden hours of sunrise and sunset for the best safari photos — keep your camera ready.
+              </p>
             </div>
+          </blockquote>
 
-            <div v-scroll-reveal-right="{ delay: 100 }" class="bg-romara-green/10 p-6 border border-romara-green/30 rounded-lg">
-              <p class="mb-4 font-bold text-romara-green text-sm">Share this post</p>
-              <div class="space-y-2">
-                <a href="#" class="group flex items-center gap-2 font-semibold text-romara-ink/70 hover:text-romara-green text-sm transition-colors">
-                  <span class="flex justify-center items-center bg-romara-green/20 group-hover:bg-romara-green rounded-full w-8 h-8 group-hover:text-white transition-all">f</span>
-                  Facebook
-                </a>
-                <a href="#" class="group flex items-center gap-2 font-semibold text-romara-ink/70 hover:text-romara-green text-sm transition-colors">
-                  <span class="flex justify-center items-center bg-romara-green/20 group-hover:bg-romara-green rounded-full w-8 h-8 group-hover:text-white transition-all">t</span>
-                  Twitter
-                </a>
-                <a href="#" class="group flex items-center gap-2 font-semibold text-romara-ink/70 hover:text-romara-green text-sm transition-colors">
-                  <span class="flex justify-center items-center bg-romara-green/20 group-hover:bg-romara-green rounded-full w-8 h-8 group-hover:text-white transition-all">🔗</span>
-                  Copy Link
-                </a>
-              </div>
+          <!-- Tags + share -->
+          <div class="mt-12 flex flex-col gap-6 border-t border-romara-green/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-xs font-bold uppercase tracking-[0.14em] text-romara-ink-soft">Filed under</span>
+              <Pill tone="cream">{{ categoryLabels[currentPost.category] ?? currentPost.category }}</Pill>
             </div>
+            <div class="flex items-center gap-3">
+              <span class="text-xs font-bold uppercase tracking-[0.14em] text-romara-ink-soft">Share</span>
+              <a
+                href="#"
+                aria-label="Share on Facebook"
+                class="flex h-9 w-9 items-center justify-center rounded-full border border-romara-green/15 bg-white text-sm font-bold text-romara-green shadow-soft transition-all hover:-translate-y-0.5 hover:bg-romara-green hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber/40"
+              >f</a>
+              <a
+                href="#"
+                aria-label="Share on Twitter"
+                class="flex h-9 w-9 items-center justify-center rounded-full border border-romara-green/15 bg-white text-sm font-bold text-romara-green shadow-soft transition-all hover:-translate-y-0.5 hover:bg-romara-green hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber/40"
+              >t</a>
+              <a
+                href="#"
+                aria-label="Copy link"
+                class="flex h-9 w-9 items-center justify-center rounded-full border border-romara-green/15 bg-white text-sm text-romara-green shadow-soft transition-all hover:-translate-y-0.5 hover:bg-romara-green hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber/40"
+              >🔗</a>
+            </div>
+          </div>
 
-            <div v-scroll-reveal-right="{ delay: 200 }" class="bg-romara-amber/10 p-6 border border-romara-amber/30 rounded-lg">
-              <h3 class="mb-4 font-bold text-romara-green text-sm">Related Posts</h3>
-              <div class="space-y-3">
-                <a v-for="(post, index) in relatedPosts" :key="post.id" :href="`/blog/${post.slug}`" class="block hover:bg-romara-amber/20 px-4 py-3 border border-romara-amber/20 hover:border-romara-amber/40 rounded-md transition" v-scroll-reveal="{ delay: 200 + index * 50 }">
-                  <h4 class="font-bold text-romara-ink/80 text-sm truncate">{{ post.title }}</h4>
-                  <p class="mt-1 text-romara-ink/50 text-xs">{{ formatDate(post.publishedAt) }}</p>
-                </a>
+          <!-- Prev / next -->
+          <nav v-if="previousPost || nextPost" v-scroll-reveal="{ delay: 150 }" class="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2">
+            <a
+              v-if="previousPost"
+              :href="`/blog/${previousPost.slug}`"
+              class="group relative min-h-[160px] overflow-hidden rounded-card shadow-card transition-all duration-500 ease-out-expo hover:-translate-y-1 hover:shadow-elevated"
+            >
+              <img
+                :src="previousPost.image"
+                :alt="previousPost.title"
+                class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-105"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-romara-green/75 transition-colors group-hover:bg-romara-green/85" />
+              <div class="relative flex h-full flex-col justify-end p-6">
+                <span class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.14em] text-romara-amber-300">
+                  <IconArrowLeft class="h-3.5 w-3.5" />
+                  Previous
+                </span>
+                <h4 class="mt-2 font-heading text-lg font-semibold text-white">{{ previousPost.title }}</h4>
               </div>
-            </div>
-          </aside>
+            </a>
+
+            <a
+              v-if="nextPost"
+              :href="`/blog/${nextPost.slug}`"
+              class="group relative min-h-[160px] overflow-hidden rounded-card shadow-card transition-all duration-500 ease-out-expo hover:-translate-y-1 hover:shadow-elevated sm:col-start-2"
+            >
+              <img
+                :src="nextPost.image"
+                :alt="nextPost.title"
+                class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-105"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-romara-green/75 transition-colors group-hover:bg-romara-green/85" />
+              <div class="relative flex h-full flex-col justify-end p-6 text-right">
+                <span class="inline-flex items-center justify-end gap-1.5 text-xs font-bold uppercase tracking-[0.14em] text-romara-amber-300">
+                  Next
+                  <IconArrowRight class="h-3.5 w-3.5" />
+                </span>
+                <h4 class="mt-2 font-heading text-lg font-semibold text-white">{{ nextPost.title }}</h4>
+              </div>
+            </a>
+          </nav>
         </article>
-      </section>
-    </div>
+      </div>
+    </section>
 
-    <!-- Ready for Adventure CTA Section -->
-    <section class="relative bg-gradient-to-r from-romara-green/5 via-romara-amber/5 to-romara-green/5 py-12 overflow-hidden">
-      <!-- Decorative shapes -->
-      <div class="top-0 right-0 absolute bg-romara-amber/3 blur-3xl rounded-full w-96 h-96 pointer-events-none" />
-      <div class="bottom-0 left-0 absolute bg-romara-green/3 blur-3xl rounded-full w-80 h-80 pointer-events-none" />
-      
-      <div class="z-10 relative romara-container">
-        <div class="flex sm:flex-row flex-col sm:justify-between sm:items-center gap-8 py-6">
-          <div class="flex-1">
-            <p class="font-bold text-romara-green text-lg">Inspired by This Story?</p>
-            <p class="mt-2 text-romara-ink/70 text-base leading-relaxed">Ready to experience the adventures you just read about? Explore our carefully curated safari packages and make your travel dreams a reality.</p>
+    <!-- Related posts -->
+    <section v-if="relatedPosts.length" class="section-y bg-romara-bone">
+      <div class="romara-container">
+        <div class="mb-10">
+          <p class="eyebrow mb-3">
+            
+            Keep reading
+          </p>
+          <h2 class="font-heading text-display-sm font-semibold text-romara-green">Related stories</h2>
+          <span class="accent-rule mt-4" />
+        </div>
+
+        <div
+          class="-mx-4 flex snap-x snap-mandatory gap-6 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
+          <a
+            v-for="(post, index) in relatedPosts"
+            :key="post.id"
+            :href="`/blog/${post.slug}`"
+            class="group flex w-[82%] shrink-0 snap-start flex-col overflow-hidden rounded-card bg-white shadow-card transition-all duration-500 ease-out-expo hover:-translate-y-1.5 hover:shadow-elevated sm:w-auto sm:shrink"
+            v-scroll-reveal="{ delay: index * 90 }"
+          >
+            <div v-if="post.image" class="relative overflow-hidden">
+              <img
+                :src="post.image"
+                :alt="post.title"
+                class="aspect-[3/2] w-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-105"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-scrim-b opacity-50" />
+            </div>
+            <div class="flex flex-1 flex-col p-6">
+              <p class="text-[11px] font-bold uppercase tracking-[0.12em] text-romara-amber-600">
+                {{ categoryLabels[post.category] ?? post.category }}
+              </p>
+              <h3 class="mt-2 font-heading text-lg font-semibold leading-snug text-romara-green transition-colors group-hover:text-romara-amber">
+                {{ post.title }}
+              </h3>
+              <p class="mt-4 flex items-center gap-1 border-t border-romara-green/10 pt-4 text-xs font-medium text-romara-ink-soft">
+                {{ formatDate(post.publishedAt) }}
+                <IconArrowRight class="ml-auto h-3.5 w-3.5 text-romara-green transition-transform duration-300 ease-out-expo group-hover:translate-x-1" />
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ready for Adventure CTA -->
+    <section class="section-y relative isolate overflow-hidden bg-romara-green text-white">
+      <div class="absolute inset-0 -z-10 bg-green-fade opacity-60" />
+      <div class="absolute -right-20 -top-20 -z-10 h-80 w-80 rounded-full bg-romara-amber/10 blur-3xl" />
+      <div class="absolute -bottom-20 -left-20 -z-10 h-72 w-72 rounded-full bg-white/5 blur-3xl" />
+
+      <div class="romara-container">
+        <div class="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
+          <div class="max-w-xl">
+            <p class="eyebrow text-romara-amber-300">
+              
+              Inspired by this story?
+            </p>
+            <h2 class="mt-4 font-heading text-display-sm font-semibold text-white">
+              Ready to experience it for yourself?
+            </h2>
+            <p class="mt-3 text-base leading-relaxed text-white/75">
+              Explore our carefully curated safari packages and make your travel dreams a reality.
+            </p>
           </div>
 
-          <div class="flex flex-col sm:flex-row gap-3 sm:shrink-0">
-            <BaseButton as="a" href="/safari-packages" variant="primary" size="md">Browse Packages</BaseButton>
-            <BaseButton as="a" href="/contact" variant="outline" size="md">Plan Your Trip</BaseButton>
+          <div class="flex flex-col gap-3 sm:shrink-0 sm:flex-row">
+            <BaseButton as="a" href="/safari-packages" variant="amber" size="lg">Browse Packages</BaseButton>
+            <BaseButton as="a" href="/contact" variant="ghost" size="lg">Plan Your Trip</BaseButton>
           </div>
         </div>
       </div>
@@ -270,9 +354,13 @@ const contentSections = computed(() => {
   </div>
 
   <!-- Not Found -->
-  <div v-else class="flex flex-col justify-center items-center py-16 min-h-screen text-center romara-container">
-    <h1 class="font-bold text-romara-green text-4xl">Post Not Found</h1>
-    <p class="mt-3 text-romara-ink/60">The blog post you're looking for doesn't exist.</p>
-    <BaseButton class="mt-6" @click="goBack">Back to Blog</BaseButton>
+  <div v-else class="romara-container flex min-h-[60vh] flex-col items-center justify-center py-16 text-center">
+    <p class="eyebrow justify-center">
+      
+      404
+    </p>
+    <h1 class="mt-4 font-heading text-display-sm font-semibold text-romara-green">Post Not Found</h1>
+    <p class="mt-3 text-romara-ink-soft">The blog post you're looking for doesn't exist.</p>
+    <BaseButton class="mt-8" variant="primary" @click="goBack">Back to Blog</BaseButton>
   </div>
 </template>

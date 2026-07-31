@@ -66,34 +66,38 @@ function loadMoreReviews() {
 
 <template>
   <!-- Hero: centered spotlight with the rating badge built in -->
-  <section v-scroll-reveal class="isolate relative bg-romara-green min-h-[520px] sm:min-h-[560px] overflow-hidden text-white">
+  <section v-scroll-reveal class="isolate relative bg-romara-green min-h-[560px] sm:min-h-[600px] overflow-hidden text-white">
     <img
       src="/src/assets/images/reviews/hero.png"
       alt="Safari vehicle with elephants at sunset"
-      class="absolute inset-0 w-full h-full object-cover"
+      class="ken-burns absolute inset-0 w-full h-full object-cover"
     />
-    <div class="absolute inset-0 bg-black/70" />
+    <div class="absolute inset-0 bg-scrim-b" />
+    <div class="absolute inset-0 bg-gradient-to-t from-romara-green-dark/85 via-romara-green-dark/40 to-romara-green-dark/60" />
 
-    <div class="relative flex flex-col justify-center items-center py-16 min-h-[520px] sm:min-h-[560px] text-center romara-container">
-      <div class="flex items-center gap-2.5 bg-white/10 backdrop-blur-md px-5 py-2.5 border border-white/20 rounded-full">
-        <span class="font-heading font-bold text-romara-amber text-xl">4.9</span>
+    <div class="relative flex flex-col justify-center items-center py-20 min-h-[560px] sm:min-h-[600px] text-center romara-container">
+      <div class="glass flex items-center gap-2.5 rounded-full px-5 py-2.5 animate-fade-up">
+        <span class="font-heading font-bold text-romara-amber-300 text-xl">4.9</span>
         <div class="flex gap-0.5 text-romara-amber">
           <IconStar v-for="n in 5" :key="n" class="w-3.5 h-3.5" />
         </div>
         <span class="text-white/70 text-xs">from 450+ reviews</span>
       </div>
 
-      <p class="mt-6 font-bold text-romara-amber text-sm uppercase tracking-[0.2em]">Reviews</p>
-      <h1 class="mt-3 max-w-2xl font-heading font-bold text-4xl sm:text-5xl leading-tight">
+      <p class="eyebrow mt-7 justify-center text-romara-amber-300 animate-fade-up" style="animation-delay: 90ms">
+        
+        Reviews
+      </p>
+      <h1 class="mt-4 max-w-2xl font-heading text-display font-semibold text-balance animate-fade-up" style="animation-delay: 150ms">
         Memories Shared. Experiences Trusted.
       </h1>
-      <p class="mx-auto mt-4 max-w-xl text-white/85 text-base leading-relaxed">
+      <p class="mx-auto mt-5 max-w-xl text-white/80 text-base leading-relaxed sm:text-lg animate-fade-up" style="animation-delay: 220ms">
         See what our guests have to say about their adventures with ROMARA Tours &amp; Travel.
       </p>
 
-      <div class="flex flex-wrap justify-center gap-3 mt-8">
+      <div class="flex flex-wrap justify-center gap-3.5 mt-9 animate-fade-up" style="animation-delay: 300ms">
         <BaseButton as="a" href="#guest-reviews" variant="amber" size="lg">View Reviews</BaseButton>
-        <BaseButton as="a" href="/book-now" variant="outline" size="lg">Book Your Adventure</BaseButton>
+        <BaseButton as="a" href="/book-now" variant="ghost" size="lg">Book Your Adventure</BaseButton>
       </div>
     </div>
   </section>
@@ -142,12 +146,14 @@ function loadMoreReviews() {
           No reviews in this category yet.
         </p>
 
-        <div v-else class="gap-6 grid grid-cols-1 sm:grid-cols-2">
+        <!-- Quote wall: CSS-columns masonry so cards vary by length instead of
+             locking into uniform rows. Single column on mobile, two at sm+. -->
+        <div v-else class="columns-1 gap-6 sm:columns-2">
           <ReviewCard
             v-for="(review, index) in visibleReviews"
             :key="review.id"
             :review="review"
-            v-scroll-reveal="{ delay: index * 100 }"
+            v-scroll-reveal="{ delay: (index % 4) * 100 }"
           />
         </div>
 

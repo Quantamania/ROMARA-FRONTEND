@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import PageHero from '@/components/ui/PageHero.vue'
+import SectionHeading from '@/components/ui/SectionHeading.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import DestinationCard from '@/features/destinations/components/DestinationCard.vue'
 import DestinationFilters from '@/features/destinations/components/DestinationFilters.vue'
 import IconMapPin from '@/components/icons/IconMapPin.vue'
 import IconCalendarCheck from '@/components/icons/IconCalendarCheck.vue'
+import IconCheck from '@/components/icons/IconCheck.vue'
+import IconArrowRight from '@/components/icons/IconArrowRight.vue'
 import destinationsData from '@/data/destinations.json'
 import type { Destination, DestinationType } from '@/features/destinations/types/destination.types'
 
@@ -39,175 +43,164 @@ const whyVisitPoints = [
 </script>
 
 <template>
-  <!-- Hero: diagonal split, not full-bleed like every other page -->
-  <section  v-scroll-reveal class="relative bg-romara-green overflow-hidden">
-    <div
-      class="hidden lg:block right-0 absolute inset-y-0 w-[58%] pointer-events-none"
-      style="clip-path: polygon(14% 0, 100% 0, 100% 100%, 0 100%)"
+  <!-- Hero: reusable premium masthead with the search bar living in its slot -->
+  <div v-scroll-reveal>
+    <PageHero
+      eyebrow="Destinations"
+      title="Extraordinary Places. Unforgettable Experiences."
+      subtitle="From world-famous wildlife reserves and scenic landscapes to vibrant cities and cultural landmarks, explore the best destinations Kenya has to offer and beyond."
+      image="/src/assets/images/destinations/hero.jpg"
+      size="lg"
+      :breadcrumbs="[{ label: 'Home', href: '/' }, { label: 'Destinations' }]"
     >
-      <img
-        src="/src/assets/images/destinations/hero.jpg"
-        alt="Elephant herd at sunset in Kenya"
-        class="w-full h-full object-cover"
-      />
-      <div class="absolute inset-0 bg-gradient-to-r from-romara-green/50 via-transparent to-transparent" />
-    </div>
-
-    <img
-      src="/src/assets/images/destinations/hero.jpg"
-      alt="Elephant herd at sunset in Kenya"
-      class="lg:hidden w-full h-56 object-cover"
-    />
-
-    <div class="z-10 relative lg:flex lg:items-center py-14 lg:py-0 lg:min-h-[650px] romara-container">
-      <div class="max-w-xl text-white">
-        <p class="font-bold text-romara-amber text-sm uppercase tracking-[0.2em]">Destinations</p>
-        <h1 class="mt-3 font-heading font-bold text-4xl sm:text-5xl leading-tight">
-          Extraordinary Places. Unforgettable Experiences.
-        </h1>
-        <p class="mt-4 text-white/85 text-base leading-relaxed">
-          From world-famous wildlife reserves and scenic landscapes to vibrant cities and cultural landmarks,
-          explore the best destinations Kenya has to offer and beyond.
-        </p>
-
-        <div class="flex flex-wrap gap-3 mt-8">
-          <BaseButton as="a" href="/destinations/directory" variant="amber" size="lg">
-            <IconMapPin class="w-4 h-4" />
-            Explore All Destinations
-          </BaseButton>
-          <BaseButton as="a" href="/contact" variant="outline" size="lg">Request a Quote</BaseButton>
+      <form
+        class="flex flex-col gap-3 rounded-2xl bg-white/95 p-3 shadow-overlap backdrop-blur-sm sm:flex-row sm:items-center sm:gap-2 sm:rounded-full sm:p-2"
+        @submit.prevent="handleSearchSubmit"
+      >
+        <div class="flex flex-1 items-center gap-2.5 px-4 py-2">
+          <IconMapPin class="h-5 w-5 shrink-0 text-romara-amber" />
+          <input
+            v-model="searchQuery"
+            type="search"
+            placeholder="Search destinations, e.g. Maasai Mara, Diani Beach..."
+            class="w-full border-none bg-transparent text-sm text-romara-ink placeholder:text-romara-ink/40 focus:outline-none focus:ring-0"
+          />
         </div>
-      </div>
-    </div>
-  </section>
+        <div class="hidden h-8 w-px shrink-0 bg-romara-green/10 sm:block" />
+        <select
+          v-model="selectedType"
+          class="shrink-0 border-none bg-transparent px-4 py-2 text-sm text-romara-ink focus:outline-none focus:ring-0 sm:w-auto"
+        >
+          <option value="all">All Types</option>
+          <option value="wildlife">Wildlife & Safaris</option>
+          <option value="mountains">Mountains & Hiking</option>
+          <option value="beaches">Beaches & Coast</option>
+          <option value="cities">Cities & Towns</option>
+          <option value="culture">Culture & Heritage</option>
+          <option value="nature">Nature & Scenery</option>
+        </select>
+        <BaseButton type="submit" variant="amber" size="lg" class="shrink-0 sm:rounded-full">
+          <IconMapPin class="h-4 w-4" />
+          Search
+        </BaseButton>
+      </form>
+    </PageHero>
+  </div>
 
-  <!-- Floating search bar, replacing the usual trust-icon strip -->
-  <section  v-scroll-reveal class="z-10 relative -mt-8 sm:-mt-10 romara-container">
-    <form
-      class="flex sm:flex-row flex-col sm:items-center gap-3 bg-white shadow-overlap p-3 sm:p-2 rounded-2xl sm:rounded-full"
-      @submit.prevent="handleSearchSubmit"
-    >
-      <div class="flex flex-1 items-center gap-2 px-4 py-2 rounded-full">
-        <IconMapPin class="w-5 h-5 text-romara-amber shrink-0" />
-        <input
-          v-model="searchQuery"
-          type="search"
-          placeholder="Search destinations, e.g. Maasai Mara, Diani Beach..."
-          class="bg-transparent border-none focus:outline-none focus:ring-0 w-full text-romara-ink placeholder:text-romara-ink/40 text-sm"
+  <!-- Popular Destinations: asymmetric editorial bento grid -->
+  <section v-scroll-reveal class="section-y bg-white">
+    <div class="romara-container">
+      <!-- Editorial index header with an oversized numeral for depth -->
+      <div class="relative mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+        <div class="relative">
+          <span
+            class="pointer-events-none absolute -left-2 -top-10 select-none font-heading text-[6rem] font-semibold leading-none text-romara-green/5 sm:-top-14 sm:text-[9rem]"
+            aria-hidden="true"
+          >01</span>
+          <div class="relative">
+            <p class="eyebrow">Where to Go</p>
+            <h2 class="mt-3 max-w-xl font-heading text-display-sm font-semibold text-romara-green text-balance">
+              Popular Destinations in Kenya
+            </h2>
+            <p class="mt-4 max-w-lg text-sm leading-relaxed text-romara-ink-soft sm:text-base">
+              A hand-picked selection of the country's most iconic reserves, coastlines and highland escapes.
+            </p>
+          </div>
+        </div>
+        <a
+          href="/destinations/directory"
+          class="group inline-flex shrink-0 items-center gap-1.5 self-start text-xs font-bold uppercase tracking-[0.14em] text-romara-green transition-colors hover:text-romara-amber sm:self-auto"
+        >
+          View All Destinations
+          <IconArrowRight class="h-4 w-4 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" />
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 lg:grid-rows-2">
+        <DestinationCard
+          :destination="featuredDestination"
+          featured
+          class="sm:col-span-2 lg:col-span-2 lg:row-span-2"
+          v-scroll-reveal
+        />
+        <DestinationCard
+          v-for="(destination, index) in otherDestinations"
+          :key="destination.id"
+          :destination="destination"
+          v-scroll-reveal="{ delay: (index + 1) * 100 }"
         />
       </div>
-      <div class="hidden sm:block bg-black/10 w-px h-8 shrink-0" />
-      <select
-        v-model="selectedType"
-        class="bg-transparent px-4 py-2 border-none rounded-full focus:outline-none focus:ring-0 sm:w-auto text-romara-ink text-sm shrink-0"
-      >
-        <option value="all">All Types</option>
-        <option value="wildlife">Wildlife & Safaris</option>
-        <option value="mountains">Mountains & Hiking</option>
-        <option value="beaches">Beaches & Coast</option>
-        <option value="cities">Cities & Towns</option>
-        <option value="culture">Culture & Heritage</option>
-        <option value="nature">Nature & Scenery</option>
-      </select>
-      <button
-  type="submit"
-  class="bg-romara-green hover:bg-romara-green/90 px-6 py-3 rounded-full font-semibold text-white text-sm uppercase tracking-wide transition-colors shrink-0"
->
-  Search
-</button>
-    </form>
-  </section>
-
-  <!-- Popular Destinations: asymmetric bento grid -->
-  <section v-scroll-reveal class="py-16 romara-container">
-    <div class="flex justify-between items-end gap-4 mb-8">
-      <div>
-        <h2 class="font-bold text-romara-green text-2xl sm:text-3xl">Popular Destinations in Kenya</h2>
-        <span class="block bg-romara-amber mt-2 rounded w-14 h-1" />
-      </div>
-      <a
-        href="/destinations/directory"
-        class="hidden sm:flex items-center gap-1 font-semibold text-romara-green hover:text-romara-amber text-sm shrink-0"
-      >
-        View All Destinations
-        <IconMapPin class="w-4 h-4" />
-      </a>
-    </div>
-
-    <div class="gap-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2">
-      <DestinationCard
-        :destination="featuredDestination"
-        featured
-        class="lg:col-span-2 lg:row-span-2"
-        v-scroll-reveal
-      />
-      <DestinationCard
-        v-for="(destination, index) in otherDestinations"
-        :key="destination.id"
-        :destination="destination"
-        v-scroll-reveal="{ delay: (index + 1) * 100 }"
-      />
     </div>
   </section>
 
-  <!-- Browse Destinations by Type: horizontal scroll reel -->
-  <section v-scroll-reveal class="bg-romara-cream py-14">
+  <!-- Browse Destinations by Type -->
+  <section v-scroll-reveal class="section-y bg-romara-bone">
     <div class="romara-container">
-      <div class="text-center">
-        <h2 class="font-bold text-romara-green text-2xl sm:text-3xl">Browse Destinations by Type</h2>
-        <span class="block bg-romara-amber mx-auto mt-2 rounded w-14 h-1" />
-      </div>
-      <div class="mt-10">
+      <SectionHeading
+        align="center"
+        eyebrow="By Interest"
+        title="Browse Destinations by Type"
+        description="Whatever moves you — big game, mountain trails, ocean shores or living culture — start with what you love."
+      />
+      <div class="mt-4">
         <DestinationFilters />
       </div>
     </div>
   </section>
 
-  <!-- Why Visit Kenya: full-width stat + quote band with background image -->
-  <section v-scroll-reveal class="relative pt-20 sm:pt-28 pb-20">
+  <!-- Why Visit Kenya: immersive image band -->
+  <section v-scroll-reveal class="relative isolate overflow-hidden bg-romara-green py-20 text-white sm:py-28">
     <img
       src="/src/assets/images/destinations/maasai-mara.jpeg"
-      alt="Maasai Mara landscape"
-      class="absolute inset-0 w-full h-full object-cover"
+      alt="Maasai Mara landscape at golden hour"
+      loading="lazy"
+      class="ken-burns absolute inset-0 h-full w-full object-cover"
     />
     <div class="absolute inset-0 bg-romara-green/85" />
-    <div class="right-0 bottom-0 left-0 absolute bg-gradient-to-t from-romara-green-dark to-transparent h-32" />
-    <div class="relative romara-container">
-      <div class="items-center gap-16 grid grid-cols-1 lg:grid-cols-4">
-        <!-- Main content - takes 2 columns -->
-        <div class="lg:col-span-2 lg:mr-auto">
-          <p class="font-bold text-romara-amber text-sm uppercase tracking-[0.2em]">Why Visit Kenya?</p>
-          <p class="mt-4 font-heading font-bold text-white text-2xl sm:text-3xl leading-snug">
+    <div class="absolute inset-0 bg-scrim-b" />
+
+    <div class="romara-container relative">
+      <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        <!-- Editorial quote block -->
+        <div>
+          <p class="eyebrow text-romara-amber-300">
+            
+            Why Visit Kenya?
+          </p>
+          <p class="mt-5 max-w-xl font-heading text-display-sm font-semibold leading-tight text-balance">
             &ldquo;Kenya is a land of breathtaking landscapes, diverse wildlife, rich cultures and warm
             hospitality.&rdquo;
           </p>
-          <p class="mt-4 text-white/90 text-sm leading-relaxed">
+          <p class="mt-5 max-w-lg text-sm leading-relaxed text-white/80 sm:text-base">
             Whether you are seeking adventure, relaxation, or cultural immersion, Kenya offers experiences like
             no other.
           </p>
 
-          <div class="flex flex-wrap justify-center gap-3 mt-8">
-            <span
-              v-for="point in whyVisitPoints.slice(0, 4)"
+          <ul class="mt-8 flex flex-wrap gap-2.5">
+            <li
+              v-for="point in whyVisitPoints"
               :key="point"
-              class="bg-black/20 px-4 py-1.5 border border-white/30 rounded-full font-medium text-white text-xs"
+              class="glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold text-white"
             >
+              <IconCheck class="h-3.5 w-3.5 text-romara-amber-300" />
               {{ point }}
-            </span>
-          </div>
+            </li>
+          </ul>
         </div>
 
-        <!-- CTA Card - takes 1 column -->
-        <div class="lg:col-span-2 lg:mr-0 lg:ml-auto">
-          <div class="bg-white/10 backdrop-blur-sm p-8 border border-white/20 rounded-2xl text-center">
-            <div class="flex justify-center items-center bg-romara-amber mx-auto mb-4 rounded-full w-16 h-16">
-              <IconCalendarCheck class="w-8 h-8 text-white" />
+        <!-- CTA card -->
+        <div class="lg:ml-auto lg:max-w-md">
+          <div class="glass rounded-card border border-white/15 p-8 text-center sm:p-10">
+            <div class="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-amber-fade shadow-glow-amber">
+              <IconCalendarCheck class="h-8 w-8 text-white" />
             </div>
-            <h3 class="font-heading font-bold text-white text-xl">Ready to Explore?</h3>
-            <p class="mt-2 text-white/80 text-sm">Let ROMARA Tours & Travel help you plan the perfect journey.</p>
-            <div class="flex flex-col gap-3 mt-6">
-              <BaseButton as="a" href="/book-now" variant="amber" class="w-full">Book Now</BaseButton>
-              <BaseButton as="a" href="/contact" variant="outline" class="w-full">Request a Quote</BaseButton>
+            <h3 class="font-heading text-2xl font-semibold text-white">Ready to Explore?</h3>
+            <p class="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-white/80">
+              Let ROMARA Tours &amp; Travel help you plan the perfect journey.
+            </p>
+            <div class="mt-7 flex flex-col gap-3">
+              <BaseButton as="a" href="/book-now" variant="amber" size="lg" block>Book Now</BaseButton>
+              <BaseButton as="a" href="/contact" variant="ghost" size="lg" block>Request a Quote</BaseButton>
             </div>
           </div>
         </div>

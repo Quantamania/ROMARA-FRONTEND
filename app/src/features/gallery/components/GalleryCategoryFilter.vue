@@ -38,20 +38,29 @@ function selectCategory(value: GalleryCategory | 'all') {
 </script>
 
 <template>
-  <div class="flex flex-wrap justify-center gap-2.5">
+  <!-- Mobile: a single horizontal-scroll chip strip (no wrapping, no overflow).
+       sm+: chips wrap and center. Negative margins let the strip bleed to the
+       screen edges on mobile so the last chip hints there's more to scroll. -->
+  <div
+    class="-mx-4 flex snap-x snap-mandatory gap-2.5 overflow-x-auto px-4 pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:flex-wrap sm:justify-center sm:overflow-visible sm:px-0 sm:pb-0"
+  >
     <button
       v-for="category in categories"
       :key="category.value"
       type="button"
-      class="flex items-center gap-2 rounded-full px-4 py-2.5 text-xs font-semibold uppercase tracking-wide transition-colors"
+      class="group flex shrink-0 snap-start items-center gap-2 rounded-full px-5 py-2.5 text-xs font-bold uppercase tracking-[0.12em] transition-all duration-300 ease-out-expo focus:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber focus-visible:ring-offset-2"
       :class="
         modelValue === category.value
-          ? 'bg-romara-green text-white'
-          : 'bg-white text-romara-ink border border-black/10 hover:border-romara-green'
+          ? 'bg-romara-green text-white shadow-card'
+          : 'border border-black/10 bg-white text-romara-ink-soft shadow-soft hover:border-romara-green/40 hover:text-romara-green'
       "
       @click="selectCategory(category.value)"
     >
-      <component :is="category.icon" class="h-3.5 w-3.5" />
+      <component
+        :is="category.icon"
+        class="h-3.5 w-3.5 transition-colors"
+        :class="modelValue === category.value ? 'text-romara-amber-300' : 'text-romara-amber group-hover:text-romara-green'"
+      />
       {{ category.label }}
     </button>
   </div>

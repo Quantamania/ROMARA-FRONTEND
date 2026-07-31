@@ -2,7 +2,10 @@
 import { computed, ref, watchEffect } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getDayTripBySlug } from '@/features/day-trips/api/dayTrips.api'
+import BaseButton from '@/components/ui/BaseButton.vue'
 import IconChevronRight from '@/components/icons/IconChevronRight.vue'
+import IconClock from '@/components/icons/IconClock.vue'
+import IconMapPin from '@/components/icons/IconMapPin.vue'
 import IconCheck from '@/components/icons/IconCheck.vue'
 import IconX from '@/components/icons/IconX.vue'
 import type { DayTrip } from '@/features/day-trips/types/dayTrip.types'
@@ -85,25 +88,37 @@ function goBack() {
 
       <!-- Hero -->
       <section class="relative isolate bg-romara-green-dark min-h-[600px] overflow-hidden text-white">
-        <img :src="trip.image" :alt="trip.name" class="absolute inset-0 w-full h-full object-cover" />
-        <div class="absolute inset-0 bg-gradient-to-b from-romara-green-dark/70 via-romara-green-dark/35 to-romara-green-dark" />
+        <img :src="trip.image" :alt="trip.name" class="ken-burns absolute inset-0 w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-scrim-b" />
+        <div class="absolute inset-0 bg-gradient-to-b from-romara-green-dark/70 via-romara-green-dark/25 to-romara-green-dark" />
 
         <div class="relative flex flex-col justify-between py-8 min-h-[600px] romara-container">
           <button
             @click="goBack"
-            class="inline-flex items-center gap-2 self-start font-semibold text-romara-amber/90 hover:text-romara-amber text-sm transition"
+            class="glass inline-flex items-center gap-2 self-start rounded-full px-4 py-2 text-sm font-semibold text-white transition-colors hover:text-romara-amber-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber/50"
           >
             <IconChevronRight class="w-4 h-4 rotate-180" />
             Back to Day Trips
           </button>
 
           <div class="mt-16 max-w-3xl">
-            <p class="font-semibold text-romara-amber text-xs uppercase tracking-[0.35em]">
+            <p class="eyebrow text-romara-amber-300">
+              
               Day Trip &middot; {{ trip.category }}
             </p>
-            <h1 class="mt-5 font-heading font-bold text-4xl sm:text-5xl lg:text-6xl leading-tight">
+            <h1 class="mt-4 font-heading text-display-lg font-semibold text-balance">
               {{ trip.name }}
             </h1>
+            <div class="mt-6 flex flex-wrap items-center gap-2.5 text-[11px] font-semibold text-white">
+              <span class="glass inline-flex items-center gap-1.5 rounded-full px-3 py-1.5">
+                <IconClock class="h-3.5 w-3.5" />
+                {{ trip.duration }}
+              </span>
+              <span class="glass inline-flex items-center gap-1.5 rounded-full px-3 py-1.5">
+                <IconMapPin class="h-3.5 w-3.5" />
+                {{ trip.location }}
+              </span>
+            </div>
           </div>
         </div>
       </section>

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import PageHero from '@/components/ui/PageHero.vue'
+import BaseButton from '@/components/ui/BaseButton.vue'
 import DestinationCard from '@/features/destinations/components/DestinationCard.vue'
 import IconSearch from '@/components/icons/IconSearch.vue'
 import IconChevronDown from '@/components/icons/IconChevronDown.vue'
@@ -62,162 +64,127 @@ function resetFilters() {
 </script>
 
 <template>
-  <!-- Hero section - unique floating cards design -->
-  <section class="relative bg-romara-cream min-h-[600px] overflow-hidden">
-    <!-- Abstract shapes -->
-    <div class="top-0 right-0 absolute bg-romara-green/10 blur-3xl rounded-full w-96 h-96 -translate-y-1/2 translate-x-1/2"></div>
-    <div class="bottom-0 left-0 absolute bg-romara-amber/10 blur-3xl rounded-full w-80 h-80 -translate-x-1/2 translate-y-1/2"></div>
-
-    <div class="relative py-16 sm:py-24 romara-container">
-      <div class="items-center gap-8 grid grid-cols-1 lg:grid-cols-12">
-        <!-- Left content - 5 columns -->
-        <div class="lg:col-span-5">
-          <div class="relative">
-            <!-- Decorative line -->
-            <div class="top-0 -left-8 absolute bg-gradient-to-b from-romara-green via-romara-amber to-romara-green w-1 h-full"></div>
-
-            <p class="mb-4 font-bold text-romara-amber text-sm uppercase tracking-[0.3em]">Explore Destinations</p>
-            <h1 class="font-heading font-bold text-romara-green text-5xl sm:text-6xl leading-none">
-              Kenya's
-              <span class="block mt-2 text-romara-amber">Treasures</span>
-              <span class="block mt-2 text-romara-ink">Await</span>
-            </h1>
-            <p class="mt-6 text-romara-ink/70 text-lg leading-relaxed">
-              Every destination tells a story. From savannas to coastlines, discover the places that make Kenya extraordinary.
-            </p>
-
-            <!-- Quick stats in a unique layout -->
-            <div class="gap-6 grid grid-cols-3 mt-10">
-              <div class="text-center">
-                <div class="font-heading font-bold text-romara-green text-4xl">47</div>
-                <div class="mt-1 text-romara-ink/50 text-xs uppercase tracking-wider">Counties</div>
-              </div>
-              <div class="border-romara-ink/10 border-x text-center">
-                <div class="font-heading font-bold text-romara-amber text-4xl">50+</div>
-                <div class="mt-1 text-romara-ink/50 text-xs uppercase tracking-wider">Spots</div>
-              </div>
-              <div class="text-center">
-                <div class="font-heading font-bold text-romara-green text-4xl">∞</div>
-                <div class="mt-1 text-romara-ink/50 text-xs uppercase tracking-wider">Memories</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right side - floating preview cards - 7 columns -->
-        <div class="relative lg:col-span-7">
-          <!-- Main featured card -->
-          <div class="z-10 relative rotate-2 hover:rotate-0 transition-transform duration-500">
-            <div class="bg-white shadow-2xl mx-auto p-4 rounded-2xl max-w-sm">
-              <img
-                src="/src/assets/images/destinations/maasai-mara.jpeg"
-                alt="Maasai Mara"
-                class="rounded-xl w-full h-48 object-cover"
-              />
-              <div class="mt-4 px-2">
-                <div class="flex items-center gap-2 mb-2">
-                  <span class="bg-romara-green px-2 py-1 rounded-full text-white text-xs">Featured</span>
-                  <span class="text-romara-ink/50 text-xs">Wildlife</span>
-                </div>
-                <h3 class="font-heading font-bold text-romara-green text-lg">Maasai Mara</h3>
-                <p class="mt-1 text-romara-ink/60 text-sm">Witness the Great Migration</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Floating secondary cards -->
-          <div class="-top-4 -right-4 z-20 absolute -rotate-6 hover:rotate-0 transition-transform duration-500">
-            <div class="bg-white shadow-xl p-3 rounded-xl w-40">
-              <img
-                src="/src/assets/images/destinations/crater.jpeg"
-                alt="Crater"
-                class="rounded-lg w-full h-24 object-cover"
-              />
-              <div class="mt-2">
-                <h4 class="font-bold text-romara-green text-sm">Mount Kenya</h4>
-              </div>
-            </div>
-          </div>
-
-          <div class="bottom-8 -left-8 z-20 absolute rotate-3 hover:rotate-0 transition-transform duration-500">
-            <div class="bg-white shadow-xl p-3 rounded-xl w-36">
-              <img
-                src="/src/assets/images/destinations/hero.jpg"
-                alt="Beach"
-                class="rounded-lg w-full h-20 object-cover"
-              />
-              <div class="mt-2">
-                <h4 class="font-bold text-romara-green text-sm">Diani Beach</h4>
-              </div>
-            </div>
-          </div>
-        </div>
+  <!-- Hero: premium masthead with the directory's headline stats in its slot -->
+  <PageHero
+    eyebrow="Explore Destinations"
+    title="Kenya's Treasures Await"
+    subtitle="Every destination tells a story. From savannas to coastlines, discover the places that make Kenya extraordinary."
+    image="/src/assets/images/destinations/maasai-mara.jpeg"
+    size="lg"
+    :breadcrumbs="[{ label: 'Home', href: '/' }, { label: 'Destinations', href: '/destinations' }, { label: 'Directory' }]"
+  >
+    <dl class="grid max-w-lg grid-cols-3 gap-3 sm:gap-6">
+      <div class="glass rounded-card border border-white/15 px-3 py-4 text-center sm:px-4">
+        <dt class="sr-only">Counties</dt>
+        <dd class="font-heading text-3xl font-semibold text-white sm:text-4xl">47</dd>
+        <p class="mt-1 text-[10px] uppercase tracking-[0.14em] text-white/70 sm:text-[11px]">Counties</p>
       </div>
-    </div>
-  </section>
-
-  <!-- Sticky filter bar -->
-  <div class="top-20 z-20 sticky bg-white/95 shadow-sm backdrop-blur border-black/5 border-b">
-    <div class="flex sm:flex-row flex-col sm:justify-between sm:items-center gap-3 py-4 romara-container">
-      <div class="flex flex-1 items-center gap-2 px-4 py-2 border border-black/10 rounded-full sm:max-w-sm">
-        <IconSearch class="w-4 h-4 text-romara-ink/40 shrink-0" />
-        <input
-          v-model="searchQuery"
-          type="search"
-          placeholder="Search destinations..."
-          class="bg-transparent border-none focus:outline-none focus:ring-0 w-full text-romara-ink placeholder:text-romara-ink/40 text-sm"
-        />
+      <div class="glass rounded-card border border-white/15 px-3 py-4 text-center sm:px-4">
+        <dt class="sr-only">Spots</dt>
+        <dd class="font-heading text-3xl font-semibold text-romara-amber-300 sm:text-4xl">50+</dd>
+        <p class="mt-1 text-[10px] uppercase tracking-[0.14em] text-white/70 sm:text-[11px]">Spots</p>
       </div>
+      <div class="glass rounded-card border border-white/15 px-3 py-4 text-center sm:px-4">
+        <dt class="sr-only">Memories</dt>
+        <dd class="font-heading text-3xl font-semibold text-white sm:text-4xl">&infin;</dd>
+        <p class="mt-1 text-[10px] uppercase tracking-[0.14em] text-white/70 sm:text-[11px]">Memories</p>
+      </div>
+    </dl>
+  </PageHero>
 
-      <div class="flex flex-wrap items-center gap-3">
-        <div class="relative">
-          <select
-            v-model="selectedType"
-            class="bg-white py-2 pr-9 pl-4 border border-black/10 focus:border-romara-green rounded-full focus:outline-none text-romara-ink text-sm appearance-none"
-          >
-            <option v-for="option in typeOptions" :key="option.value" :value="option.value">{{ option.label }}</option>
-          </select>
-          <IconChevronDown class="top-1/2 right-3 absolute w-3.5 h-3.5 text-romara-ink/50 -translate-y-1/2 pointer-events-none" />
+  <!-- Filter command bar: full-width search + horizontal chip strip on mobile, sticky rail on desktop -->
+  <div class="sticky top-20 z-20 border-b border-romara-green/10 bg-white/90 shadow-soft backdrop-blur">
+    <div class="romara-container py-4">
+      <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:gap-4">
+        <!-- Search: full-width on mobile -->
+        <div class="flex w-full items-center gap-2.5 rounded-full border border-romara-green/15 bg-white px-4 py-2.5 transition-colors focus-within:border-romara-green/40 lg:max-w-xs">
+          <IconSearch class="h-4 w-4 shrink-0 text-romara-ink-soft" />
+          <input
+            v-model="searchQuery"
+            type="search"
+            placeholder="Search destinations..."
+            class="w-full border-none bg-transparent text-sm text-romara-ink placeholder:text-romara-ink/40 focus:outline-none focus:ring-0"
+          />
         </div>
 
-        <div class="relative">
+        <!-- Type filter: horizontal scroll chip strip (never a wrapping wall) -->
+        <div class="-mx-4 flex-1 overflow-x-auto px-4 lg:mx-0 lg:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div class="flex w-max items-center gap-2 lg:w-auto lg:flex-wrap">
+            <button
+              v-for="option in typeOptions"
+              :key="option.value"
+              type="button"
+              class="shrink-0 rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.1em] transition-all duration-300 ease-out-expo"
+              :class="selectedType === option.value
+                ? 'border-romara-green bg-romara-green text-white shadow-soft'
+                : 'border-romara-green/15 bg-white text-romara-ink-soft hover:border-romara-green/40 hover:text-romara-green'"
+              @click="selectedType = option.value"
+            >
+              {{ option.label }}
+            </button>
+          </div>
+        </div>
+
+        <!-- Sort control -->
+        <div class="relative shrink-0 self-start lg:self-auto">
           <select
             v-model="sortOption"
-            class="bg-white py-2 pr-9 pl-4 border border-black/10 focus:border-romara-green rounded-full focus:outline-none text-romara-ink text-sm appearance-none"
+            class="appearance-none rounded-full border border-romara-green/15 bg-white py-2.5 pl-4 pr-9 text-sm text-romara-ink transition-colors focus:border-romara-green focus:outline-none"
           >
             <option value="name-asc">Name (A–Z)</option>
             <option value="name-desc">Name (Z–A)</option>
           </select>
-          <IconChevronDown class="top-1/2 right-3 absolute w-3.5 h-3.5 text-romara-ink/50 -translate-y-1/2 pointer-events-none" />
+          <IconChevronDown class="pointer-events-none absolute right-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-romara-ink-soft" />
         </div>
       </div>
     </div>
   </div>
 
   <!-- Results -->
-  <section class="py-12 sm:py-16 romara-container">
-    <p class="mb-6 text-romara-ink/60 text-sm">
-      Showing {{ filteredDestinations.length }} of {{ allDestinations.length }} destinations
-    </p>
+  <section class="section-y bg-white">
+    <div class="romara-container">
+      <div class="mb-8 flex flex-wrap items-baseline justify-between gap-3">
+        <p class="text-xs font-semibold uppercase tracking-[0.14em] text-romara-ink-soft">
+          Showing <span class="text-romara-green">{{ filteredDestinations.length }}</span> of {{ allDestinations.length }} destinations
+        </p>
+        <button
+          v-if="filteredDestinations.length !== allDestinations.length"
+          type="button"
+          class="text-xs font-bold uppercase tracking-[0.14em] text-romara-amber transition-colors hover:text-romara-amber-600"
+          @click="resetFilters"
+        >
+          Reset
+        </button>
+      </div>
 
-    <div v-if="filteredDestinations.length === 0" class="bg-romara-cream p-10 rounded-lg text-center">
-      <p class="text-romara-ink/70 text-sm">No destinations match your search or filters.</p>
-      <button
-        type="button"
-        class="mt-3 font-semibold text-romara-green hover:text-romara-amber text-sm underline"
-        @click="resetFilters"
+      <!-- Refined empty state -->
+      <div
+        v-if="filteredDestinations.length === 0"
+        class="relative overflow-hidden rounded-card border border-dashed border-romara-green/20 bg-romara-bone px-6 py-16 text-center sm:py-20"
       >
-        Clear filters
-      </button>
-    </div>
+        <div class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-white text-romara-green shadow-soft ring-1 ring-romara-green/10">
+          <IconSearch class="h-7 w-7" />
+        </div>
+        <p class="font-heading text-xl font-semibold text-romara-green sm:text-2xl">No matching destinations</p>
+        <p class="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-romara-ink-soft">
+          Nothing matches your search or filters just yet. Try clearing them to see every destination.
+        </p>
+        <div class="mt-6 flex justify-center">
+          <BaseButton type="button" variant="outline" size="md" @click="resetFilters">Clear filters</BaseButton>
+        </div>
+      </div>
 
-    <div v-else class="gap-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-      <DestinationCard
-        v-for="(destination, index) in filteredDestinations"
-        :key="destination.id"
-        :destination="destination"
-        v-scroll-reveal="{ delay: (index % 3) * 100 }"
-      />
+      <!-- Varied, editorial grid: the lead result stretches wide for asymmetry -->
+      <div v-else class="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
+        <DestinationCard
+          v-for="(destination, index) in filteredDestinations"
+          :key="destination.id"
+          :destination="destination"
+          class="transition-all"
+          :class="index === 0 && filteredDestinations.length > 1 ? 'sm:col-span-2' : ''"
+          v-scroll-reveal="{ delay: (index % 3) * 100 }"
+        />
+      </div>
     </div>
   </section>
 </template>

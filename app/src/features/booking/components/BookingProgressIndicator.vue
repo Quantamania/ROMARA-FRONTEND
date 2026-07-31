@@ -17,29 +17,36 @@ function handleStepClick(stepNumber: number) {
 </script>
 
 <template>
-  <div class="flex justify-between items-center">
+  <div class="flex items-start justify-between">
     <template v-for="(step, index) in steps" :key="step.number">
       <button
         type="button"
         class="group flex flex-col items-center gap-3 text-center"
         :class="step.number > bookingStore.furthestStepReached ? 'cursor-default' : 'cursor-pointer'"
         :disabled="step.number > bookingStore.furthestStepReached"
+        :aria-current="step.number === bookingStore.currentStep ? 'step' : undefined"
         @click="handleStepClick(step.number)"
       >
         <span
-          class="flex justify-center items-center shadow-md rounded-full w-12 h-12 font-bold text-sm transition-all duration-300 shrink-0"
+          class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full font-heading text-sm font-semibold transition-all duration-500 ease-out-expo"
           :class="[
-            step.number === bookingStore.currentStep && 'bg-romara-green-dark text-white shadow-lg scale-110',
-            step.number < bookingStore.currentStep && 'bg-romara-green-dark text-white shadow-md',
-            step.number > bookingStore.currentStep && 'bg-white text-romara-ink/30 border-2 border-romara-green-dark/20',
+            step.number === bookingStore.currentStep && 'bg-amber-fade text-white shadow-glow-amber scale-110',
+            step.number < bookingStore.currentStep && 'bg-romara-green text-white shadow-soft',
+            step.number > bookingStore.currentStep && 'border border-romara-green/15 bg-white text-romara-ink-soft/60 group-hover:border-romara-amber/40',
           ]"
         >
-          <IconCheckSquare v-if="step.number < bookingStore.currentStep" class="w-5 h-5" />
+          <IconCheckSquare v-if="step.number < bookingStore.currentStep" class="h-5 w-5" />
           <span v-else>{{ step.number }}</span>
         </span>
         <span
-          class="hidden sm:block font-semibold text-xs transition-colors"
-          :class="step.number === bookingStore.currentStep ? 'text-romara-green-dark font-bold' : step.number < bookingStore.currentStep ? 'text-romara-green-dark' : 'text-romara-ink/40'"
+          class="hidden text-xs font-semibold uppercase tracking-[0.1em] transition-colors sm:block"
+          :class="
+            step.number === bookingStore.currentStep
+              ? 'text-romara-amber-600'
+              : step.number < bookingStore.currentStep
+                ? 'text-romara-green'
+                : 'text-romara-ink-soft/50'
+          "
         >
           {{ step.label }}
         </span>
@@ -47,11 +54,11 @@ function handleStepClick(stepNumber: number) {
 
       <div
         v-if="index < steps.length - 1"
-        class="flex-1 mx-2 sm:mx-4 rounded-full h-1 overflow-hidden"
+        class="mx-2 mt-6 h-0.5 flex-1 overflow-hidden rounded-full bg-romara-green/10 sm:mx-4"
       >
         <div
-          class="rounded-full h-full transition-all duration-500 ease-out"
-          :class="step.number < bookingStore.currentStep ? 'w-full bg-romara-green-dark' : 'w-full bg-romara-green-dark/10'"
+          class="h-full rounded-full transition-all duration-500 ease-out-expo"
+          :class="step.number < bookingStore.currentStep ? 'w-full bg-amber-fade' : 'w-0 bg-romara-amber'"
         />
       </div>
     </template>

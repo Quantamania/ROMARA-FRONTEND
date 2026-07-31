@@ -41,22 +41,32 @@ function selectCategory(value: FaqCategory, isActive: boolean) {
 </script>
 
 <template>
-  <div class="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-7">
+  <!-- Mobile: horizontal scroll chip strip · Desktop: vertical sticky nav list -->
+  <div
+    class="-mx-4 flex gap-2.5 overflow-x-auto px-4 pb-1 lg:mx-0 lg:flex-col lg:gap-1.5 lg:overflow-visible lg:px-0 lg:pb-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+  >
     <button
       v-for="category in categories"
       :key="category.value"
       type="button"
-      class="flex flex-col items-center gap-3 rounded-xl border bg-romara-cream/60 px-3 py-6 text-center transition-all hover:-translate-y-0.5 hover:shadow-card"
-      :class="modelValue === category.value ? 'border-romara-green ring-1 ring-romara-green' : 'border-transparent'"
+      class="group inline-flex shrink-0 items-center gap-2.5 rounded-full border px-5 py-3 text-sm font-semibold transition-all duration-300 ease-out-expo focus:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber/40 focus-visible:ring-offset-2 lg:w-full lg:shrink lg:justify-start lg:rounded-xl lg:px-4 lg:py-3.5"
+      :class="modelValue === category.value
+        ? 'border-transparent bg-romara-green text-white shadow-soft'
+        : 'border-romara-green/15 bg-white text-romara-green hover:-translate-y-0.5 hover:border-romara-green/30 hover:shadow-card lg:hover:translate-y-0 lg:hover:translate-x-1'"
+      :aria-pressed="modelValue === category.value"
       @click="selectCategory(category.value, modelValue === category.value)"
     >
+      <component
+        :is="category.icon"
+        class="h-4 w-4 shrink-0 transition-colors"
+        :class="modelValue === category.value ? 'text-romara-amber-300' : 'text-romara-amber'"
+      />
+      <span class="whitespace-nowrap lg:whitespace-normal lg:text-left">{{ category.label }}</span>
       <span
-        class="flex h-11 w-11 items-center justify-center rounded-full bg-white text-romara-green shadow-sm"
-        :class="modelValue === category.value && 'bg-romara-green text-white'"
-      >
-        <component :is="category.icon" class="h-5 w-5" />
-      </span>
-      <p class="text-xs font-semibold leading-snug text-romara-green">{{ category.label }}</p>
+        class="ml-auto hidden h-1.5 w-1.5 shrink-0 rounded-full bg-romara-amber-300 transition-opacity lg:block"
+        :class="modelValue === category.value ? 'opacity-100' : 'opacity-0'"
+        aria-hidden="true"
+      />
     </button>
   </div>
 </template>
