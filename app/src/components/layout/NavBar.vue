@@ -4,6 +4,8 @@ import { useRoute } from 'vue-router'
 import logoSrc from '@/assets/images/logos/logo-transparent.png'
 import IconChevronDown from '@/components/icons/IconChevronDown.vue'
 import IconMenu from '@/components/icons/IconMenu.vue'
+import IconArrowRight from '@/components/icons/IconArrowRight.vue'
+import IconCompass from '@/components/icons/IconCompass.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import IconPhone from '@/components/icons/IconPhone.vue'
 import IconMail from '@/components/icons/IconMail.vue'
@@ -204,40 +206,59 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
 
           <div
             v-if="link.children"
-            class="invisible group-hover:visible top-full left-1/2 -translate-x-1/2 absolute bg-white opacity-0 group-hover:opacity-100 shadow-2xl mt-3 border border-romara-green/10 rounded-2xl w-[48rem] overflow-hidden transition-all duration-300"
+            class="invisible translate-y-2 opacity-0 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 top-full left-1/2 -translate-x-1/2 absolute mt-4 w-[44rem] overflow-hidden rounded-2xl bg-white shadow-elevated ring-1 ring-romara-green/10 transition-all duration-300 ease-out-expo"
             @mouseenter="openDropdownLabel = link.label"
             @mouseleave="openDropdownLabel = null"
           >
-            <div class="flex">
-              <!-- Navigation Options on Left -->
-              <div class="bg-gradient-to-br from-white to-romara-cream/30 p-6 w-1/2">
-                <div class="flex items-center gap-2 mb-4">
-                  <div class="bg-romara-amber rounded w-8 h-1"></div>
-                  <p class="font-bold text-romara-green-dark text-xs uppercase tracking-widest">Explore</p>
-                </div>
-                <ul class="space-y-1">
+            <div class="h-1 w-full bg-amber-fade"></div>
+            <div class="grid grid-cols-2">
+              <!-- Navigation options -->
+              <div class="p-6">
+                <p class="eyebrow mb-4">Explore {{ link.label }}</p>
+                <ul class="space-y-1.5">
                   <li v-for="child in link.children" :key="child.label">
                     <a
                       :href="child.href"
-                      class="group block hover:bg-romara-green/5 px-3 py-3 rounded-lg font-medium text-sm uppercase tracking-wide transition-all"
-                      :class="isActiveLink(child.href) ? 'text-romara-green bg-romara-green/5' : 'text-romara-ink hover:text-romara-green'"
+                      class="group/mega flex items-center justify-between gap-3 rounded-xl px-3.5 py-3 transition-all duration-300 ease-out-expo hover:bg-romara-cream"
+                      :class="isActiveLink(child.href) ? 'bg-romara-cream' : ''"
                     >
-                      <span v-if="isActiveLink(child.href)" class="inline-block w-2 h-2 bg-romara-amber rounded-full mr-2"></span>
-                      {{ child.label }}
+                      <span class="flex items-center gap-3">
+                        <span
+                          class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-romara-green/5 text-romara-amber transition-colors duration-300 group-hover/mega:bg-romara-green group-hover/mega:text-white"
+                          :class="isActiveLink(child.href) ? 'bg-romara-green text-white' : ''"
+                        >
+                          <IconArrowRight class="h-4 w-4" />
+                        </span>
+                        <span class="font-heading text-sm font-semibold normal-case text-romara-green">{{ child.label }}</span>
+                      </span>
+                      <IconArrowRight class="h-4 w-4 -translate-x-1 text-romara-amber opacity-0 transition-all duration-300 ease-out-expo group-hover/mega:translate-x-0 group-hover/mega:opacity-100" />
                     </a>
                   </li>
                 </ul>
               </div>
 
-              <!-- Image on Right -->
-              <div class="relative w-1/2">
-                <div class="top-0 left-0 absolute bg-gradient-to-r from-romara-green to-romara-amber w-full h-1"></div>
-                <img v-if="link.image" :src="link.image" :alt="link.label" class="w-full h-56 object-cover" />
-                <div v-else class="flex justify-center items-center bg-gradient-to-br from-romara-green/5 to-romara-cream w-full h-56">
-                  <span class="font-heading font-bold text-romara-green/50 text-lg">{{ link.label }}</span>
+              <!-- Feature image -->
+              <div class="relative m-3 overflow-hidden rounded-xl">
+                <img
+                  v-if="link.image"
+                  :src="link.image"
+                  :alt="link.label"
+                  class="h-full min-h-[14rem] w-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-105"
+                />
+                <div v-else class="flex h-full min-h-[14rem] items-center justify-center bg-green-fade">
+                  <span class="font-heading text-lg font-bold text-white/50">{{ link.label }}</span>
                 </div>
-                <div class="right-0 bottom-0 left-0 absolute bg-gradient-to-t from-black/50 to-transparent p-4">
-                  <p class="font-heading font-bold text-white text-sm">{{ link.label }}</p>
+                <div class="absolute inset-0 bg-gradient-to-t from-romara-green-dark/90 via-romara-green-dark/15 to-transparent"></div>
+                <div class="absolute inset-x-0 bottom-0 p-5">
+                  <p class="eyebrow text-romara-amber-300">Discover</p>
+                  <p class="mt-1.5 font-heading text-lg font-semibold text-white">{{ link.label }}</p>
+                  <a
+                    :href="link.href"
+                    class="mt-3 inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-white transition-colors hover:text-romara-amber-300"
+                  >
+                    View all
+                    <IconArrowRight class="h-3.5 w-3.5" />
+                  </a>
                 </div>
               </div>
             </div>
@@ -254,54 +275,147 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
       </button>
     </nav>
 
-    <div v-if="isMobileMenuOpen" class="xl:hidden z-50 fixed inset-0">
-      <div class="absolute inset-0 bg-black/50" @click="toggleMobileMenu"></div>
-      <div class="top-0 right-0 absolute bg-romara-green-dark shadow-2xl w-80 h-full">
-        <div class="flex justify-between items-center p-6 border-white/10 border-b">
-          <span class="font-heading font-bold text-white text-xl">Menu</span>
-          <button type="button" class="text-white hover:text-white/80" @click="toggleMobileMenu">
-            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-        <ul class="flex flex-col gap-1 p-6">
-          <li v-for="link in navLinks" :key="link.label">
-            <div v-if="link.children">
+    <!-- Mobile menu — Teleported to <body> so it escapes the header's transform
+         containing block and can truly fill the viewport (fixes the see-through bug). -->
+    <Teleport to="body">
+      <transition name="mm">
+        <div v-if="isMobileMenuOpen" class="xl:hidden fixed inset-0 z-[60]">
+          <!-- Backdrop -->
+          <div class="absolute inset-0 bg-romara-green-dark/70 backdrop-blur-sm" @click="toggleMobileMenu"></div>
+
+          <!-- Drawer panel -->
+          <div class="mm-panel absolute right-0 top-0 flex h-full w-[88%] max-w-sm flex-col overflow-hidden bg-green-fade text-white shadow-2xl">
+            <!-- Creative background: amber glow, green glow, faint compass watermark -->
+            <div class="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-romara-amber/25 blur-3xl"></div>
+            <div class="pointer-events-none absolute -bottom-16 -left-16 h-56 w-56 rounded-full bg-romara-green-500/40 blur-3xl"></div>
+            <IconCompass class="pointer-events-none absolute -bottom-8 -right-6 h-64 w-64 text-white/[0.04]" />
+
+            <!-- Header -->
+            <div class="relative flex items-center justify-between border-b border-white/10 px-6 py-5">
+              <span class="flex items-center gap-2.5">
+                <img :src="logoSrc" alt="ROMARA logo" class="h-11 w-auto" />
+                <span class="leading-tight">
+                  <span class="block font-heading text-base font-bold tracking-[0.28em] text-white">ROMARA</span>
+                  <span class="block text-[9px] font-semibold tracking-[0.2em] text-romara-amber">TOURS &amp; TRAVEL</span>
+                </span>
+              </span>
               <button
                 type="button"
-                class="flex items-center gap-2 hover:bg-white/10 px-4 py-3 rounded-md w-full font-semibold text-white text-sm uppercase tracking-wide transition-all"
-                :class="hasActiveChild(link.children) ? 'text-romara-amber bg-white/10' : ''"
-                @click="toggleDropdown(link.label)"
+                aria-label="Close menu"
+                class="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white transition-colors hover:border-romara-amber hover:text-romara-amber"
+                @click="toggleMobileMenu"
               >
-                {{ link.label }}
-                <svg class="w-4 h-4 transition-transform shrink-0" :class="openDropdownLabel === link.label ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
-              <ul v-if="openDropdownLabel === link.label" class="flex flex-col gap-1 mt-1 ml-4">
-                <li v-for="child in link.children" :key="child.label">
+            </div>
+
+            <!-- Links -->
+            <nav class="relative flex-1 overflow-y-auto px-4 py-5">
+              <ul class="flex flex-col gap-1">
+                <li v-for="link in navLinks" :key="link.label">
+                  <div v-if="link.children">
+                    <button
+                      type="button"
+                      class="flex w-full items-center justify-between rounded-xl px-4 py-3.5 text-left font-heading text-base font-semibold transition-colors hover:bg-white/10"
+                      :class="hasActiveChild(link.children) ? 'bg-white/10 text-romara-amber' : 'text-white'"
+                      @click="toggleDropdown(link.label)"
+                    >
+                      {{ link.label }}
+                      <svg class="h-4 w-4 shrink-0 transition-transform duration-300" :class="openDropdownLabel === link.label ? 'rotate-180 text-romara-amber' : 'text-white/60'" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                    <transition name="mm-sub">
+                      <ul v-if="openDropdownLabel === link.label" class="ml-4 mt-1 space-y-0.5 border-l border-white/10 pl-4">
+                        <li v-for="child in link.children" :key="child.label">
+                          <a
+                            :href="child.href"
+                            class="flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors"
+                            :class="isActiveLink(child.href) ? 'text-romara-amber' : 'text-white/80 hover:text-white'"
+                            @click="toggleMobileMenu"
+                          >
+                            <span class="h-1.5 w-1.5 shrink-0 rounded-full" :class="isActiveLink(child.href) ? 'bg-romara-amber' : 'bg-white/30'"></span>
+                            {{ child.label }}
+                          </a>
+                        </li>
+                      </ul>
+                    </transition>
+                  </div>
                   <a
-                    :href="child.href"
-                    class="block hover:bg-white/10 px-4 py-2 rounded-md font-medium text-sm uppercase tracking-wide transition-all"
-                    :class="isActiveLink(child.href) ? 'text-romara-amber bg-white/10' : 'text-white/90 hover:text-white'"
+                    v-else
+                    :href="link.href"
+                    class="block rounded-xl px-4 py-3.5 font-heading text-base font-semibold transition-colors hover:bg-white/10"
+                    :class="isActiveLink(link.href) ? 'bg-white/10 text-romara-amber' : 'text-white'"
                     @click="toggleMobileMenu"
                   >
-                    <span v-if="isActiveLink(child.href)" class="inline-block w-2 h-2 bg-romara-amber rounded-full mr-2"></span>
-                    {{ child.label }}
+                    {{ link.label }}
                   </a>
                 </li>
               </ul>
+            </nav>
+
+            <!-- Footer: CTA + contact + socials -->
+            <div class="relative space-y-4 border-t border-white/10 px-6 py-5">
+              <BaseButton as="a" href="/book-now" variant="amber" block>Book Now</BaseButton>
+              <div class="flex flex-col gap-2 text-sm text-white/75">
+                <a :href="`tel:${phone.replace(/\s/g, '')}`" class="inline-flex items-center gap-2 hover:text-romara-amber">
+                  <IconPhone class="h-4 w-4 text-romara-amber" />{{ phone }}
+                </a>
+                <a :href="`mailto:${email}`" class="inline-flex items-center gap-2 hover:text-romara-amber">
+                  <IconMail class="h-4 w-4 text-romara-amber" />{{ email }}
+                </a>
+              </div>
+              <div class="flex items-center gap-3 pt-1">
+                <a
+                  v-for="social in socialLinks"
+                  :key="social.name"
+                  :href="social.href"
+                  target="_blank"
+                  rel="noopener"
+                  :aria-label="social.name"
+                  class="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/80 transition-colors hover:border-romara-amber hover:text-romara-amber"
+                >
+                  <component :is="social.icon" class="h-4 w-4" />
+                </a>
+              </div>
             </div>
-            <a v-else :href="link.href" class="block hover:bg-white/10 px-4 py-3 rounded-md font-semibold text-white text-sm uppercase tracking-wide" @click="toggleMobileMenu">
-              {{ link.label }}
-            </a>
-          </li>
-          <li class="pt-4">
-            <BaseButton as="a" href="/book-now" variant="primary" class="w-full">Book Now</BaseButton>
-          </li>
-        </ul>
-      </div>
-    </div>
+          </div>
+        </div>
+      </transition>
+    </Teleport>
   </header>
+
 </template>
+
+<style scoped>
+/* Mobile drawer: fade the backdrop, slide the panel in from the right. */
+.mm-enter-active,
+.mm-leave-active {
+  transition: opacity 0.35s ease;
+}
+.mm-enter-from,
+.mm-leave-to {
+  opacity: 0;
+}
+.mm-enter-active .mm-panel,
+.mm-leave-active .mm-panel {
+  transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.mm-enter-from .mm-panel,
+.mm-leave-to .mm-panel {
+  transform: translateX(100%);
+}
+
+/* Submenu expand */
+.mm-sub-enter-active,
+.mm-sub-leave-active {
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.mm-sub-enter-from,
+.mm-sub-leave-to {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+</style>
