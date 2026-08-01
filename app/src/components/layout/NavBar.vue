@@ -336,7 +336,6 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
                             :class="isActiveLink(child.href) ? 'text-romara-amber' : 'text-white/80 hover:text-white'"
                             @click="toggleMobileMenu"
                           >
-                            <span class="h-1.5 w-1.5 shrink-0 rounded-full" :class="isActiveLink(child.href) ? 'bg-romara-amber' : 'bg-white/30'"></span>
                             {{ child.label }}
                           </a>
                         </li>

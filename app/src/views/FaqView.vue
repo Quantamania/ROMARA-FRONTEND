@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import PageHero from '@/components/ui/PageHero.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import IconPhone from '@/components/icons/IconPhone.vue'
 import IconWhatsapp from '@/components/icons/IconWhatsapp.vue'
@@ -49,6 +48,16 @@ const displayedFaqs = computed(function getDisplayedFaqs() {
   return result
 })
 
+// Read-only shortcuts into the existing category filter — presentation only.
+const popularTopics: { value: FaqCategory; label: string }[] = [
+  { value: 'booking', label: 'Booking' },
+  { value: 'safari-packages', label: 'Safari Packages' },
+  { value: 'airport-transfers', label: 'Airport Transfers' },
+  { value: 'payments', label: 'Payments' },
+  { value: 'destinations', label: 'Destinations' },
+  { value: 'safety', label: 'Travel & Safety' },
+]
+
 const sectionHeading = computed(function getSectionHeading() {
   if (!hasActiveFilter.value) return 'Top Questions'
   if (selectedCategory.value && !searchQuery.value.trim()) return categoryLabels[selectedCategory.value]
@@ -57,20 +66,64 @@ const sectionHeading = computed(function getSectionHeading() {
 </script>
 
 <template>
-  <!-- Hero: editorial masthead with a glass search bar as the focal element -->
-  <PageHero
-    title="Frequently Asked Questions"
-    eyebrow="Help Center"
-    subtitle="Find answers to the most common questions about our tours, services and bookings — or search for something specific."
-    image="/src/assets/images/faq/hero.png"
-    size="lg"
-    align="center"
-    :breadcrumbs="[{ label: 'Home', href: '/' }, { label: 'FAQ' }]"
-  >
-    <div class="mx-auto w-full max-w-xl">
-      <FaqSearchBar v-model="searchQuery" />
+  <!-- Hero: CALM HELP-DESK SEARCH — light surface, comprehension over drama. No photo. -->
+  <section class="relative overflow-hidden bg-romara-bone">
+    <!-- Soft, quiet ambience: a faint green wash + blurred tint, no imagery -->
+    <div class="pointer-events-none absolute inset-0 bg-green-fade opacity-[0.035]" aria-hidden="true" />
+    <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-romara-green-100/50 blur-3xl" aria-hidden="true" />
+    <div class="pointer-events-none absolute -left-24 top-1/3 h-64 w-64 rounded-full bg-romara-amber-100/40 blur-3xl" aria-hidden="true" />
+
+    <div class="romara-container relative py-14 sm:py-20 lg:py-24">
+      <!-- Breadcrumbs -->
+      <nav aria-label="Breadcrumb" class="mb-8 flex justify-center">
+        <ol class="flex items-center gap-2 text-xs font-medium text-romara-ink-soft">
+          <li><a href="/" class="transition-colors hover:text-romara-green">Home</a></li>
+          <li aria-hidden="true" class="text-romara-green/30">/</li>
+          <li class="text-romara-green">FAQ</li>
+        </ol>
+      </nav>
+
+      <!-- One authored motion moment: the whole help-desk block settles in on load -->
+      <div class="animate-fade-up">
+        <div class="mx-auto max-w-2xl text-center">
+          <h1 class="text-balance font-heading text-display font-semibold text-romara-green">
+            Frequently Asked Questions
+          </h1>
+          <p class="mx-auto mt-5 max-w-xl text-base leading-relaxed text-romara-ink-soft sm:text-lg">
+            Find answers to the most common questions about our tours, services and bookings — or search for
+            something specific.
+          </p>
+        </div>
+
+        <!-- Prominent search. The glass bar reads on a soft green console so it stays legible on the light hero. -->
+        <div class="mx-auto mt-8 w-full max-w-xl">
+          <div class="rounded-full bg-green-fade p-2 shadow-elevated">
+            <FaqSearchBar v-model="searchQuery" />
+          </div>
+        </div>
+
+        <!-- Popular topics — chip row scrolls horizontally on mobile, wraps + centers on desktop -->
+        <div class="mx-auto mt-7 max-w-2xl">
+          <p class="mb-3 text-center text-xs font-semibold uppercase tracking-[0.16em] text-romara-ink-soft">
+            Popular topics
+          </p>
+          <div
+            class="-mx-5 flex gap-2.5 overflow-x-auto px-5 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:justify-center sm:overflow-visible sm:px-0 [&::-webkit-scrollbar]:hidden"
+          >
+            <button
+              v-for="topic in popularTopics"
+              :key="topic.value"
+              type="button"
+              class="inline-flex min-h-[44px] shrink-0 items-center rounded-full border border-romara-green/15 bg-white px-4 py-2.5 text-sm font-medium text-romara-green shadow-soft transition-all duration-300 ease-out-expo hover:border-romara-green/30 hover:bg-romara-green hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber/40"
+              @click="selectedCategory = topic.value"
+            >
+              {{ topic.label }}
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-  </PageHero>
+  </section>
 
   <!-- Two-column help desk: sticky category nav (left) + answers (right) -->
   <section class="section-y bg-romara-bone">

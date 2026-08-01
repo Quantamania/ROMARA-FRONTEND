@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
-import PageHero from '@/components/ui/PageHero.vue'
 import TrustBuilding from '@/features/home/sections/TrustBuilding.vue'
 import WhoWeAre from '@/features/about/sections/WhoWeAre.vue'
 import CallToActionBar from '@/components/ui/CallToActionBar.vue'
@@ -43,17 +42,81 @@ const tailorMadePoints: TailorMadePoint[] = [
 </script>
 
 <template>
-  <!-- Hero -->
-  <div v-scroll-reveal>
-    <PageHero
-      eyebrow="Safari Packages"
-      title="Unforgettable Journeys. Extraordinary Memories."
-      subtitle="Explore Kenya's iconic wildlife, breathtaking landscapes and rich cultures with our expertly crafted safari packages."
-      image="/src/assets/images/safari-packages/hero-elephants-jeep.png"
-      size="lg"
-      :breadcrumbs="[{ label: 'Home', href: '/' }, { label: 'Safari Packages' }]"
-    />
-  </div>
+  <!-- Hero: editorial split with overlapping collage -->
+  <section class="relative isolate overflow-hidden bg-green-fade text-white">
+    <!-- soft depth (no dots) -->
+    <div class="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-romara-green-500/25 blur-3xl" aria-hidden="true" />
+    <div class="pointer-events-none absolute -right-16 -bottom-16 h-80 w-80 rounded-full bg-romara-green-700/40 blur-3xl" aria-hidden="true" />
+
+    <div class="romara-container relative grid items-center gap-12 py-14 sm:py-16 lg:grid-cols-2 lg:gap-16 lg:py-24">
+      <!-- Left: editorial column -->
+      <div class="max-w-xl">
+        <nav aria-label="Breadcrumb" class="mb-7 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-white/55">
+          <a href="/" class="transition-colors duration-300 hover:text-romara-amber-300">Home</a>
+          <span class="text-white/25">/</span>
+          <span class="text-romara-amber-300">Safari Packages</span>
+        </nav>
+
+        <h1 class="font-heading text-display-lg font-semibold leading-[1.02] text-balance">
+          Unforgettable Journeys. Extraordinary Memories.
+        </h1>
+
+        <p class="mt-6 max-w-lg text-base leading-relaxed text-white/80 sm:text-lg">
+          Explore Kenya's iconic wildlife, breathtaking landscapes and rich cultures with our expertly
+          crafted safari packages.
+        </p>
+
+        <div class="mt-9 flex flex-col gap-5 sm:flex-row sm:items-center">
+          <BaseButton as="a" href="/book-now" variant="amber" size="lg">Book a Safari</BaseButton>
+          <p class="text-sm font-semibold text-white/70">
+            15+ years
+            <span class="mx-1 text-white/25">·</span>
+            4.9<span class="text-romara-amber-300">★</span>
+            <span class="mx-1 text-white/25">·</span>
+            1,200+ travellers
+          </p>
+        </div>
+      </div>
+
+      <!-- Right: overlapping framed collage -->
+      <div class="relative mx-auto aspect-[4/5] w-full max-w-sm sm:max-w-md lg:mx-0 lg:max-w-none lg:aspect-[5/6]">
+        <!-- Main frame -->
+        <div class="absolute right-0 top-0 h-[80%] w-[74%] overflow-hidden rounded-card shadow-elevated ring-1 ring-white/20">
+          <img
+            src="/src/assets/images/safari-packages/maasai-mara.jpeg"
+            alt="Wildlife on the Maasai Mara plains"
+            loading="lazy"
+            class="ken-burns h-full w-full object-cover"
+          />
+        </div>
+
+        <!-- Secondary frame (overlaps, bottom-left) -->
+        <div class="absolute bottom-0 left-0 h-[56%] w-[54%] overflow-hidden rounded-card shadow-elevated ring-[5px] ring-romara-green-dark">
+          <img
+            src="/src/assets/images/safari-packages/amboseli.jpg"
+            alt="Elephants beneath Amboseli's skyline"
+            loading="lazy"
+            class="h-full w-full object-cover"
+          />
+        </div>
+
+        <!-- Tertiary frame (tidy cluster only on larger screens) -->
+        <div class="absolute bottom-[7%] right-[4%] hidden h-[38%] w-[40%] overflow-hidden rounded-card shadow-elevated ring-[5px] ring-romara-green-dark sm:block">
+          <img
+            src="/src/assets/images/safari-packages/kenya-explorer.jpeg"
+            alt="Safari explorer route across Kenya"
+            loading="lazy"
+            class="h-full w-full object-cover"
+          />
+        </div>
+
+        <!-- Floating badge chip -->
+        <span class="absolute left-0 top-[6%] inline-flex items-center rounded-full bg-romara-amber px-4 py-2 text-[11px] font-bold uppercase tracking-[0.14em] text-white shadow-glow-amber">
+          Best Seller
+        </span>
+      </div>
+    </div>
+  </section>
 
   <TrustBuilding />
 
@@ -245,6 +308,7 @@ const tailorMadePoints: TailorMadePoint[] = [
    <CallToActionBar
      title="Ready to Start Your Safari Adventure?"
      subtitle="Let ROMARA create memories that last a lifetime."
+     image="/src/assets/images/safari-packages/hero-elephants-jeep.png"
      theme="green"
    />
  </div>

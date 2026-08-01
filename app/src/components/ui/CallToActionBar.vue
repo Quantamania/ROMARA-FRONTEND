@@ -1,81 +1,182 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import type { Component } from 'vue'
-import BaseButton from '@/components/ui/BaseButton.vue'
-import IconSuitcase from '@/components/icons/IconSuitcase.vue'
-import IconLion from '@/components/icons/IconLion.vue'
+import { ref, computed, onBeforeUnmount } from 'vue'
 import IconWhatsapp from '@/components/icons/IconWhatsapp.vue'
+import IconArrowRight from '@/components/icons/IconArrowRight.vue'
+import IconStar from '@/components/icons/IconStar.vue'
 
 interface Props {
   title?: string
   subtitle?: string
   primaryLabel?: string
   primaryHref?: string
-  /** 'cream' = light background (About page).
-   *  'green' = dark green background (Safari Packages, Day Trips pages). */
+  /** Background image behind the scrim. */
+  image?: string
+  /** Kept for backwards compatibility with existing call sites; the band is
+   *  always cinematic now, so this no longer changes the look. */
   theme?: 'cream' | 'green'
-  /** 'boxed' = icon sits in a small white/cream rounded box (About, Day Trips).
-   *  'bare' = icon rendered directly, no box, amber colored (Safari Packages).
-   *  Defaults based on theme if not set: cream -> boxed, green -> bare. */
-  iconStyle?: 'boxed' | 'bare'
-  /** Override which icon renders. Defaults: boxed -> suitcase, bare -> lion. */
-  icon?: Component
 }
 
 const props = withDefaults(defineProps<Props>(), {
   title: 'Ready to Start Your Adventure?',
-  subtitle: 'Let ROMARA plan the perfect trip for you.',
+  subtitle: 'Tell us how you like to travel and our specialists will shape a journey around you.',
   primaryLabel: 'Book Your Safari',
   primaryHref: '/book-now',
-  theme: 'cream',
-  iconStyle: undefined,
-  icon: undefined,
+  image: '/src/assets/images/home/hero-elephants.png',
+  theme: 'green',
 })
 
-const resolvedIconStyle = computed(function getIconStyle() {
-  return props.iconStyle ?? (props.theme === 'green' ? 'bare' : 'boxed')
-})
+// Unique UI feature: a warm "torchlight" that follows the pointer across the
+// band on desktop, and drifts on its own (the .cta-aurora layer) on touch /
+// reduced-motion. rAF-throttled; resets to a resting position on leave.
+const mx = ref(50)
+const my = ref(12)
+let raf = 0
 
-const resolvedIcon = computed(function getIconComponent() {
-  if (props.icon) return props.icon
-  return resolvedIconStyle.value === 'bare' ? IconLion : IconSuitcase
+function onMove(event: MouseEvent) {
+  const el = event.currentTarget as HTMLElement
+  const rect = el.getBoundingClientRect()
+  const x = ((event.clientX - rect.left) / rect.width) * 100
+  const y = ((event.clientY - rect.top) / rect.height) * 100
+  if (raf) return
+  raf = window.requestAnimationFrame(() => {
+    mx.value = x
+    my.value = y
+    raf = 0
+  })
+}
+
+function onLeave() {
+  mx.value = 50
+  my.value = 12
+}
+
+const spotStyle = computed(() => ({
+  background: `radial-gradient(680px circle at ${mx.value}% ${my.value}%, rgba(217,160,92,0.34), rgba(217,160,92,0.06) 34%, transparent 55%)`,
+}))
+
+onBeforeUnmount(() => {
+  if (raf) window.cancelAnimationFrame(raf)
 })
 </script>
 
 <template>
-  <section class="romara-container pb-16">
+  <section class="romara-container pb-16 sm:pb-20">
     <div
-      class="relative flex flex-col items-center gap-6 overflow-hidden rounded-card p-8 shadow-elevated sm:flex-row sm:justify-between sm:p-10"
-      :class="theme === 'green' ? 'bg-green-fade text-white' : 'bg-romara-cream'"
+      class="cta-band group relative isolate overflow-hidden rounded-[1.75rem] px-6 py-12 shadow-elevated ring-1 ring-white/10 sm:px-12 sm:py-16 lg:px-16 lg:py-[4.5rem]"
+      @mousemove="onMove"
+      @mouseleave="onLeave"
     >
-      <span
-        class="pointer-events-none absolute -right-6 -top-10 select-none font-heading text-[9rem] leading-none text-romara-amber/10"
+      <!-- Cinematic background -->
+      <img
+        :src="props.image"
+        alt=""
         aria-hidden="true"
-      >&rdquo;</span>
+        class="ken-burns absolute inset-0 -z-10 h-full w-full object-cover"
+      />
+      <div class="absolute inset-0 -z-10 bg-gradient-to-br from-romara-green-dark/94 via-romara-green-dark/82 to-romara-green/64"></div>
+      <div class="absolute inset-0 -z-10 bg-gradient-to-r from-romara-green-dark/80 via-transparent to-transparent"></div>
 
-      <div class="relative flex items-center gap-5 text-center sm:text-left">
-        <span
-          v-if="resolvedIconStyle === 'boxed'"
-          class="hidden h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-romara-amber/10 text-romara-amber sm:flex"
-        >
-          <component :is="resolvedIcon" class="h-8 w-8" />
-        </span>
-        <component :is="resolvedIcon" v-else class="hidden h-14 w-14 shrink-0 text-romara-amber sm:block" />
+      <!-- Ambient drift (motion on touch / reduced-motion) + pointer torchlight -->
+      <div class="cta-aurora pointer-events-none absolute -z-10"></div>
+      <div class="cta-spot pointer-events-none absolute inset-0 -z-10 mix-blend-screen transition-[background] duration-200 ease-out" :style="spotStyle"></div>
 
-        <div>
-          <p class="font-heading text-xl font-semibold sm:text-2xl" :class="theme === 'green' ? 'text-white' : 'text-romara-green'">{{ title }}</p>
-          <p class="mt-1.5 text-sm" :class="theme === 'green' ? 'text-white/70' : 'text-romara-ink/60'">{{ subtitle }}</p>
+      <!-- Hairline top accent -->
+      <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-romara-amber/60 to-transparent"></div>
+
+      <div class="relative max-w-2xl">
+        <h2 class="font-heading text-display font-semibold leading-[1.04] text-white text-balance">
+          {{ title }}
+        </h2>
+        <p class="mt-5 max-w-xl text-base leading-relaxed text-white/75 sm:text-lg">
+          {{ subtitle }}
+        </p>
+
+        <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+          <!-- Primary: shine-sweep CTA -->
+          <a
+            :href="primaryHref"
+            class="cta-primary group/btn relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-amber-fade px-8 py-4 text-sm font-bold uppercase tracking-[0.14em] text-white shadow-glow-amber transition-transform duration-300 ease-out-expo hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber/60 focus-visible:ring-offset-2 focus-visible:ring-offset-romara-green-dark"
+          >
+            <span class="relative z-10">{{ primaryLabel }}</span>
+            <IconArrowRight class="relative z-10 h-4 w-4 transition-transform duration-300 ease-out-expo group-hover/btn:translate-x-1" />
+            <span class="cta-shine" aria-hidden="true"></span>
+          </a>
+
+          <!-- Secondary: WhatsApp -->
+          <a
+            href="https://wa.me/254700123456"
+            target="_blank"
+            rel="noopener"
+            class="group/wa inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/5 px-7 py-4 text-sm font-bold uppercase tracking-[0.14em] text-white backdrop-blur-sm transition-colors duration-300 hover:border-white/50 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+          >
+            <IconWhatsapp class="h-4 w-4 text-romara-amber-300" />
+            Chat on WhatsApp
+          </a>
         </div>
-      </div>
 
-      <div class="flex flex-wrap justify-center gap-3">
-        <BaseButton as="a" :href="primaryHref" :variant="theme === 'green' ? 'amber' : 'primary'">{{ primaryLabel }}</BaseButton>
-        <BaseButton as="a" href="/contact" variant="outline">Request a Quote</BaseButton>
-        <BaseButton as="a" href="https://wa.me/254700123456" :variant="theme === 'green' ? 'ghost' : 'amber'">
-          <IconWhatsapp class="h-4 w-4" />
-          Chat on WhatsApp
-        </BaseButton>
+        <!-- Soft tertiary + trust cue -->
+        <div class="mt-7 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
+          <a
+            href="/contact"
+            class="group/quote inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-white/70 transition-colors hover:text-white"
+          >
+            Or request a tailor-made quote
+            <IconArrowRight class="h-3.5 w-3.5 text-romara-amber-300 transition-transform duration-300 ease-out-expo group-hover/quote:translate-x-1" />
+          </a>
+
+          <span class="hidden h-4 w-px bg-white/15 sm:block"></span>
+
+          <div class="flex items-center gap-2.5">
+            <div class="flex text-romara-amber">
+              <IconStar v-for="s in 5" :key="s" class="h-4 w-4" />
+            </div>
+            <p class="text-xs text-white/65">
+              <span class="font-semibold text-white">4.9/5</span> — 1,200+ travellers
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 </template>
+
+<style scoped>
+.cta-aurora {
+  top: -30%;
+  right: -10%;
+  height: 130%;
+  width: 60%;
+  background: radial-gradient(closest-side, rgba(217, 160, 92, 0.28), transparent 70%);
+  filter: blur(20px);
+  opacity: 0.9;
+}
+
+.cta-shine {
+  position: absolute;
+  inset: 0;
+  transform: translateX(-130%) skewX(-18deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cta-primary:hover .cta-shine,
+.cta-primary:focus-visible .cta-shine {
+  transform: translateX(130%) skewX(-18deg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cta-aurora {
+    animation: cta-drift 9s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes cta-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.65;
+  }
+  100% {
+    transform: translate3d(-14%, 8%, 0) scale(1.15);
+    opacity: 1;
+  }
+}
+</style>

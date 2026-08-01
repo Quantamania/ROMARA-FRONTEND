@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import IconArrowRight from '@/components/icons/IconArrowRight.vue'
 import IconCalendarCheck from '@/components/icons/IconCalendarCheck.vue'
 import IconCar from '@/components/icons/IconCar.vue'
 import IconPawPrint from '@/components/icons/IconPawPrint.vue'
@@ -62,9 +63,9 @@ function selectCategory(value: FaqCategory, isActive: boolean) {
         :class="modelValue === category.value ? 'text-romara-amber-300' : 'text-romara-amber'"
       />
       <span class="whitespace-nowrap lg:whitespace-normal lg:text-left">{{ category.label }}</span>
-      <span
-        class="ml-auto hidden h-1.5 w-1.5 shrink-0 rounded-full bg-romara-amber-300 transition-opacity lg:block"
-        :class="modelValue === category.value ? 'opacity-100' : 'opacity-0'"
+      <IconArrowRight
+        class="ml-auto hidden h-4 w-4 shrink-0 -translate-x-1 text-romara-amber-300 opacity-0 transition-all duration-300 ease-out-expo lg:block"
+        :class="modelValue === category.value ? 'translate-x-0 opacity-100' : ''"
         aria-hidden="true"
       />
     </button>

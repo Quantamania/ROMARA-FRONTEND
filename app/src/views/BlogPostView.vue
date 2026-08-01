@@ -8,6 +8,7 @@ import Pill from '@/components/ui/Pill.vue'
 import IconArrowLeft from '@/components/icons/IconArrowLeft.vue'
 import IconArrowRight from '@/components/icons/IconArrowRight.vue'
 import IconClock from '@/components/icons/IconClock.vue'
+import IconCompass from '@/components/icons/IconCompass.vue'
 
 const categoryLabels: Record<string, string> = {
   'safari-tips': 'Safari Tips',
@@ -178,7 +179,7 @@ const contentSections = computed(() => {
                   :key="itemIndex"
                   class="flex gap-3 text-lg leading-relaxed text-romara-ink-soft"
                 >
-                  <span class="mt-[0.7rem] h-1.5 w-1.5 shrink-0 rounded-full bg-romara-amber" />
+                  <IconArrowRight class="mt-1.5 h-4 w-4 shrink-0 text-romara-amber" aria-hidden="true" />
                   <span>{{ item }}</span>
                 </li>
               </ul>
@@ -187,17 +188,19 @@ const contentSections = computed(() => {
 
           <blockquote
             v-scroll-reveal="{ delay: 100 }"
-            class="relative my-12 overflow-hidden rounded-r-card border-l-4 border-romara-amber bg-romara-green px-7 py-7 shadow-elevated"
+            class="relative my-12 overflow-hidden rounded-card bg-romara-green px-7 py-7 shadow-elevated"
           >
             <div class="absolute inset-0 bg-green-fade opacity-50" />
-            <div class="relative">
-              <p class="eyebrow text-romara-amber-300">
-                
-                Quick Travel Tip
-              </p>
-              <p class="mt-3 font-heading text-lg leading-relaxed text-white">
-                Use the golden hours of sunrise and sunset for the best safari photos — keep your camera ready.
-              </p>
+            <div class="relative flex gap-5">
+              <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-romara-amber text-white shadow-glow-amber">
+                <IconCompass class="h-6 w-6" />
+              </span>
+              <div>
+                <p class="eyebrow text-romara-amber-300">Quick Travel Tip</p>
+                <p class="mt-2 font-heading text-lg leading-relaxed text-white">
+                  Use the golden hours of sunrise and sunset for the best safari photos — keep your camera ready.
+                </p>
+              </div>
             </div>
           </blockquote>
 

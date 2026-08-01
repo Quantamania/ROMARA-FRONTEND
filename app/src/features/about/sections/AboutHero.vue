@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import BaseButton from '@/components/ui/BaseButton.vue'
 import IconArrowRight from '@/components/icons/IconArrowRight.vue'
+import IconMapPin from '@/components/icons/IconMapPin.vue'
 
 const destinations = [
   'Maasai Mara',
@@ -73,7 +74,7 @@ const destinations = [
             :key="destination"
             class="flex items-center gap-10 whitespace-nowrap"
           >
-            <span class="h-1 w-1 shrink-0 rounded-full bg-romara-amber/70" aria-hidden="true" />
+            <span class="shrink-0 text-white/25" aria-hidden="true">/</span>
             {{ destination }}
           </span>
         </span>
@@ -84,7 +85,7 @@ const destinations = [
     <div
       class="glass absolute bottom-8 right-6 z-10 hidden items-center gap-2 rounded-full px-4 py-2 sm:flex"
     >
-      <span class="h-1.5 w-1.5 rounded-full bg-romara-amber" aria-hidden="true" />
+      <IconMapPin class="h-3.5 w-3.5 text-romara-amber" aria-hidden="true" />
       <span class="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/85">
         Maasai Mara, Kenya
       </span>

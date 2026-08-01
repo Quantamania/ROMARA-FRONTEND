@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
-import PageHero from '@/components/ui/PageHero.vue'
 import Pill from '@/components/ui/Pill.vue'
 import SectionHeading from '@/components/ui/SectionHeading.vue'
 import IconSearch from '@/components/icons/IconSearch.vue'
@@ -18,6 +17,10 @@ const allPosts = blogPostsData as BlogPost[]
 const featuredPosts = allPosts.filter((post) => post.featured)
 const mainFeaturedPost = featuredPosts[0]
 const sidebarFeaturedPosts = featuredPosts.slice(1)
+
+// Masthead lead — reuse the existing featured post, falling back to the latest item.
+// Read-only derivation; no data, sorting or filtering is changed.
+const mastheadPost = mainFeaturedPost ?? allPosts[0]
 
 const categoryLabels: Record<BlogCategory, string> = {
   'safari-tips': 'Safari Tips',
@@ -82,36 +85,93 @@ function formatDate(isoDate: string | number | Date) {
 </script>
 
 <template>
-  <!-- Hero: editorial masthead with an inline search -->
-  <PageHero
-    title="Travel Stories & Safari Inspiration"
-    eyebrow="The ROMARA Journal"
-    subtitle="Field notes, destination guides and safari experiences to inspire your next Kenyan adventure."
-    image="/src/assets/images/blog/hero.png"
-    size="lg"
-    :breadcrumbs="[{ label: 'Home', href: '/' }, { label: 'Blog' }]"
-  >
-    <form
-      class="flex w-full max-w-md items-center gap-2 rounded-full border border-white/15 bg-white/95 py-1.5 pl-5 pr-1.5 shadow-elevated backdrop-blur-sm transition-shadow focus-within:shadow-glow-amber"
-      @submit.prevent
-    >
-      <IconSearch class="h-4 w-4 shrink-0 text-romara-ink/40" />
-      <label for="blog-search" class="sr-only">Search blog posts</label>
-      <input
-        id="blog-search"
-        v-model="searchQuery"
-        type="search"
-        placeholder="Search blog posts..."
-        class="w-full border-none bg-transparent text-sm text-romara-ink placeholder:text-romara-ink/40 focus:outline-none focus:ring-0"
-      />
-      <button
-        type="submit"
-        class="shrink-0 rounded-full bg-amber-fade px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.14em] text-white shadow-soft transition-all duration-300 ease-out-expo hover:shadow-glow-amber focus:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber/50 focus-visible:ring-offset-1"
+  <!-- Hero: MAGAZINE MASTHEAD — the featured post is the hero (image + editorial text). -->
+  <section class="bg-romara-green-900 text-white">
+    <div class="romara-container py-10 sm:py-14 lg:py-16">
+      <!-- Masthead top line: breadcrumbs + journal title -->
+      <nav aria-label="Breadcrumb" class="mb-6">
+        <ol class="flex items-center gap-2 text-xs font-medium text-white/55">
+          <li><a href="/" class="transition-colors hover:text-white">Home</a></li>
+          <li aria-hidden="true" class="text-white/30">/</li>
+          <li class="text-white/90">Blog</li>
+        </ol>
+      </nav>
+
+      <div class="flex flex-col gap-5 border-b border-white/10 pb-8 sm:flex-row sm:items-end sm:justify-between">
+        <h1 class="text-balance font-heading text-display font-semibold leading-none">
+          Travel Stories &amp; Safari Inspiration
+        </h1>
+        <p class="max-w-sm text-sm leading-relaxed text-white/70 sm:text-right">
+          Field notes, destination guides and safari experiences to inspire your next Kenyan adventure.
+        </p>
+      </div>
+
+      <!-- Slim search bar sits under the masthead line -->
+      <form
+        class="mt-6 flex w-full max-w-md items-center gap-2 rounded-full border border-white/15 bg-white/95 py-1.5 pl-5 pr-1.5 shadow-elevated transition-shadow focus-within:shadow-glow-amber"
+        @submit.prevent
       >
-        Search
-      </button>
-    </form>
-  </PageHero>
+        <IconSearch class="h-4 w-4 shrink-0 text-romara-ink/40" />
+        <label for="blog-search" class="sr-only">Search blog posts</label>
+        <input
+          id="blog-search"
+          v-model="searchQuery"
+          type="search"
+          placeholder="Search blog posts..."
+          class="w-full border-none bg-transparent text-sm text-romara-ink placeholder:text-romara-ink/40 focus:outline-none focus:ring-0"
+        />
+        <button
+          type="submit"
+          class="shrink-0 rounded-full bg-amber-fade px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.14em] text-white shadow-soft transition-all duration-300 ease-out-expo hover:shadow-glow-amber focus:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber/50 focus-visible:ring-offset-1"
+        >
+          Search
+        </button>
+      </form>
+
+      <!-- Featured lead story as the hero. Mobile: image on top, text below. -->
+      <a
+        v-if="mastheadPost"
+        :href="`/blog/${mastheadPost.slug}`"
+        class="group mt-10 grid grid-cols-1 gap-7 lg:mt-12 lg:grid-cols-2 lg:items-center lg:gap-12"
+      >
+        <div class="relative overflow-hidden rounded-card shadow-elevated">
+          <div class="absolute left-4 top-4 z-10">
+            <Pill tone="amber">{{ categoryLabels[mastheadPost.category] }}</Pill>
+          </div>
+          <img
+            :src="mastheadPost.image"
+            :alt="mastheadPost.title"
+            class="aspect-[16/11] w-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-105"
+          />
+          <div class="absolute inset-0 bg-scrim-b opacity-40" />
+        </div>
+
+        <div>
+          <p class="text-xs font-bold uppercase tracking-[0.16em] text-romara-amber-300">Featured story</p>
+          <h2
+            class="mt-4 text-balance font-heading text-3xl font-semibold leading-tight transition-colors group-hover:text-romara-amber-300 sm:text-display-sm"
+          >
+            {{ mastheadPost.title }}
+          </h2>
+          <p class="mt-4 max-w-xl text-base leading-relaxed text-white/70">{{ mastheadPost.excerpt }}</p>
+          <div class="mt-6 flex flex-wrap items-center gap-4 text-xs font-medium text-white/60">
+            <span>{{ formatDate(mastheadPost.publishedAt) }}</span>
+            <span class="text-white/25">·</span>
+            <span class="inline-flex items-center gap-1.5">
+              <IconClock class="h-3.5 w-3.5 text-romara-amber-300" />
+              {{ mastheadPost.readTimeMinutes }} min read
+            </span>
+          </div>
+          <span
+            class="mt-7 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.14em] text-white"
+          >
+            Read article
+            <IconArrowRight class="h-4 w-4 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" />
+          </span>
+        </div>
+      </a>
+    </div>
+  </section>
 
   <!-- Categories -->
   <section class="section-y bg-white">

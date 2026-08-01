@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import BaseButton from '@/components/ui/BaseButton.vue'
 import CallToActionBar from '@/components/ui/CallToActionBar.vue'
-import PageHero from '@/components/ui/PageHero.vue'
 import SectionHeading from '@/components/ui/SectionHeading.vue'
 import IconClock from '@/components/icons/IconClock.vue'
 import IconUser from '@/components/icons/IconUser.vue'
@@ -13,7 +12,10 @@ import IconMapPin from '@/components/icons/IconMapPin.vue'
 import IconPlaneLanding from '@/components/icons/IconPlaneLanding.vue'
 import IconPlaneTakeoff from '@/components/icons/IconPlaneTakeoff.vue'
 import IconUsers from '@/components/icons/IconUsers.vue'
+import IconCheck from '@/components/icons/IconCheck.vue'
 import IconCheckSquare from '@/components/icons/IconCheckSquare.vue'
+import IconCalendar from '@/components/icons/IconCalendar.vue'
+import IconHeadset from '@/components/icons/IconHeadset.vue'
 import IconArrowRight from '@/components/icons/IconArrowRight.vue'
 import transferServicesData from '@/data/transferServices.json'
 import type { TransferService } from '@/features/airport-transfers/types/transfer.types'
@@ -58,25 +60,133 @@ const whyChooseItems: WhyChooseItem[] = [
 </script>
 
 <template>
-  <!-- Hero masthead -->
-  <div v-scroll-reveal>
-    <PageHero
-      eyebrow="Airport Transfers"
-      title="Reliable Transfers. Every Time."
-      subtitle="Start and end your journey with comfort and peace of mind. Our professional airport transfer service ensures a smooth, safe and on-time ride to or from the airport."
-      image="/src/assets/images/airport-transfers/airport-van.png"
-      size="lg"
-      :breadcrumbs="[{ label: 'Home', href: '/' }, { label: 'Airport Transfers' }]"
-    >
-      <div class="flex flex-wrap gap-3">
-        <BaseButton as="a" href="/airport-transfers/book" variant="amber" size="lg">
-          <IconCar class="h-4 w-4" />
-          Book Your Transfer
-        </BaseButton>
-        <BaseButton as="a" href="/contact" variant="ghost" size="lg">Request a Quote</BaseButton>
+  <!-- Hero masthead — utility quote hero (split) -->
+  <section v-scroll-reveal class="relative isolate overflow-hidden bg-romara-green text-white">
+    <img
+      src="/src/assets/images/airport-transfers/airport-van.png"
+      alt=""
+      aria-hidden="true"
+      class="absolute inset-0 h-full w-full object-cover opacity-25"
+    />
+    <div class="absolute inset-0 bg-green-fade/90 mix-blend-multiply" />
+    <div class="absolute inset-0 bg-scrim-b" />
+
+    <div class="romara-container relative section-y">
+      <div class="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
+        <!-- LEFT: intro + trust points -->
+        <div>
+          <nav
+            class="mb-5 flex flex-wrap items-center gap-2 text-xs font-medium text-white/60"
+            aria-label="Breadcrumb"
+          >
+            <a href="/" class="transition-colors hover:text-romara-amber">Home</a>
+            <span class="text-white/30">/</span>
+            <span class="text-white/85">Airport Transfers</span>
+          </nav>
+
+          <h1 class="max-w-xl font-heading text-display font-semibold text-balance">
+            Reliable Transfers. Every Time.
+          </h1>
+
+          <p class="mt-5 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
+            Start and end your journey with comfort and peace of mind. Our professional airport
+            transfer service ensures a smooth, safe and on-time ride to or from the airport.
+          </p>
+
+          <ul class="mt-8 space-y-3.5">
+            <li
+              v-for="point in [
+                { icon: IconCheck, label: 'On-time, flight-monitored pickups' },
+                { icon: IconShield, label: 'Safe rides with vetted, professional drivers' },
+                { icon: IconHeadset, label: '24/7 availability and support' },
+              ]"
+              :key="point.label"
+              class="flex items-center gap-3 text-sm font-medium text-white/90 sm:text-base"
+            >
+              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/10 text-romara-amber-300 ring-1 ring-white/15">
+                <component :is="point.icon" class="h-4 w-4" />
+              </span>
+              {{ point.label }}
+            </li>
+          </ul>
+
+          <p class="mt-8 text-sm text-white/60">
+            Prefer to talk it through?
+            <a href="/contact" class="font-semibold text-romara-amber-300 underline-offset-4 hover:underline">
+              Request a quote
+            </a>
+          </p>
+        </div>
+
+        <!-- RIGHT: plan-your-transfer card -->
+        <div class="glass w-full rounded-card p-6 shadow-elevated animate-fade-up sm:p-7">
+          <div class="flex items-center gap-3">
+            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-amber-fade text-white shadow-soft">
+              <IconCar class="h-5 w-5" />
+            </span>
+            <div>
+              <p class="font-heading text-lg font-semibold text-white">Plan your transfer</p>
+              <p class="text-xs text-white/60">Tell us the basics — we'll do the rest.</p>
+            </div>
+          </div>
+
+          <div class="mt-6 space-y-4">
+            <label class="block">
+              <span class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-white/60">From</span>
+              <span class="flex items-center gap-2.5 rounded-xl bg-white/95 px-3.5 py-3 text-romara-ink shadow-soft">
+                <IconPlaneTakeoff class="h-4 w-4 shrink-0 text-romara-green" />
+                <select class="w-full bg-transparent text-sm font-medium outline-none">
+                  <option>Jomo Kenyatta Intl (NBO)</option>
+                  <option>Moi Intl, Mombasa (MBA)</option>
+                  <option>Wilson Airport (WIL)</option>
+                </select>
+              </span>
+            </label>
+
+            <label class="block">
+              <span class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-white/60">To</span>
+              <span class="flex items-center gap-2.5 rounded-xl bg-white/95 px-3.5 py-3 text-romara-ink shadow-soft">
+                <IconMapPin class="h-4 w-4 shrink-0 text-romara-green" />
+                <input
+                  type="text"
+                  placeholder="Hotel, address or town"
+                  class="w-full bg-transparent text-sm font-medium outline-none placeholder:text-romara-ink/40"
+                />
+              </span>
+            </label>
+
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <label class="block">
+                <span class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-white/60">Date</span>
+                <span class="flex items-center gap-2.5 rounded-xl bg-white/95 px-3.5 py-3 text-romara-ink shadow-soft">
+                  <IconCalendar class="h-4 w-4 shrink-0 text-romara-green" />
+                  <input type="date" class="w-full bg-transparent text-sm font-medium outline-none" />
+                </span>
+              </label>
+
+              <label class="block">
+                <span class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-white/60">Passengers</span>
+                <span class="flex items-center gap-2.5 rounded-xl bg-white/95 px-3.5 py-3 text-romara-ink shadow-soft">
+                  <IconUsers class="h-4 w-4 shrink-0 text-romara-green" />
+                  <select class="w-full bg-transparent text-sm font-medium outline-none">
+                    <option>1 passenger</option>
+                    <option>2 passengers</option>
+                    <option>3–4 passengers</option>
+                    <option>5+ passengers</option>
+                  </select>
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <BaseButton as="a" href="/airport-transfers/book" variant="amber" size="lg" class="mt-6 w-full justify-center">
+            <IconCar class="h-4 w-4" />
+            Get a Quote
+          </BaseButton>
+        </div>
       </div>
-    </PageHero>
-  </div>
+    </div>
+  </section>
 
   <!-- Trust strip, overlapping hero bottom -->
   <section v-scroll-reveal class="relative z-10 -mt-14 romara-container sm:-mt-16">
@@ -193,6 +303,7 @@ const whyChooseItems: WhyChooseItem[] = [
       subtitle="Enjoy a seamless travel experience from the moment you land."
       primary-label="Book Now"
       primary-href="/airport-transfers/book"
+      image="/src/assets/images/airport-transfers/airport-van.png"
       theme="green"
       icon-style="boxed"
     />

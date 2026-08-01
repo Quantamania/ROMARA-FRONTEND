@@ -10,7 +10,9 @@ import galleryImagesData from '@/data/galleryImages.json'
 import type { GalleryCategory, GalleryImage } from '@/features/gallery/api/gallery.api'
 
 const allImages = galleryImagesData as GalleryImage[]
-const mosaicImages = allImages.slice(0, 5)
+// Tiles for the full-bleed hero mosaic wall. 12 keeps the grid perfectly filled
+// at 3 / 4 / 6 columns (mobile / tablet / desktop) with no ragged last row.
+const mosaicImages = allImages.slice(0, 12)
 
 const selectedCategory = ref<GalleryCategory | 'all'>('all')
 const visibleCount = ref(9)
@@ -60,41 +62,41 @@ function showNextImage() {
 </script>
 
 <template>
-  <!-- Hero: photo mosaic instead of a single image — fits a gallery page thematically -->
-  <section v-scroll-reveal class="isolate relative bg-romara-green min-h-[620px] lg:min-h-[86vh] overflow-hidden text-white">
-    <div class="absolute inset-0 gap-1 grid grid-cols-2 grid-rows-3 sm:grid-cols-4 sm:grid-rows-2">
-      <img :src="mosaicImages[0].src" :alt="mosaicImages[0].alt" class="ken-burns col-span-2 row-span-2 sm:col-span-2 sm:row-span-2 w-full h-full object-cover" />
-      <img :src="mosaicImages[1].src" :alt="mosaicImages[1].alt" class="w-full h-full object-cover" />
-      <img :src="mosaicImages[2].src" :alt="mosaicImages[2].alt" class="w-full h-full object-cover" />
-      <img :src="mosaicImages[3].src" :alt="mosaicImages[3].alt" class="col-span-2 sm:col-span-1 w-full h-full object-cover" />
-      <img :src="mosaicImages[4].src" :alt="mosaicImages[4].alt" class="col-span-2 sm:col-span-1 w-full h-full object-cover" />
+  <!-- Hero: full-bleed PHOTO-MOSAIC WALL — a wall of gallery photos with the
+       page title centered over a dark scrim, like stepping up to a photo wall. -->
+  <section v-scroll-reveal class="isolate relative bg-romara-green min-h-[560px] sm:min-h-[600px] lg:min-h-[80vh] overflow-hidden text-white">
+    <!-- The wall itself: a uniform tile grid (3 / 4 / 6 cols) that fills edge to
+         edge. A single slow ken-burns drift across the whole wall is the one
+         authored motion moment (auto-disabled under prefers-reduced-motion). -->
+    <div class="ken-burns absolute inset-0 grid grid-cols-3 auto-rows-fr gap-1 sm:grid-cols-4 sm:gap-1.5 lg:grid-cols-6">
+      <img
+        v-for="image in mosaicImages"
+        :key="image.id"
+        :src="image.src"
+        :alt="image.alt"
+        class="w-full h-full object-cover"
+      />
     </div>
-    <!-- Layered scrims for legibility + brand tint -->
-    <div class="absolute inset-0 bg-scrim-r" />
-    <div class="absolute inset-0 bg-gradient-to-t from-romara-green-dark/85 via-transparent to-romara-green-dark/25" />
 
-    <div class="relative flex h-full items-end pt-28 sm:pt-32 lg:pt-40 romara-container">
-      <div class="max-w-xl">
-        <nav class="mb-6 flex flex-wrap items-center gap-2 text-xs font-medium text-white/60" aria-label="Breadcrumb">
-          <a href="/" class="transition-colors hover:text-romara-amber">Home</a>
-          <span class="text-white/30">/</span>
-          <span class="text-white/85">Gallery</span>
-        </nav>
+    <!-- Layered dark scrim so the centered title stays legible over any tile -->
+    <div class="absolute inset-0 bg-romara-green-dark/70" />
+    <div class="absolute inset-0 bg-gradient-to-t from-romara-green-dark/85 via-romara-green-dark/45 to-romara-green-dark/80" />
 
-        <p class="eyebrow text-romara-amber-300 animate-fade-up">
-          
-          Moments. Memories. Adventures.
-        </p>
+    <div class="relative flex flex-col items-center justify-center min-h-[560px] sm:min-h-[600px] lg:min-h-[80vh] pt-24 pb-14 text-center romara-container">
+      <nav class="mb-6 flex flex-wrap items-center justify-center gap-2 text-xs font-medium text-white/70 animate-fade-up" aria-label="Breadcrumb">
+        <a href="/" class="transition-colors hover:text-romara-amber">Home</a>
+        <span class="text-white/40">/</span>
+        <span class="text-white/90">Gallery</span>
+      </nav>
 
-        <h1 class="mt-4 font-heading text-display font-semibold text-balance animate-fade-up" style="animation-delay: 90ms">
-          Gallery
-        </h1>
+      <h1 class="font-heading text-display-lg font-semibold text-balance animate-fade-up" style="animation-delay: 90ms">
+        Gallery
+      </h1>
 
-        <p class="mt-5 max-w-lg text-base leading-relaxed text-white/80 sm:text-lg animate-fade-up" style="animation-delay: 180ms">
-          Explore breathtaking photos from our safaris, day trips, and travel experiences across Kenya. Every
-          image tells a story.
-        </p>
-      </div>
+      <p class="mx-auto mt-5 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg animate-fade-up" style="animation-delay: 180ms">
+        Explore breathtaking photos from our safaris, day trips, and travel experiences across Kenya. Every
+        image tells a story.
+      </p>
     </div>
   </section>
 

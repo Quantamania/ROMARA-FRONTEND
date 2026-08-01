@@ -2,7 +2,7 @@
 import { computed, ref, watchEffect } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getDayTripBySlug } from '@/features/day-trips/api/dayTrips.api'
-import BaseButton from '@/components/ui/BaseButton.vue'
+import CallToActionBar from '@/components/ui/CallToActionBar.vue'
 import IconChevronRight from '@/components/icons/IconChevronRight.vue'
 import IconClock from '@/components/icons/IconClock.vue'
 import IconMapPin from '@/components/icons/IconMapPin.vue'
@@ -227,34 +227,16 @@ function goBack() {
         </div>
       </section>
 
-      <!-- Booking -->
-      <section class="bg-romara-green-dark py-16 lg:py-20 text-white">
-        <div class="flex md:flex-row flex-col md:justify-between md:items-end gap-8 romara-container">
-          <div class="max-w-xl">
-            <h3 class="font-heading font-bold text-3xl lg:text-4xl">Ready to book this trip?</h3>
-            <p class="mt-4 text-white/70 text-lg leading-relaxed">
-              Secure your spot today and let us craft an unforgettable day trip experience for you.
-            </p>
-          </div>
-          <div class="flex sm:flex-row flex-col gap-4 shrink-0">
-            <BaseButton
-              as="a"
-              href="/booking"
-              class="inline-flex justify-center items-center gap-2 bg-romara-amber hover:bg-romara-amber-light px-8 py-4 rounded-none font-semibold text-romara-green-dark whitespace-nowrap transition-colors"
-            >
-              Start Booking
-              <IconChevronRight class="w-4 h-4" />
-            </BaseButton>
-            <BaseButton
-              as="a"
-              href="/contact"
-              class="inline-flex justify-center items-center gap-2 hover:bg-white/10 px-8 py-4 border border-white/30 rounded-none font-semibold text-white whitespace-nowrap transition-colors"
-            >
-              Contact Us
-            </BaseButton>
-          </div>
-        </div>
-      </section>
+      <!-- Booking CTA -->
+      <div class="pt-4">
+        <CallToActionBar
+          title="Ready to book this trip?"
+          subtitle="Secure your spot today and let us craft an unforgettable day trip experience for you."
+          primary-label="Start Booking"
+          primary-href="/booking"
+          :image="trip.image"
+        />
+      </div>
 
     </div>
   </div>

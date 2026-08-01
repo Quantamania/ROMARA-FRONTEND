@@ -85,8 +85,7 @@ onUnmounted(() => {
     <div class="gap-x-16 gap-y-10 grid grid-cols-1 lg:grid-cols-12">
       <!-- Intro column -->
       <div class="lg:col-span-4">
-        <div class="flex items-center gap-3 mb-5">
-          <span class="bg-romara-amber rounded-full w-1.5 h-1.5" aria-hidden="true"></span>
+        <div class="mb-5">
           <span class="font-mono text-romara-ink-soft text-xs tracking-[0.2em] uppercase">Field notes</span>
         </div>
         <h2 class="font-heading font-semibold text-romara-green text-display-sm leading-tight">

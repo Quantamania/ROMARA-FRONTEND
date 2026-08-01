@@ -65,37 +65,60 @@ function loadMoreReviews() {
 </script>
 
 <template>
-  <!-- Hero: centered spotlight with the rating badge built in -->
-  <section v-scroll-reveal class="isolate relative bg-romara-green min-h-[560px] sm:min-h-[600px] overflow-hidden text-white">
-    <img
-      src="/src/assets/images/reviews/hero.png"
-      alt="Safari vehicle with elephants at sunset"
-      class="ken-burns absolute inset-0 w-full h-full object-cover"
-    />
-    <div class="absolute inset-0 bg-scrim-b" />
-    <div class="absolute inset-0 bg-gradient-to-t from-romara-green-dark/85 via-romara-green-dark/40 to-romara-green-dark/60" />
+  <!-- Hero: RATING-FORWARD DATA HERO — the score itself is the hero (no photo),
+       set on a green field so it reads clearly apart from the photo heroes elsewhere. -->
+  <section v-scroll-reveal class="isolate relative bg-green-fade overflow-hidden text-white">
+    <!-- Atmospheric amber glow, purely decorative -->
+    <div class="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 h-72 w-72 rounded-full bg-romara-amber/20 blur-3xl" />
 
-    <div class="relative flex flex-col justify-center items-center py-20 min-h-[560px] sm:min-h-[600px] text-center romara-container">
-      <div class="glass flex items-center gap-2.5 rounded-full px-5 py-2.5 animate-fade-up">
-        <span class="font-heading font-bold text-romara-amber-300 text-xl">4.9</span>
-        <div class="flex gap-0.5 text-romara-amber">
-          <IconStar v-for="n in 5" :key="n" class="w-3.5 h-3.5" />
-        </div>
-        <span class="text-white/70 text-xs">from 450+ reviews</span>
+    <div class="relative flex flex-col justify-center items-center py-20 sm:py-24 lg:py-28 text-center romara-container">
+      <!-- Giant Fraunces score numeral. The staggered fade-up entrance is the
+           one authored motion moment. -->
+      <div class="flex items-start justify-center gap-3 animate-fade-up">
+        <span class="font-heading font-semibold leading-none text-white text-[clamp(5rem,17vw,10rem)]">4.9</span>
+        <span class="mt-3 font-heading text-white/45 text-2xl sm:text-3xl">/5</span>
       </div>
 
-      <p class="eyebrow mt-7 justify-center text-romara-amber-300 animate-fade-up" style="animation-delay: 90ms">
-        
-        Reviews
+      <div class="flex gap-1.5 mt-4 text-romara-amber animate-fade-up" style="animation-delay: 80ms">
+        <IconStar v-for="n in 5" :key="n" class="w-6 h-6 sm:w-7 sm:h-7" />
+      </div>
+
+      <p class="mt-4 font-semibold text-romara-amber-300 text-sm uppercase tracking-[0.22em] sm:text-base animate-fade-up" style="animation-delay: 140ms">
+        from 450+ traveller reviews
       </p>
-      <h1 class="mt-4 max-w-2xl font-heading text-display font-semibold text-balance animate-fade-up" style="animation-delay: 150ms">
+
+      <h1 class="mt-7 max-w-2xl font-heading text-display font-semibold text-balance animate-fade-up" style="animation-delay: 210ms">
         Memories Shared. Experiences Trusted.
       </h1>
-      <p class="mx-auto mt-5 max-w-xl text-white/80 text-base leading-relaxed sm:text-lg animate-fade-up" style="animation-delay: 220ms">
+      <p class="mx-auto mt-5 max-w-xl text-white/80 text-base leading-relaxed sm:text-lg animate-fade-up" style="animation-delay: 280ms">
         See what our guests have to say about their adventures with ROMARA Tours &amp; Travel.
       </p>
 
-      <div class="flex flex-wrap justify-center gap-3.5 mt-9 animate-fade-up" style="animation-delay: 300ms">
+      <!-- Platform trust badges -->
+      <div class="flex flex-wrap justify-center items-center gap-3 mt-8 animate-fade-up" style="animation-delay: 340ms">
+        <div class="glass flex items-center gap-2.5 rounded-full px-4 py-2.5">
+          <svg class="w-5 h-5 shrink-0" viewBox="0 0 48 48" aria-hidden="true">
+            <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z" />
+            <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z" />
+            <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z" />
+            <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" />
+          </svg>
+          <span class="font-semibold text-white text-sm">Google</span>
+          <span class="flex gap-0.5 text-romara-amber">
+            <IconStar v-for="n in 5" :key="n" class="w-3 h-3" />
+          </span>
+        </div>
+
+        <div class="glass flex items-center gap-2.5 rounded-full px-4 py-2.5">
+          <IconTripadvisor class="w-5 h-5 shrink-0 text-[#34E0A1]" />
+          <span class="font-semibold text-white text-sm">TripAdvisor</span>
+          <span class="flex gap-0.5 text-romara-amber">
+            <IconStar v-for="n in 5" :key="n" class="w-3 h-3" />
+          </span>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-3.5 mt-9 animate-fade-up" style="animation-delay: 400ms">
         <BaseButton as="a" href="#guest-reviews" variant="amber" size="lg">View Reviews</BaseButton>
         <BaseButton as="a" href="/book-now" variant="ghost" size="lg">Book Your Adventure</BaseButton>
       </div>

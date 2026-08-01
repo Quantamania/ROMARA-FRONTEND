@@ -3,10 +3,8 @@ import { computed, ref } from 'vue'
 import TrustBuilding from '@/features/home/sections/TrustBuilding.vue'
 import CallToActionBar from '@/components/ui/CallToActionBar.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
-import PageHero from '@/components/ui/PageHero.vue'
 import DayTripCard from '@/features/day-trips/components/DayTripCard.vue'
 import CategoryFilter from '@/features/day-trips/components/CategoryFilter.vue'
-import IconCalendarCheck from '@/components/icons/IconCalendarCheck.vue'
 import IconStopwatch from '@/components/icons/IconStopwatch.vue'
 import IconCamera from '@/components/icons/IconCamera.vue'
 import IconUsers from '@/components/icons/IconUsers.vue'
@@ -22,6 +20,16 @@ const filteredTrips = computed(function getFilteredTrips() {
   if (selectedCategory.value === 'all') return allTrips
   return allTrips.filter((trip) => trip.category === selectedCategory.value)
 })
+
+// Presentational-only imagery for the hero filmstrip (reuses existing assets).
+const heroFilmstrip = [
+  { image: '/src/assets/images/destinations/maasai-mara.jpeg', label: 'Maasai Mara', meta: 'Full day' },
+  { image: '/src/assets/images/destinations/amboseli.jpg', label: 'Amboseli', meta: 'Full day' },
+  { image: '/src/assets/images/destinations/lake-nakuru.jpeg', label: 'Lake Nakuru', meta: 'Full day' },
+  { image: '/src/assets/images/destinations/nairobi.webp', label: 'Nairobi Park', meta: 'Half day' },
+  { image: '/src/assets/images/destinations/crater.jpeg', label: 'Menengai Crater', meta: 'Half day' },
+  { image: '/src/assets/images/destinations/diani.jpg', label: 'Diani Beach', meta: 'Full day' },
+]
 
 interface WhyChooseItem {
   icon: typeof IconStopwatch
@@ -39,20 +47,66 @@ const whyChooseItems: WhyChooseItem[] = [
 </script>
 
 <template>
-  <!-- Hero -->
-  <PageHero
-    v-scroll-reveal
-    eyebrow="Day Trips"
-    title="Amazing Experiences. Unforgettable Memories."
-    subtitle="Short on time? Our day trips are the perfect way to explore Kenya's top attractions in a single day — from wildlife encounters to cultural experiences, adventure and nature."
-    image="/src/assets/images/day-trips/hero.png"
-    size="lg"
-    :breadcrumbs="[{ label: 'Home', href: '/' }, { label: 'Day Trips' }]"
-  >
-    <div class="flex flex-wrap gap-3">
-      <BaseButton as="a" href="/contact" variant="amber" size="lg">Request a Quote</BaseButton>
+  <!-- Hero: headline over a muted green scrim with a horizontal filmstrip peek -->
+  <section class="relative isolate overflow-hidden bg-romara-green text-white">
+    <!-- Faint background photograph, muted under green -->
+    <img
+      src="/src/assets/images/day-trips/hero.png"
+      alt=""
+      aria-hidden="true"
+      class="absolute inset-0 h-full w-full object-cover opacity-20"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-romara-green-dark/80 via-romara-green/60 to-romara-green-dark/90" />
+    <div class="absolute inset-0 bg-scrim-b" />
+
+    <div class="romara-container relative flex flex-col pt-14 sm:pt-16 lg:pt-20">
+      <!-- Headline block -->
+      <div class="max-w-2xl">
+        <nav aria-label="Breadcrumb" class="mb-7 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-white/55 animate-fade-up">
+          <a href="/" class="transition-colors duration-300 hover:text-romara-amber-300">Home</a>
+          <span class="text-white/25">/</span>
+          <span class="text-romara-amber-300">Day Trips</span>
+        </nav>
+
+        <h1 class="font-heading text-display font-semibold leading-[1.04] text-balance animate-fade-up" style="animation-delay: 90ms">
+          Amazing Experiences. Unforgettable Memories.
+        </h1>
+
+        <p class="mt-6 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg animate-fade-up" style="animation-delay: 180ms">
+          Short on time? Our day trips are the perfect way to explore Kenya's top attractions in a single day
+          — from wildlife encounters to cultural experiences, adventure and nature.
+        </p>
+
+        <div class="mt-9 flex flex-wrap gap-3 animate-fade-up" style="animation-delay: 270ms">
+          <BaseButton as="a" href="/contact" variant="amber" size="lg">Request a Quote</BaseButton>
+        </div>
+      </div>
+
+      <!-- Filmstrip peek: snap-scrolls horizontally, last frame peeks off the right -->
+      <div class="filmstrip mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-10 sm:mt-14 lg:mt-16">
+        <figure
+          v-for="frame in heroFilmstrip"
+          :key="frame.label"
+          class="w-40 shrink-0 snap-start sm:w-52"
+        >
+          <div class="relative aspect-[4/3] overflow-hidden rounded-card shadow-card ring-1 ring-white/15">
+            <img
+              :src="frame.image"
+              :alt="frame.label"
+              loading="lazy"
+              class="h-full w-full object-cover"
+            />
+            <span class="absolute bottom-2 left-2 inline-flex items-center rounded-full bg-black/55 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-white backdrop-blur-sm">
+              {{ frame.meta }}
+            </span>
+          </div>
+          <figcaption class="mt-2.5 text-xs font-semibold text-white/75">{{ frame.label }}</figcaption>
+        </figure>
+        <!-- trailing spacer so the peeking frame invites the scroll -->
+        <div class="w-2 shrink-0" aria-hidden="true" />
+      </div>
     </div>
-  </PageHero>
+  </section>
 
   <div v-scroll-reveal="{ delay: 75 }">
     <TrustBuilding :overlap="false" />
@@ -130,9 +184,17 @@ const whyChooseItems: WhyChooseItem[] = [
       title="Ready for an Adventure?"
       subtitle="Book your next day trip with ROMARA today."
       primary-label="Book a Day Trip"
+      image="/src/assets/images/day-trips/hero.png"
       theme="green"
-      icon-style="boxed"
-      :icon="IconCalendarCheck"
     />
   </div>
 </template>
+
+<style scoped>
+.filmstrip {
+  scrollbar-width: none;
+}
+.filmstrip::-webkit-scrollbar {
+  display: none;
+}
+</style>

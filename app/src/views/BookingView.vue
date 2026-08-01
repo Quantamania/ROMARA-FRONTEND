@@ -6,7 +6,7 @@ import IconClock from '@/components/icons/IconClock.vue'
 import IconPhone from '@/components/icons/IconPhone.vue'
 import IconMail from '@/components/icons/IconMail.vue'
 import IconWhatsapp from '@/components/icons/IconWhatsapp.vue'
-import PageHero from '@/components/ui/PageHero.vue'
+import IconArrowRight from '@/components/icons/IconArrowRight.vue'
 import BookingProgressIndicator from '@/features/booking/components/BookingProgressIndicator.vue'
 import BookingForm from '@/features/booking/components/BookingForm.vue'
 import PaymentInfo from '@/features/booking/components/PaymentInfo.vue'
@@ -38,18 +38,50 @@ const helpOptions: HelpOption[] = [
   { icon: IconMail, label: 'Email Us', value: 'info@romaratours.com', href: 'mailto:info@romaratours.com' },
   { icon: IconWhatsapp, label: 'Chat on WhatsApp', value: '+254 700 123 456', href: 'https://wa.me/254700123456', external: true },
 ]
+
+const bookingSteps = ['Details', 'Trip', 'Confirm']
 </script>
 
 <template>
-  <!-- Hero -->
-  <PageHero
-    eyebrow="Book Now"
-    title="Start Your Adventure Today"
-    subtitle="Fill in your details and let us help you plan your perfect safari or holiday in Kenya."
-    image="/src/assets/images/booking/hero-safari-vehicle.jpg"
-    size="lg"
-    :breadcrumbs="[{ label: 'Home', href: '/' }, { label: 'Book Now' }]"
-  />
+  <!-- Hero — focused task band (operate mode: solid green field + step cue) -->
+  <section class="relative isolate overflow-hidden bg-romara-green text-white">
+    <div class="absolute inset-0 bg-green-fade"></div>
+    <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-romara-amber/15 blur-3xl"></div>
+    <div class="absolute inset-0 bg-scrim-b"></div>
+
+    <div class="romara-container relative pt-14 pb-24 sm:pt-16 sm:pb-28">
+      <!-- Breadcrumbs -->
+      <nav
+        class="mb-5 flex flex-wrap items-center gap-2 text-xs font-medium text-white/60"
+        aria-label="Breadcrumb"
+      >
+        <a href="/" class="transition-colors hover:text-romara-amber">Home</a>
+        <span class="text-white/30">/</span>
+        <span class="text-white/85">Book Now</span>
+      </nav>
+
+      <h1 class="max-w-2xl font-heading text-display-sm font-semibold text-balance sm:text-display">
+        Start Your Adventure Today
+      </h1>
+      <p class="mt-4 max-w-xl text-base leading-relaxed text-white/80">
+        Fill in your details and let us help you plan your perfect safari or holiday in Kenya.
+      </p>
+
+      <!-- 3 simple steps micro-cue previewing the flow -->
+      <div class="mt-7 animate-fade-up">
+        <p class="text-[11px] font-bold uppercase tracking-[0.14em] text-white/50">3 simple steps</p>
+        <ol class="mt-3 flex flex-wrap items-center gap-x-2 gap-y-3">
+          <li v-for="(step, i) in bookingSteps" :key="step" class="flex items-center gap-2">
+            <span class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 py-1.5 pl-1.5 pr-3.5 backdrop-blur-sm">
+              <span class="flex h-6 w-6 items-center justify-center rounded-full bg-romara-amber text-[11px] font-bold text-white">{{ i + 1 }}</span>
+              <span class="text-xs font-semibold text-white/90">{{ step }}</span>
+            </span>
+            <IconArrowRight v-if="i < bookingSteps.length - 1" class="h-3.5 w-3.5 shrink-0 text-white/35" />
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
 
   <div class="bg-romara-bone">
     <!-- Trust indicators, overlapping hero bottom -->

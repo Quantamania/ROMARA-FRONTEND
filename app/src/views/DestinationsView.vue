@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import PageHero from '@/components/ui/PageHero.vue'
 import SectionHeading from '@/components/ui/SectionHeading.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import DestinationCard from '@/features/destinations/components/DestinationCard.vue'
@@ -31,6 +30,16 @@ function handleSearchSubmit() {
   })
 }
 
+// Decorative hero showcase tiles — presentation only, reusing existing
+// destination imagery so the places are showcased immediately in the masthead.
+const heroTiles = [
+  { name: 'Maasai Mara', image: '/src/assets/images/destinations/maasai-mara.jpeg' },
+  { name: 'Diani Beach', image: '/src/assets/images/destinations/diani.jpg' },
+  { name: 'Amboseli', image: '/src/assets/images/destinations/amboseli.jpg' },
+  { name: 'Lake Nakuru', image: '/src/assets/images/destinations/lake-nakuru.jpeg' },
+  { name: 'Nairobi', image: '/src/assets/images/destinations/nairobi.webp' },
+]
+
 const whyVisitPoints = [
   'Diverse wildlife and national parks',
   'Beautiful beaches and coastlines',
@@ -43,49 +52,127 @@ const whyVisitPoints = [
 </script>
 
 <template>
-  <!-- Hero: reusable premium masthead with the search bar living in its slot -->
-  <div v-scroll-reveal>
-    <PageHero
-      eyebrow="Destinations"
-      title="Extraordinary Places. Unforgettable Experiences."
-      subtitle="From world-famous wildlife reserves and scenic landscapes to vibrant cities and cultural landmarks, explore the best destinations Kenya has to offer and beyond."
-      image="/src/assets/images/destinations/hero.jpg"
-      size="lg"
-      :breadcrumbs="[{ label: 'Home', href: '/' }, { label: 'Destinations' }]"
-    >
-      <form
-        class="flex flex-col gap-3 rounded-2xl bg-white/95 p-3 shadow-overlap backdrop-blur-sm sm:flex-row sm:items-center sm:gap-2 sm:rounded-full sm:p-2"
-        @submit.prevent="handleSearchSubmit"
-      >
-        <div class="flex flex-1 items-center gap-2.5 px-4 py-2">
-          <IconMapPin class="h-5 w-5 shrink-0 text-romara-amber" />
-          <input
-            v-model="searchQuery"
-            type="search"
-            placeholder="Search destinations, e.g. Maasai Mara, Diani Beach..."
-            class="w-full border-none bg-transparent text-sm text-romara-ink placeholder:text-romara-ink/40 focus:outline-none focus:ring-0"
-          />
+  <!-- HERO 1 — Bento Gallery Hero: headline + search beside a bento grid of
+       destination tiles, so the places are showcased immediately. -->
+  <section class="relative isolate overflow-hidden bg-green-fade text-white">
+    <div class="absolute inset-0 bg-scrim-b opacity-40" aria-hidden="true" />
+
+    <div class="romara-container relative py-14 sm:py-20 lg:py-24">
+      <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
+        <!-- Headline + search -->
+        <div class="lg:col-span-5">
+          <nav
+            class="mb-6 flex flex-wrap items-center gap-2 text-xs font-medium text-white/60"
+            aria-label="Breadcrumb"
+          >
+            <a href="/" class="transition-colors hover:text-romara-amber">Home</a>
+            <span class="text-white/30">/</span>
+            <span class="text-white/85">Destinations</span>
+          </nav>
+
+          <h1 class="max-w-xl font-heading text-display font-semibold text-balance">
+            Extraordinary Places. Unforgettable Experiences.
+          </h1>
+          <p class="mt-5 max-w-lg text-base leading-relaxed text-white/80 sm:text-lg">
+            From world-famous wildlife reserves and scenic landscapes to vibrant cities and cultural
+            landmarks, explore the best destinations Kenya has to offer and beyond.
+          </p>
+
+          <form
+            class="mt-8 flex flex-col gap-3 rounded-2xl bg-white/95 p-3 shadow-overlap backdrop-blur-sm sm:flex-row sm:items-center sm:gap-2 sm:rounded-full sm:p-2"
+            @submit.prevent="handleSearchSubmit"
+          >
+            <div class="flex flex-1 items-center gap-2.5 px-4 py-2">
+              <IconMapPin class="h-5 w-5 shrink-0 text-romara-amber" />
+              <input
+                v-model="searchQuery"
+                type="search"
+                placeholder="Search destinations, e.g. Maasai Mara, Diani Beach..."
+                class="w-full border-none bg-transparent text-sm text-romara-ink placeholder:text-romara-ink/40 focus:outline-none focus:ring-0"
+              />
+            </div>
+            <div class="hidden h-8 w-px shrink-0 bg-romara-green/10 sm:block" />
+            <select
+              v-model="selectedType"
+              class="shrink-0 border-none bg-transparent px-4 py-2 text-sm text-romara-ink focus:outline-none focus:ring-0 sm:w-auto"
+            >
+              <option value="all">All Types</option>
+              <option value="wildlife">Wildlife & Safaris</option>
+              <option value="mountains">Mountains & Hiking</option>
+              <option value="beaches">Beaches & Coast</option>
+              <option value="cities">Cities & Towns</option>
+              <option value="culture">Culture & Heritage</option>
+              <option value="nature">Nature & Scenery</option>
+            </select>
+            <BaseButton type="submit" variant="amber" size="lg" class="shrink-0 sm:rounded-full">
+              <IconMapPin class="h-4 w-4" />
+              Search
+            </BaseButton>
+          </form>
         </div>
-        <div class="hidden h-8 w-px shrink-0 bg-romara-green/10 sm:block" />
-        <select
-          v-model="selectedType"
-          class="shrink-0 border-none bg-transparent px-4 py-2 text-sm text-romara-ink focus:outline-none focus:ring-0 sm:w-auto"
-        >
-          <option value="all">All Types</option>
-          <option value="wildlife">Wildlife & Safaris</option>
-          <option value="mountains">Mountains & Hiking</option>
-          <option value="beaches">Beaches & Coast</option>
-          <option value="cities">Cities & Towns</option>
-          <option value="culture">Culture & Heritage</option>
-          <option value="nature">Nature & Scenery</option>
-        </select>
-        <BaseButton type="submit" variant="amber" size="lg" class="shrink-0 sm:rounded-full">
-          <IconMapPin class="h-4 w-4" />
-          Search
-        </BaseButton>
-      </form>
-    </PageHero>
-  </div>
+
+        <!-- Bento grid of destination tiles -->
+        <div class="lg:col-span-7">
+          <!-- Mobile / tablet: horizontal scroll strip, capped tile width, no overflow -->
+          <ul
+            class="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-1 lg:hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
+            <li
+              v-for="tile in heroTiles"
+              :key="tile.name"
+              class="relative w-[68vw] max-w-[16rem] shrink-0 snap-start overflow-hidden rounded-card shadow-elevated"
+            >
+              <img
+                :src="tile.image"
+                :alt="tile.name"
+                loading="lazy"
+                class="h-40 w-full object-cover"
+              />
+              <div class="absolute inset-0 bg-scrim-b" aria-hidden="true" />
+              <span class="absolute bottom-3 left-3 font-heading text-sm font-semibold text-white">
+                {{ tile.name }}
+              </span>
+            </li>
+          </ul>
+
+          <!-- Desktop: asymmetric bento grid with a large lead tile -->
+          <div class="hidden grid-cols-6 gap-3 lg:grid" style="grid-auto-rows: 118px">
+            <figure class="group relative col-span-4 row-span-2 overflow-hidden rounded-card shadow-elevated">
+              <img
+                src="/src/assets/images/destinations/maasai-mara.jpeg"
+                alt="Maasai Mara"
+                class="ken-burns h-full w-full object-cover"
+              />
+              <div class="absolute inset-0 bg-scrim-b" aria-hidden="true" />
+              <figcaption class="absolute bottom-4 left-4 font-heading text-xl font-semibold text-white">
+                Maasai Mara
+              </figcaption>
+            </figure>
+            <figure class="relative col-span-2 row-span-1 overflow-hidden rounded-card shadow-elevated">
+              <img src="/src/assets/images/destinations/diani.jpg" alt="Diani Beach" class="h-full w-full object-cover" />
+              <div class="absolute inset-0 bg-scrim-b" aria-hidden="true" />
+              <figcaption class="absolute bottom-3 left-3 font-heading text-sm font-semibold text-white">Diani Beach</figcaption>
+            </figure>
+            <figure class="relative col-span-2 row-span-1 overflow-hidden rounded-card shadow-elevated">
+              <img src="/src/assets/images/destinations/amboseli.jpg" alt="Amboseli" class="h-full w-full object-cover" />
+              <div class="absolute inset-0 bg-scrim-b" aria-hidden="true" />
+              <figcaption class="absolute bottom-3 left-3 font-heading text-sm font-semibold text-white">Amboseli</figcaption>
+            </figure>
+            <figure class="relative col-span-3 row-span-1 overflow-hidden rounded-card shadow-elevated">
+              <img src="/src/assets/images/destinations/lake-nakuru.jpeg" alt="Lake Nakuru" class="h-full w-full object-cover" />
+              <div class="absolute inset-0 bg-scrim-b" aria-hidden="true" />
+              <figcaption class="absolute bottom-3 left-3 font-heading text-sm font-semibold text-white">Lake Nakuru</figcaption>
+            </figure>
+            <figure class="relative col-span-3 row-span-1 overflow-hidden rounded-card shadow-elevated">
+              <img src="/src/assets/images/destinations/nairobi.webp" alt="Nairobi" class="h-full w-full object-cover" />
+              <div class="absolute inset-0 bg-scrim-b" aria-hidden="true" />
+              <figcaption class="absolute bottom-3 left-3 font-heading text-sm font-semibold text-white">Nairobi</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Popular Destinations: asymmetric editorial bento grid -->
   <section v-scroll-reveal class="section-y bg-white">

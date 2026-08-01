@@ -11,7 +11,6 @@ import IconCompass from '@/components/icons/IconCompass.vue'
 import IconFacebook from '@/components/icons/IconFacebook.vue'
 import IconInstagram from '@/components/icons/IconInstagram.vue'
 import IconTripadvisor from '@/components/icons/IconTripadvisor.vue'
-import PageHero from '@/components/ui/PageHero.vue'
 import SectionHeading from '@/components/ui/SectionHeading.vue'
 import ContactForm from '@/features/contact/components/ContactForm.vue'
 import OfficeMap from '@/features/contact/components/OfficeMap.vue'
@@ -52,15 +51,44 @@ const whyContactItems: WhyContactItem[] = [
 </script>
 
 <template>
-  <!-- Hero -->
-  <PageHero
-    eyebrow="Contact Us"
-    title="We'd Love to Hear From You"
-    subtitle="Whether you have a question, need travel advice, or want to plan your next adventure, our team is here to help."
-    image="/src/assets/images/contact/hero.png"
-    size="md"
-    :breadcrumbs="[{ label: 'Home', href: '/' }, { label: 'Contact' }]"
-  />
+  <!-- Hero — minimal availability band (lean, so the fused card below leads) -->
+  <section class="relative isolate overflow-hidden bg-romara-green text-white">
+    <img
+      src="/src/assets/images/contact/hero.png"
+      alt=""
+      aria-hidden="true"
+      class="absolute inset-0 h-full w-full object-cover opacity-20"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-romara-green-dark/85 via-romara-green/55 to-romara-green/40"></div>
+
+    <div class="romara-container relative py-14 sm:py-16">
+      <!-- Breadcrumbs -->
+      <nav
+        class="mb-5 flex flex-wrap items-center gap-2 text-xs font-medium text-white/60"
+        aria-label="Breadcrumb"
+      >
+        <a href="/" class="transition-colors hover:text-romara-amber">Home</a>
+        <span class="text-white/30">/</span>
+        <span class="text-white/85">Contact</span>
+      </nav>
+
+      <h1 class="max-w-2xl font-heading text-display-sm font-semibold text-balance sm:text-display">
+        We'd Love to Hear From You
+      </h1>
+      <p class="mt-4 max-w-xl text-base leading-relaxed text-white/80">
+        Whether you have a question, need travel advice, or want to plan your next adventure, our team is here to help.
+      </p>
+
+      <!-- Availability cue: white pulse ring (no amber dot) -->
+      <div class="mt-6 inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/10 px-4 py-2 backdrop-blur-sm">
+        <span class="relative flex h-2.5 w-2.5" aria-hidden="true">
+          <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/70"></span>
+          <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-white"></span>
+        </span>
+        <span class="text-xs font-semibold tracking-wide text-white/90">Typically replies within a few hours</span>
+      </div>
+    </div>
+  </section>
 
   <!-- Fused split card: green info panel welded to the white form -->
   <section class="section-y bg-romara-bone">

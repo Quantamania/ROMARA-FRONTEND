@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import PageHero from '@/components/ui/PageHero.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import DestinationCard from '@/features/destinations/components/DestinationCard.vue'
 import IconSearch from '@/components/icons/IconSearch.vue'
@@ -64,33 +63,77 @@ function resetFilters() {
 </script>
 
 <template>
-  <!-- Hero: premium masthead with the directory's headline stats in its slot -->
-  <PageHero
-    eyebrow="Explore Destinations"
-    title="Kenya's Treasures Await"
-    subtitle="Every destination tells a story. From savannas to coastlines, discover the places that make Kenya extraordinary."
-    image="/src/assets/images/destinations/maasai-mara.jpeg"
-    size="lg"
-    :breadcrumbs="[{ label: 'Home', href: '/' }, { label: 'Destinations', href: '/destinations' }, { label: 'Directory' }]"
-  >
-    <dl class="grid max-w-lg grid-cols-3 gap-3 sm:gap-6">
-      <div class="glass rounded-card border border-white/15 px-3 py-4 text-center sm:px-4">
-        <dt class="sr-only">Counties</dt>
-        <dd class="font-heading text-3xl font-semibold text-white sm:text-4xl">47</dd>
-        <p class="mt-1 text-[10px] uppercase tracking-[0.14em] text-white/70 sm:text-[11px]">Counties</p>
-      </div>
-      <div class="glass rounded-card border border-white/15 px-3 py-4 text-center sm:px-4">
-        <dt class="sr-only">Spots</dt>
-        <dd class="font-heading text-3xl font-semibold text-romara-amber-300 sm:text-4xl">50+</dd>
-        <p class="mt-1 text-[10px] uppercase tracking-[0.14em] text-white/70 sm:text-[11px]">Spots</p>
-      </div>
-      <div class="glass rounded-card border border-white/15 px-3 py-4 text-center sm:px-4">
-        <dt class="sr-only">Memories</dt>
-        <dd class="font-heading text-3xl font-semibold text-white sm:text-4xl">&infin;</dd>
-        <p class="mt-1 text-[10px] uppercase tracking-[0.14em] text-white/70 sm:text-[11px]">Memories</p>
-      </div>
-    </dl>
-  </PageHero>
+  <!-- HERO 2 — Compact Stat-Band Hero: a slim, type-led directory header on a
+       solid green field with a thin route-line motif and an inline stat band. -->
+  <header class="relative isolate overflow-hidden bg-green-fade text-white">
+    <!-- Thin map/route line motif -->
+    <svg
+      class="pointer-events-none absolute inset-0 h-full w-full"
+      viewBox="0 0 1200 300"
+      fill="none"
+      preserveAspectRatio="xMidYMid slice"
+      aria-hidden="true"
+    >
+      <path
+        d="M-20 210 C 220 140, 360 250, 560 170 S 900 60, 1220 130"
+        stroke="#E4B77E"
+        stroke-width="1.5"
+        stroke-dasharray="2 9"
+        stroke-linecap="round"
+        opacity="0.5"
+      />
+      <path
+        d="M-20 90 C 260 40, 420 150, 680 110 S 980 210, 1220 160"
+        stroke="#FFFFFF"
+        stroke-width="1"
+        stroke-dasharray="1 12"
+        stroke-linecap="round"
+        opacity="0.18"
+      />
+      <circle cx="560" cy="170" r="4" fill="#E4B77E" />
+      <circle cx="680" cy="110" r="3" fill="#FFFFFF" opacity="0.6" />
+      <circle cx="220" cy="176" r="3" fill="#FFFFFF" opacity="0.4" />
+    </svg>
+
+    <div class="romara-container relative py-12 sm:py-16">
+      <nav
+        class="mb-5 flex flex-wrap items-center gap-2 text-xs font-medium text-white/60"
+        aria-label="Breadcrumb"
+      >
+        <a href="/" class="transition-colors hover:text-romara-amber">Home</a>
+        <span class="text-white/30">/</span>
+        <a href="/destinations" class="transition-colors hover:text-romara-amber">Destinations</a>
+        <span class="text-white/30">/</span>
+        <span class="text-white/85">Directory</span>
+      </nav>
+
+      <h1 class="max-w-2xl font-heading text-display-sm font-semibold text-balance">
+        Kenya's Treasures Await
+      </h1>
+      <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+        Every destination tells a story. From savannas to coastlines, discover the places that make
+        Kenya extraordinary.
+      </p>
+
+      <!-- Inline stat band -->
+      <dl class="animate-fade-up mt-8 flex flex-wrap items-center gap-x-6 gap-y-4 border-t border-white/15 pt-6 sm:gap-x-10">
+        <div class="flex items-baseline gap-2">
+          <dd class="font-heading text-3xl font-semibold text-white sm:text-4xl">47</dd>
+          <dt class="text-[11px] uppercase tracking-[0.14em] text-white/70">Counties</dt>
+        </div>
+        <div class="hidden h-8 w-px bg-white/15 sm:block" aria-hidden="true" />
+        <div class="flex items-baseline gap-2">
+          <dd class="font-heading text-3xl font-semibold text-romara-amber-300 sm:text-4xl">50+</dd>
+          <dt class="text-[11px] uppercase tracking-[0.14em] text-white/70">Spots</dt>
+        </div>
+        <div class="hidden h-8 w-px bg-white/15 sm:block" aria-hidden="true" />
+        <div class="flex items-baseline gap-2">
+          <dd class="font-heading text-3xl font-semibold text-white sm:text-4xl">&infin;</dd>
+          <dt class="text-[11px] uppercase tracking-[0.14em] text-white/70">Memories</dt>
+        </div>
+      </dl>
+    </div>
+  </header>
 
   <!-- Filter command bar: full-width search + horizontal chip strip on mobile, sticky rail on desktop -->
   <div class="sticky top-20 z-20 border-b border-romara-green/10 bg-white/90 shadow-soft backdrop-blur">

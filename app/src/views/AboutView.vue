@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import IconMapPin from '@/components/icons/IconMapPin.vue'
 import AboutHero from '@/features/about/sections/AboutHero.vue'
 import OurStory from '@/features/about/sections/OurStory.vue'
 import MissionValues from '@/features/about/sections/MissionValues.vue'
@@ -39,11 +40,8 @@ const channels = [
         <!-- Story, offset left -->
         <div class="lg:col-span-7">
           <!-- Signature waypoint tag: the real coordinates of the place the copy names -->
-          <div class="mb-6 inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 backdrop-blur-sm">
-            <span class="relative flex h-1.5 w-1.5" aria-hidden="true">
-              <span class="absolute inline-flex h-full w-full rounded-full bg-romara-amber/60"></span>
-              <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-romara-amber"></span>
-            </span>
+          <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 backdrop-blur-sm">
+            <IconMapPin class="h-3.5 w-3.5 shrink-0 text-romara-amber" aria-hidden="true" />
             <span class="font-mono text-white/70 text-[11px] tracking-[0.2em] uppercase">
               01°17&#39;S 36°49&#39;E — Nairobi, where it began
             </span>
@@ -128,11 +126,8 @@ const channels = [
 
     <div class="romara-container relative flex flex-col items-center text-center">
       <!-- Signature waypoint tag: still spans the geography the copy covers -->
-      <div class="mb-6 inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 backdrop-blur-sm">
-        <span class="relative flex h-1.5 w-1.5" aria-hidden="true">
-          <span class="absolute inline-flex h-full w-full rounded-full bg-romara-amber/60"></span>
-          <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-romara-amber"></span>
-        </span>
+      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 backdrop-blur-sm">
+        <IconMapPin class="h-3.5 w-3.5 shrink-0 text-romara-amber" aria-hidden="true" />
         <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/70">
           01°30&#39;S 35°08&#39;E — 04°03&#39;S 39°40&#39;E — Mara to coast
         </span>
