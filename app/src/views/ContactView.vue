@@ -54,7 +54,7 @@ const whyContactItems: WhyContactItem[] = [
   <!-- Hero — minimal availability band (lean, so the fused card below leads) -->
   <section class="relative isolate overflow-hidden bg-romara-green text-white">
     <img
-      src="/src/assets/images/contact/hero.png"
+      src="/images/contact/hero.png"
       alt=""
       aria-hidden="true"
       class="absolute inset-0 h-full w-full object-cover opacity-20"

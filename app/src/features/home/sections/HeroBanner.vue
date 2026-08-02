@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
-import IconStar from '@/components/icons/IconStar.vue'
 import IconChevronDown from '@/components/icons/IconChevronDown.vue'
 
 const slides = [
-  '/src/assets/images/home/hero-elephants.png',
-  '/src/assets/images/home/cruiser.jpeg',
-  '/src/assets/images/home/mara.jpeg',
-  '/src/assets/images/home/nairobi.png',
+  '/images/home/hero-elephants.png',
+  '/images/home/cruiser.jpeg',
+  '/images/home/mara.jpeg',
+  '/images/home/nairobi.png',
 ]
 
 const content = {
@@ -17,12 +16,6 @@ const content = {
   subheading:
     "Explore Kenya's iconic wildlife, breathtaking landscapes and rich cultures with ROMARA Tours and Travel.",
 }
-
-const stats = [
-  { value: '15+', label: 'Years of Journeys' },
-  { value: '4.9', label: 'Traveller Rating' },
-  { value: '50+', label: 'Curated Routes' },
-]
 
 const active = ref(0)
 let timer: number | undefined
@@ -50,6 +43,9 @@ onUnmounted(() => {
           :key="src"
           :src="src"
           :alt="content.heading"
+          decoding="async"
+          :fetchpriority="index === 0 ? 'high' : 'low'"
+          :loading="index === 0 ? 'eager' : 'lazy'"
           class="ken-burns absolute inset-0 h-full w-full object-cover"
         />
       </transition-group>
@@ -83,29 +79,6 @@ onUnmounted(() => {
         <div class="mt-9 flex flex-wrap gap-3.5 animate-fade-up" style="animation-delay: 270ms">
           <BaseButton as="a" href="/book-now" variant="amber" size="lg">Book a Safari</BaseButton>
           <BaseButton as="a" href="/contact" variant="ghost" size="lg">Request a Quote</BaseButton>
-        </div>
-
-        <!-- Rating cue -->
-        <div class="mt-8 flex items-center gap-3 animate-fade-up" style="animation-delay: 360ms">
-          <div class="flex text-romara-amber">
-            <IconStar v-for="s in 5" :key="s" class="h-4 w-4" />
-          </div>
-          <p class="text-sm text-white/75">
-            Rated <span class="font-semibold text-white">4.9/5</span> by 1,200+ travellers
-          </p>
-        </div>
-      </div>
-
-      <!-- Stat strip -->
-      <div
-        class="mt-14 grid max-w-xl grid-cols-3 gap-4 animate-fade-up sm:gap-8"
-        style="animation-delay: 450ms"
-      >
-        <div v-for="stat in stats" :key="stat.label" class="border-l border-white/20 pl-4">
-          <p class="font-heading text-3xl font-semibold text-white sm:text-4xl">{{ stat.value }}</p>
-          <p class="mt-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/60">
-            {{ stat.label }}
-          </p>
         </div>
       </div>
     </div>

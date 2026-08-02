@@ -63,7 +63,7 @@ const whyChooseItems: WhyChooseItem[] = [
   <!-- Hero masthead — utility quote hero (split) -->
   <section v-scroll-reveal class="relative isolate overflow-hidden bg-romara-green text-white">
     <img
-      src="/src/assets/images/airport-transfers/airport-van.png"
+      src="/images/airport-transfers/airport-van.png"
       alt=""
       aria-hidden="true"
       class="absolute inset-0 h-full w-full object-cover opacity-25"

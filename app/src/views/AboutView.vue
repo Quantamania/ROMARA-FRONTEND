@@ -30,7 +30,7 @@ const channels = [
   -->
   <section
     class="relative min-h-[560px] overflow-hidden bg-cover bg-center bg-scroll md:min-h-[640px] md:bg-fixed"
-    style="background-image: url('/src/assets/images/about/cheetah1.jpeg')"
+    style="background-image: url('/images/about/cheetah1.jpeg')"
   >
     <div class="absolute inset-0 bg-romara-green/85"></div>
     <div class="absolute inset-0 bg-scrim-b"></div>
@@ -92,7 +92,7 @@ const channels = [
   <!-- Who We Are with background image -->
   <section class="relative overflow-hidden">
     <img
-      src="/src/assets/images/gallery/elephant1.jpeg"
+      src="/images/gallery/elephant1.jpeg"
       alt="Elephant herd"
       loading="lazy"
       class="absolute inset-0 opacity-15 w-full h-full object-cover"
@@ -118,7 +118,7 @@ const channels = [
   -->
   <section class="relative isolate overflow-hidden bg-romara-green-dark pb-28 pt-28 text-white sm:pb-32 md:pt-36">
     <img
-      src="/src/assets/images/gallery/lion.jpeg"
+      src="/images/gallery/lion.jpeg"
       alt="Lion resting in the Maasai Mara at golden hour"
       class="absolute inset-0 h-full w-full object-cover opacity-40"
     />

@@ -121,24 +121,6 @@ function resetFilters() {
         Every destination tells a story. From savannas to coastlines, discover the places that make
         Kenya extraordinary.
       </p>
-
-      <!-- Inline stat band -->
-      <dl class="animate-fade-up mt-8 flex flex-wrap items-center gap-x-6 gap-y-4 border-t border-white/15 pt-6 sm:gap-x-10">
-        <div class="flex items-baseline gap-2">
-          <dd class="font-heading text-3xl font-semibold text-white sm:text-4xl">47</dd>
-          <dt class="text-[11px] uppercase tracking-[0.14em] text-white/70">Counties</dt>
-        </div>
-        <div class="hidden h-8 w-px bg-white/15 sm:block" aria-hidden="true" />
-        <div class="flex items-baseline gap-2">
-          <dd class="font-heading text-3xl font-semibold text-romara-amber-300 sm:text-4xl">50+</dd>
-          <dt class="text-[11px] uppercase tracking-[0.14em] text-white/70">Spots</dt>
-        </div>
-        <div class="hidden h-8 w-px bg-white/15 sm:block" aria-hidden="true" />
-        <div class="flex items-baseline gap-2">
-          <dd class="font-heading text-3xl font-semibold text-white sm:text-4xl">&infin;</dd>
-          <dt class="text-[11px] uppercase tracking-[0.14em] text-white/70">Memories</dt>
-        </div>
-      </dl>
     </div>
   </header>
 

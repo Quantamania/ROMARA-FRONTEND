@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Merriweather:wght@700;900&family=Inter:wght@400;500;600;700&display=swap');
-
+/* Fonts are loaded via <link> in index.html (preconnect + non-blocking) for faster first paint. */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -99,10 +98,12 @@
   }
 }
 @media (prefers-reduced-motion: no-preference) {
+  /* Snappy reveal: shorter duration + less travel + exponential ease so content
+     settles quickly as you scroll. */
   .scroll-reveal {
     opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
+    transform: translateY(18px);
+    transition: opacity 0.4s ease-out, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .scroll-reveal-visible {
@@ -113,8 +114,8 @@
   /* Fade from left */
   .scroll-reveal-left {
     opacity: 0;
-    transform: translateX(-30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
+    transform: translateX(-20px);
+    transition: opacity 0.4s ease-out, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .scroll-reveal-left-visible {
@@ -125,8 +126,8 @@
   /* Fade from right */
   .scroll-reveal-right {
     opacity: 0;
-    transform: translateX(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
+    transform: translateX(20px);
+    transition: opacity 0.4s ease-out, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .scroll-reveal-right-visible {
@@ -137,8 +138,8 @@
   /* Scale up */
   .scroll-reveal-scale {
     opacity: 0;
-    transform: scale(0.9);
-    transition: opacity 0.7s ease, transform 0.7s ease;
+    transform: scale(0.94);
+    transition: opacity 0.4s ease-out, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .scroll-reveal-scale-visible {

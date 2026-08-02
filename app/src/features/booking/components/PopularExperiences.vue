@@ -12,19 +12,19 @@ const experiences: Experience[] = [
   {
     name: 'Maasai Mara Safari',
     description: 'Explore the world-famous Maasai Mara.',
-    image: '/src/assets/images/booking/maasai-mara-safari.jpg',
+    image: '/images/booking/maasai-mara-safari.jpg',
     href: '/safari-packages/3-day-maasai-mara-safari',
   },
   {
     name: 'Diani Beach Holiday',
     description: "Relax on Kenya's beautiful white sandy beaches.",
-    image: '/src/assets/images/booking/diani-beach-holiday.jpg',
+    image: '/images/booking/diani-beach-holiday.jpg',
     href: '/destinations/diani-beach',
   },
   {
     name: 'Mount Kenya Hiking',
     description: "Adventure awaits on Africa's second highest peak.",
-    image: '/src/assets/images/booking/mount-kenya-hiking.jpg',
+    image: '/images/booking/mount-kenya-hiking.jpg',
     href: '/destinations',
   },
 ]

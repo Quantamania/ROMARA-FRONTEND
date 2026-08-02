@@ -7,9 +7,7 @@ import PackageCard from '@/features/safari-packages/components/PackageCard.vue'
 import IconCheck from '@/components/icons/IconCheck.vue'
 import IconX from '@/components/icons/IconX.vue'
 import IconArrowLeft from '@/components/icons/IconArrowLeft.vue'
-import IconClock from '@/components/icons/IconClock.vue'
-import IconMapPin from '@/components/icons/IconMapPin.vue'
-import logoSrc from '@/assets/images/logos/logo-transparent.png'
+const logoSrc = '/images/logos/logo-transparent.png'
 import packagesData from '@/data/packages.json'
 import type { SafariPackage } from '@/types/package.types'
 
@@ -119,20 +117,6 @@ const excluded = [
           <p class="mt-5 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">
             {{ currentPackage.description }}
           </p>
-
-          <div class="mt-7 flex flex-wrap items-center gap-3 text-sm font-semibold text-white">
-            <span class="glass inline-flex items-center gap-2 rounded-full px-4 py-2">
-              <IconClock class="h-4 w-4 text-romara-amber-300" />
-              {{ currentPackage.durationDays }} Days
-            </span>
-            <span class="glass inline-flex items-center gap-2 rounded-full px-4 py-2">
-              <IconMapPin class="h-4 w-4 text-romara-amber-300" />
-              {{ currentPackage.location }}
-            </span>
-            <span class="glass inline-flex items-center gap-2 rounded-full px-4 py-2">
-              From KES {{ formatPrice(currentPackage.priceFromKES) }}
-            </span>
-          </div>
 
           <div class="mt-9 flex flex-wrap gap-3.5">
             <BaseButton as="a" href="/booking" variant="amber" size="lg">Book a Safari</BaseButton>

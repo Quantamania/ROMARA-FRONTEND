@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
-import logoSrc from '@/assets/images/logos/logo-transparent.png'
+const logoSrc = '/images/logos/logo-transparent.png'
 import IconChevronDown from '@/components/icons/IconChevronDown.vue'
 import IconMenu from '@/components/icons/IconMenu.vue'
 import IconArrowRight from '@/components/icons/IconArrowRight.vue'
@@ -37,7 +37,7 @@ const navLinks: NavLink[] = [
   {
     label: 'Experiences',
     href: '/safari-packages',
-    image: '/src/assets/images/booking/maasai-mara-safari.jpg',
+    image: '/images/booking/maasai-mara-safari.jpg',
     children: [
       { label: 'Safari Packages', href: '/safari-packages' },
       { label: 'Day Trips', href: '/day-trips' },
@@ -48,7 +48,7 @@ const navLinks: NavLink[] = [
   {
     label: 'Explore',
     href: '/gallery',
-    image: '/src/assets/images/gallery/cheetah.jpeg',
+    image: '/images/gallery/cheetah.jpeg',
     children: [
       { label: 'Gallery', href: '/gallery' },
       { label: 'Reviews', href: '/reviews' },
@@ -57,7 +57,7 @@ const navLinks: NavLink[] = [
   {
     label: 'Resources',
     href: '/faq',
-    image: '/src/assets/images/blog/hero.png',
+    image: '/images/blog/hero.png',
     children: [
       { label: 'FAQs', href: '/faq' },
       { label: 'Travel Blog', href: '/blog' },

@@ -52,7 +52,9 @@ function revealElement(el: HTMLElement, options: ScrollRevealOptions) {
         observer.unobserve(el)
       }
     },
-    { threshold: 0.15, rootMargin: '0px 0px -40px 0px' },
+    // Trigger a bit before the element enters the viewport so content is
+    // already settling by the time you scroll to it.
+    { threshold: 0, rootMargin: '0px 0px 80px 0px' },
   )
 
   observer.observe(el)

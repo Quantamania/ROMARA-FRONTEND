@@ -9,6 +9,11 @@ import IconArrowLeft from '@/components/icons/IconArrowLeft.vue'
 import IconArrowRight from '@/components/icons/IconArrowRight.vue'
 import IconClock from '@/components/icons/IconClock.vue'
 import IconCompass from '@/components/icons/IconCompass.vue'
+import IconCalendar from '@/components/icons/IconCalendar.vue'
+import IconTag from '@/components/icons/IconTag.vue'
+import IconFacebook from '@/components/icons/IconFacebook.vue'
+import IconX from '@/components/icons/IconX.vue'
+import IconMapPinRoute from '@/components/icons/IconMapPinRoute.vue'
 
 const categoryLabels: Record<string, string> = {
   'safari-tips': 'Safari Tips',
@@ -102,23 +107,34 @@ const contentSections = computed(() => {
 </script>
 
 <template>
-  <div v-if="currentPost" class="bg-white">
-    <!-- Hero: full-bleed image masthead with an editorial title -->
-    <section class="relative isolate flex min-h-[560px] items-end overflow-hidden bg-romara-green text-white lg:min-h-[640px]">
+  <div v-if="currentPost" class="bg-romara-bone">
+    <!-- Hero: full-bleed image masthead with a blueprint overlay -->
+    <section class="relative isolate flex min-h-[560px] items-end overflow-hidden bg-romara-green text-white lg:min-h-[660px]">
       <img
         :src="currentPost.image"
         :alt="currentPost.title"
         class="ken-burns absolute inset-0 -z-10 h-full w-full object-cover"
       />
       <div class="absolute inset-0 -z-10 bg-scrim-b" />
-      <div class="absolute inset-0 -z-10 bg-gradient-to-r from-romara-green-dark/80 via-romara-green-dark/30 to-transparent" />
+      <div class="absolute inset-0 -z-10 bg-gradient-to-r from-romara-green-dark/85 via-romara-green-dark/35 to-transparent" />
+
+      <!-- Blueprint grid over the masthead -->
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-0 -z-10 text-white opacity-[0.07] [background-image:linear-gradient(currentColor_1px,transparent_1px),linear-gradient(90deg,currentColor_1px,transparent_1px)] [background-size:42px_42px]"
+      />
+      <!-- Corner ticks -->
+      <span aria-hidden="true" class="pointer-events-none absolute left-5 top-5 h-6 w-6 border-l border-t border-white/40 sm:left-8 sm:top-8" />
+      <span aria-hidden="true" class="pointer-events-none absolute right-5 top-5 h-6 w-6 border-r border-t border-white/40 sm:right-8 sm:top-8" />
+      <span aria-hidden="true" class="pointer-events-none absolute bottom-5 left-5 h-6 w-6 border-b border-l border-white/40 sm:bottom-8 sm:left-8" />
+      <span aria-hidden="true" class="pointer-events-none absolute bottom-5 right-5 h-6 w-6 border-b border-r border-white/40 sm:bottom-8 sm:right-8" />
 
       <div class="absolute inset-x-0 top-6">
         <div class="romara-container">
           <button
             type="button"
             @click="goBack"
-            class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white backdrop-blur-sm transition-colors hover:border-romara-amber hover:text-romara-amber-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber/50"
+            class="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white backdrop-blur-sm transition-colors hover:border-romara-amber hover:text-romara-amber-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber/50"
           >
             <IconArrowLeft class="h-4 w-4" />
             <span>Back to Blog</span>
@@ -128,58 +144,91 @@ const contentSections = computed(() => {
 
       <div class="romara-container relative pb-16 pt-32 lg:pb-20">
         <div class="max-w-3xl">
-          <p class="eyebrow text-romara-amber-300">
-            
-            {{ categoryLabels[currentPost.category] ?? currentPost.category }}
-          </p>
-          <h1 class="mt-5 font-heading text-display font-semibold leading-[1.05] text-balance">
+          <h1 class="font-heading text-display font-semibold leading-[1.05] text-balance">
             {{ currentPost.title }}
           </h1>
-          <div class="mt-7 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium text-white/75">
-            <span class="inline-flex items-center gap-2">
-              <span class="h-8 w-8 shrink-0 rounded-full bg-gradient-to-br from-romara-amber to-romara-green-dark" />
+          <div class="mt-7 flex flex-wrap items-center gap-x-4 gap-y-3 text-sm font-medium text-white/80">
+            <span class="inline-flex items-center gap-2.5">
+              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/40 bg-white/10 text-romara-amber-300 backdrop-blur-sm">
+                <IconCompass class="h-4 w-4" />
+              </span>
               ROMARA Team
             </span>
-            <span class="h-1 w-1 rounded-full bg-white/40" />
-            <span>{{ formatDate(currentPost.publishedAt) }}</span>
-            <span class="h-1 w-1 rounded-full bg-white/40" />
+            <span aria-hidden="true" class="h-4 w-px bg-white/25" />
+            <span class="inline-flex items-center gap-1.5">
+              <IconCalendar class="h-4 w-4 text-romara-amber-300" />
+              {{ formatDate(currentPost.publishedAt) }}
+            </span>
+            <span aria-hidden="true" class="h-4 w-px bg-white/25" />
             <span class="inline-flex items-center gap-1.5">
               <IconClock class="h-4 w-4 text-romara-amber-300" />
               {{ currentPost.readTimeMinutes }} min read
+            </span>
+            <span
+              class="inline-flex items-center gap-1.5 border border-white/30 px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-white/90"
+            >
+              <IconTag class="h-3.5 w-3.5 text-romara-amber-300" />
+              {{ categoryLabels[currentPost.category] ?? currentPost.category }}
             </span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Long-form article -->
-    <section class="section-y bg-white">
+    <!-- Long-form article: the blueprint reading room -->
+    <section class="section-y relative isolate overflow-hidden bg-romara-bone">
+      <!-- Fine blueprint grid, spread down the whole reading body -->
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-0 -z-10 text-romara-green opacity-[0.035] [background-image:linear-gradient(currentColor_1px,transparent_1px),linear-gradient(90deg,currentColor_1px,transparent_1px)] [background-size:38px_38px]"
+      />
+      <!-- Major vertical gutter guides -->
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-0 -z-10 text-romara-green opacity-[0.05] [background-image:linear-gradient(90deg,currentColor_1px,transparent_1px)] [background-size:114px_100%]"
+      />
+
       <div class="romara-container">
-        <article class="mx-auto max-w-3xl">
+        <article class="relative mx-auto max-w-3xl">
+          <!-- Ruled left/right margin lines flanking the reading column (md+) -->
+          <span aria-hidden="true" class="pointer-events-none absolute -left-7 top-0 hidden h-full w-px bg-romara-green/15 md:block" />
+          <span aria-hidden="true" class="pointer-events-none absolute -right-7 top-0 hidden h-full w-px bg-romara-green/15 md:block" />
+          <!-- Column corner ticks (md+) -->
+          <span aria-hidden="true" class="pointer-events-none absolute -left-7 -top-2 hidden h-4 w-4 border-l border-t border-romara-amber/50 md:block" />
+          <span aria-hidden="true" class="pointer-events-none absolute -right-7 -top-2 hidden h-4 w-4 border-r border-t border-romara-amber/50 md:block" />
+
           <div v-scroll-reveal>
             <template v-for="(section, index) in contentSections" :key="index">
               <p
                 v-if="section.type === 'paragraph'"
                 class="leading-[1.9] text-romara-ink-soft"
-                :class="index === 0 ? 'mb-8 text-xl text-romara-ink' : 'mb-7 text-lg'"
+                :class="index === 0 ? 'article-lede mb-8 text-xl text-romara-ink [--dropcap:theme(colors.romara.green)]' : 'mb-7 text-lg'"
               >
                 {{ section.content }}
               </p>
 
               <h2
                 v-else-if="section.type === 'heading'"
-                class="mb-5 mt-12 font-heading text-2xl font-semibold text-romara-green sm:text-3xl"
+                class="mb-6 mt-14 flex items-baseline gap-4 border-t border-dashed border-romara-green/20 pt-8 font-heading text-2xl font-semibold text-romara-green sm:text-3xl"
               >
-                {{ section.content }}
+                <span
+                  aria-hidden="true"
+                  class="mt-1 shrink-0 font-sans text-xs font-bold tracking-[0.18em] text-romara-amber-600"
+                >{{ String(index + 1).padStart(2, '0') }}</span>
+                <span>{{ section.content }}</span>
               </h2>
 
-              <ul v-else-if="section.type === 'list'" class="my-8 space-y-3.5">
+              <ul v-else-if="section.type === 'list'" class="my-8 space-y-4">
                 <li
                   v-for="(item, itemIndex) in section.items"
                   :key="itemIndex"
-                  class="flex gap-3 text-lg leading-relaxed text-romara-ink-soft"
+                  class="flex gap-4 text-lg leading-relaxed text-romara-ink-soft"
                 >
-                  <IconArrowRight class="mt-1.5 h-4 w-4 shrink-0 text-romara-amber" aria-hidden="true" />
+                  <!-- Drawn blueprint crosshair marker -->
+                  <span aria-hidden="true" class="relative mt-2.5 h-3 w-3 shrink-0 text-romara-amber">
+                    <span class="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-current" />
+                    <span class="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-current" />
+                  </span>
                   <span>{{ item }}</span>
                 </li>
               </ul>
@@ -188,9 +237,16 @@ const contentSections = computed(() => {
 
           <blockquote
             v-scroll-reveal="{ delay: 100 }"
-            class="relative my-12 overflow-hidden rounded-card bg-romara-green px-7 py-7 shadow-elevated"
+            class="relative my-12 overflow-hidden rounded-card bg-romara-green px-7 py-8 shadow-elevated"
           >
             <div class="absolute inset-0 bg-green-fade opacity-50" />
+            <!-- Blueprint grid inside the callout -->
+            <div
+              aria-hidden="true"
+              class="pointer-events-none absolute inset-0 text-white opacity-[0.06] [background-image:linear-gradient(currentColor_1px,transparent_1px),linear-gradient(90deg,currentColor_1px,transparent_1px)] [background-size:30px_30px]"
+            />
+            <span aria-hidden="true" class="pointer-events-none absolute left-3 top-3 h-5 w-5 border-l border-t border-romara-amber/60" />
+            <span aria-hidden="true" class="pointer-events-none absolute bottom-3 right-3 h-5 w-5 border-b border-r border-romara-amber/60" />
             <div class="relative flex gap-5">
               <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-romara-amber text-white shadow-glow-amber">
                 <IconCompass class="h-6 w-6" />
@@ -205,7 +261,7 @@ const contentSections = computed(() => {
           </blockquote>
 
           <!-- Tags + share -->
-          <div class="mt-12 flex flex-col gap-6 border-t border-romara-green/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
+          <div class="mt-12 flex flex-col gap-6 border-t border-dashed border-romara-green/25 pt-8 sm:flex-row sm:items-center sm:justify-between">
             <div class="flex flex-wrap items-center gap-2">
               <span class="text-xs font-bold uppercase tracking-[0.14em] text-romara-ink-soft">Filed under</span>
               <Pill tone="cream">{{ categoryLabels[currentPost.category] ?? currentPost.category }}</Pill>
@@ -215,18 +271,18 @@ const contentSections = computed(() => {
               <a
                 href="#"
                 aria-label="Share on Facebook"
-                class="flex h-9 w-9 items-center justify-center rounded-full border border-romara-green/15 bg-white text-sm font-bold text-romara-green shadow-soft transition-all hover:-translate-y-0.5 hover:bg-romara-green hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber/40"
-              >f</a>
+                class="flex h-11 w-11 items-center justify-center rounded-full border border-romara-green/15 bg-white text-romara-green shadow-soft transition-all hover:-translate-y-0.5 hover:bg-romara-green hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber/40"
+              ><IconFacebook class="h-4 w-4" /></a>
               <a
                 href="#"
-                aria-label="Share on Twitter"
-                class="flex h-9 w-9 items-center justify-center rounded-full border border-romara-green/15 bg-white text-sm font-bold text-romara-green shadow-soft transition-all hover:-translate-y-0.5 hover:bg-romara-green hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber/40"
-              >t</a>
+                aria-label="Share on X"
+                class="flex h-11 w-11 items-center justify-center rounded-full border border-romara-green/15 bg-white text-romara-green shadow-soft transition-all hover:-translate-y-0.5 hover:bg-romara-green hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber/40"
+              ><IconX class="h-4 w-4" /></a>
               <a
                 href="#"
                 aria-label="Copy link"
-                class="flex h-9 w-9 items-center justify-center rounded-full border border-romara-green/15 bg-white text-sm text-romara-green shadow-soft transition-all hover:-translate-y-0.5 hover:bg-romara-green hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber/40"
-              >🔗</a>
+                class="flex h-11 w-11 items-center justify-center rounded-full border border-romara-green/15 bg-white text-romara-green shadow-soft transition-all hover:-translate-y-0.5 hover:bg-romara-green hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber/40"
+              ><IconMapPinRoute class="h-4 w-4" /></a>
             </div>
           </div>
 
@@ -367,3 +423,17 @@ const contentSections = computed(() => {
     <BaseButton class="mt-8" variant="primary" @click="goBack">Back to Blog</BaseButton>
   </div>
 </template>
+
+<style scoped>
+/* Editorial drop cap on the article lede — colour driven by the --dropcap
+   token variable set on the element, so no hard-coded hex. */
+.article-lede::first-letter {
+  float: left;
+  margin: 0.05em 0.12em 0 0;
+  font-family: theme('fontFamily.serif', serif);
+  font-weight: 600;
+  font-size: 3.4em;
+  line-height: 0.72;
+  color: var(--dropcap, currentColor);
+}
+</style>

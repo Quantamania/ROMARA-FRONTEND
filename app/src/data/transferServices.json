@@ -3,7 +3,7 @@
     "id": "1",
     "slug": "airport-pick-up",
     "name": "Airport Pick-Up",
-    "image": "/src/assets/images/airport-transfers/airport-pickup.jpg",
+    "image": "/images/airport-transfers/airport-pickup.jpg",
     "description": "We'll be there when you land. Enjoy a warm welcome and a comfortable ride to your destination.",
     "features": ["Flight monitoring", "Meet & greet at arrivals", "Assistance with luggage"],
     "iconName": "plane-landing"
@@ -12,7 +12,7 @@
     "id": "2",
     "slug": "airport-drop-off",
     "name": "Airport Drop-Off",
-    "image": "/src/assets/images/airport-transfers/airport-dropoff.jpg",
+    "image": "/images/airport-transfers/airport-dropoff.jpg",
     "description": "Arrive at the airport relaxed and on time. We ensure a smooth and stress-free journey.",
     "features": ["Punctual pick-up", "Help with luggage", "Timely airport arrival"],
     "iconName": "plane-takeoff"
@@ -21,7 +21,7 @@
     "id": "3",
     "slug": "business-transfers",
     "name": "Business Transfers",
-    "image": "/src/assets/images/airport-transfers/business-transfers.jpg",
+    "image": "/images/airport-transfers/business-transfers.jpg",
     "description": "Reliable transfers for corporate travellers, executives and business groups.",
     "features": ["Executive vehicles", "Professional service", "Flexible scheduling"],
     "iconName": "car"
@@ -30,7 +30,7 @@
     "id": "4",
     "slug": "group-transfers",
     "name": "Group Transfers",
-    "image": "/src/assets/images/airport-transfers/group-transfers.jpg",
+    "image": "/images/airport-transfers/group-transfers.jpg",
     "description": "Comfortable and convenient transport for families, groups and special events.",
     "features": ["Various vehicle options", "Spacious & comfortable", "Ideal for groups"],
     "iconName": "users"

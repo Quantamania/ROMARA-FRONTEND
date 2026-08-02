@@ -2,7 +2,6 @@
 import { ref, computed, onBeforeUnmount } from 'vue'
 import IconWhatsapp from '@/components/icons/IconWhatsapp.vue'
 import IconArrowRight from '@/components/icons/IconArrowRight.vue'
-import IconStar from '@/components/icons/IconStar.vue'
 
 interface Props {
   title?: string
@@ -21,7 +20,7 @@ const props = withDefaults(defineProps<Props>(), {
   subtitle: 'Tell us how you like to travel and our specialists will shape a journey around you.',
   primaryLabel: 'Book Your Safari',
   primaryHref: '/book-now',
-  image: '/src/assets/images/home/hero-elephants.png',
+  image: '/images/home/hero-elephants.png',
   theme: 'green',
 })
 
@@ -115,7 +114,7 @@ onBeforeUnmount(() => {
         </div>
 
         <!-- Soft tertiary + trust cue -->
-        <div class="mt-7 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
+        <div class="mt-7">
           <a
             href="/contact"
             class="group/quote inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-white/70 transition-colors hover:text-white"
@@ -123,17 +122,6 @@ onBeforeUnmount(() => {
             Or request a tailor-made quote
             <IconArrowRight class="h-3.5 w-3.5 text-romara-amber-300 transition-transform duration-300 ease-out-expo group-hover/quote:translate-x-1" />
           </a>
-
-          <span class="hidden h-4 w-px bg-white/15 sm:block"></span>
-
-          <div class="flex items-center gap-2.5">
-            <div class="flex text-romara-amber">
-              <IconStar v-for="s in 5" :key="s" class="h-4 w-4" />
-            </div>
-            <p class="text-xs text-white/65">
-              <span class="font-semibold text-white">4.9/5</span> — 1,200+ travellers
-            </p>
-          </div>
         </div>
       </div>
     </div>
