@@ -2,7 +2,7 @@
 import { computed, ref, watchEffect } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getDayTripBySlug } from '@/features/day-trips/api/dayTrips.api'
-import CallToActionBar from '@/components/ui/CallToActionBar.vue'
+import CtaTicket from '@/components/ui/CtaTicket.vue'
 import IconChevronRight from '@/components/icons/IconChevronRight.vue'
 import IconClock from '@/components/icons/IconClock.vue'
 import IconMapPin from '@/components/icons/IconMapPin.vue'
@@ -229,12 +229,12 @@ function goBack() {
 
       <!-- Booking CTA -->
       <div class="pt-4">
-        <CallToActionBar
+        <CtaTicket
           title="Ready to book this trip?"
           subtitle="Secure your spot today and let us craft an unforgettable day trip experience for you."
           primary-label="Start Booking"
           primary-href="/booking"
-          :image="trip.image"
+          :to="trip.location"
         />
       </div>
 

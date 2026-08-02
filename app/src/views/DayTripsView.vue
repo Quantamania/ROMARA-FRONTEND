@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import TrustBuilding from '@/features/home/sections/TrustBuilding.vue'
-import CallToActionBar from '@/components/ui/CallToActionBar.vue'
+import CtaMarquee from '@/components/ui/CtaMarquee.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import DayTripCard from '@/features/day-trips/components/DayTripCard.vue'
 import CategoryFilter from '@/features/day-trips/components/CategoryFilter.vue'
@@ -180,12 +180,10 @@ const whyChooseItems: WhyChooseItem[] = [
   </section>
 
   <div v-scroll-reveal="{ delay: 75 }">
-    <CallToActionBar
+    <CtaMarquee
       title="Ready for an Adventure?"
       subtitle="Book your next day trip with ROMARA today."
       primary-label="Book a Day Trip"
-      image="/src/assets/images/day-trips/hero.png"
-      theme="green"
     />
   </div>
 </template>

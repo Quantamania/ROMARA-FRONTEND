@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import BaseButton from '@/components/ui/BaseButton.vue'
-import CallToActionBar from '@/components/ui/CallToActionBar.vue'
+import CtaAurora from '@/components/ui/CtaAurora.vue'
 import SectionHeading from '@/components/ui/SectionHeading.vue'
 import IconClock from '@/components/icons/IconClock.vue'
 import IconUser from '@/components/icons/IconUser.vue'
@@ -298,14 +298,11 @@ const whyChooseItems: WhyChooseItem[] = [
   </section>
 
   <div v-scroll-reveal="{ delay: 75 }">
-    <CallToActionBar
+    <CtaAurora
       title="Ready to Book Your Airport Transfer?"
       subtitle="Enjoy a seamless travel experience from the moment you land."
       primary-label="Book Now"
       primary-href="/airport-transfers/book"
-      image="/src/assets/images/airport-transfers/airport-van.png"
-      theme="green"
-      icon-style="boxed"
     />
   </div>
 </template>

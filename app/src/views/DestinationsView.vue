@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import SectionHeading from '@/components/ui/SectionHeading.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import DestinationCard from '@/features/destinations/components/DestinationCard.vue'
+import DestinationDetailModal from '@/features/destinations/components/DestinationDetailModal.vue'
 import DestinationFilters from '@/features/destinations/components/DestinationFilters.vue'
 import IconMapPin from '@/components/icons/IconMapPin.vue'
 import IconCalendarCheck from '@/components/icons/IconCalendarCheck.vue'
@@ -19,6 +20,15 @@ const otherDestinations = popularDestinations.slice(1)
 const router = useRouter()
 const searchQuery = ref('')
 const selectedType = ref<DestinationType | 'all'>('all')
+
+// Detail pop-out (modal) — clicking a card opens details over a blurred page.
+const activeDestination = ref<Destination | null>(null)
+function openDestination(destination: Destination) {
+  activeDestination.value = destination
+}
+function closeDestination() {
+  activeDestination.value = null
+}
 
 function handleSearchSubmit() {
   router.push({
@@ -209,12 +219,14 @@ const whyVisitPoints = [
           featured
           class="sm:col-span-2 lg:col-span-2 lg:row-span-2"
           v-scroll-reveal
+          @select="openDestination"
         />
         <DestinationCard
           v-for="(destination, index) in otherDestinations"
           :key="destination.id"
           :destination="destination"
           v-scroll-reveal="{ delay: (index + 1) * 100 }"
+          @select="openDestination"
         />
       </div>
     </div>
@@ -294,4 +306,11 @@ const whyVisitPoints = [
       </div>
     </div>
   </section>
+
+  <!-- Destination detail pop-out -->
+  <DestinationDetailModal
+    :destination="activeDestination"
+    :open="!!activeDestination"
+    @close="closeDestination"
+  />
 </template>

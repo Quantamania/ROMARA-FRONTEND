@@ -3,6 +3,7 @@ import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import DestinationCard from '@/features/destinations/components/DestinationCard.vue'
+import DestinationDetailModal from '@/features/destinations/components/DestinationDetailModal.vue'
 import IconSearch from '@/components/icons/IconSearch.vue'
 import IconChevronDown from '@/components/icons/IconChevronDown.vue'
 import destinationsData from '@/data/destinations.json'
@@ -19,6 +20,12 @@ const allDestinations = destinationsData as Destination[]
 const searchQuery = ref(typeof route.query.q === 'string' ? route.query.q : '')
 const selectedType = ref<TypeFilter>((route.query.type as TypeFilter) || 'all')
 const sortOption = ref<SortOption>('name-asc')
+
+// Detail pop-out (modal) — clicking a card opens details over a blurred page.
+const activeDestination = ref<Destination | null>(null)
+function openDestination(destination: Destination) {
+  activeDestination.value = destination
+}
 
 const typeOptions: { value: TypeFilter; label: string }[] = [
   { value: 'all', label: 'All Types' },
@@ -226,8 +233,16 @@ function resetFilters() {
           class="transition-all"
           :class="index === 0 && filteredDestinations.length > 1 ? 'sm:col-span-2' : ''"
           v-scroll-reveal="{ delay: (index % 3) * 100 }"
+          @select="openDestination"
         />
       </div>
     </div>
   </section>
+
+  <!-- Destination detail pop-out -->
+  <DestinationDetailModal
+    :destination="activeDestination"
+    :open="!!activeDestination"
+    @close="activeDestination = null"
+  />
 </template>

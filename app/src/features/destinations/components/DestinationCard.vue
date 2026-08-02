@@ -14,6 +14,8 @@ const props = withDefaults(defineProps<Props>(), {
   featured: false,
 })
 
+const emit = defineEmits<{ select: [Destination] }>()
+
 const typeLabels: Record<DestinationType, string> = {
   wildlife: 'Wildlife',
   mountains: 'Mountains',
@@ -25,12 +27,14 @@ const typeLabels: Record<DestinationType, string> = {
 </script>
 
 <template>
-  <!-- Cinematic, full-bleed editorial card: image fills the frame, content sits over a scrim. -->
-  <a
-    :href="`/destinations/${props.destination.slug}`"
-    class="group relative flex h-full flex-col justify-end overflow-hidden rounded-card shadow-card transition-all duration-500 ease-out-expo hover:-translate-y-1.5 hover:shadow-elevated"
+  <!-- Cinematic, full-bleed editorial card: image fills the frame, content sits over a scrim.
+       Clicking opens the destination detail as a pop-out modal (no page navigation). -->
+  <button
+    type="button"
+    class="group relative flex h-full w-full flex-col justify-end overflow-hidden rounded-card text-left shadow-card transition-all duration-500 ease-out-expo hover:-translate-y-1.5 hover:shadow-elevated focus:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber focus-visible:ring-offset-2 focus-visible:ring-offset-romara-bone"
     :class="props.featured ? 'min-h-[440px] lg:min-h-[540px]' : 'min-h-[340px]'"
-    :aria-label="`Explore ${props.destination.name}`"
+    :aria-label="`View ${props.destination.name} details`"
+    @click="emit('select', props.destination)"
   >
     <img
       :src="props.destination.image"
@@ -97,9 +101,9 @@ const typeLabels: Record<DestinationType, string> = {
       <span
         class="mt-5 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.16em] text-romara-amber-300 transition-colors group-hover:text-romara-amber"
       >
-        Explore
+        View details
         <IconArrowRight class="h-4 w-4 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" />
       </span>
     </div>
-  </a>
+  </button>
 </template>
