@@ -14,7 +14,6 @@ import IconPlaneTakeoff from '@/components/icons/IconPlaneTakeoff.vue'
 import IconUsers from '@/components/icons/IconUsers.vue'
 import IconCheck from '@/components/icons/IconCheck.vue'
 import IconCheckSquare from '@/components/icons/IconCheckSquare.vue'
-import IconCalendar from '@/components/icons/IconCalendar.vue'
 import IconHeadset from '@/components/icons/IconHeadset.vue'
 import IconArrowRight from '@/components/icons/IconArrowRight.vue'
 import transferServicesData from '@/data/transferServices.json'
@@ -118,70 +117,38 @@ const whyChooseItems: WhyChooseItem[] = [
           </p>
         </div>
 
-        <!-- RIGHT: plan-your-transfer card -->
+        <!-- RIGHT: how-it-works guide (not a booking form) -->
         <div class="glass w-full rounded-card p-6 shadow-elevated animate-fade-up sm:p-7">
           <div class="flex items-center gap-3">
             <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-amber-fade text-white shadow-soft">
               <IconCar class="h-5 w-5" />
             </span>
             <div>
-              <p class="font-heading text-lg font-semibold text-white">Plan your transfer</p>
-              <p class="text-xs text-white/60">Tell us the basics — we'll do the rest.</p>
+              <p class="font-heading text-lg font-semibold text-white">How it works</p>
+              <p class="text-xs text-white/60">Three simple steps to a smooth transfer.</p>
             </div>
           </div>
 
-          <div class="mt-6 space-y-4">
-            <label class="block">
-              <span class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-white/60">From</span>
-              <span class="flex items-center gap-2.5 rounded-xl bg-white/95 px-3.5 py-3 text-romara-ink shadow-soft">
-                <IconPlaneTakeoff class="h-4 w-4 shrink-0 text-romara-green" />
-                <select class="w-full bg-transparent text-sm font-medium outline-none">
-                  <option>Jomo Kenyatta Intl (NBO)</option>
-                  <option>Moi Intl, Mombasa (MBA)</option>
-                  <option>Wilson Airport (WIL)</option>
-                </select>
+          <ol class="relative mt-7 space-y-6">
+            <span class="pointer-events-none absolute left-[15px] top-2 bottom-2 w-px bg-white/15" aria-hidden="true" />
+            <li v-for="(step, i) in [
+              { title: 'Share the details', text: 'Your flight number, pickup point and destination.' },
+              { title: 'We confirm everything', text: 'Driver, vehicle and a fixed, all-inclusive price — no surprises.' },
+              { title: 'Meet &amp; greet', text: 'Your driver meets you at arrivals with a name sign. Sit back and relax.' },
+            ]" :key="step.title" class="relative flex gap-4">
+              <span class="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-sm font-bold text-romara-green ring-4 ring-romara-green-dark/40">
+                {{ i + 1 }}
               </span>
-            </label>
+              <div class="pt-0.5">
+                <p class="font-heading text-sm font-semibold text-white" v-html="step.title"></p>
+                <p class="mt-1 text-sm leading-relaxed text-white/70" v-html="step.text"></p>
+              </div>
+            </li>
+          </ol>
 
-            <label class="block">
-              <span class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-white/60">To</span>
-              <span class="flex items-center gap-2.5 rounded-xl bg-white/95 px-3.5 py-3 text-romara-ink shadow-soft">
-                <IconMapPin class="h-4 w-4 shrink-0 text-romara-green" />
-                <input
-                  type="text"
-                  placeholder="Hotel, address or town"
-                  class="w-full bg-transparent text-sm font-medium outline-none placeholder:text-romara-ink/40"
-                />
-              </span>
-            </label>
-
-            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <label class="block">
-                <span class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-white/60">Date</span>
-                <span class="flex items-center gap-2.5 rounded-xl bg-white/95 px-3.5 py-3 text-romara-ink shadow-soft">
-                  <IconCalendar class="h-4 w-4 shrink-0 text-romara-green" />
-                  <input type="date" class="w-full bg-transparent text-sm font-medium outline-none" />
-                </span>
-              </label>
-
-              <label class="block">
-                <span class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-white/60">Passengers</span>
-                <span class="flex items-center gap-2.5 rounded-xl bg-white/95 px-3.5 py-3 text-romara-ink shadow-soft">
-                  <IconUsers class="h-4 w-4 shrink-0 text-romara-green" />
-                  <select class="w-full bg-transparent text-sm font-medium outline-none">
-                    <option>1 passenger</option>
-                    <option>2 passengers</option>
-                    <option>3–4 passengers</option>
-                    <option>5+ passengers</option>
-                  </select>
-                </span>
-              </label>
-            </div>
-          </div>
-
-          <BaseButton as="a" href="/airport-transfers/book" variant="amber" size="lg" class="mt-6 w-full justify-center">
+          <BaseButton as="a" href="/airport-transfers/book" variant="amber" size="lg" class="mt-7 w-full justify-center">
             <IconCar class="h-4 w-4" />
-            Get a Quote
+            Book Your Transfer
           </BaseButton>
         </div>
       </div>

@@ -8,9 +8,9 @@ import StatsBanner from '@/features/about/sections/StatsBanner.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 
 const channels = [
-  { label: 'Call us', value: '+254 700 000 000', href: 'tel:+254700000000' },
-  { label: 'WhatsApp', value: 'Chat with an expert', href: 'https://wa.me/254700000000' },
-  { label: 'Email', value: 'hello@romaratravel.com', href: 'mailto:hello@romaratravel.com' },
+  { label: 'Call us', value: '+254 700 123 456', href: 'tel:+254700123456' },
+  { label: 'WhatsApp', value: 'Chat with an expert', href: 'https://wa.me/254700123456' },
+  { label: 'Email', value: 'info@romaratours.com', href: 'mailto:info@romaratours.com' },
 ]
 </script>
 

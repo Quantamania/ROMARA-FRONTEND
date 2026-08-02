@@ -117,7 +117,7 @@ function sendAnotherMessage() {
         </div>
         <div>
           <label :class="labelClasses">Phone Number *</label>
-          <input v-model="formData.phone" type="tel" :class="inputClasses" placeholder="+254 700 000 000" />
+          <input v-model="formData.phone" type="tel" :class="inputClasses" placeholder="+254 700 123 456" />
           <p v-if="errors.phone" :class="errorClasses">{{ errors.phone }}</p>
         </div>
         <div>

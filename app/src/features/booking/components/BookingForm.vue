@@ -182,7 +182,7 @@ function formatDate(isoDate: string) {
           </div>
           <div>
             <label :class="labelClasses">Phone Number *</label>
-            <input v-model="bookingStore.yourDetails.phone" type="tel" placeholder="+254 700 000 000" :class="inputClasses" />
+            <input v-model="bookingStore.yourDetails.phone" type="tel" placeholder="+254 700 123 456" :class="inputClasses" />
             <p v-if="bookingStore.stepErrors.phone" :class="errorClasses">{{ bookingStore.stepErrors.phone }}</p>
           </div>
           <div class="sm:col-span-2">

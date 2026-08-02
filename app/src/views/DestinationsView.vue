@@ -1,25 +1,20 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 import SectionHeading from '@/components/ui/SectionHeading.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import DestinationCard from '@/features/destinations/components/DestinationCard.vue'
 import DestinationDetailModal from '@/features/destinations/components/DestinationDetailModal.vue'
 import DestinationFilters from '@/features/destinations/components/DestinationFilters.vue'
-import IconMapPin from '@/components/icons/IconMapPin.vue'
 import IconCalendarCheck from '@/components/icons/IconCalendarCheck.vue'
 import IconCheck from '@/components/icons/IconCheck.vue'
 import IconArrowRight from '@/components/icons/IconArrowRight.vue'
 import destinationsData from '@/data/destinations.json'
-import type { Destination, DestinationType } from '@/features/destinations/types/destination.types'
+import type { Destination } from '@/features/destinations/types/destination.types'
 
 const popularDestinations = destinationsData as Destination[]
 const featuredDestination = popularDestinations[0]
 const otherDestinations = popularDestinations.slice(1)
 
-const router = useRouter()
-const searchQuery = ref('')
-const selectedType = ref<DestinationType | 'all'>('all')
 
 // Detail pop-out (modal) — clicking a card opens details over a blurred page.
 const activeDestination = ref<Destination | null>(null)
@@ -30,15 +25,6 @@ function closeDestination() {
   activeDestination.value = null
 }
 
-function handleSearchSubmit() {
-  router.push({
-    path: '/destinations/directory',
-    query: {
-      q: searchQuery.value || undefined,
-      type: selectedType.value !== 'all' ? selectedType.value : undefined,
-    },
-  })
-}
 
 // Decorative hero showcase tiles — presentation only, reusing existing
 // destination imagery so the places are showcased immediately in the masthead.
@@ -88,37 +74,6 @@ const whyVisitPoints = [
             landmarks, explore the best destinations Kenya has to offer and beyond.
           </p>
 
-          <form
-            class="mt-8 flex flex-col gap-3 rounded-2xl bg-white/95 p-3 shadow-overlap backdrop-blur-sm sm:flex-row sm:items-center sm:gap-2 sm:rounded-full sm:p-2"
-            @submit.prevent="handleSearchSubmit"
-          >
-            <div class="flex flex-1 items-center gap-2.5 px-4 py-2">
-              <IconMapPin class="h-5 w-5 shrink-0 text-romara-amber" />
-              <input
-                v-model="searchQuery"
-                type="search"
-                placeholder="Search destinations, e.g. Maasai Mara, Diani Beach..."
-                class="w-full border-none bg-transparent text-sm text-romara-ink placeholder:text-romara-ink/40 focus:outline-none focus:ring-0"
-              />
-            </div>
-            <div class="hidden h-8 w-px shrink-0 bg-romara-green/10 sm:block" />
-            <select
-              v-model="selectedType"
-              class="shrink-0 border-none bg-transparent px-4 py-2 text-sm text-romara-ink focus:outline-none focus:ring-0 sm:w-auto"
-            >
-              <option value="all">All Types</option>
-              <option value="wildlife">Wildlife & Safaris</option>
-              <option value="mountains">Mountains & Hiking</option>
-              <option value="beaches">Beaches & Coast</option>
-              <option value="cities">Cities & Towns</option>
-              <option value="culture">Culture & Heritage</option>
-              <option value="nature">Nature & Scenery</option>
-            </select>
-            <BaseButton type="submit" variant="amber" size="lg" class="shrink-0 sm:rounded-full">
-              <IconMapPin class="h-4 w-4" />
-              Search
-            </BaseButton>
-          </form>
         </div>
 
         <!-- Bento grid of destination tiles -->

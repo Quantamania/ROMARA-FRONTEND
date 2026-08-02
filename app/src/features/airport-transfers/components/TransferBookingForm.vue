@@ -125,7 +125,7 @@ function bookAnotherTransfer() {
           </div>
           <div>
             <label :class="labelClasses">Phone Number (WhatsApp preferred)</label>
-            <input v-model="formData.phone" type="tel" required :class="inputClasses" placeholder="+254 700 000 000" />
+            <input v-model="formData.phone" type="tel" required :class="inputClasses" placeholder="+254 700 123 456" />
           </div>
         </div>
       </div>
