@@ -62,7 +62,7 @@ const whyChooseItems: WhyChooseItem[] = [
   <!-- Hero masthead — utility quote hero (split) -->
   <section v-scroll-reveal class="relative isolate overflow-hidden bg-romara-green text-white">
     <img
-      src="/images/airport-transfers/airport-van.png"
+      src="/images/airport-transfers/airport-van.webp"
       alt=""
       aria-hidden="true"
       class="absolute inset-0 h-full w-full object-cover opacity-25"
@@ -87,10 +87,6 @@ const whyChooseItems: WhyChooseItem[] = [
             Reliable Transfers. Every Time.
           </h1>
 
-          <p class="mt-5 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
-            Start and end your journey with comfort and peace of mind. Our professional airport
-            transfer service ensures a smooth, safe and on-time ride to or from the airport.
-          </p>
 
           <ul class="mt-8 space-y-3.5">
             <li

@@ -61,10 +61,6 @@ const tailorMadePoints: TailorMadePoint[] = [
           Unforgettable Journeys. Extraordinary Memories.
         </h1>
 
-        <p class="mt-6 max-w-lg text-base leading-relaxed text-white/80 sm:text-lg">
-          Explore Kenya's iconic wildlife, breathtaking landscapes and rich cultures with our expertly
-          crafted safari packages.
-        </p>
 
         <div class="mt-9 flex flex-wrap gap-3.5">
           <BaseButton as="a" href="/book-now" variant="amber" size="lg">Book a Safari</BaseButton>
@@ -77,7 +73,7 @@ const tailorMadePoints: TailorMadePoint[] = [
         <!-- Main frame -->
         <div class="absolute right-0 top-0 h-[80%] w-[74%] overflow-hidden rounded-card shadow-elevated ring-1 ring-white/20">
           <img
-            src="/images/safari-packages/maasai-mara.jpeg"
+            src="/images/safari-packages/maasai-mara.webp"
             alt="Wildlife on the Maasai Mara plains"
             loading="lazy"
             class="ken-burns h-full w-full object-cover"
@@ -87,7 +83,7 @@ const tailorMadePoints: TailorMadePoint[] = [
         <!-- Secondary frame (overlaps, bottom-left) -->
         <div class="absolute bottom-0 left-0 h-[56%] w-[54%] overflow-hidden rounded-card shadow-elevated ring-[5px] ring-romara-green-dark">
           <img
-            src="/images/safari-packages/amboseli.jpg"
+            src="/images/safari-packages/amboseli.webp"
             alt="Elephants beneath Amboseli's skyline"
             loading="lazy"
             class="h-full w-full object-cover"
@@ -97,7 +93,7 @@ const tailorMadePoints: TailorMadePoint[] = [
         <!-- Tertiary frame (tidy cluster only on larger screens) -->
         <div class="absolute bottom-[7%] right-[4%] hidden h-[38%] w-[40%] overflow-hidden rounded-card shadow-elevated ring-[5px] ring-romara-green-dark sm:block">
           <img
-            src="/images/safari-packages/kenya-explorer.jpeg"
+            src="/images/safari-packages/kenya-explorer.webp"
             alt="Safari explorer route across Kenya"
             loading="lazy"
             class="h-full w-full object-cover"
@@ -254,7 +250,7 @@ const tailorMadePoints: TailorMadePoint[] = [
     <div class="grid grid-cols-1 overflow-hidden rounded-card bg-romara-cream shadow-card lg:grid-cols-2">
       <div class="relative min-h-[240px] overflow-hidden">
         <img
-          src="/images/safari-packages/hero-elephants-jeep.png"
+          src="/images/safari-packages/hero-elephants-jeep.webp"
           alt="Safari vehicle on a dirt road at sunset"
           loading="lazy"
           class="h-56 w-full object-cover sm:h-72 lg:absolute lg:inset-0 lg:h-full"
@@ -298,7 +294,7 @@ const tailorMadePoints: TailorMadePoint[] = [
    <CallToActionBar
      title="Ready to Start Your Safari Adventure?"
      subtitle="Let ROMARA create memories that last a lifetime."
-     image="/images/safari-packages/hero-elephants-jeep.png"
+     image="/images/safari-packages/hero-elephants-jeep.webp"
      theme="green"
    />
  </div>

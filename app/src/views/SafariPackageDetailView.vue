@@ -7,7 +7,7 @@ import PackageCard from '@/features/safari-packages/components/PackageCard.vue'
 import IconCheck from '@/components/icons/IconCheck.vue'
 import IconX from '@/components/icons/IconX.vue'
 import IconArrowLeft from '@/components/icons/IconArrowLeft.vue'
-const logoSrc = '/images/logos/logo-transparent.png'
+const logoSrc = '/images/logos/logo-transparent.webp'
 import packagesData from '@/data/packages.json'
 import type { SafariPackage } from '@/types/package.types'
 

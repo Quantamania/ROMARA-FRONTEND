@@ -17,7 +17,7 @@ const destinations = [
   <section class="relative isolate min-h-screen overflow-hidden bg-romara-green text-white">
     <!-- Full Background Image -->
     <img
-      src="/images/about/hero-safari-vehicle.png"
+      src="/images/about/hero-safari-vehicle.webp"
       alt="ROMARA safari vehicle crossing the Maasai Mara at sunset"
       class="ken-burns absolute inset-0 h-full w-full object-cover"
     />

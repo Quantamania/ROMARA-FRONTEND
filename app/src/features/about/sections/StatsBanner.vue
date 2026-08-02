@@ -50,7 +50,7 @@ const stats: Stat[] = [
         </div>
 
         <img
-          src="/images/about/cheetah-hot-air-balloon.png"
+          src="/images/about/cheetah-hot-air-balloon.webp"
           alt="Cheetah at sunrise with a hot air balloon in the distance"
           loading="lazy"
           class="h-72 w-full object-cover lg:h-full"

@@ -20,7 +20,7 @@ const props = withDefaults(defineProps<Props>(), {
   subtitle: 'Tell us how you like to travel and our specialists will shape a journey around you.',
   primaryLabel: 'Book Your Safari',
   primaryHref: '/book-now',
-  image: '/images/home/hero-elephants.png',
+  image: '/images/home/hero-elephants.webp',
   theme: 'green',
 })
 
@@ -59,7 +59,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <section class="romara-container pb-16 sm:pb-20">
+  <section class="content-auto romara-container pb-16 sm:pb-20">
     <div
       class="cta-band group relative isolate overflow-hidden rounded-[1.75rem] px-6 py-12 shadow-elevated ring-1 ring-white/10 sm:px-12 sm:py-16 lg:px-16 lg:py-[4.5rem]"
       @mousemove="onMove"

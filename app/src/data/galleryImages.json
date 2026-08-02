@@ -37,6 +37,6 @@
   { "id": "36", "src": "https://res.cloudinary.com/ry9vpche/image/upload/v1785232086/tall_hyu09w.jpg", "alt": "Tall animal or landscape", "category": "wildlife", "caption": "Striking safari scenery" },
   { "id": "37", "src": "https://res.cloudinary.com/ry9vpche/image/upload/v1785232088/waterbuck_dbqmwo.jpg", "alt": "Waterbuck animal", "category": "wildlife", "caption": "Waterbuck near a lake" },
   { "id": "38", "src": "https://res.cloudinary.com/ry9vpche/image/upload/v1785232088/waterbucks_jc0unj.jpg", "alt": "Waterbuck herd", "category": "wildlife", "caption": "Waterbucks at the waterhole" },
-  { "id": "39", "src": "/images/gallery/zebras.jpeg", "alt": "Zebra herd", "category": "wildlife", "caption": "Striped zebras grazing" },
-  { "id": "40", "src": "/images/gallery/zebras1.jpeg", "alt": "Another zebra group", "category": "wildlife", "caption": "Zebras on the African plains" }
+  { "id": "39", "src": "/images/gallery/zebras.webp", "alt": "Zebra herd", "category": "wildlife", "caption": "Striped zebras grazing" },
+  { "id": "40", "src": "/images/gallery/zebras1.webp", "alt": "Another zebra group", "category": "wildlife", "caption": "Zebras on the African plains" }
 ]

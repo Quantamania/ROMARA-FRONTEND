@@ -23,12 +23,12 @@ const filteredTrips = computed(function getFilteredTrips() {
 
 // Presentational-only imagery for the hero filmstrip (reuses existing assets).
 const heroFilmstrip = [
-  { image: '/images/destinations/maasai-mara.jpeg', label: 'Maasai Mara', meta: 'Full day' },
-  { image: '/images/destinations/amboseli.jpg', label: 'Amboseli', meta: 'Full day' },
-  { image: '/images/destinations/lake-nakuru.jpeg', label: 'Lake Nakuru', meta: 'Full day' },
+  { image: '/images/destinations/maasai-mara.webp', label: 'Maasai Mara', meta: 'Full day' },
+  { image: '/images/destinations/amboseli.webp', label: 'Amboseli', meta: 'Full day' },
+  { image: '/images/destinations/lake-nakuru.webp', label: 'Lake Nakuru', meta: 'Full day' },
   { image: '/images/destinations/nairobi.webp', label: 'Nairobi Park', meta: 'Half day' },
-  { image: '/images/destinations/crater.jpeg', label: 'Menengai Crater', meta: 'Half day' },
-  { image: '/images/destinations/diani.jpg', label: 'Diani Beach', meta: 'Full day' },
+  { image: '/images/destinations/crater.webp', label: 'Menengai Crater', meta: 'Half day' },
+  { image: '/images/destinations/diani.webp', label: 'Diani Beach', meta: 'Full day' },
 ]
 
 interface WhyChooseItem {
@@ -51,7 +51,7 @@ const whyChooseItems: WhyChooseItem[] = [
   <section class="relative isolate overflow-hidden bg-romara-green text-white">
     <!-- Faint background photograph, muted under green -->
     <img
-      src="/images/day-trips/hero.png"
+      src="/images/day-trips/hero.webp"
       alt=""
       aria-hidden="true"
       class="absolute inset-0 h-full w-full object-cover opacity-20"
@@ -146,7 +146,7 @@ const whyChooseItems: WhyChooseItem[] = [
       <div class="items-stretch gap-8 grid grid-cols-1 lg:grid-cols-5">
         <div class="lg:col-span-2 relative min-h-[240px] overflow-hidden">
           <img
-            src="/images/day-trips/why.png"
+            src="/images/day-trips/why.webp"
             alt="Safari vehicle with rhino on a day trip"
             loading="lazy"
             class="absolute inset-0 h-full w-full object-cover"

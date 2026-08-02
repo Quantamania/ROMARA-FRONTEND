@@ -9,7 +9,7 @@
         <div class="relative">
           <div class="pointer-events-none absolute -left-4 -top-4 hidden h-24 w-24 rounded-tl-card border-l-2 border-t-2 border-romara-amber/50 sm:block" aria-hidden="true" />
           <img
-            src="/images/about/team-photo.png"
+            src="/images/about/team-photo.webp"
             alt="The ROMARA Tours & Travel team"
             loading="lazy"
             class="w-full rounded-card object-cover shadow-elevated"

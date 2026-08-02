@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-const logoSrc = '/images/logos/logo-transparent.png'
+const logoSrc = '/images/logos/logo-transparent.webp'
 import IconPhone from '@/components/icons/IconPhone.vue'
 import IconMail from '@/components/icons/IconMail.vue'
 import IconMapPin from '@/components/icons/IconMapPin.vue'

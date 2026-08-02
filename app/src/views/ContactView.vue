@@ -54,7 +54,7 @@ const whyContactItems: WhyContactItem[] = [
   <!-- Hero — minimal availability band (lean, so the fused card below leads) -->
   <section class="relative isolate overflow-hidden bg-romara-green text-white">
     <img
-      src="/images/contact/hero.png"
+      src="/images/contact/hero.webp"
       alt=""
       aria-hidden="true"
       class="absolute inset-0 h-full w-full object-cover opacity-20"
@@ -75,10 +75,7 @@ const whyContactItems: WhyContactItem[] = [
       <h1 class="max-w-2xl font-heading text-display-sm font-semibold text-balance sm:text-display">
         We'd Love to Hear From You
       </h1>
-      <p class="mt-4 max-w-xl text-base leading-relaxed text-white/80">
-        Whether you have a question, need travel advice, or want to plan your next adventure, our team is here to help.
-      </p>
-
+     
       <!-- Availability cue: white pulse ring (no amber dot) -->
       <div class="mt-6 inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/10 px-4 py-2 backdrop-blur-sm">
         <span class="relative flex h-2.5 w-2.5" aria-hidden="true">

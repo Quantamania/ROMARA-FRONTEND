@@ -18,7 +18,7 @@ withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <section class="romara-container pb-16 sm:pb-20">
+  <section class="content-auto romara-container pb-16 sm:pb-20">
     <div class="cta-aurora relative isolate overflow-hidden rounded-[1.75rem] bg-romara-green-dark px-6 py-16 text-center shadow-elevated ring-1 ring-white/10 sm:px-10 sm:py-20">
       <!-- Animated aurora blobs -->
       <span class="aurora-blob aurora-blob--a" aria-hidden="true"></span>
@@ -64,9 +64,10 @@ withDefaults(defineProps<Props>(), {
   position: absolute;
   z-index: -10;
   border-radius: 9999px;
-  filter: blur(60px);
+  filter: blur(40px);
   mix-blend-mode: screen;
   opacity: 0.55;
+  will-change: transform;
 }
 .aurora-blob--a {
   top: -20%;

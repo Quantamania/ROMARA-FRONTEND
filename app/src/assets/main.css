@@ -90,6 +90,15 @@
   .ken-burns {
     animation: none;
   }
+
+  /* Skip rendering (and PAUSE animations) for off-screen blocks. Applied to the
+     animation-heavy CTA bands + long grids so their infinite animations / blurs
+     don't burn CPU/GPU while off-screen — the main cause of scroll jank on
+     mobile in production. contain-intrinsic-size reserves height to avoid jumps. */
+  .content-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 480px;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {

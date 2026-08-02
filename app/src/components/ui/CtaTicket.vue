@@ -23,7 +23,7 @@ withDefaults(defineProps<Props>(), {
 
 <template>
   <!-- Notch colour matches this section's surface so the perforation reads as punched holes -->
-  <section class="romara-container bg-romara-cream pb-16 sm:pb-20">
+  <section class="content-auto romara-container bg-romara-cream pb-16 sm:pb-20">
     <div class="group relative">
       <div class="relative flex flex-col overflow-hidden rounded-[1.5rem] shadow-elevated md:flex-row">
         <!-- Main body -->

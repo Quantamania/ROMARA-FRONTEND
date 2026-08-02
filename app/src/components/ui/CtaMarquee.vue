@@ -30,7 +30,7 @@ withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <section class="romara-container pb-16 sm:pb-20">
+  <section class="content-auto romara-container pb-16 sm:pb-20">
     <div class="relative isolate overflow-hidden rounded-[1.75rem] bg-romara-green px-6 py-14 shadow-elevated ring-1 ring-white/10 sm:px-10 sm:py-16">
       <!-- Kinetic marquee backdrop: two rows drifting opposite directions -->
       <div class="pointer-events-none absolute inset-0 -z-10 flex flex-col justify-between py-6 [mask-image:linear-gradient(90deg,transparent,black_12%,black_88%,transparent)]">

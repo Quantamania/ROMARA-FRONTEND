@@ -29,10 +29,10 @@ function closeDestination() {
 // Decorative hero showcase tiles — presentation only, reusing existing
 // destination imagery so the places are showcased immediately in the masthead.
 const heroTiles = [
-  { name: 'Maasai Mara', image: '/images/destinations/maasai-mara.jpeg' },
-  { name: 'Diani Beach', image: '/images/destinations/diani.jpg' },
-  { name: 'Amboseli', image: '/images/destinations/amboseli.jpg' },
-  { name: 'Lake Nakuru', image: '/images/destinations/lake-nakuru.jpeg' },
+  { name: 'Maasai Mara', image: '/images/destinations/maasai-mara.webp' },
+  { name: 'Diani Beach', image: '/images/destinations/diani.webp' },
+  { name: 'Amboseli', image: '/images/destinations/amboseli.webp' },
+  { name: 'Lake Nakuru', image: '/images/destinations/lake-nakuru.webp' },
   { name: 'Nairobi', image: '/images/destinations/nairobi.webp' },
 ]
 
@@ -104,7 +104,7 @@ const whyVisitPoints = [
           <div class="hidden grid-cols-6 gap-3 lg:grid" style="grid-auto-rows: 118px">
             <figure class="group relative col-span-4 row-span-2 overflow-hidden rounded-card shadow-elevated">
               <img
-                src="/images/destinations/maasai-mara.jpeg"
+                src="/images/destinations/maasai-mara.webp"
                 alt="Maasai Mara"
                 class="ken-burns h-full w-full object-cover"
               />
@@ -114,17 +114,17 @@ const whyVisitPoints = [
               </figcaption>
             </figure>
             <figure class="relative col-span-2 row-span-1 overflow-hidden rounded-card shadow-elevated">
-              <img src="/images/destinations/diani.jpg" alt="Diani Beach" class="h-full w-full object-cover" />
+              <img src="/images/destinations/diani.webp" alt="Diani Beach" class="h-full w-full object-cover" />
               <div class="absolute inset-0 bg-scrim-b" aria-hidden="true" />
               <figcaption class="absolute bottom-3 left-3 font-heading text-sm font-semibold text-white">Diani Beach</figcaption>
             </figure>
             <figure class="relative col-span-2 row-span-1 overflow-hidden rounded-card shadow-elevated">
-              <img src="/images/destinations/amboseli.jpg" alt="Amboseli" class="h-full w-full object-cover" />
+              <img src="/images/destinations/amboseli.webp" alt="Amboseli" class="h-full w-full object-cover" />
               <div class="absolute inset-0 bg-scrim-b" aria-hidden="true" />
               <figcaption class="absolute bottom-3 left-3 font-heading text-sm font-semibold text-white">Amboseli</figcaption>
             </figure>
             <figure class="relative col-span-3 row-span-1 overflow-hidden rounded-card shadow-elevated">
-              <img src="/images/destinations/lake-nakuru.jpeg" alt="Lake Nakuru" class="h-full w-full object-cover" />
+              <img src="/images/destinations/lake-nakuru.webp" alt="Lake Nakuru" class="h-full w-full object-cover" />
               <div class="absolute inset-0 bg-scrim-b" aria-hidden="true" />
               <figcaption class="absolute bottom-3 left-3 font-heading text-sm font-semibold text-white">Lake Nakuru</figcaption>
             </figure>
@@ -205,7 +205,7 @@ const whyVisitPoints = [
   <!-- Why Visit Kenya: immersive image band -->
   <section v-scroll-reveal class="relative isolate overflow-hidden bg-romara-green py-20 text-white sm:py-28">
     <img
-      src="/images/destinations/maasai-mara.jpeg"
+      src="/images/destinations/maasai-mara.webp"
       alt="Maasai Mara landscape at golden hour"
       loading="lazy"
       class="ken-burns absolute inset-0 h-full w-full object-cover"

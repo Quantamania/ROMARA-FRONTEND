@@ -4,10 +4,10 @@ import BaseButton from '@/components/ui/BaseButton.vue'
 import IconChevronDown from '@/components/icons/IconChevronDown.vue'
 
 const slides = [
-  '/images/home/hero-elephants.png',
-  '/images/home/cruiser.jpeg',
-  '/images/home/mara.jpeg',
-  '/images/home/nairobi.png',
+  '/images/home/hero-elephants.webp',
+  '/images/home/cruiser.webp',
+  '/images/home/mara.webp',
+  '/images/home/nairobi.webp',
 ]
 
 const content = {
