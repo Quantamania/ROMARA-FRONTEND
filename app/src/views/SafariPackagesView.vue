@@ -48,7 +48,7 @@ const tailorMadePoints: TailorMadePoint[] = [
     <div class="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-romara-green-500/25 blur-3xl" aria-hidden="true" />
     <div class="pointer-events-none absolute -right-16 -bottom-16 h-80 w-80 rounded-full bg-romara-green-700/40 blur-3xl" aria-hidden="true" />
 
-    <div class="romara-container relative grid items-center gap-12 py-14 sm:py-16 lg:grid-cols-2 lg:gap-16 lg:py-24">
+    <div class="romara-container relative grid items-center gap-6 py-8 sm:gap-12 sm:py-16 lg:grid-cols-2 lg:gap-16 lg:py-24">
       <!-- Left: editorial column -->
       <div class="max-w-xl">
         <nav aria-label="Breadcrumb" class="mb-7 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-white/55">
@@ -69,7 +69,7 @@ const tailorMadePoints: TailorMadePoint[] = [
       </div>
 
       <!-- Right: overlapping framed collage -->
-      <div class="relative mx-auto aspect-[4/5] w-full max-w-sm sm:max-w-md lg:mx-0 lg:max-w-none lg:aspect-[5/6]">
+      <div class="relative mx-auto aspect-[4/5] w-full max-w-[185px] sm:max-w-md lg:mx-0 lg:max-w-none lg:aspect-[5/6]">
         <!-- Main frame -->
         <div class="absolute right-0 top-0 h-[80%] w-[74%] overflow-hidden rounded-card shadow-elevated ring-1 ring-white/20">
           <img

@@ -84,7 +84,7 @@ const excluded = [
       <div class="absolute inset-0 bg-scrim-b" />
       <div class="absolute inset-0 bg-gradient-to-r from-romara-green-dark/80 via-romara-green-dark/35 to-transparent" />
 
-      <div class="romara-container relative flex min-h-[560px] flex-col justify-between py-10 sm:min-h-[620px] lg:min-h-[680px]">
+      <div class="romara-container relative flex min-h-[420px] flex-col justify-between py-8 sm:min-h-[560px] sm:py-10 lg:min-h-[680px]">
         <nav class="flex flex-wrap items-center gap-2 text-xs font-medium text-white/60" aria-label="Breadcrumb">
           <a href="/" class="transition-colors hover:text-romara-amber">Home</a>
           <span class="text-white/30">/</span>

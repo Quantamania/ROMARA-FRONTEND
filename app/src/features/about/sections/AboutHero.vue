@@ -14,7 +14,7 @@ const destinations = [
 </script>
 
 <template>
-  <section class="relative isolate min-h-screen overflow-hidden bg-romara-green text-white">
+  <section class="relative isolate min-h-[560px] sm:min-h-screen overflow-hidden bg-romara-green text-white">
     <!-- Full Background Image -->
     <img
       src="/images/about/hero-safari-vehicle.webp"
@@ -27,7 +27,7 @@ const destinations = [
     <div class="absolute inset-0 bg-scrim-b"></div>
 
     <!-- Content -->
-    <div class="relative z-10 flex min-h-screen items-center">
+    <div class="relative z-10 flex min-h-[560px] sm:min-h-screen items-center">
       <div class="romara-container">
         <div class="max-w-xl">
           <p class="eyebrow text-romara-amber-300 animate-fade-up">

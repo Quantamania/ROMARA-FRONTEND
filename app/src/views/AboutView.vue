@@ -29,13 +29,13 @@ const channels = [
     ROMARA started.
   -->
   <section
-    class="relative min-h-[560px] overflow-hidden bg-cover bg-center bg-scroll md:min-h-[640px] md:bg-fixed"
+    class="relative min-h-[420px] overflow-hidden bg-cover bg-center bg-scroll sm:min-h-[520px] md:min-h-[640px] md:bg-fixed"
     style="background-image: url('/images/about/cheetah1.webp')"
   >
     <div class="absolute inset-0 bg-romara-green/85"></div>
     <div class="absolute inset-0 bg-scrim-b"></div>
 
-    <div class="relative py-24 md:py-32 romara-container">
+    <div class="relative py-14 sm:py-20 md:py-32 romara-container">
       <div class="gap-x-12 gap-y-16 grid grid-cols-1 lg:grid-cols-12">
         <!-- Story, offset left -->
         <div class="lg:col-span-7">

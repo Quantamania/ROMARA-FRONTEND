@@ -70,8 +70,8 @@ const whyChooseItems: WhyChooseItem[] = [
     <div class="absolute inset-0 bg-green-fade/90 mix-blend-multiply" />
     <div class="absolute inset-0 bg-scrim-b" />
 
-    <div class="romara-container relative section-y">
-      <div class="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
+    <div class="romara-container relative py-10 sm:py-16 lg:py-24">
+      <div class="grid items-center gap-6 sm:gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
         <!-- LEFT: intro + trust points -->
         <div>
           <nav
@@ -88,7 +88,7 @@ const whyChooseItems: WhyChooseItem[] = [
           </h1>
 
 
-          <ul class="mt-8 space-y-3.5">
+          <ul class="mt-6 space-y-2.5 sm:mt-8 sm:space-y-3.5">
             <li
               v-for="point in [
                 { icon: IconCheck, label: 'On-time, flight-monitored pickups' },
@@ -105,7 +105,7 @@ const whyChooseItems: WhyChooseItem[] = [
             </li>
           </ul>
 
-          <p class="mt-8 text-sm text-white/60">
+          <p class="mt-6 text-sm text-white/60 sm:mt-8">
             Prefer to talk it through?
             <a href="/contact" class="font-semibold text-romara-amber-300 underline-offset-4 hover:underline">
               Request a quote
@@ -125,7 +125,7 @@ const whyChooseItems: WhyChooseItem[] = [
             </div>
           </div>
 
-          <ol class="relative mt-7 space-y-6">
+          <ol class="relative mt-6 space-y-4 sm:space-y-6">
             <span class="pointer-events-none absolute left-[15px] top-2 bottom-2 w-px bg-white/15" aria-hidden="true" />
             <li v-for="(step, i) in [
               { title: 'Share the details', text: 'Your flight number, pickup point and destination.' },
@@ -142,7 +142,7 @@ const whyChooseItems: WhyChooseItem[] = [
             </li>
           </ol>
 
-          <BaseButton as="a" href="/airport-transfers/book" variant="amber" size="lg" class="mt-7 w-full justify-center">
+          <BaseButton as="a" href="/airport-transfers/book" variant="amber" size="lg" class="mt-6 w-full justify-center">
             <IconCar class="h-4 w-4" />
             Book Your Transfer
           </BaseButton>

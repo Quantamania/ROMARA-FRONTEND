@@ -87,7 +87,7 @@ function formatDate(isoDate: string | number | Date) {
 <template>
   <!-- Hero: MAGAZINE MASTHEAD — the featured post is the hero (image + editorial text). -->
   <section class="bg-romara-green-900 text-white">
-    <div class="romara-container py-10 sm:py-14 lg:py-16">
+    <div class="romara-container py-8 sm:py-14 lg:py-16">
       <!-- Masthead top line: breadcrumbs + journal title -->
       <nav aria-label="Breadcrumb" class="mb-6">
         <ol class="flex items-center gap-2 text-xs font-medium text-white/55">
@@ -132,7 +132,7 @@ function formatDate(isoDate: string | number | Date) {
       <a
         v-if="mastheadPost"
         :href="`/blog/${mastheadPost.slug}`"
-        class="group mt-10 grid grid-cols-1 gap-7 lg:mt-12 lg:grid-cols-2 lg:items-center lg:gap-12"
+        class="group mt-6 grid grid-cols-1 gap-5 lg:mt-12 lg:grid-cols-2 lg:items-center lg:gap-12"
       >
         <div class="relative overflow-hidden rounded-card shadow-elevated">
           <div class="absolute left-4 top-4 z-10">
@@ -141,7 +141,7 @@ function formatDate(isoDate: string | number | Date) {
           <img
             :src="mastheadPost.image"
             :alt="mastheadPost.title"
-            class="aspect-[16/11] w-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-105"
+            class="aspect-[16/9] w-full object-cover sm:aspect-[16/11] transition-transform duration-700 ease-out-expo group-hover:scale-105"
           />
           <div class="absolute inset-0 bg-scrim-b opacity-40" />
         </div>
@@ -149,12 +149,12 @@ function formatDate(isoDate: string | number | Date) {
         <div>
           <p class="text-xs font-bold uppercase tracking-[0.16em] text-romara-amber-300">Featured story</p>
           <h2
-            class="mt-4 text-balance font-heading text-3xl font-semibold leading-tight transition-colors group-hover:text-romara-amber-300 sm:text-display-sm"
+            class="mt-3 text-balance font-heading text-2xl font-semibold leading-tight transition-colors group-hover:text-romara-amber-300 sm:mt-4 sm:text-display-sm"
           >
             {{ mastheadPost.title }}
           </h2>
-          <p class="mt-4 max-w-xl text-base leading-relaxed text-white/70">{{ mastheadPost.excerpt }}</p>
-          <div class="mt-6 flex flex-wrap items-center gap-4 text-xs font-medium text-white/60">
+          <p class="mt-3 line-clamp-3 max-w-xl text-base leading-relaxed text-white/70 sm:mt-4">{{ mastheadPost.excerpt }}</p>
+          <div class="mt-4 flex flex-wrap items-center gap-4 text-xs font-medium text-white/60 sm:mt-6">
             <span>{{ formatDate(mastheadPost.publishedAt) }}</span>
             <span class="text-white/25">·</span>
             <span class="inline-flex items-center gap-1.5">
@@ -163,7 +163,7 @@ function formatDate(isoDate: string | number | Date) {
             </span>
           </div>
           <span
-            class="mt-7 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.14em] text-white"
+            class="mt-5 inline-flex items-center gap-2 text-sm font-bold uppercase sm:mt-7 tracking-[0.14em] text-white"
           >
             Read article
             <IconArrowRight class="h-4 w-4 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" />

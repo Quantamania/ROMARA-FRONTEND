@@ -31,9 +31,9 @@ withDefaults(defineProps<Props>(), {
 })
 
 const sizeClasses: Record<string, string> = {
-  sm: 'min-h-[340px] py-20',
-  md: 'min-h-[440px] py-24',
-  lg: 'min-h-[560px] py-28',
+  sm: 'min-h-[240px] py-12 sm:min-h-[340px] sm:py-20',
+  md: 'min-h-[280px] py-14 sm:min-h-[440px] sm:py-24',
+  lg: 'min-h-[320px] py-16 sm:min-h-[480px] sm:py-24 lg:min-h-[560px] lg:py-28',
 }
 </script>
 

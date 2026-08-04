@@ -4,6 +4,7 @@ import BaseButton from '@/components/ui/BaseButton.vue'
 import IconSuitcase from '@/components/icons/IconSuitcase.vue'
 import IconCheckSquare from '@/components/icons/IconCheckSquare.vue'
 import IconArrowRight from '@/components/icons/IconArrowRight.vue'
+import PaymentPanel from '@/features/payments/components/PaymentPanel.vue'
 import { submitTransferBooking } from '@/features/airport-transfers/api/transfers.api'
 import type { TransferBookingFormData } from '@/features/airport-transfers/types/transfer.types'
 
@@ -13,7 +14,8 @@ const labelClasses = 'mb-1.5 block text-xs font-semibold uppercase tracking-[0.1
 const sectionLabelClasses = 'eyebrow mb-5'
 
 const isSubmitting = ref(false)
-const isSubmitted = ref(false)
+// 'form' → fill in details, 'payment' → choose how to pay, 'done' → confirmed
+const stage = ref<'form' | 'payment' | 'done'>('form')
 
 const formData = reactive<TransferBookingFormData>({
   fullName: '',
@@ -79,17 +81,26 @@ async function handleSubmit() {
   isSubmitting.value = true
   await submitTransferBooking(formData)
   isSubmitting.value = false
-  isSubmitted.value = true
+  stage.value = 'payment'
+}
+
+function onPaymentDone() {
+  stage.value = 'done'
 }
 
 function bookAnotherTransfer() {
-  isSubmitted.value = false
+  stage.value = 'form'
 }
 </script>
 
 <template>
+  <!-- Payment state — choose how to pay after the booking is submitted -->
+  <div v-if="stage === 'payment'" class="mx-auto max-w-2xl">
+    <PaymentPanel :phone="formData.phone" reference="Airport Transfer" @complete="onPaymentDone" @skip="onPaymentDone" />
+  </div>
+
   <!-- Confirmation state -->
-  <div v-if="isSubmitted" class="mx-auto max-w-xl rounded-card bg-white p-8 text-center shadow-elevated sm:p-12">
+  <div v-else-if="stage === 'done'" class="mx-auto max-w-xl rounded-card bg-white p-8 text-center shadow-elevated sm:p-12">
     <span class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-amber-fade text-white shadow-soft">
       <IconCheckSquare class="h-8 w-8" />
     </span>
@@ -281,9 +292,9 @@ function bookAnotherTransfer() {
       </div>
     </div>
 
-    <!-- Sticky summary -->
-    <aside class="lg:self-start">
-      <div class="lg:h-fit overflow-hidden rounded-card bg-white shadow-elevated" style="position: sticky; top: 6rem;">
+    <!-- Sticky summary — stays visible while the form scrolls -->
+    <aside class="lg:sticky lg:top-24 lg:self-start">
+      <div class="overflow-hidden rounded-card bg-white shadow-elevated">
         <div class="flex items-center gap-3 bg-green-fade px-6 py-5 text-white">
           <IconSuitcase class="h-5 w-5 text-romara-amber-300" />
           <h2 class="font-heading text-sm font-semibold uppercase tracking-[0.14em]">Booking Summary</h2>

@@ -109,7 +109,7 @@ const contentSections = computed(() => {
 <template>
   <div v-if="currentPost" class="bg-romara-bone">
     <!-- Hero: full-bleed image masthead with a blueprint overlay -->
-    <section class="relative isolate flex min-h-[560px] items-end overflow-hidden bg-romara-green text-white lg:min-h-[660px]">
+    <section class="relative isolate flex min-h-[400px] items-end overflow-hidden bg-romara-green text-white sm:min-h-[480px] lg:min-h-[660px]">
       <img
         :src="currentPost.image"
         :alt="currentPost.title"
@@ -142,7 +142,7 @@ const contentSections = computed(() => {
         </div>
       </div>
 
-      <div class="romara-container relative pb-16 pt-32 lg:pb-20">
+      <div class="romara-container relative pb-12 pt-24 sm:pb-16 sm:pt-32 lg:pb-20">
         <div class="max-w-3xl">
           <h1 class="font-heading text-display font-semibold leading-[1.05] text-balance">
             {{ currentPost.title }}

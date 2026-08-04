@@ -87,12 +87,12 @@ function goBack() {
     <div v-else-if="trip" class="overflow-x-hidden">
 
       <!-- Hero -->
-      <section class="relative isolate bg-romara-green-dark min-h-[600px] overflow-hidden text-white">
+      <section class="relative isolate bg-romara-green-dark min-h-[440px] overflow-hidden text-white sm:min-h-[600px]">
         <img :src="trip.image" :alt="trip.name" class="ken-burns absolute inset-0 w-full h-full object-cover" />
         <div class="absolute inset-0 bg-scrim-b" />
         <div class="absolute inset-0 bg-gradient-to-b from-romara-green-dark/70 via-romara-green-dark/25 to-romara-green-dark" />
 
-        <div class="relative flex flex-col justify-between py-8 min-h-[600px] romara-container">
+        <div class="relative flex flex-col justify-between py-8 min-h-[440px] sm:min-h-[600px] romara-container">
           <button
             @click="goBack"
             class="glass inline-flex items-center gap-2 self-start rounded-full px-4 py-2 text-sm font-semibold text-white transition-colors hover:text-romara-amber-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber/50"

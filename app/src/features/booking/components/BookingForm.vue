@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import IconArrowRight from '@/components/icons/IconArrowRight.vue'
 import IconCheckSquare from '@/components/icons/IconCheckSquare.vue'
 import IconLock from '@/components/icons/IconLock.vue'
+import PaymentPanel from '@/features/payments/components/PaymentPanel.vue'
 import { useBookingStore } from '@/features/booking/store/booking.store'
 import {
   destinationOptions,
@@ -30,12 +31,28 @@ function formatDate(isoDate: string) {
   if (!isoDate) return '—'
   return new Date(isoDate).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })
 }
+
+// After the request is submitted, the visitor chooses how to pay before the
+// final confirmation screen.
+const paymentDone = ref(false)
+function onPaymentDone() {
+  paymentDone.value = true
+}
+function startNewBooking() {
+  paymentDone.value = false
+  bookingStore.resetBooking()
+}
 </script>
 
 <template>
   <div class="overflow-hidden rounded-card bg-white p-6 shadow-card sm:p-9 lg:p-10">
+    <!-- Payment step — choose how to pay after submitting -->
+    <div v-if="bookingStore.isSubmitted && !paymentDone" class="py-2">
+      <PaymentPanel flat :phone="bookingStore.yourDetails.phone" reference="Trip Booking" @complete="onPaymentDone" @skip="onPaymentDone" />
+    </div>
+
     <!-- Confirmation state, replaces the whole form -->
-    <div v-if="bookingStore.isSubmitted" class="py-12 text-center">
+    <div v-else-if="bookingStore.isSubmitted && paymentDone" class="py-12 text-center">
       <span
         class="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-amber-fade text-white shadow-glow-amber"
       >
@@ -48,7 +65,7 @@ function formatDate(isoDate: string) {
         reservations team will follow up shortly to finalize your trip.
       </p>
       <div class="mt-8 flex justify-center">
-        <BaseButton variant="primary" size="lg" @click="bookingStore.resetBooking">
+        <BaseButton variant="primary" size="lg" @click="startNewBooking">
           Start a New Booking
           <IconArrowRight class="h-4 w-4" />
         </BaseButton>
