@@ -32,6 +32,10 @@ function formatDate(isoDate: string) {
   return new Date(isoDate).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })
 }
 
+function formatPrice(amount: number) {
+  return new Intl.NumberFormat('en-KE').format(amount)
+}
+
 // After the request is submitted, the visitor chooses how to pay before the
 // final confirmation screen.
 const paymentDone = ref(false)
@@ -48,7 +52,7 @@ function startNewBooking() {
   <div class="overflow-hidden rounded-card bg-white p-6 shadow-card sm:p-9 lg:p-10">
     <!-- Payment step — choose how to pay after submitting -->
     <div v-if="bookingStore.isSubmitted && !paymentDone" class="py-2">
-      <PaymentPanel flat :phone="bookingStore.yourDetails.phone" reference="Trip Booking" @complete="onPaymentDone" @skip="onPaymentDone" />
+      <PaymentPanel flat :amount="bookingStore.estimatedTotal ?? undefined" :phone="bookingStore.yourDetails.phone" reference="Trip Booking" @complete="onPaymentDone" @skip="onPaymentDone" />
     </div>
 
     <!-- Confirmation state, replaces the whole form -->
@@ -308,9 +312,18 @@ function startNewBooking() {
             </dl>
           </div>
 
+          <!-- Estimated total from the selections -->
+          <div v-if="bookingStore.estimatedTotal" class="flex flex-wrap items-center justify-between gap-3 rounded-card bg-green-fade p-6 text-white">
+            <div>
+              <p class="text-[11px] font-bold uppercase tracking-[0.14em] text-romara-amber-300">Estimated total</p>
+              <p class="mt-1 text-xs text-white/65">Indicative price from your selections — your consultant confirms the final quote.</p>
+            </div>
+            <p class="font-heading text-3xl font-semibold">KES {{ formatPrice(bookingStore.estimatedTotal) }}</p>
+          </div>
+
           <div class="rounded-card border border-romara-green/10 bg-romara-bone p-6">
             <p class="eyebrow mb-4">
-              
+
               Your Details
             </p>
             <dl class="space-y-2.5 text-sm">

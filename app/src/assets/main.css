@@ -6,13 +6,15 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    overflow-x: hidden;
+    /* `clip` prevents horizontal scroll WITHOUT making html/body a scroll
+       container — `overflow-x: hidden` here would break `position: sticky`
+       everywhere (sticky would anchor to the non-scrolling body). */
+    overflow-x: clip;
   }
 
   body {
     @apply font-sans text-romara-ink antialiased;
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow-x: clip;
     -ms-overflow-style: none;
     scrollbar-width: none;
   }

@@ -70,6 +70,25 @@ const totalTravellers = computed(function getTotalTravellers() {
   return formData.adults + formData.children + formData.infants
 })
 
+// Indicative fare from the vehicle, transfer type, airport and party size (KES).
+const vehicleBase: Record<string, number> = {
+  sedan: 3500, suv: 6500, luxury: 12000, van: 8000, shuttle: 6000, bus: 15000,
+}
+const transferMult: Record<string, number> = { pickup: 1, dropoff: 1, return: 1.9 }
+const airportAdj: Record<string, number> = { jkia: 0, wilson: -500, other: 1500 }
+
+const estimatedPrice = computed(function getEstimatedPrice() {
+  const base = vehicleBase[formData.vehiclePreference] ?? 4000
+  const mult = transferMult[formData.transferType] ?? 1
+  const adj = airportAdj[formData.airport] ?? 0
+  const extraPax = Math.max(0, formData.adults + formData.children - 3) * 500
+  return Math.max(1000, Math.round((base * mult + adj + extraPax) / 100) * 100)
+})
+
+function formatPrice(amount: number) {
+  return new Intl.NumberFormat('en-KE').format(amount)
+}
+
 const formattedDateTime = computed(function getFormattedDateTime() {
   if (!formData.travelDate) return 'Not set yet'
   const date = new Date(`${formData.travelDate}T${formData.travelTime || '00:00'}`)
@@ -96,7 +115,7 @@ function bookAnotherTransfer() {
 <template>
   <!-- Payment state — choose how to pay after the booking is submitted -->
   <div v-if="stage === 'payment'" class="mx-auto max-w-2xl">
-    <PaymentPanel :phone="formData.phone" reference="Airport Transfer" @complete="onPaymentDone" @skip="onPaymentDone" />
+    <PaymentPanel :amount="estimatedPrice" :phone="formData.phone" reference="Airport Transfer" @complete="onPaymentDone" @skip="onPaymentDone" />
   </div>
 
   <!-- Confirmation state -->
@@ -332,6 +351,15 @@ function bookAnotherTransfer() {
             <dd class="text-right font-semibold text-romara-green">{{ paymentLabels[formData.paymentPreference] }}</dd>
           </div>
         </dl>
+
+        <!-- Estimated fare from the selections -->
+        <div class="flex items-center justify-between gap-3 border-t border-romara-green/10 bg-green-fade px-6 py-5 text-white">
+          <div>
+            <p class="text-[11px] font-bold uppercase tracking-[0.14em] text-romara-amber-300">Estimated Fare</p>
+            <p class="text-[11px] text-white/55">Confirmed before pickup</p>
+          </div>
+          <p class="font-heading text-2xl font-semibold">KES {{ formatPrice(estimatedPrice) }}</p>
+        </div>
 
         <div class="space-y-3 border-t border-romara-green/10 bg-romara-cream/50 px-6 py-6">
           <BaseButton type="submit" variant="primary" block class="justify-center" :disabled="isSubmitting">

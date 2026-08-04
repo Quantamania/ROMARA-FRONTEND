@@ -122,6 +122,30 @@ export const useBookingStore = defineStore('booking', () => {
     return currentStep.value === TOTAL_STEPS
   })
 
+  // Live indicative price from the visitor's selections (KES). A real quote is
+  // confirmed by a consultant, so this is presented as an estimate / "from".
+  const estimatedTotal = computed<number | null>(function getEstimatedTotal() {
+    const nightsByStay: Record<string, number> = {
+      'day-trip': 0, '2d1n': 1, '3d2n': 2, '4d3n': 3, '5d4n': 4, '6d5n': 5, '7d6n': 6, '7plus': 8,
+    }
+    const rateByService: Record<string, number> = {
+      'wildlife-safari': 18000, 'multi-day-tour': 16000, 'mountain-hiking': 14000,
+      'beach-holiday': 12000, 'group-tour': 12000, 'corporate-travel': 20000,
+      'custom-tour': 18000, 'hotel-booking': 9000, 'day-trip': 8000, 'airport-transfer': 4000,
+    }
+    const multByType: Record<string, number> = {
+      budget: 0.8, 'mid-range': 1, luxury: 1.6, honeymoon: 1.4, private: 1.2,
+      family: 1, group: 0.9, solo: 1.1, corporate: 1.3,
+    }
+    const { service, travelType, lengthOfStay, adults, children } = tripDetails
+    if (!service || !lengthOfStay || !adults) return null
+    const unit = rateByService[service] ?? 15000
+    const billableUnits = (nightsByStay[lengthOfStay] ?? 1) || 1 // day trips bill 1 unit
+    const people = adults + children * 0.6
+    const mult = multByType[travelType] ?? 1
+    return Math.max(1000, Math.round((unit * billableUnits * people * mult) / 100) * 100)
+  })
+
   async function submitBooking() {
     if (!validateStep4()) return
     isSubmitting.value = true
@@ -167,6 +191,7 @@ export const useBookingStore = defineStore('booking', () => {
     isSubmitted,
     agreedToTerms,
     isLastStep,
+    estimatedTotal,
     goToNextStep,
     goToPreviousStep,
     goToStep,
