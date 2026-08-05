@@ -85,21 +85,35 @@ function getScrollY() {
   return scrollingElement ? scrollingElement.scrollTop : window.pageYOffset || window.scrollY || 0
 }
 
-function handleScroll() {
+let scrollScheduled = false
+
+// Runs at most once per animation frame, and only writes a ref when its value
+// actually changes — so scrolling doesn't thrash layout or re-render the nav.
+function updateNavOnScroll() {
+  scrollScheduled = false
   const currentScrollY = getScrollY()
   const delta = currentScrollY - lastScrollY
 
-  isScrolled.value = currentScrollY > 8
+  const nextScrolled = currentScrollY > 8
+  if (nextScrolled !== isScrolled.value) isScrolled.value = nextScrolled
 
+  let nextHidden = isNavHidden.value
   if (currentScrollY <= 60 || isMobileMenuOpen.value) {
-    isNavHidden.value = false
-  } else if (delta > 0) {
-    isNavHidden.value = true
-  } else if (delta < 0) {
-    isNavHidden.value = false
+    nextHidden = false
+  } else if (delta > 2) {
+    nextHidden = true
+  } else if (delta < -2) {
+    nextHidden = false
   }
+  if (nextHidden !== isNavHidden.value) isNavHidden.value = nextHidden
 
   lastScrollY = currentScrollY
+}
+
+function handleScroll() {
+  if (scrollScheduled) return
+  scrollScheduled = true
+  requestAnimationFrame(updateNavOnScroll)
 }
 
 function handleTouchStart() {
@@ -110,15 +124,11 @@ onMounted(() => {
   lastScrollY = getScrollY()
   window.addEventListener('scroll', handleScroll, { passive: true })
   window.addEventListener('touchstart', handleTouchStart, { passive: true })
-  window.addEventListener('touchmove', handleScroll, { passive: true })
-  document.addEventListener('scroll', handleScroll, { passive: true })
 })
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
   window.removeEventListener('touchstart', handleTouchStart)
-  window.removeEventListener('touchmove', handleScroll)
-  document.removeEventListener('scroll', handleScroll)
 })
 
 function toggleDropdown(label: string) {

@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import BaseButton from '@/components/ui/BaseButton.vue'
 import IconChevronDown from '@/components/icons/IconChevronDown.vue'
+import IconArrowRight from '@/components/icons/IconArrowRight.vue'
+import IconStar from '@/components/icons/IconStar.vue'
+import IconBinoculars from '@/components/icons/IconBinoculars.vue'
+import IconCar from '@/components/icons/IconCar.vue'
 
 const slides = [
   '/images/home/hero-elephants.webp',
@@ -10,11 +13,22 @@ const slides = [
   '/images/home/nairobi.webp',
 ]
 
-const content = {
-  eyebrow: 'Discover Kenya',
-  heading: 'Safari Tours & Premium Vehicle Hire',
-  subheading: "Discover Kenya's wildlife, breathtaking scenery and unforgettable adventure.",
-}
+const subheading = 'Two ways to explore Kenya — expertly guided, or behind your own wheel.'
+
+const services = [
+  {
+    icon: IconBinoculars,
+    title: 'Safari Tours',
+    desc: "Guided game drives across Kenya's iconic parks.",
+    href: '/book-now',
+  },
+  {
+    icon: IconCar,
+    title: 'Vehicle Hire',
+    desc: 'Premium 4×4 fleet — with or without a driver.',
+    href: '/vehicle-hire',
+  },
+]
 
 const active = ref(0)
 let timer: number | undefined
@@ -41,7 +55,7 @@ onUnmounted(() => {
           v-show="index === active"
           :key="src"
           :src="src"
-          :alt="content.heading"
+          alt="Safari Tours & Premium Vehicle Hire"
           decoding="async"
           :fetchpriority="index === 0 ? 'high' : 'low'"
           :loading="index === 0 ? 'eager' : 'lazy'"
@@ -55,29 +69,55 @@ onUnmounted(() => {
     <div class="absolute inset-0 bg-gradient-to-t from-romara-green-dark/80 via-transparent to-romara-green-dark/20" />
 
     <div class="romara-container relative flex min-h-[540px] flex-col justify-center py-16 sm:min-h-[88vh] sm:py-28">
-      <div class="max-w-2xl">
-        <p class="eyebrow text-romara-amber-300 animate-fade-up">
-          
-          {{ content.eyebrow }}
-        </p>
-
+      <div class="max-w-3xl">
         <h1
-          class="mt-5 font-heading text-display-lg font-semibold text-balance animate-fade-up"
-          style="animation-delay: 90ms"
+          class="font-heading text-[clamp(2.75rem,8vw,5.5rem)] font-semibold leading-[1.02] tracking-tight text-balance animate-fade-up"
         >
-          {{ content.heading }}
+          Safari Tours <span class="text-romara-amber-300">&amp;</span> Premium Vehicle Hire
         </h1>
 
         <p
-          class="mt-6 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg animate-fade-up"
-          style="animation-delay: 180ms"
+          class="mt-6 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg animate-fade-up"
+          style="animation-delay: 120ms"
         >
-          {{ content.subheading }}
+          {{ subheading }}
         </p>
 
-        <div class="mt-9 flex flex-wrap gap-3.5 animate-fade-up" style="animation-delay: 270ms">
-          <BaseButton as="a" href="/book-now" variant="amber" size="lg">Book Your Safari</BaseButton>
-          <BaseButton as="a" href="/vehicle-hire" variant="ghost" size="lg">Hire a Vehicle</BaseButton>
+        <!-- Two service pillars — the core business, unmistakable at a glance -->
+        <div class="mt-9 grid max-w-2xl grid-cols-1 gap-3.5 sm:grid-cols-2">
+          <a
+            v-for="(service, index) in services"
+            :key="service.title"
+            :href="service.href"
+            class="group relative flex items-center gap-4 overflow-hidden rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur-md transition-all duration-300 ease-out-expo animate-fade-up hover:-translate-y-1 hover:border-romara-amber/50 hover:bg-white/[0.16] sm:p-5"
+            :style="{ animationDelay: `${240 + index * 110}ms` }"
+          >
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-romara-amber text-white shadow-glow-amber transition-transform duration-300 ease-out-expo group-hover:scale-105">
+              <component :is="service.icon" class="h-6 w-6" />
+            </span>
+            <span class="min-w-0 flex-1">
+              <span class="block font-heading text-lg font-semibold text-white">{{ service.title }}</span>
+              <span class="mt-0.5 block text-sm leading-snug text-white/70">{{ service.desc }}</span>
+            </span>
+            <IconArrowRight class="h-5 w-5 shrink-0 text-white/50 transition-all duration-300 ease-out-expo group-hover:translate-x-1 group-hover:text-romara-amber-300" />
+          </a>
+        </div>
+
+        <!-- Credibility at a glance -->
+        <div
+          class="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-white/70 animate-fade-up"
+          style="animation-delay: 320ms"
+        >
+          <span class="inline-flex items-center gap-1.5">
+            <span class="flex text-romara-amber">
+              <IconStar v-for="n in 5" :key="n" class="h-4 w-4" />
+            </span>
+            <span class="font-semibold text-white">5.0</span>
+          </span>
+          <span class="hidden h-4 w-px bg-white/25 sm:block" aria-hidden="true" />
+          <span><span class="font-semibold text-white">300+</span> happy travellers</span>
+          <span class="hidden h-4 w-px bg-white/25 sm:block" aria-hidden="true" />
+          <span>Licensed Kenyan operator</span>
         </div>
       </div>
     </div>

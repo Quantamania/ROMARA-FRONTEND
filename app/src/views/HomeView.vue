@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import HeroBanner from '@/features/home/sections/HeroBanner.vue'
 import TrustBuilding from '@/features/home/sections/TrustBuilding.vue'
+import CoreServices from '@/features/home/sections/CoreServices.vue'
 import FleetShowcase from '@/features/home/sections/FleetShowcase.vue'
 import FeaturedPackages from '@/features/home/sections/FeaturedPackages.vue'
 import TestimonialsPreview from '@/features/home/sections/TestimonialsPreview.vue'
@@ -18,26 +19,28 @@ import BlogPreview from '@/features/home/sections/BlogPreview.vue'
     <TrustBuilding />
   </div>
 
-  <div v-scroll-reveal>
+  <CoreServices />
+
+  <div v-scroll-reveal class="content-auto-section">
     <FleetShowcase />
   </div>
 
-  <div v-scroll-reveal="{ delay: 150 }">
+  <div v-scroll-reveal="{ delay: 150 }" class="content-auto-section">
     <FeaturedPackages />
   </div>
 
-  <section v-scroll-reveal class="section-y bg-romara-sand">
+  <section v-scroll-reveal class="content-auto-section section-y bg-romara-sand">
     <div class="romara-container grid grid-cols-1 items-stretch gap-8 lg:grid-cols-2 lg:gap-12">
       <WhyChooseUs />
       <TestimonialsPreview />
     </div>
   </section>
 
-  <div v-scroll-reveal>
+  <div v-scroll-reveal class="content-auto-section">
     <SocialProof />
   </div>
 
-  <div v-scroll-reveal="{ delay: 225 }">
+  <div v-scroll-reveal="{ delay: 225 }" class="content-auto-section">
     <BlogPreview />
   </div>
 </template>

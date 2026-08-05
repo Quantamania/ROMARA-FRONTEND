@@ -101,6 +101,15 @@
     content-visibility: auto;
     contain-intrinsic-size: auto 480px;
   }
+
+  /* Same idea for full-height landing sections. The taller reserved size keeps
+     the scrollbar steady until a section first paints, then `auto` remembers
+     its real height. Skips paint/layout for off-screen sections → smoother
+     scroll and a lighter first render. */
+  .content-auto-section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 720px;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
