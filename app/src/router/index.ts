@@ -28,6 +28,8 @@ const router = createRouter({
         { path: 'contact', name: 'contact', component: () => import('@/views/ContactView.vue') },
         { path: 'booking', name: 'booking', component: () => import('@/views/BookingView.vue') },
         { path: 'book-now', redirect: '/booking' },
+        { path: 'vehicle-hire', name: 'vehicle-hire', component: () => import('@/views/VehicleHireView.vue') },
+        { path: 'hire-a-vehicle', redirect: '/vehicle-hire' },
       ],
     },
     ...adminRoutes,

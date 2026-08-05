@@ -72,7 +72,7 @@ function handleNewsletterSubmit() {
   <span class="leading-tight">
     <span class="block font-heading text-base font-bold tracking-[0.40em]">ROMARA</span>
     <span class="block text-[10px] font-semibold tracking-[0.20em] text-romara-amber">TOURS &amp; TRAVEL</span>
-    <span class="block text-[9px] font-semibold text-romara-amber">Reaching Out to Your Next Adventure</span>
+    <span class="block text-[9px] font-semibold text-romara-amber">Creating Memorable African Journeys</span>
   </span>
 </div>
         <p class="mt-4 text-sm leading-relaxed text-white/70">

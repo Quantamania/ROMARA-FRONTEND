@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import IconBinoculars from '@/components/icons/IconBinoculars.vue'
-import IconShield from '@/components/icons/IconShield.vue'
-import IconTag from '@/components/icons/IconTag.vue'
+import IconSuitcase from '@/components/icons/IconSuitcase.vue'
+import IconCar from '@/components/icons/IconCar.vue'
+import IconMapPin from '@/components/icons/IconMapPin.vue'
 import IconHeadset from '@/components/icons/IconHeadset.vue'
-import IconCalendarCheck from '@/components/icons/IconCalendarCheck.vue'
 
 interface Feature {
   icon: typeof IconBinoculars
@@ -22,11 +22,11 @@ withDefaults(defineProps<Props>(), {
 })
 
 const features: Feature[] = [
-  { icon: IconBinoculars, title: 'Expert Local Guides', description: 'Experienced and passionate guides for the best experience' },
-  { icon: IconShield, title: 'Safe & Reliable', description: 'Your safety and comfort are our priority' },
-  { icon: IconTag, title: 'Best Value', description: 'Quality services at competitive prices' },
+  { icon: IconBinoculars, title: 'Professional Guides', description: 'Experienced, passionate guides for the best experience' },
+  { icon: IconSuitcase, title: 'Custom Safari Packages', description: 'Tailored itineraries built around you' },
+  { icon: IconCar, title: 'Reliable 4x4 Fleet', description: 'Well-maintained, comfortable safari vehicles' },
+  { icon: IconMapPin, title: 'Local Experts', description: 'Deep local knowledge of Kenya and beyond' },
   { icon: IconHeadset, title: '24/7 Support', description: 'We are here for you anytime, anywhere' },
-  { icon: IconCalendarCheck, title: 'Easy Booking', description: 'Simple, fast and secure bookings' },
 ]
 </script>
 

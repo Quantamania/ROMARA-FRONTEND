@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import HeroBanner from '@/features/home/sections/HeroBanner.vue'
 import TrustBuilding from '@/features/home/sections/TrustBuilding.vue'
+import FleetShowcase from '@/features/home/sections/FleetShowcase.vue'
 import FeaturedPackages from '@/features/home/sections/FeaturedPackages.vue'
 import TestimonialsPreview from '@/features/home/sections/TestimonialsPreview.vue'
 import WhyChooseUs from '@/features/home/sections/WhyChooseUs.vue'
+import SocialProof from '@/features/home/sections/SocialProof.vue'
 import BlogPreview from '@/features/home/sections/BlogPreview.vue'
 </script>
 
@@ -16,6 +18,10 @@ import BlogPreview from '@/features/home/sections/BlogPreview.vue'
     <TrustBuilding />
   </div>
 
+  <div v-scroll-reveal>
+    <FleetShowcase />
+  </div>
+
   <div v-scroll-reveal="{ delay: 150 }">
     <FeaturedPackages />
   </div>
@@ -26,6 +32,10 @@ import BlogPreview from '@/features/home/sections/BlogPreview.vue'
       <TestimonialsPreview />
     </div>
   </section>
+
+  <div v-scroll-reveal>
+    <SocialProof />
+  </div>
 
   <div v-scroll-reveal="{ delay: 225 }">
     <BlogPreview />

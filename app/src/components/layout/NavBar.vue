@@ -141,14 +141,28 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
     <!-- Contact Bar -->
     <div class="bg-romara-green text-white">
       <div class="romara-container flex h-10 items-center justify-between text-xs">
-        <div class="flex items-center gap-5">
-          <a :href="`tel:${phone.replace(/\s/g, '')}`" class="flex items-center gap-1.5 hover:text-romara-amber">
-            <IconPhone class="h-3.5 w-3.5" />
-            {{ phone }}
+        <div class="flex items-center gap-3.5 sm:gap-5">
+          <a
+            :href="`tel:${phone.replace(/\s/g, '')}`"
+            class="group flex items-center gap-2 transition-colors duration-300 hover:text-romara-amber"
+          >
+            <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/10 transition-colors duration-300 group-hover:bg-romara-amber group-hover:text-romara-green">
+              <IconPhone class="h-3 w-3" />
+            </span>
+            <span class="font-medium text-white/70 transition-colors duration-300 group-hover:text-current">Call us</span>
+            <span class="font-semibold tracking-wide">{{ phone }}</span>
           </a>
-          <a :href="`mailto:${email}`" class="hidden items-center gap-1.5 hover:text-romara-amber sm:flex">
-            <IconMail class="h-3.5 w-3.5" />
-            {{ email }}
+
+          <span class="hidden h-3.5 w-px bg-white/15 sm:block" aria-hidden="true" />
+
+          <a
+            :href="`mailto:${email}`"
+            class="group hidden items-center gap-2 transition-colors duration-300 hover:text-romara-amber sm:flex"
+          >
+            <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/10 transition-colors duration-300 group-hover:bg-romara-amber group-hover:text-romara-green">
+              <IconMail class="h-3 w-3" />
+            </span>
+            <span class="font-medium tracking-wide">{{ email }}</span>
           </a>
         </div>
 
@@ -175,7 +189,7 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
   <span class="leading-tight">
  <span class="block font-heading font-bold text-romara-green text-lg romara-stretch" style="transform: scaleX(1.25)">ROMARA</span>
  <span class="block font-semibold text-[10px] text-romara-ink/70 romara-stretch" style="transform: scaleX(1.25)">TOURS &amp; TRAVEL</span> 
-  <span class="block font-semibold text-[9px] text-romara-ink/60">Reaching Out to Your Next Adventure</span>
+  <span class="block font-semibold text-[9px] text-romara-ink/60">Creating Memorable African Journeys</span>
 </span>
 </a>
 

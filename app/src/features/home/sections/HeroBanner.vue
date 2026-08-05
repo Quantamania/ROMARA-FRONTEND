@@ -12,9 +12,8 @@ const slides = [
 
 const content = {
   eyebrow: 'Discover Kenya',
-  heading: 'Unforgettable Safari Experiences',
-  subheading:
-    "Explore Kenya's iconic wildlife, breathtaking landscapes and rich cultures with ROMARA Tours and Travel.",
+  heading: 'Safari Tours & Premium Vehicle Hire',
+  subheading: "Discover Kenya's wildlife, breathtaking scenery and unforgettable adventure.",
 }
 
 const active = ref(0)
@@ -77,8 +76,8 @@ onUnmounted(() => {
         </p>
 
         <div class="mt-9 flex flex-wrap gap-3.5 animate-fade-up" style="animation-delay: 270ms">
-          <BaseButton as="a" href="/book-now" variant="amber" size="lg">Book a Safari</BaseButton>
-          <BaseButton as="a" href="/contact" variant="ghost" size="lg">Request a Quote</BaseButton>
+          <BaseButton as="a" href="/book-now" variant="amber" size="lg">Book Your Safari</BaseButton>
+          <BaseButton as="a" href="/vehicle-hire" variant="ghost" size="lg">Hire a Vehicle</BaseButton>
         </div>
       </div>
     </div>
