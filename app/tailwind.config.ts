@@ -45,9 +45,9 @@ export default {
       fontSize: {
         // Editorial display scale (fluid). Used for big hero/section moments.
         eyebrow: ['0.75rem', { lineHeight: '1', letterSpacing: '0.24em' }],
-        'display-lg': ['clamp(2.75rem, 5.5vw, 4.75rem)', { lineHeight: '1.02', letterSpacing: '-0.02em' }],
-        display: ['clamp(2.25rem, 4.2vw, 3.5rem)', { lineHeight: '1.05', letterSpacing: '-0.018em' }],
-        'display-sm': ['clamp(1.75rem, 3vw, 2.5rem)', { lineHeight: '1.1', letterSpacing: '-0.012em' }],
+        'display-lg': ['clamp(3rem, 6.4vw, 6rem)', { lineHeight: '1', letterSpacing: '-0.025em' }],
+        display: ['clamp(2.5rem, 5vw, 4.5rem)', { lineHeight: '1.02', letterSpacing: '-0.022em' }],
+        'display-sm': ['clamp(1.9rem, 3.6vw, 3rem)', { lineHeight: '1.06', letterSpacing: '-0.018em' }],
       },
       letterSpacing: {
         widest2: '0.28em',

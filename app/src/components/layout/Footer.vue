@@ -8,6 +8,8 @@ import IconFacebook from '@/components/icons/IconFacebook.vue'
 import IconInstagram from '@/components/icons/IconInstagram.vue'
 import IconTripadvisor from '@/components/icons/IconTripadvisor.vue'
 import IconWhatsapp from '@/components/icons/IconWhatsapp.vue'
+import IconChevronDown from '@/components/icons/IconChevronDown.vue'
+import IconArrowRight from '@/components/icons/IconArrowRight.vue'
 
 const quickLinks = [
   { label: 'Home', href: '/' },
@@ -43,6 +45,13 @@ const socialLinks = [
   { name: 'WhatsApp', href: 'https://wa.me/254700123456', icon: IconWhatsapp },
 ]
 
+// Prominent tap actions for the compact mobile footer.
+const contactActions = [
+  { label: 'Call', icon: IconPhone, href: 'tel:+254700123456' },
+  { label: 'WhatsApp', icon: IconWhatsapp, href: 'https://wa.me/254700123456' },
+  { label: 'Email', icon: IconMail, href: 'mailto:info@romaratours.com' },
+]
+
 const newsletterEmail = ref('')
 const isSubscribing = ref(false)
 
@@ -55,6 +64,8 @@ function handleNewsletterSubmit() {
     newsletterEmail.value = ''
   }, 600)
 }
+
+const currentYear = new Date().getFullYear()
 </script>
 
 <template>
@@ -64,21 +75,211 @@ function handleNewsletterSubmit() {
         ROMARA
       </span>
     </div>
-    <footer class="relative z-10 overflow-visible bg-romara-green-dark text-white">
-      <div class="relative romara-container grid grid-cols-1 gap-10 py-14 sm:grid-cols-2 lg:grid-cols-5">
-      <div class="lg:col-span-1">
+
+    <footer class="relative z-10 isolate overflow-hidden bg-romara-green-dark text-white">
+      <!-- Background image + brand overlay (kept heavy so all text stays legible) -->
+      <img
+        src="/images/home/mara.webp"
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        decoding="async"
+        class="absolute inset-0 z-0 h-full w-full object-cover opacity-[0.4]"
+      />
+      <div class="absolute inset-0 z-0 bg-romara-green-dark/80" aria-hidden="true" />
+      <!-- Colourful accent line along the very top edge -->
+      <div class="absolute inset-x-0 top-0 z-10 h-1 bg-gradient-to-r from-romara-amber via-romara-amber/50 to-transparent" aria-hidden="true" />
+
+      <!-- ================= DESKTOP / TABLET (md+) : full footer ================= -->
+      <div class="relative z-10 hidden md:block">
+        <div class="romara-container py-16">
+          <!-- Brand band: statement tagline + socials + CTA -->
+          <div class="flex flex-col gap-8 border-b border-white/12 pb-12 lg:flex-row lg:items-end lg:justify-between">
+            <div class="max-w-xl">
+              <div class="flex items-center gap-3">
+                <img :src="logoSrc" alt="ROMARA logo" class="h-16 w-auto" />
+                <span class="leading-tight">
+                  <span class="block font-heading text-base font-bold tracking-[0.40em]">ROMARA</span>
+                  <span class="block text-[10px] font-semibold tracking-[0.20em] text-romara-amber">TOURS &amp; TRAVEL</span>
+                </span>
+              </div>
+              <p class="mt-6 font-heading text-2xl font-semibold leading-snug text-white text-balance lg:text-[1.75rem]">
+                Creating memorable African journeys — across Kenya and beyond.
+              </p>
+            </div>
+
+            <div class="flex flex-col items-start gap-5 lg:items-end">
+              <div class="flex items-center gap-3">
+                <a
+                  v-for="social in socialLinks"
+                  :key="social.name"
+                  :href="social.href"
+                  target="_blank"
+                  rel="noopener"
+                  :aria-label="social.name"
+                  class="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-white/80 transition-colors hover:border-romara-amber hover:bg-romara-amber hover:text-white"
+                >
+                  <component :is="social.icon" class="h-4 w-4" />
+                </a>
+              </div>
+              <a
+                href="/book-now"
+                class="inline-flex items-center gap-2 rounded-full bg-romara-amber px-6 py-3 text-sm font-bold uppercase tracking-[0.12em] text-white transition-colors hover:bg-romara-amber/90"
+              >
+                Plan Your Trip
+                <IconArrowRight class="h-4 w-4" />
+              </a>
+            </div>
+          </div>
+
+          <!-- Columns -->
+          <div class="grid gap-10 pt-12 lg:grid-cols-12">
+            <div class="lg:col-span-3">
+              <h3 class="text-[11px] font-bold uppercase tracking-[0.2em] text-romara-amber-300">Explore</h3>
+              <ul class="mt-5 space-y-2.5">
+                <li v-for="link in quickLinks" :key="link.label">
+                  <a :href="link.href" class="text-sm text-white/75 transition-colors hover:text-romara-amber">{{ link.label }}</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="lg:col-span-3">
+              <h3 class="text-[11px] font-bold uppercase tracking-[0.2em] text-romara-amber-300">Services</h3>
+              <ul class="mt-5 space-y-2.5">
+                <li v-for="service in services" :key="service" class="text-sm text-white/75">{{ service }}</li>
+              </ul>
+            </div>
+
+            <div class="lg:col-span-2">
+              <h3 class="text-[11px] font-bold uppercase tracking-[0.2em] text-romara-amber-300">Contact</h3>
+              <ul class="mt-5 space-y-4 text-sm text-white/75">
+                <li class="flex items-start gap-2.5">
+                  <IconPhone class="mt-0.5 h-4 w-4 shrink-0 text-romara-amber" />
+                  <a href="tel:+254700123456" class="hover:text-romara-amber">+254 700 123 456</a>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <IconMail class="mt-0.5 h-4 w-4 shrink-0 text-romara-amber" />
+                  <a href="mailto:info@romaratours.com" class="hover:text-romara-amber">info@romaratours.com</a>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <IconMapPin class="mt-0.5 h-4 w-4 shrink-0 text-romara-amber" />
+                  <span>Ngong Road, Nairobi, Kenya</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Newsletter as a featured card -->
+            <div class="lg:col-span-4">
+              <div class="rounded-card border border-white/12 bg-white/[0.06] p-6">
+                <h3 class="font-heading text-lg font-semibold text-romara-amber">Join the journey</h3>
+                <p class="mt-2 text-sm leading-relaxed text-white/70">
+                  Travel tips, seasonal offers and safari inspiration — straight to your inbox.
+                </p>
+                <form class="mt-5 flex gap-2" @submit.prevent="handleNewsletterSubmit">
+                  <input
+                    v-model="newsletterEmail"
+                    type="email"
+                    required
+                    placeholder="Your email address"
+                    class="min-w-0 flex-1 rounded-lg border border-white/20 bg-transparent px-3.5 py-2.5 text-sm text-white placeholder:text-white/50 focus:border-romara-amber focus:outline-none"
+                  />
+                  <button
+                    type="submit"
+                    :disabled="isSubscribing"
+                    class="shrink-0 rounded-lg bg-romara-amber px-4 py-2.5 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-romara-amber/90 disabled:opacity-60"
+                  >
+                    {{ isSubscribing ? '…' : 'Join' }}
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= MOBILE (<md) : compact footer ================= -->
+      <div class="relative z-10 romara-container py-12 md:hidden">
+        <!-- Brand -->
         <div class="flex items-center gap-2.5">
-  <img :src="logoSrc" alt="ROMARA logo" class="h-20 w-auto" />
-  <span class="leading-tight">
-    <span class="block font-heading text-base font-bold tracking-[0.40em]">ROMARA</span>
-    <span class="block text-[10px] font-semibold tracking-[0.20em] text-romara-amber">TOURS &amp; TRAVEL</span>
-    <span class="block text-[9px] font-semibold text-romara-amber">Creating Memorable African Journeys</span>
-  </span>
-</div>
-        <p class="mt-4 text-sm leading-relaxed text-white/70">
+          <img :src="logoSrc" alt="ROMARA logo" class="h-14 w-auto" />
+          <span class="leading-tight">
+            <span class="block font-heading text-sm font-bold tracking-[0.36em]">ROMARA</span>
+            <span class="block text-[9px] font-semibold tracking-[0.2em] text-romara-amber">TOURS &amp; TRAVEL</span>
+          </span>
+        </div>
+        <p class="mt-3 text-sm leading-relaxed text-white/65">
           Your trusted travel partner for unforgettable experiences in Kenya and beyond.
         </p>
-        <div class="mt-5 flex items-center gap-3">
+
+        <!-- Prominent contact actions -->
+        <div class="mt-6 grid grid-cols-3 gap-2.5">
+          <a
+            v-for="action in contactActions"
+            :key="action.label"
+            :href="action.href"
+            class="flex flex-col items-center gap-2 rounded-2xl border border-white/12 bg-white/5 py-4 text-center transition-colors hover:border-romara-amber/50 hover:bg-white/10"
+          >
+            <span class="flex h-9 w-9 items-center justify-center rounded-full bg-romara-amber/15 text-romara-amber-300">
+              <component :is="action.icon" class="h-4 w-4" />
+            </span>
+            <span class="text-[11px] font-bold uppercase tracking-[0.12em] text-white/85">{{ action.label }}</span>
+          </a>
+        </div>
+
+        <!-- Collapsible link groups — short by default, tap to expand -->
+        <div class="mt-6 border-y border-white/10">
+          <details class="group border-b border-white/10 last:border-b-0">
+            <summary class="flex cursor-pointer list-none items-center justify-between py-4 text-sm font-bold uppercase tracking-[0.1em] text-romara-amber-300 [&::-webkit-details-marker]:hidden">
+              Explore
+              <IconChevronDown class="h-4 w-4 text-white/50 transition-transform duration-300 group-open:rotate-180" />
+            </summary>
+            <ul class="grid grid-cols-2 gap-x-4 gap-y-3 pb-5 pt-1">
+              <li v-for="link in quickLinks" :key="link.label">
+                <a :href="link.href" class="text-sm text-white/70 transition-colors hover:text-romara-amber">{{ link.label }}</a>
+              </li>
+            </ul>
+          </details>
+
+          <details class="group border-b border-white/10 last:border-b-0">
+            <summary class="flex cursor-pointer list-none items-center justify-between py-4 text-sm font-bold uppercase tracking-[0.1em] text-romara-amber-300 [&::-webkit-details-marker]:hidden">
+              Services
+              <IconChevronDown class="h-4 w-4 text-white/50 transition-transform duration-300 group-open:rotate-180" />
+            </summary>
+            <ul class="grid grid-cols-2 gap-x-4 gap-y-3 pb-5 pt-1">
+              <li v-for="service in services" :key="service" class="text-sm text-white/70">{{ service }}</li>
+            </ul>
+          </details>
+
+          <div class="flex items-start gap-2 py-4 text-sm text-white/70">
+            <IconMapPin class="mt-0.5 h-4 w-4 shrink-0 text-romara-amber" />
+            <span>Ngong Road, Nairobi, Kenya</span>
+          </div>
+        </div>
+
+        <!-- Compact newsletter -->
+        <form class="mt-6" @submit.prevent="handleNewsletterSubmit">
+          <label class="text-sm font-semibold text-white">Travel tips &amp; offers</label>
+          <div class="mt-2.5 flex gap-2">
+            <input
+              v-model="newsletterEmail"
+              type="email"
+              required
+              placeholder="Your email address"
+              class="min-w-0 flex-1 rounded-lg border border-white/20 bg-transparent px-3.5 py-2.5 text-sm text-white placeholder:text-white/50 focus:border-romara-amber focus:outline-none"
+            />
+            <button
+              type="submit"
+              :disabled="isSubscribing"
+              aria-label="Subscribe"
+              class="flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-lg bg-romara-amber text-white transition-colors hover:bg-romara-amber/90 disabled:opacity-60"
+            >
+              <IconArrowRight class="h-4 w-4" />
+            </button>
+          </div>
+        </form>
+
+        <!-- Social -->
+        <div class="mt-6 flex items-center gap-3">
           <a
             v-for="social in socialLinks"
             :key="social.name"
@@ -86,74 +287,19 @@ function handleNewsletterSubmit() {
             target="_blank"
             rel="noopener"
             :aria-label="social.name"
-            class="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 text-white/80 hover:border-romara-amber hover:text-romara-amber"
+            class="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-white/80 transition-colors hover:border-romara-amber hover:text-romara-amber"
           >
             <component :is="social.icon" class="h-4 w-4" />
           </a>
         </div>
       </div>
 
-      <div>
-        <h3 class="text-sm font-bold uppercase tracking-wide text-white">Quick Links</h3>
-        <ul class="mt-4 grid grid-cols-2 lg:grid-cols-1 gap-x-4 gap-y-2.5">
-          <li v-for="link in quickLinks" :key="link.label">
-            <a :href="link.href" class="text-sm text-white/70 hover:text-romara-amber">{{ link.label }}</a>
-          </li>
-        </ul>
+      <div class="relative z-10 border-t border-white/10">
+        <div class="romara-container flex flex-col items-center gap-2 py-5 text-xs text-white/60 sm:flex-row sm:justify-between">
+          <p>© {{ currentYear }} ROMARA Tours and Travel. All Rights Reserved.</p>
+          <p class="text-white/45">Creating Memorable African Journeys</p>
+        </div>
       </div>
-
-      <div>
-        <h3 class="text-sm font-bold uppercase tracking-wide text-white">Services</h3>
-        <ul class="mt-4 grid grid-cols-2 lg:grid-cols-1 gap-x-6 gap-y-2.5">
-          <li v-for="service in services" :key="service" class="text-sm text-white/70">{{ service }}</li>
-        </ul>
-      </div>
-
-      <div>
-        <h3 class="text-sm font-bold uppercase tracking-wide text-white">Contact Us</h3>
-        <ul class="mt-4 space-y-3 text-sm text-white/70">
-          <li class="flex items-center gap-2">
-            <IconPhone class="h-4 w-4 shrink-0 text-romara-amber" />
-            <a href="tel:+254700123456" class="hover:text-romara-amber">+254 700 123 456</a>
-          </li>
-          <li class="flex items-center gap-2">
-            <IconMail class="h-4 w-4 shrink-0 text-romara-amber" />
-            <a href="mailto:info@romaratours.com" class="hover:text-romara-amber">info@romaratours.com</a>
-          </li>
-          <li class="flex items-start gap-2">
-            <IconMapPin class="mt-0.5 h-4 w-4 shrink-0 text-romara-amber" />
-            <span>Ngong Road, Nairobi, Kenya</span>
-          </li>
-        </ul>
-      </div>
-
-      <div>
-        <h3 class="text-sm font-bold uppercase tracking-wide text-white">Newsletter</h3>
-        <p class="mt-4 text-sm text-white/70">Subscribe for travel tips, offers and updates.</p>
-        <form class="mt-4 flex flex-col gap-2.5" @submit.prevent="handleNewsletterSubmit">
-          <input
-            v-model="newsletterEmail"
-            type="email"
-            required
-            placeholder="Your email address"
-            class="rounded-md border border-white/20 bg-transparent px-3.5 py-2.5 text-sm text-white placeholder:text-white/50 focus:border-romara-amber focus:outline-none"
-          />
-          <button
-            type="submit"
-            :disabled="isSubscribing"
-            class="rounded-md bg-romara-amber px-4 py-2.5 text-sm font-semibold uppercase tracking-wide text-white hover:bg-romara-amber/90 disabled:opacity-60"
-          >
-            {{ isSubscribing ? 'Subscribing…' : 'Subscribe' }}
-          </button>
-        </form>
-      </div>
-    </div>
-
-    <div class="border-t border-white/10">
-      <p class="romara-container py-5 text-center text-xs text-white/60">
-        © {{ new Date().getFullYear() }} ROMARA Tours and Travel. All Rights Reserved.
-      </p>
-    </div>
-  </footer>
-</div>
+    </footer>
+  </div>
 </template>

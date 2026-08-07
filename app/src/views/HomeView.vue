@@ -2,7 +2,6 @@
 import HeroBanner from '@/features/home/sections/HeroBanner.vue'
 import TrustBuilding from '@/features/home/sections/TrustBuilding.vue'
 import CoreServices from '@/features/home/sections/CoreServices.vue'
-import GridLines from '@/components/ui/GridLines.vue'
 import FleetShowcase from '@/features/home/sections/FleetShowcase.vue'
 import FeaturedPackages from '@/features/home/sections/FeaturedPackages.vue'
 import TestimonialsPreview from '@/features/home/sections/TestimonialsPreview.vue'
@@ -30,9 +29,8 @@ import BlogPreview from '@/features/home/sections/BlogPreview.vue'
     <FeaturedPackages />
   </div>
 
-  <section v-scroll-reveal class="content-auto-section section-y relative isolate overflow-hidden bg-romara-sand">
-    <GridLines :columns="1" />
-    <div class="romara-container relative grid grid-cols-1 items-stretch gap-8 lg:grid-cols-2 lg:gap-12">
+  <section v-scroll-reveal class="content-auto-section section-y bg-romara-sand">
+    <div class="romara-container grid grid-cols-1 items-stretch gap-8 lg:grid-cols-2 lg:gap-12">
       <WhyChooseUs />
       <TestimonialsPreview />
     </div>
