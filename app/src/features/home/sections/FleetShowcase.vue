@@ -35,7 +35,8 @@ function onImgLoad(event: Event, key: string) {
           v-for="(vehicle, index) in fleet"
           :key="vehicle.name"
           v-scroll-reveal="{ delay: index * 90 }"
-          class="group flex flex-col overflow-hidden rounded-card border border-romara-green/10 bg-white shadow-card transition-all duration-500 ease-out-expo hover:-translate-y-1.5 hover:shadow-elevated"
+          class="group flex flex-col overflow-hidden border border-romara-green/10 bg-white shadow-card transition-all duration-500 ease-out-expo hover:-translate-y-1.5 hover:shadow-elevated"
+          :class="index % 2 === 1 ? 'rounded-card-alt' : 'rounded-card'"
         >
           <!-- Vehicle photo (SVG fallback if the image is missing) -->
           <div class="relative h-48 overflow-hidden bg-romara-bone">

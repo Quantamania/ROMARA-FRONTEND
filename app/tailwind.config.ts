@@ -60,7 +60,11 @@ export default {
         'glow-amber': '0 10px 30px -10px rgb(200 134 58 / 0.45)',
       },
       borderRadius: {
-        card: '1rem',
+        // Signature asymmetric card corners: one large diagonal, one near-sharp,
+        // so cards read as intentionally shaped rather than uniformly rounded.
+        // `card-alt` mirrors the diagonal for alternating rhythm across grids.
+        card: '1.5rem 0.25rem',
+        'card-alt': '0.25rem 1.5rem',
         '2.5xl': '1.375rem',
       },
       backgroundImage: {

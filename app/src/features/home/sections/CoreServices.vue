@@ -75,8 +75,8 @@ const active = ref(0)
           :key="service.title"
           :href="service.href"
           :aria-label="`${service.title} — ${service.cta}`"
-          class="panel group relative block h-full overflow-hidden rounded-card ring-1 ring-white/10"
-          :class="active === index ? 'panel--active shadow-elevated' : ''"
+          class="panel group relative block h-full overflow-hidden ring-1 ring-white/10"
+          :class="[active === index ? 'panel--active shadow-elevated' : '', index % 2 === 1 ? 'rounded-card-alt' : 'rounded-card']"
           @mouseenter="active = index"
           @focus="active = index"
         >
@@ -140,7 +140,11 @@ const active = ref(0)
             <component :is="service.icon" class="h-5 w-5" />
           </span>
 
-          <a :href="service.href" class="group block overflow-hidden rounded-2xl shadow-card ring-1 ring-white/12">
+          <a
+            :href="service.href"
+            class="group block overflow-hidden shadow-card ring-1 ring-white/12"
+            :class="index % 2 === 1 ? 'rounded-card-alt' : 'rounded-card'"
+          >
             <!-- Image with tag + title -->
             <div class="relative h-40">
               <img :src="service.image" :alt="service.title" loading="lazy" class="h-full w-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-105" />

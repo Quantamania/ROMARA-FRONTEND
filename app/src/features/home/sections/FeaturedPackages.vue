@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import SectionHeading from '@/components/ui/SectionHeading.vue'
 import PackageCard from '@/features/safari-packages/components/PackageCard.vue'
+import GridLines from '@/components/ui/GridLines.vue'
 import packagesData from '@/data/packages.json'
 import type { SafariPackage } from '@/types/package.types'
 
@@ -8,8 +9,9 @@ const featuredPackages = packagesData as SafariPackage[]
 </script>
 
 <template>
-  <section class="section-y bg-romara-bone">
-    <div class="romara-container">
+  <section class="section-y relative isolate overflow-hidden bg-romara-bone">
+    <GridLines :columns="3" />
+    <div class="romara-container relative">
       <SectionHeading
         eyebrow="Curated Journeys"
         title="Popular Safari Packages"
