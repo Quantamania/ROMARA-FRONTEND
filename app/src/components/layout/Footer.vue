@@ -97,10 +97,10 @@ const currentYear = new Date().getFullYear()
           <div class="flex flex-col gap-8 border-b border-white/12 pb-12 lg:flex-row lg:items-end lg:justify-between">
             <div class="max-w-xl">
               <div class="flex items-center gap-3">
-                <img :src="logoSrc" alt="ROMARA logo" class="h-16 w-auto" />
+                <img :src="logoSrc" alt="ROMARA logo" class="h-24 w-auto" />
                 <span class="leading-tight">
-                  <span class="block font-heading text-base font-bold tracking-[0.40em]">ROMARA</span>
-                  <span class="block text-[10px] font-semibold tracking-[0.20em] text-romara-amber">TOURS &amp; TRAVEL</span>
+                  <span class="block font-heading text-2xl font-bold tracking-[0.36em]">ROMARA</span>
+                  <span class="block text-xs font-semibold tracking-[0.22em] text-romara-amber">TOURS &amp; TRAVEL</span>
                 </span>
               </div>
               <p class="mt-6 font-heading text-2xl font-semibold leading-snug text-white text-balance lg:text-[1.75rem]">
@@ -201,10 +201,10 @@ const currentYear = new Date().getFullYear()
       <div class="relative z-10 romara-container py-12 md:hidden">
         <!-- Brand -->
         <div class="flex items-center gap-2.5">
-          <img :src="logoSrc" alt="ROMARA logo" class="h-14 w-auto" />
+          <img :src="logoSrc" alt="ROMARA logo" class="h-20 w-auto" />
           <span class="leading-tight">
-            <span class="block font-heading text-sm font-bold tracking-[0.36em]">ROMARA</span>
-            <span class="block text-[9px] font-semibold tracking-[0.2em] text-romara-amber">TOURS &amp; TRAVEL</span>
+            <span class="block font-heading text-xl font-bold tracking-[0.32em]">ROMARA</span>
+            <span class="block text-[11px] font-semibold tracking-[0.2em] text-romara-amber">TOURS &amp; TRAVEL</span>
           </span>
         </div>
         <p class="mt-3 text-sm leading-relaxed text-white/65">
