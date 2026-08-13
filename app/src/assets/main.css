@@ -66,9 +66,10 @@
     @apply inline-flex items-center gap-2 font-sans text-eyebrow font-bold uppercase text-romara-amber;
   }
 
-  /* The short gold rule used under headings across the site. */
+  /* Removed site-wide by request — the short gold rule under headings is hidden
+     everywhere so no markup churn is needed. */
   .accent-rule {
-    @apply block h-1 w-14 rounded-full bg-romara-amber;
+    display: none;
   }
 
   /* Consistent vertical rhythm for full-width sections. */

@@ -4,7 +4,6 @@ import BaseButton from '@/components/ui/BaseButton.vue'
 import Pill from '@/components/ui/Pill.vue'
 import SectionHeading from '@/components/ui/SectionHeading.vue'
 import IconSearch from '@/components/icons/IconSearch.vue'
-import IconClock from '@/components/icons/IconClock.vue'
 import IconMail from '@/components/icons/IconMail.vue'
 import IconArrowRight from '@/components/icons/IconArrowRight.vue'
 import BlogCard from '@/features/blog/components/BlogCard.vue'
@@ -156,11 +155,6 @@ function formatDate(isoDate: string | number | Date) {
           <p class="mt-3 line-clamp-3 max-w-xl text-base leading-relaxed text-white/70 sm:mt-4">{{ mastheadPost.excerpt }}</p>
           <div class="mt-4 flex flex-wrap items-center gap-4 text-xs font-medium text-white/60 sm:mt-6">
             <span>{{ formatDate(mastheadPost.publishedAt) }}</span>
-            <span class="text-white/25">·</span>
-            <span class="inline-flex items-center gap-1.5">
-              <IconClock class="h-3.5 w-3.5 text-romara-amber-300" />
-              {{ mastheadPost.readTimeMinutes }} min read
-            </span>
           </div>
           <span
             class="mt-5 inline-flex items-center gap-2 text-sm font-bold uppercase sm:mt-7 tracking-[0.14em] text-white"
@@ -225,10 +219,6 @@ function formatDate(isoDate: string | number | Date) {
             <p class="mt-4 text-base leading-relaxed text-romara-ink-soft">{{ mainFeaturedPost.excerpt }}</p>
             <div class="mt-6 flex items-center gap-4 border-t border-romara-green/10 pt-5 text-xs font-medium text-romara-ink-soft">
               <span>{{ formatDate(mainFeaturedPost.publishedAt) }}</span>
-              <span class="inline-flex items-center gap-1.5">
-                <IconClock class="h-3.5 w-3.5 text-romara-amber" />
-                {{ mainFeaturedPost.readTimeMinutes }} min read
-              </span>
               <span class="ml-auto inline-flex items-center gap-1 text-xs font-bold uppercase tracking-[0.14em] text-romara-green">
                 Read
                 <IconArrowRight class="h-3.5 w-3.5 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" />
@@ -262,8 +252,6 @@ function formatDate(isoDate: string | number | Date) {
               </h4>
               <div class="mt-2 flex items-center gap-2 text-xs text-romara-ink-soft">
                 <span>{{ formatDate(post.publishedAt) }}</span>
-                <span class="text-romara-amber">·</span>
-                <span>{{ post.readTimeMinutes }} min read</span>
               </div>
             </div>
           </a>

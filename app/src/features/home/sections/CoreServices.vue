@@ -89,24 +89,6 @@ const active = ref(0)
           />
           <div class="absolute inset-0 bg-gradient-to-t from-romara-green-dark/95 via-romara-green-dark/25 to-romara-green-dark/45" aria-hidden="true" />
 
-          <span
-            class="absolute left-0 top-0 h-full w-1 bg-romara-amber transition-opacity duration-500"
-            :class="active === index ? 'opacity-100' : 'opacity-0'"
-            aria-hidden="true"
-          />
-
-          <div class="absolute left-5 top-5 flex items-center gap-3">
-            <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-romara-amber text-white shadow-glow-amber">
-              <component :is="service.icon" class="h-5 w-5" />
-            </span>
-            <span
-              class="text-[11px] font-bold uppercase tracking-[0.18em] text-white/70 transition-opacity duration-500"
-              :class="active === index ? 'opacity-100' : 'opacity-70'"
-            >
-              {{ service.tag }}
-            </span>
-          </div>
-
           <div class="absolute inset-x-0 bottom-0 p-6">
             <h3 class="font-heading text-2xl font-semibold text-white">{{ service.title }}</h3>
             <div
@@ -150,8 +132,7 @@ const active = ref(0)
               <img :src="service.image" :alt="service.title" loading="lazy" class="h-full w-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-105" />
               <div class="absolute inset-0 bg-gradient-to-t from-romara-green-dark/90 via-romara-green-dark/20 to-transparent" aria-hidden="true" />
               <div class="absolute inset-x-0 bottom-0 p-4">
-                <p class="text-[11px] font-bold uppercase tracking-[0.18em] text-romara-amber-300">{{ service.tag }}</p>
-                <h3 class="mt-0.5 font-heading text-xl font-semibold text-white">{{ service.title }}</h3>
+                <h3 class="font-heading text-xl font-semibold text-white">{{ service.title }}</h3>
               </div>
             </div>
 

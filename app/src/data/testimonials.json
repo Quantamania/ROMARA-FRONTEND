@@ -6,5 +6,37 @@
     "quote": "ROMARA made our safari absolutely amazing! Everything was perfectly organized and the guides were fantastic.",
     "rating": 5,
     "avatar": "/images/gallery/cheetah.webp"
+  },
+  {
+    "id": "2",
+    "name": "David M.",
+    "location": "Germany",
+    "quote": "From the airport pickup to the last game drive, every detail was handled with care. We saw the Big Five and never felt rushed — truly a trip of a lifetime.",
+    "rating": 5,
+    "avatar": "/images/gallery/lion.webp"
+  },
+  {
+    "id": "3",
+    "name": "Aisha K.",
+    "location": "Nairobi, Kenya",
+    "quote": "I hired a 4x4 with a driver for a family trip to the Mara. The vehicle was spotless, the driver knew every corner of the park, and the pricing was completely transparent.",
+    "rating": 5,
+    "avatar": "/images/gallery/elephant1.webp"
+  },
+  {
+    "id": "4",
+    "name": "Marco B.",
+    "location": "Italy",
+    "quote": "Professional, warm and reliable. ROMARA tailored our itinerary exactly to what we wanted and the guides' knowledge of the wildlife was extraordinary.",
+    "rating": 5,
+    "avatar": "/images/gallery/giraffes.webp"
+  },
+  {
+    "id": "5",
+    "name": "Sarah & Tom",
+    "location": "United States",
+    "quote": "Our honeymoon safari was flawless. Sunset game drives, a pop-up roof cruiser and a team that anticipated our every need. We're already planning our return.",
+    "rating": 5,
+    "avatar": "/images/gallery/zebras1.webp"
   }
 ]

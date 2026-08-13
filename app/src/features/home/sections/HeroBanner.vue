@@ -2,7 +2,6 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import IconChevronDown from '@/components/icons/IconChevronDown.vue'
 import IconArrowRight from '@/components/icons/IconArrowRight.vue'
-import IconStar from '@/components/icons/IconStar.vue'
 import IconBinoculars from '@/components/icons/IconBinoculars.vue'
 import IconCar from '@/components/icons/IconCar.vue'
 
@@ -102,39 +101,11 @@ onUnmounted(() => {
             <IconArrowRight class="h-5 w-5 shrink-0 text-white/50 transition-all duration-300 ease-out-expo group-hover:translate-x-1 group-hover:text-romara-amber-300" />
           </a>
         </div>
-
-        <!-- Credibility at a glance -->
-        <div
-          class="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-white/70 animate-fade-up"
-          style="animation-delay: 320ms"
-        >
-          <span class="inline-flex items-center gap-1.5">
-            <span class="flex text-romara-amber">
-              <IconStar v-for="n in 5" :key="n" class="h-4 w-4" />
-            </span>
-            <span class="font-semibold text-white">5.0</span>
-          </span>
-          <span class="hidden h-4 w-px bg-white/25 sm:block" aria-hidden="true" />
-          <span><span class="font-semibold text-white">300+</span> happy travellers</span>
-          <span class="hidden h-4 w-px bg-white/25 sm:block" aria-hidden="true" />
-          <span>Licensed Kenyan operator</span>
-        </div>
       </div>
     </div>
 
-    <!-- Slide controls (kept clear of the overlapping trust bar below) -->
-    <div class="romara-container pointer-events-none absolute inset-x-0 bottom-24 flex items-center justify-between sm:bottom-28">
-      <div class="pointer-events-auto flex gap-2">
-        <button
-          v-for="(src, index) in slides"
-          :key="src"
-          type="button"
-          :aria-label="`Show slide ${index + 1}`"
-          class="h-1.5 rounded-full transition-all duration-500 ease-out-expo"
-          :class="index === active ? 'w-8 bg-romara-amber' : 'w-4 bg-white/40 hover:bg-white/70'"
-          @click="go(index)"
-        />
-      </div>
+    <!-- Scroll hint -->
+    <div class="romara-container pointer-events-none absolute inset-x-0 bottom-24 flex items-center justify-end sm:bottom-28">
       <div class="pointer-events-auto hidden items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/60 sm:flex">
         Scroll
         <IconChevronDown class="h-4 w-4 animate-bounce" />

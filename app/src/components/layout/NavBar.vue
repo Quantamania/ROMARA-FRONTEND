@@ -6,6 +6,12 @@ import IconChevronDown from '@/components/icons/IconChevronDown.vue'
 import IconMenu from '@/components/icons/IconMenu.vue'
 import IconArrowRight from '@/components/icons/IconArrowRight.vue'
 import IconCompass from '@/components/icons/IconCompass.vue'
+import IconHandshake from '@/components/icons/IconHandshake.vue'
+import IconBinoculars from '@/components/icons/IconBinoculars.vue'
+import IconMapPinRoute from '@/components/icons/IconMapPinRoute.vue'
+import IconCamera from '@/components/icons/IconCamera.vue'
+import IconTag from '@/components/icons/IconTag.vue'
+import IconHeadset from '@/components/icons/IconHeadset.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import IconPhone from '@/components/icons/IconPhone.vue'
 import IconMail from '@/components/icons/IconMail.vue'
@@ -17,6 +23,7 @@ import IconWhatsapp from '@/components/icons/IconWhatsapp.vue'
 interface NavLink {
   label: string
   href: string
+  icon: typeof IconCompass
   children?: { label: string; href: string }[]
   image?: string
 }
@@ -32,11 +39,12 @@ const socialLinks = [
 ]
 
 const navLinks: NavLink[] = [
-  { label: 'Home', href: '/' },
-  { label: 'About Romara', href: '/about' },
+  { label: 'Home', href: '/', icon: IconCompass },
+  { label: 'About Romara', href: '/about', icon: IconHandshake },
   {
     label: 'Experiences',
     href: '/safari-packages',
+    icon: IconBinoculars,
     image: '/images/booking/maasai-mara-safari.webp',
     children: [
       { label: 'Safari Packages', href: '/safari-packages' },
@@ -44,10 +52,11 @@ const navLinks: NavLink[] = [
       { label: 'Airport Transfers', href: '/airport-transfers' },
     ]
   },
-  { label: 'Destinations', href: '/destinations' },
+  { label: 'Destinations', href: '/destinations', icon: IconMapPinRoute },
   {
     label: 'Explore',
     href: '/gallery',
+    icon: IconCamera,
     image: '/images/gallery/cheetah.webp',
     children: [
       { label: 'Gallery', href: '/gallery' },
@@ -57,13 +66,14 @@ const navLinks: NavLink[] = [
   {
     label: 'Resources',
     href: '/faq',
+    icon: IconTag,
     image: '/images/blog/hero.webp',
     children: [
       { label: 'FAQs', href: '/faq' },
       { label: 'Travel Blog', href: '/blog' },
     ]
   },
-  { label: 'Contact Us', href: '/contact' },
+  { label: 'Contact Us', href: '/contact', icon: IconHeadset },
 ]
 
 const route = useRoute()
@@ -213,19 +223,29 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
             @mouseenter="openDropdownLabel = link.label"
             @mouseleave="openDropdownLabel = null"
           >
+            <component
+              :is="link.icon"
+              class="h-3.5 w-3.5 shrink-0 text-romara-amber/60 transition-all duration-300 ease-out-expo group-hover:-translate-y-0.5 group-hover:scale-110 group-hover:text-romara-amber"
+              :class="(isActiveLink(link.href) || hasActiveChild(link.children)) ? 'text-romara-amber' : ''"
+            />
             {{ link.label }}
-            <IconChevronDown class="w-3.5 h-3.5" />
-            <span class="bottom-0 left-0 absolute bg-romara-amber rounded w-0 group-hover:w-full h-0.5 transition-all duration-300" :class="(isActiveLink(link.href) || hasActiveChild(link.children)) ? 'w-full' : ''"></span>
+            <IconChevronDown class="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-180" />
+            <span class="absolute bottom-0 left-0 h-0.5 w-full origin-center scale-x-0 rounded bg-romara-amber transition-transform duration-300 ease-out-expo group-hover:scale-x-100" :class="(isActiveLink(link.href) || hasActiveChild(link.children)) ? 'scale-x-100' : ''"></span>
           </button>
 
           <a
             v-else
             :href="link.href"
-            class="group block relative py-2 font-semibold hover:text-romara-green text-xs uppercase tracking-wide"
+            class="group relative flex items-center gap-1 py-2 font-semibold hover:text-romara-green text-xs uppercase tracking-wide"
             :class="isActiveLink(link.href) ? 'text-romara-green' : 'text-romara-ink'"
           >
+            <component
+              :is="link.icon"
+              class="h-3.5 w-3.5 shrink-0 text-romara-amber/60 transition-all duration-300 ease-out-expo group-hover:-translate-y-0.5 group-hover:scale-110 group-hover:text-romara-amber"
+              :class="isActiveLink(link.href) ? 'text-romara-amber' : ''"
+            />
             {{ link.label }}
-            <span class="bottom-0 left-0 absolute bg-romara-amber rounded w-0 group-hover:w-full h-0.5 transition-all duration-300" :class="isActiveLink(link.href) ? 'w-full' : ''"></span>
+            <span class="absolute bottom-0 left-0 h-0.5 w-full origin-center scale-x-0 rounded bg-romara-amber transition-transform duration-300 ease-out-expo group-hover:scale-x-100" :class="isActiveLink(link.href) ? 'scale-x-100' : ''"></span>
           </a>
 
           <div

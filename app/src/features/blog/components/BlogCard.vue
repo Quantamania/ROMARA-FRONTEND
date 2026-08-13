@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import Pill from '@/components/ui/Pill.vue'
-import IconClock from '@/components/icons/IconClock.vue'
 import IconArrowRight from '@/components/icons/IconArrowRight.vue'
 import type { BlogPost } from '@/types/blog.types'
 
@@ -51,11 +50,7 @@ const categoryLabels: Record<string, string> = {
         {{ props.post.excerpt }}
       </p>
 
-      <div class="mt-4 flex items-center justify-between border-t border-white/15 pt-4">
-        <span class="inline-flex items-center gap-1.5 text-xs font-medium text-white/80">
-          <IconClock class="h-3.5 w-3.5 text-romara-amber-300" />
-          {{ props.post.readTimeMinutes }} min read
-        </span>
+      <div class="mt-4 flex items-center justify-end border-t border-white/15 pt-4">
         <span class="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-[0.14em] text-romara-amber-300">
           Read
           <IconArrowRight class="h-3.5 w-3.5 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" />
