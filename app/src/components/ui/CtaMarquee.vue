@@ -30,8 +30,11 @@ withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <section class="content-auto romara-container pb-16 sm:pb-20">
-    <div class="relative isolate overflow-hidden rounded-[1.75rem] bg-romara-green px-6 py-14 shadow-elevated ring-1 ring-white/10 sm:px-10 sm:py-16">
+  <!-- Full-bleed band: no romara-container, no rounded corners and no ring, so
+       the green runs edge to edge. Horizontal padding moves onto the inner
+       content instead, which keeps the text off the screen edges. -->
+  <section class="content-auto pb-16 sm:pb-20">
+    <div class="relative isolate overflow-hidden bg-romara-green px-6 py-14 sm:px-10 sm:py-16">
       <!-- Kinetic marquee backdrop: two rows drifting opposite directions -->
       <div class="pointer-events-none absolute inset-0 -z-10 flex flex-col justify-between py-6 [mask-image:linear-gradient(90deg,transparent,black_12%,black_88%,transparent)]">
         <div class="marquee marquee--l flex whitespace-nowrap">
@@ -50,19 +53,7 @@ withDefaults(defineProps<Props>(), {
         </div>
       </div>
 
-      <!-- Amber ticker ribbon -->
-      <div class="pointer-events-none absolute inset-x-0 top-0 -z-10 overflow-hidden border-b border-white/10 bg-romara-green-dark/40 py-2">
-        <div class="marquee marquee--l flex whitespace-nowrap">
-          <span v-for="n in 2" :key="'t' + n" class="flex shrink-0 items-center">
-            <span v-for="place in places" :key="'t' + n + place" class="mx-4 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-romara-amber-300">
-              {{ place }}
-              <span class="text-white/20">◆</span>
-            </span>
-          </span>
-        </div>
-      </div>
-
-      <div class="relative mx-auto max-w-2xl pt-6 text-center">
+      <div class="relative mx-auto max-w-2xl text-center">
         <h2 class="font-heading text-display font-semibold leading-[1.04] text-white text-balance">
           {{ title }}
         </h2>

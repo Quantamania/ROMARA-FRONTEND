@@ -51,7 +51,6 @@ function openTour(row: any) {
     <div class="flex items-center justify-between mb-6">
       <p class="admin-eyebrow">Website content</p>
     <h1 class="admin-title">Tour Packages</h1>
-    <span class="admin-title-rule" />
       <RouterLink
         to="/admin/tours/new"
         class="admin-btn"

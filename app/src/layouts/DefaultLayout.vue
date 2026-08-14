@@ -14,7 +14,16 @@ import WhatsAppFloatButton from '@/components/layout/WhatsAppFloatButton.vue'
     <main class="flex-1">
       <router-view v-slot="{ Component }">
         <transition name="page" mode="out-in">
-          <component :is="Component" :key="$route.fullPath" />
+          <!-- The wrapper is load-bearing, not cosmetic.
+               Most views have multi-root templates, and <Transition mode="out-in">
+               can only animate a single element root. Given a fragment it warned
+               "renders non-element root node that cannot be animated", the leave
+               callback never fired, and the incoming page was never inserted — so
+               every in-app navigation left <main> empty and the site only worked
+               on a hard refresh. Wrapping gives the transition one real element. -->
+          <div :key="$route.fullPath">
+            <component :is="Component" />
+          </div>
         </transition>
       </router-view>
     </main>

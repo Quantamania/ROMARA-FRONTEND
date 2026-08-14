@@ -82,7 +82,6 @@ function isActive(path: string, exact?: boolean) {
     <!-- Wordmark. The amber hairline is the panel's tell: same brand, admin mode. -->
     <div class="px-5 pt-6 pb-5">
       <p class="font-heading text-2xl leading-none text-romara-cream">ROMARA</p>
-      <span class="block w-8 h-[2px] bg-romara-amber rounded-full mt-2.5" />
       <p class="text-[0.62rem] uppercase tracking-widest2 text-romara-cream/50 mt-2.5">
         Content Manager
       </p>

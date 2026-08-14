@@ -5,9 +5,35 @@ import type { AdditionalInfo, TripDetails, YourDetails } from '@/features/bookin
 
 export const TOTAL_STEPS = 4
 
+/**
+ * What the visitor clicked "Book now" on. Carried into the booking form so the
+ * wizard opens knowing which safari or day trip they picked, instead of asking
+ * them to describe it again from scratch.
+ */
+export interface SelectedPackage {
+  kind: 'safari' | 'day-trip'
+  slug: string
+  name: string
+  image: string
+  location: string
+  priceFromKES: number
+  durationDays: number
+  /** Free-text duration for day trips, e.g. "4-5 Hours". */
+  durationLabel?: string
+}
+
+/** durationDays -> the wizard's length-of-stay option. */
+function lengthOfStayForDays(days: number): TripDetails['lengthOfStay'] {
+  if (days <= 1) return 'day-trip'
+  if (days >= 8) return '7plus'
+  return (['2d1n', '3d2n', '4d3n', '5d4n', '6d5n', '7d6n'][days - 2] ??
+    '3d2n') as TripDetails['lengthOfStay']
+}
+
 export const useBookingStore = defineStore('booking', () => {
   const currentStep = ref(1)
   const furthestStepReached = ref(1)
+  const selectedPackage = ref<SelectedPackage | null>(null)
 
   const tripDetails = reactive<TripDetails>({
     service: '',
@@ -34,6 +60,22 @@ export const useBookingStore = defineStore('booking', () => {
     celebratingOccasion: '',
     accessibilityRequirements: '',
   })
+
+  /**
+   * Fills step 1 from the package the visitor chose. Everything set here stays
+   * editable — it is a head start, not a lock-in.
+   */
+  function prefillFromPackage(pkg: SelectedPackage) {
+    selectedPackage.value = pkg
+    tripDetails.service = pkg.kind === 'day-trip' ? 'day-trip' : 'wildlife-safari'
+    tripDetails.destination = pkg.location
+    tripDetails.lengthOfStay = lengthOfStayForDays(pkg.durationDays)
+    if (!tripDetails.travelType) tripDetails.travelType = 'private'
+  }
+
+  function clearSelectedPackage() {
+    selectedPackage.value = null
+  }
 
   const stepErrors = reactive<Record<string, string>>({})
   const isSubmitting = ref(false)
@@ -138,6 +180,14 @@ export const useBookingStore = defineStore('booking', () => {
       family: 1, group: 0.9, solo: 1.1, corporate: 1.3,
     }
     const { service, travelType, lengthOfStay, adults, children } = tripDetails
+
+    // A chosen package has a real published price — use it rather than the
+    // generic rate table, so the estimate matches what the site advertises.
+    if (selectedPackage.value) {
+      const people = adults + children * 0.6
+      return Math.max(1000, Math.round((selectedPackage.value.priceFromKES * people) / 100) * 100)
+    }
+
     if (!service || !lengthOfStay || !adults) return null
     const unit = rateByService[service] ?? 15000
     const billableUnits = (nightsByStay[lengthOfStay] ?? 1) || 1 // day trips bill 1 unit
@@ -157,6 +207,7 @@ export const useBookingStore = defineStore('booking', () => {
   function resetBooking() {
     currentStep.value = 1
     furthestStepReached.value = 1
+    selectedPackage.value = null
     isSubmitted.value = false
     agreedToTerms.value = false
     clearErrors()
@@ -183,6 +234,9 @@ export const useBookingStore = defineStore('booking', () => {
   return {
     currentStep,
     furthestStepReached,
+    selectedPackage,
+    prefillFromPackage,
+    clearSelectedPackage,
     tripDetails,
     yourDetails,
     additionalInfo,

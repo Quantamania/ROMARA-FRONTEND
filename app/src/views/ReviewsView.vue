@@ -108,7 +108,6 @@ function loadMoreReviews() {
         <div class="flex lg:flex-row flex-col lg:justify-between lg:items-center gap-4 mb-8">
           <div>
             <h2 class="font-bold text-romara-green text-2xl sm:text-3xl">What Our Guests Are Saying</h2>
-            <span class="block bg-romara-amber mt-2 rounded w-14 h-1" />
           </div>
 
           <select

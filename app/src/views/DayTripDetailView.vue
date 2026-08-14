@@ -14,6 +14,9 @@ const route = useRoute()
 const router = useRouter()
 const slug = computed(() => route.params.slug as string)
 
+// Carry the chosen day trip into the wizard so step 1 arrives already filled in.
+const bookingHref = computed(() => `/booking?daytrip=${encodeURIComponent(slug.value)}`)
+
 const trip = ref<DayTrip | null>(null)
 const isLoading = ref(true)
 const notFound = ref(false)
@@ -233,7 +236,7 @@ function goBack() {
           title="Ready to book this trip?"
           subtitle="Secure your spot today and let us craft an unforgettable day trip experience for you."
           primary-label="Start Booking"
-          primary-href="/booking"
+          :primary-href="bookingHref"
           :to="trip.location"
         />
       </div>

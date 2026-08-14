@@ -247,14 +247,11 @@
   }
 
   /* Page title. Fraunces, but tight and small — this is a tool, not a hero. */
+  /* mb-6 carries the spacing the amber rule underneath used to provide. */
   .admin-title {
-    @apply font-heading text-[1.75rem] leading-tight text-romara-ink tracking-[-0.015em];
+    @apply font-heading text-[1.75rem] leading-tight text-romara-ink tracking-[-0.015em] mb-6;
   }
 
-  /* Amber as a rail under the page title rather than a filled band. */
-  .admin-title-rule {
-    @apply block w-10 h-[3px] bg-romara-amber rounded-full mt-2.5 mb-6;
-  }
 
   .admin-btn {
     @apply inline-flex items-center justify-center gap-2 rounded-card bg-romara-amber text-white

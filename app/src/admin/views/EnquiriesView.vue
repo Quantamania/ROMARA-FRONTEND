@@ -90,7 +90,6 @@ function formatDate(value: string) {
   <div>
     <p class="admin-eyebrow">Enquiries & bookings</p>
     <h1 class="admin-title">Enquiries</h1>
-    <span class="admin-title-rule" />
 
     <div class="admin-card overflow-hidden">
       <DataTable :columns="columns" :rows="items" empty-label="No enquiries yet." @row-click="openRow">

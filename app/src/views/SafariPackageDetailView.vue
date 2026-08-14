@@ -20,6 +20,12 @@ onMounted(async () => { packages.value = await getAllPackages() })
 
 const slugParam = computed(() => route.params.slug as string)
 
+// Carry the chosen safari into the wizard so step 1 arrives already filled in.
+const bookingHref = computed(() => `/booking?package=${encodeURIComponent(slugParam.value)}`)
+function goToBooking() {
+  router.push({ path: '/booking', query: { package: slugParam.value } })
+}
+
 const currentPackage = computed(() => {
   return packages.value.find(pkg => pkg.slug === slugParam.value)
 })
@@ -121,7 +127,7 @@ const excluded = [
           </p>
 
           <div class="mt-9 flex flex-wrap gap-3.5">
-            <BaseButton as="a" href="/booking" variant="amber" size="lg">Book a Safari</BaseButton>
+            <BaseButton as="a" :href="bookingHref" variant="amber" size="lg">Book this Safari</BaseButton>
             <BaseButton as="a" href="/contact" variant="ghost" size="lg">Request a Quote</BaseButton>
           </div>
         </div>
@@ -281,7 +287,7 @@ const excluded = [
               </div>
 
               <div class="mt-6 space-y-3">
-                <BaseButton block variant="amber" size="lg" @click="router.push('/booking')">Book Now</BaseButton>
+                <BaseButton block variant="amber" size="lg" @click="goToBooking()">Book Now</BaseButton>
                 <BaseButton block variant="ghost" size="lg" @click="router.push('/contact')">Contact Us</BaseButton>
               </div>
             </div>
@@ -335,7 +341,7 @@ const excluded = [
             KES {{ formatPrice(currentPackage.priceFromKES) }}
           </p>
         </div>
-        <BaseButton variant="amber" size="lg" @click="router.push('/booking')">Book Now</BaseButton>
+        <BaseButton variant="amber" size="lg" @click="goToBooking()">Book Now</BaseButton>
       </div>
     </div>
   </div>

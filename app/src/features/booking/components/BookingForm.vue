@@ -88,11 +88,50 @@ function startNewBooking() {
           <div>
             <h2 class="font-heading text-2xl font-semibold text-romara-green sm:text-display-sm">Let's Plan Your Trip</h2>
             <p class="mt-1.5 text-sm leading-relaxed text-romara-ink-soft">
-              Tell us about your travel plans and we'll create the perfect experience for you.
+              {{
+                bookingStore.selectedPackage
+                  ? "We've filled in what you chose — change anything that isn't right."
+                  : "Tell us about your travel plans and we'll create the perfect experience for you."
+              }}
             </p>
           </div>
         </div>
         <span class="accent-rule mt-6" />
+
+        <!-- What the visitor clicked "Book now" on. Shown so they can see the
+             wizard picked their choice up, rather than wondering if it was lost. -->
+        <div
+          v-if="bookingStore.selectedPackage"
+          class="mt-6 flex items-center gap-4 rounded-card border border-romara-amber/35 bg-romara-amber-100/40 p-3 sm:p-4"
+        >
+          <img
+            :src="bookingStore.selectedPackage.image"
+            :alt="bookingStore.selectedPackage.name"
+            class="h-16 w-20 shrink-0 rounded-card object-cover sm:h-20 sm:w-28"
+            loading="lazy"
+          />
+          <div class="min-w-0 flex-1">
+            <p class="text-eyebrow text-romara-amber-600">You're booking</p>
+            <p class="truncate font-heading text-lg text-romara-green">
+              {{ bookingStore.selectedPackage.name }}
+            </p>
+            <p class="text-sm text-romara-ink-soft">
+              {{ bookingStore.selectedPackage.location }} ·
+              {{
+                bookingStore.selectedPackage.durationLabel ||
+                `${bookingStore.selectedPackage.durationDays} day${bookingStore.selectedPackage.durationDays > 1 ? 's' : ''}`
+              }}
+              · from KES {{ bookingStore.selectedPackage.priceFromKES.toLocaleString() }} pp
+            </p>
+          </div>
+          <button
+            type="button"
+            class="shrink-0 self-start text-xs font-medium text-romara-ink-soft underline underline-offset-2 hover:text-romara-amber"
+            @click="bookingStore.clearSelectedPackage()"
+          >
+            Change
+          </button>
+        </div>
 
         <div class="mt-8 space-y-6">
           <div>

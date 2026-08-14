@@ -230,7 +230,6 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
             />
             {{ link.label }}
             <IconChevronDown class="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-180" />
-            <span class="absolute bottom-0 left-0 h-0.5 w-full origin-center scale-x-0 rounded bg-romara-amber transition-transform duration-300 ease-out-expo group-hover:scale-x-100" :class="(isActiveLink(link.href) || hasActiveChild(link.children)) ? 'scale-x-100' : ''"></span>
           </button>
 
           <a
@@ -245,7 +244,6 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
               :class="isActiveLink(link.href) ? 'text-romara-amber' : ''"
             />
             {{ link.label }}
-            <span class="absolute bottom-0 left-0 h-0.5 w-full origin-center scale-x-0 rounded bg-romara-amber transition-transform duration-300 ease-out-expo group-hover:scale-x-100" :class="isActiveLink(link.href) ? 'scale-x-100' : ''"></span>
           </a>
 
           <div

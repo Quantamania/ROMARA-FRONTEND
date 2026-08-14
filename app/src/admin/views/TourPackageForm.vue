@@ -142,7 +142,6 @@ async function handleDelete() {
     </div>
     <p class="admin-eyebrow">Website content</p>
     <h1 class="admin-title">{{ isEdit ? 'Edit tour package' : 'New tour package' }}</h1>
-    <span class="admin-title-rule" />
 
     <p v-if="error" class="mb-4 admin-notice">
       {{ error }}

@@ -121,7 +121,6 @@ async function cancelInvitation(id: number) {
       <div>
         <p class="admin-eyebrow">Settings</p>
         <h1 class="admin-title">Admin Team</h1>
-        <span class="admin-title-rule" />
       </div>
       <button class="admin-btn shrink-0" @click="inviteOpen = true">+ Add admin</button>
     </div>

@@ -35,7 +35,6 @@ async function setStatus(status: string) {
   <div>
     <p class="admin-eyebrow">Enquiries & bookings</p>
     <h1 class="admin-title">Booking Requests</h1>
-    <span class="admin-title-rule" />
 
     <div class="admin-card overflow-hidden">
       <DataTable :columns="columns" :rows="items" empty-label="No booking requests yet." @row-click="openRow">

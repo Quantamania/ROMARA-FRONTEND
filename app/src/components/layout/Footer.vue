@@ -88,7 +88,6 @@ const currentYear = new Date().getFullYear()
       />
       <div class="absolute inset-0 z-0 bg-romara-green-dark/80" aria-hidden="true" />
       <!-- Colourful accent line along the very top edge -->
-      <div class="absolute inset-x-0 top-0 z-10 h-1 bg-gradient-to-r from-romara-amber via-romara-amber/50 to-transparent" aria-hidden="true" />
 
       <!-- ================= DESKTOP / TABLET (md+) : full footer ================= -->
       <div class="relative z-10 hidden md:block">

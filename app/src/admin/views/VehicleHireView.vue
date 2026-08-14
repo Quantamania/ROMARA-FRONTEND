@@ -91,7 +91,6 @@ function saveDetails() {
   <div>
     <p class="admin-eyebrow">Enquiries & bookings</p>
     <h1 class="admin-title">Vehicle Hire</h1>
-    <span class="admin-title-rule" />
 
     <p v-if="error" class="mb-4 admin-notice">
       {{ error }}

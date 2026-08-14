@@ -160,19 +160,22 @@ function hireAnother() {
             v-for="vehicle in fleet"
             :key="vehicle.key"
             type="button"
-            class="group relative flex flex-col overflow-hidden rounded-2xl border text-left transition-all duration-300 ease-out-expo"
+            class="group relative flex flex-col overflow-hidden rounded-card text-left transition-all duration-300 ease-out-expo"
             :class="formData.vehicle === vehicle.key
-              ? 'border-romara-amber bg-romara-amber/5 ring-1 ring-romara-amber'
-              : 'border-romara-green/12 bg-white hover:border-romara-green/30 hover:bg-romara-bone'"
+              ? 'border-2 border-romara-amber bg-white shadow-glow-amber sm:-translate-y-0.5'
+              : 'border-2 border-romara-green/12 bg-white opacity-[0.72] hover:opacity-100 hover:border-romara-green/30'"
             :aria-pressed="formData.vehicle === vehicle.key"
             @click="formData.vehicle = vehicle.key"
           >
+            <!-- A word beats a tick: at a glance you can see which one is chosen
+                 without having to compare border colours across four cards. -->
             <span
-              class="absolute right-3 top-3 z-10 flex h-5 w-5 items-center justify-center rounded-full border transition-colors"
-              :class="formData.vehicle === vehicle.key ? 'border-romara-amber bg-romara-amber text-white' : 'border-romara-green/25 bg-white'"
+              v-if="formData.vehicle === vehicle.key"
+              class="absolute right-2.5 top-2.5 z-10 inline-flex items-center gap-1 rounded-full bg-romara-amber px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-soft"
             >
-              <IconCheck v-if="formData.vehicle === vehicle.key" class="h-3 w-3" />
+              <IconCheck class="h-3 w-3" />Selected
             </span>
+
             <div class="relative h-44 overflow-hidden bg-romara-bone text-romara-green sm:h-48">
               <img
                 v-if="!failedImages.has(vehicle.key)"
@@ -190,14 +193,45 @@ function hireAnother() {
                 <IconUsers class="h-3 w-3 text-romara-amber-300" />{{ vehicle.capacity }}
               </span>
             </div>
-            <div class="flex flex-1 items-center justify-between gap-2 p-4">
-              <span class="font-heading text-sm font-semibold text-romara-green">{{ vehicle.name }}</span>
-              <span class="shrink-0 text-right leading-none">
-                <span class="block text-[10px] font-medium uppercase tracking-[0.1em] text-romara-ink-soft">From</span>
-                <span class="mt-0.5 block font-heading text-sm font-semibold text-romara-green">KES {{ formatPrice(vehicle.dailyRate) }}</span>
-              </span>
+
+            <div class="flex flex-1 flex-col gap-1 p-4">
+              <div class="flex items-start justify-between gap-2">
+                <span class="font-heading text-base font-semibold text-romara-green">{{ vehicle.name }}</span>
+                <span class="shrink-0 text-right leading-none">
+                  <span class="block text-[10px] font-medium uppercase tracking-[0.1em] text-romara-ink-soft">From</span>
+                  <span class="mt-0.5 block font-heading text-sm font-semibold text-romara-green">KES {{ formatPrice(vehicle.dailyRate) }}</span>
+                  <span class="block text-[10px] text-romara-ink-soft">per day</span>
+                </span>
+              </div>
+              <p class="text-xs leading-relaxed text-romara-ink-soft">{{ vehicle.desc }}</p>
             </div>
           </button>
+        </div>
+
+        <!-- Everything about the vehicle they landed on, in one place, so the
+             choice does not have to be reconstructed from four small cards. -->
+        <div class="mt-4 rounded-card border border-romara-amber/35 bg-romara-amber-100/40 p-4 sm:p-5">
+          <div class="flex flex-wrap items-start justify-between gap-4">
+            <div class="min-w-0">
+              <p class="text-eyebrow text-romara-amber-600">Your vehicle</p>
+              <p class="mt-1 font-heading text-xl text-romara-green">{{ selectedVehicle.name }}</p>
+              <p class="mt-1 text-sm leading-relaxed text-romara-ink-soft">{{ selectedVehicle.desc }}</p>
+            </div>
+            <dl class="grid shrink-0 grid-cols-2 gap-x-6 gap-y-2 text-sm sm:grid-cols-1">
+              <div class="flex items-center justify-between gap-3">
+                <dt class="text-romara-ink-soft">Seats</dt>
+                <dd class="font-medium text-romara-green">{{ selectedVehicle.seats }}</dd>
+              </div>
+              <div class="flex items-center justify-between gap-3">
+                <dt class="text-romara-ink-soft">Per day</dt>
+                <dd class="font-medium text-romara-green">KES {{ formatPrice(selectedVehicle.dailyRate) }}</dd>
+              </div>
+              <div v-if="formData.driverOption === 'chauffeur'" class="flex items-center justify-between gap-3">
+                <dt class="text-romara-ink-soft">Chauffeur</dt>
+                <dd class="font-medium text-romara-green">+ KES {{ formatPrice(CHAUFFEUR_PER_DAY) }}/day</dd>
+              </div>
+            </dl>
+          </div>
         </div>
       </div>
 

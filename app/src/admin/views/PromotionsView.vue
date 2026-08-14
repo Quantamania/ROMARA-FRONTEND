@@ -49,7 +49,6 @@ async function remove() {
     <div class="flex items-center justify-between mb-6">
       <p class="admin-eyebrow">Website content</p>
     <h1 class="admin-title">Promotions</h1>
-    <span class="admin-title-rule" />
       <button class="bg-romara-amber hover:bg-romara-amber text-white text-sm font-medium rounded-card px-4 py-2.5" @click="openNew">
         + Add promotion
       </button>

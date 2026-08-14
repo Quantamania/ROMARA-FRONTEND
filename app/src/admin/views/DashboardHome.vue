@@ -45,7 +45,6 @@ const cards = [
   <div>
     <p class="admin-eyebrow">Overview</p>
     <h1 class="admin-title">Welcome back</h1>
-    <span class="admin-title-rule" />
 
     <div class="flex flex-wrap items-baseline justify-between gap-3 -mt-3 mb-7">
       <p class="text-sm text-romara-ink-soft">Here's what needs your attention today.</p>
@@ -67,7 +66,6 @@ const cards = [
       >
         <p class="font-heading text-[2rem] leading-none text-romara-ink">{{ counts[card.key] }}</p>
         <p class="text-sm text-romara-ink-soft mt-1.5">{{ card.label }}</p>
-        <span class="block w-6 h-[2px] bg-romara-amber/0 group-hover:bg-romara-amber rounded-full mt-3 transition-colors" />
       </RouterLink>
     </div>
     <div class="admin-card p-6">

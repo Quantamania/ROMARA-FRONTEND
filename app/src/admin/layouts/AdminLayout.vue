@@ -22,9 +22,6 @@ async function handleSignOut() {
                border-b border-romara-ink/10 px-4 sm:px-8 py-3
                flex items-center justify-between"
       >
-        <!-- Amber hairline across the top: the one piece of chrome that says
-             "you are in the admin panel, not on the website". -->
-        <span class="absolute inset-x-0 top-0 h-[2px] bg-amber-fade" aria-hidden="true" />
 
         <button
           class="lg:hidden -ml-1 w-10 h-10 flex items-center justify-center rounded-card

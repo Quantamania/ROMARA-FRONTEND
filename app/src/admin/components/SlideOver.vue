@@ -17,7 +17,6 @@ defineEmits<{ close: [] }>()
                border-l border-romara-ink/10"
       >
         <div class="relative flex items-center justify-between px-6 py-4 border-b border-romara-ink/10 sticky top-0 bg-romara-sand z-10">
-          <span class="absolute inset-x-0 top-0 h-[2px] bg-amber-fade" aria-hidden="true" />
           <h2 class="font-heading text-xl text-romara-ink">{{ title }}</h2>
           <button
             aria-label="Close panel"

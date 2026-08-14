@@ -135,7 +135,6 @@ const tabs = [
     <div class="flex flex-wrap items-baseline justify-between gap-3 mb-6">
       <p class="admin-eyebrow">Money</p>
     <h1 class="admin-title">Payments</h1>
-    <span class="admin-title-rule" />
       <div class="text-sm text-romara-ink-soft text-right">
         <p>Confirmed <span class="font-heading text-lg text-romara-ink ml-1">{{ money(collected) }}</span></p>
         <p v-if="awaitingTotal > 0" class="text-romara-amber">

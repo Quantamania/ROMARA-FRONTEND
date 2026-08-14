@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { watch } from 'vue'
+import { useRoute } from 'vue-router'
+import { useBookingStore } from '@/features/booking/store/booking.store'
+import { resolveFromQuery } from '@/features/booking/api/selectedPackage.api'
 import IconShield from '@/components/icons/IconShield.vue'
 import IconHeadset from '@/components/icons/IconHeadset.vue'
 import IconTag from '@/components/icons/IconTag.vue'
@@ -24,6 +28,25 @@ interface HelpOption {
   href: string
   external?: boolean
 }
+
+const route = useRoute()
+const bookingStore = useBookingStore()
+
+// Arriving from a specific safari or day trip (/booking?package=… or ?daytrip=…)
+// fills step 1 in, so the visitor is not asked to re-describe what they just
+// clicked on. Every prefilled field stays editable.
+//
+// Watched rather than run once on mount: /booking?package=a -> /booking?package=b
+// keeps the same route component alive, so onMounted would not fire again and
+// the second choice would be silently ignored.
+watch(
+  () => route.query,
+  async (query) => {
+    const chosen = await resolveFromQuery(query as Record<string, unknown>)
+    if (chosen) bookingStore.prefillFromPackage(chosen)
+  },
+  { immediate: true, deep: true },
+)
 
 const trustIndicators: TrustIndicator[] = [
   { icon: IconShield, title: 'Secure Booking', description: 'Your information is safe with us.' },
