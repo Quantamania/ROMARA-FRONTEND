@@ -218,3 +218,112 @@
 .btn-hover:active {
   transform: translateY(0);
 }
+/* ==========================================================================
+   Admin panel theme
+   --------------------------------------------------------------------------
+   Same brand DNA as the public site — Fraunces headings, the forest/amber
+   palette, and the signature asymmetric card corners — in a different register.
+   The site is editorial and airy; the panel is a working instrument, so it runs
+   denser, on a warmer paper surface, and uses amber as rails and underlines
+   rather than large fills. Anything the panel and the site share (radius, type,
+   colour) is what makes them read as one brand; the density and the chrome are
+   what keep them from looking like the same page.
+   ========================================================================== */
+@layer components {
+  /* Page surface: sand rather than the site's cream, so the panel is
+     recognisably a different room in the same building. */
+  .admin-shell {
+    @apply bg-romara-sand text-romara-ink font-sans;
+  }
+
+  /* Sheet of paper. Signature asymmetric corners tie it to the site's cards. */
+  .admin-card {
+    @apply bg-romara-bone border border-romara-ink/10 rounded-card shadow-soft;
+  }
+
+  /* The site's signature typographic move: wide-tracked uppercase label. */
+  .admin-eyebrow {
+    @apply text-[0.68rem] uppercase tracking-widest2 text-romara-ink-soft font-semibold;
+  }
+
+  /* Page title. Fraunces, but tight and small — this is a tool, not a hero. */
+  .admin-title {
+    @apply font-heading text-[1.75rem] leading-tight text-romara-ink tracking-[-0.015em];
+  }
+
+  /* Amber as a rail under the page title rather than a filled band. */
+  .admin-title-rule {
+    @apply block w-10 h-[3px] bg-romara-amber rounded-full mt-2.5 mb-6;
+  }
+
+  .admin-btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-card bg-romara-amber text-white
+           text-sm font-medium px-4 py-2.5 shadow-glow-amber
+           transition-[opacity,transform] duration-150 ease-out-expo
+           hover:opacity-90 active:translate-y-px
+           focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+           focus-visible:outline-romara-amber
+           disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none;
+  }
+
+  .admin-btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-card bg-romara-bone
+           border border-romara-ink/15 text-romara-ink text-sm font-medium px-4 py-2.5
+           transition-colors duration-150 hover:border-romara-amber hover:text-romara-amber
+           focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+           focus-visible:outline-romara-amber
+           disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .admin-btn-confirm {
+    @apply inline-flex items-center justify-center rounded-card bg-romara-green text-white
+           text-sm font-medium px-4 py-2.5 transition-opacity duration-150 hover:opacity-90
+           focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+           focus-visible:outline-romara-green
+           disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .admin-input {
+    @apply w-full rounded-card border border-romara-ink/15 bg-romara-bone
+           px-3.5 py-2.5 text-sm text-romara-ink placeholder:text-romara-ink-soft/60
+           transition-shadow duration-150
+           focus:outline-none focus:border-romara-amber focus:ring-2 focus:ring-romara-amber/25;
+  }
+
+  .admin-label {
+    @apply block text-xs font-semibold uppercase tracking-wider text-romara-ink-soft mb-1.5;
+  }
+
+  /* Inline error / notice strip. */
+  .admin-notice {
+    @apply rounded-card border border-romara-amber/35 bg-romara-amber-100/60
+           px-4 py-3 text-sm text-romara-ink;
+  }
+
+  /* Sidebar nav item, with the amber rail marking the active section. */
+  .admin-nav-link {
+    @apply relative flex items-center gap-3 pl-4 pr-3 py-2.5 rounded-card text-sm font-medium
+           text-romara-cream/75 transition-colors duration-150
+           hover:bg-white/[0.07] hover:text-white
+           focus-visible:outline focus-visible:outline-2 focus-visible:outline-romara-amber;
+  }
+
+  .admin-nav-link-active {
+    @apply bg-white/[0.09] text-white;
+  }
+
+  /* Table chrome. Sand header, hairline rules, warm hover. */
+  .admin-th {
+    @apply py-3 px-4 text-left text-[0.68rem] font-semibold uppercase tracking-wider
+           text-romara-ink-soft bg-romara-sand/70;
+  }
+
+  .admin-td {
+    @apply py-3.5 px-4 text-sm text-romara-ink;
+  }
+
+  .admin-row {
+    @apply border-b border-romara-ink/[0.07] cursor-pointer
+           transition-colors duration-100 hover:bg-romara-amber-100/35;
+  }
+}

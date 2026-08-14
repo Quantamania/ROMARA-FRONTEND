@@ -10,16 +10,22 @@ import BlogCard from '@/features/blog/components/BlogCard.vue'
 import BlogCategoryFilter from '@/features/blog/components/BlogCategoryFilter.vue'
 import NewsletterForm from '@/features/blog/components/NewsletterForm.vue'
 import blogPostsData from '@/data/blogPosts.json'
+import { onMounted } from 'vue'
+import { getAllBlogPosts } from '@/features/blog/api/blog.api'
 import type { BlogCategory, BlogPost } from '@/features/blog/types/blog.types'
 
-const allPosts = blogPostsData as BlogPost[]
-const featuredPosts = allPosts.filter((post) => post.featured)
-const mainFeaturedPost = featuredPosts[0]
-const sidebarFeaturedPosts = featuredPosts.slice(1)
+// Bundled posts paint first, then whatever is published in the admin panel
+// replaces them. These derivations must be computed, not plain consts, or the
+// page would keep showing the bundled set after the real posts arrive.
+const allPosts = ref<BlogPost[]>(blogPostsData as BlogPost[])
+onMounted(async () => { allPosts.value = await getAllBlogPosts() })
+
+const featuredPosts = computed(() => allPosts.value.filter((post) => post.featured))
+const mainFeaturedPost = computed(() => featuredPosts.value[0])
+const sidebarFeaturedPosts = computed(() => featuredPosts.value.slice(1))
 
 // Masthead lead — reuse the existing featured post, falling back to the latest item.
-// Read-only derivation; no data, sorting or filtering is changed.
-const mastheadPost = mainFeaturedPost ?? allPosts[0]
+const mastheadPost = computed(() => mainFeaturedPost.value ?? allPosts.value[0])
 
 const categoryLabels: Record<BlogCategory, string> = {
   'safari-tips': 'Safari Tips',
@@ -39,7 +45,7 @@ const visibleCount = ref(4)
 
 const filteredPosts = computed(function getFilteredPosts() {
   // "All Blog Posts" excludes the ones already shown above in Featured Stories.
-  let result = allPosts.filter((post) => !post.featured)
+  let result = allPosts.value.filter((post) => !post.featured)
 
   if (selectedCategory.value) {
     result = result.filter((post) => post.category === selectedCategory.value)

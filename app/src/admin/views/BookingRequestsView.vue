@@ -17,7 +17,7 @@ const columns = [
 ]
 
 async function load() {
-  const { data } = await supabase.from('booking_requests').select('*').order('created_at', { ascending: false })
+  const { data } = await supabase.from('booking_requests').select('id, full_name, email, phone, service, travel_type, destination, travel_date, length_of_stay, adults, children, special_requests, status').order('created_at', { ascending: false })
   items.value = data || []
 }
 onMounted(load)
@@ -33,9 +33,11 @@ async function setStatus(status: string) {
 
 <template>
   <div>
-    <h1 class="font-heading text-3xl text-romara-ink mb-6">Booking Requests</h1>
+    <p class="admin-eyebrow">Enquiries & bookings</p>
+    <h1 class="admin-title">Booking Requests</h1>
+    <span class="admin-title-rule" />
 
-    <div class="bg-white border border-romara-ink/10 rounded-xl overflow-hidden">
+    <div class="admin-card overflow-hidden">
       <DataTable :columns="columns" :rows="items" empty-label="No booking requests yet." @row-click="openRow">
         <template #cell-status="{ row }"><StatusStamp :status="row.status" /></template>
       </DataTable>
@@ -44,35 +46,35 @@ async function setStatus(status: string) {
     <SlideOver :open="drawerOpen" title="Booking Request" @close="drawerOpen = false">
       <div v-if="active" class="space-y-4">
         <div>
-          <p class="text-xs text-romara-ink/60 uppercase tracking-wide">From</p>
+          <p class="admin-eyebrow">From</p>
           <p class="text-romara-ink font-medium">{{ active.full_name }}</p>
         </div>
         <div>
-          <p class="text-xs text-romara-ink/60 uppercase tracking-wide">Contact</p>
+          <p class="admin-eyebrow">Contact</p>
           <a :href="`mailto:${active.email}`" class="text-romara-amber hover:underline block">{{ active.email }}</a>
           <a :href="`tel:${active.phone}`" class="text-romara-amber hover:underline">{{ active.phone }}</a>
         </div>
         <div>
-          <p class="text-xs text-romara-ink/60 uppercase tracking-wide">Trip</p>
+          <p class="admin-eyebrow">Trip</p>
           <p class="text-romara-ink">{{ active.service }} — {{ active.travel_type }}</p>
           <p class="text-romara-ink">{{ active.destination }}</p>
           <p class="text-romara-ink">{{ active.travel_date }} · {{ active.length_of_stay }}</p>
           <p class="text-romara-ink">{{ active.adults }} adults, {{ active.children }} children</p>
         </div>
         <div v-if="active.special_requests">
-          <p class="text-xs text-romara-ink/60 uppercase tracking-wide">Special requests</p>
+          <p class="admin-eyebrow">Special requests</p>
           <p class="text-romara-ink whitespace-pre-wrap">{{ active.special_requests }}</p>
         </div>
         <div class="pt-3 border-t border-romara-ink/10 flex gap-2">
           <button
-            class="flex-1 bg-romara-green text-white text-sm font-medium rounded-lg py-2.5 disabled:opacity-50"
+            class="admin-btn-confirm flex-1"
             :disabled="active.status === 'contacted'"
             @click="setStatus('contacted')"
           >
             Mark contacted
           </button>
           <button
-            class="flex-1 bg-romara-cream border border-romara-ink/10 text-romara-ink text-sm font-medium rounded-lg py-2.5 disabled:opacity-50"
+            class="admin-btn-ghost flex-1"
             :disabled="active.status === 'closed'"
             @click="setStatus('closed')"
           >

@@ -2,61 +2,92 @@
 import { ref, onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import { supabase } from '@/shared/api/supabaseClient'
-const counts = ref({ tours: 0, newBookingRequests: 0, newEnquiries: 0, pendingTestimonials: 0 })
-onMounted(async () => {
-  const [tours, bookingRequests, enquiries, testimonials] = await Promise.all([
-    supabase.from('tour_packages').select('id', { count: 'exact', head: true }).eq('published', true),
-    supabase.from('booking_requests').select('id', { count: 'exact', head: true }).eq('status', 'new'),
-    supabase.from('enquiries').select('id', { count: 'exact', head: true }).eq('status', 'new'),
-    supabase.from('testimonials').select('id', { count: 'exact', head: true }).eq('approved', false),
-  ])
-  counts.value = {
-    tours: tours.count || 0,
-    newBookingRequests: bookingRequests.count || 0,
-    newEnquiries: enquiries.count || 0,
-    pendingTestimonials: testimonials.count || 0,
-  }
+const counts = ref({
+  tours: 0,
+  newBookingRequests: 0,
+  newEnquiries: 0,
+  newVehicleHire: 0,
+  newTransfers: 0,
+  pendingTestimonials: 0,
 })
+
+const revenue = ref(0)
+const loading = ref(true)
+
+onMounted(async () => {
+  // One RPC instead of six count queries. Each round trip to the hosted project
+  // costs ~190ms, so six of them made the dashboard the slowest page in the panel.
+  const { data, error } = await supabase.rpc('admin_dashboard_counts')
+  loading.value = false
+  if (error || !data) return
+
+  counts.value = {
+    tours: data.published_tours ?? 0,
+    newBookingRequests: data.new_booking_requests ?? 0,
+    newEnquiries: data.new_enquiries ?? 0,
+    newVehicleHire: data.new_vehicle_hire ?? 0,
+    newTransfers: data.new_transfers ?? 0,
+    pendingTestimonials: data.unfeatured_testimonials ?? 0,
+  }
+  revenue.value = Number(data.revenue_kes) || 0
+})
+
 const cards = [
-  { key: 'newBookingRequests', label: 'New booking requests', to: '/admin/booking-requests' },
   { key: 'newEnquiries', label: 'New enquiries', to: '/admin/enquiries' },
-  { key: 'pendingTestimonials', label: 'Testimonials to review', to: '/admin/testimonials' },
-  { key: 'tours', label: 'Published tours', to: '/admin/tours' },
+  { key: 'newBookingRequests', label: 'New booking requests', to: '/admin/booking-requests' },
+  { key: 'newTransfers', label: 'New airport transfers', to: '/admin/transfers' },
+  { key: 'newVehicleHire', label: 'New vehicle hire requests', to: '/admin/vehicle-hire' },
+  { key: 'pendingTestimonials', label: 'Testimonials to feature', to: '/admin/testimonials' },
+  { key: 'tours', label: 'Tour packages', to: '/admin/tours' },
 ] as const
 </script>
 <template>
   <div>
-    <h1 class="font-heading text-3xl text-romara-ink mb-1">Welcome back</h1>
-    <p class="text-romara-ink/60 mb-8">Here's what needs your attention today.</p>
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+    <p class="admin-eyebrow">Overview</p>
+    <h1 class="admin-title">Welcome back</h1>
+    <span class="admin-title-rule" />
+
+    <div class="flex flex-wrap items-baseline justify-between gap-3 -mt-3 mb-7">
+      <p class="text-sm text-romara-ink-soft">Here's what needs your attention today.</p>
+      <p class="text-sm text-romara-ink-soft">
+        Collected to date
+        <span class="font-heading text-lg text-romara-ink ml-1.5">
+          KES {{ revenue.toLocaleString() }}
+        </span>
+      </p>
+    </div>
+
+    <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
       <RouterLink
         v-for="card in cards"
         :key="card.key"
         :to="card.to"
-        class="bg-white border border-romara-ink/10 rounded-xl p-5 hover:border-romara-amber transition-colors"
+        class="admin-card p-5 group transition-[border-color,box-shadow] duration-150
+               hover:border-romara-amber/60 hover:shadow-card"
       >
-        <p class="text-3xl font-heading text-romara-ink">{{ counts[card.key] }}</p>
-        <p class="text-sm text-romara-ink/60 mt-1">{{ card.label }}</p>
+        <p class="font-heading text-[2rem] leading-none text-romara-ink">{{ counts[card.key] }}</p>
+        <p class="text-sm text-romara-ink-soft mt-1.5">{{ card.label }}</p>
+        <span class="block w-6 h-[2px] bg-romara-amber/0 group-hover:bg-romara-amber rounded-full mt-3 transition-colors" />
       </RouterLink>
     </div>
-    <div class="bg-white border border-romara-ink/10 rounded-xl p-6">
+    <div class="admin-card p-6">
       <h2 class="font-heading text-xl text-romara-ink mb-3">Quick actions</h2>
       <div class="flex flex-wrap gap-3">
         <RouterLink
           to="/admin/tours/new"
-          class="bg-romara-amber hover:opacity-90 text-white text-sm font-medium rounded-lg px-4 py-2.5 transition-opacity"
+          class="admin-btn"
         >
           + Add tour package
         </RouterLink>
         <RouterLink
           to="/admin/blog"
-          class="bg-romara-cream hover:bg-white text-romara-ink text-sm font-medium rounded-lg px-4 py-2.5 transition-colors border border-romara-ink/10"
+          class="bg-romara-cream hover:bg-white text-romara-ink text-sm font-medium rounded-card px-4 py-2.5 transition-colors border border-romara-ink/10"
         >
           + Write blog post
         </RouterLink>
         <RouterLink
           to="/admin/promotions"
-          class="bg-romara-cream hover:bg-white text-romara-ink text-sm font-medium rounded-lg px-4 py-2.5 transition-colors border border-romara-ink/10"
+          class="bg-romara-cream hover:bg-white text-romara-ink text-sm font-medium rounded-card px-4 py-2.5 transition-colors border border-romara-ink/10"
         >
           + Add promotion
         </RouterLink>

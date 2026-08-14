@@ -30,9 +30,11 @@ async function setStatus(id: string, status: string) {
 
 <template>
   <div>
-    <h1 class="font-heading text-3xl text-romara-ink mb-6">Bookings</h1>
+    <p class="admin-eyebrow">Enquiries & bookings</p>
+    <h1 class="admin-title">Bookings</h1>
+    <span class="admin-title-rule" />
 
-    <div class="bg-white border border-romara-ink/10 rounded-xl overflow-hidden">
+    <div class="admin-card overflow-hidden">
       <DataTable :columns="columns" :rows="items" empty-label="No bookings yet.">
         <template #cell-status="{ row }">
           <div class="flex items-center gap-2">

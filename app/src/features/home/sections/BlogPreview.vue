@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import SectionHeading from '@/components/ui/SectionHeading.vue'
 import BlogCard from '@/features/blog/components/BlogCard.vue'
 import blogPostsData from '@/data/blogPosts.json'
+import { getAllBlogPosts } from '@/features/blog/api/blog.api'
 import type { BlogPost } from '@/features/blog/types/blog.types'
 
-const latestPosts = (blogPostsData as BlogPost[]).slice(0, 3)
+const latestPosts = ref<BlogPost[]>((blogPostsData as BlogPost[]).slice(0, 3))
+onMounted(async () => { latestPosts.value = (await getAllBlogPosts()).slice(0, 3) })
 </script>
 
 <template>

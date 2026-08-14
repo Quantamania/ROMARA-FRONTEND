@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import SectionHeading from '@/components/ui/SectionHeading.vue'
@@ -9,23 +9,25 @@ import IconX from '@/components/icons/IconX.vue'
 import IconArrowLeft from '@/components/icons/IconArrowLeft.vue'
 const logoSrc = '/images/logos/logo-transparent.webp'
 import packagesData from '@/data/packages.json'
+import { getAllPackages } from '@/features/safari-packages/api/packages.api'
 import type { SafariPackage } from '@/types/package.types'
 
 const route = useRoute()
 const router = useRouter()
 
-const packages = packagesData as SafariPackage[]
+const packages = ref<SafariPackage[]>(packagesData as SafariPackage[])
+onMounted(async () => { packages.value = await getAllPackages() })
 
 const slugParam = computed(() => route.params.slug as string)
 
 const currentPackage = computed(() => {
-  return packages.find(pkg => pkg.slug === slugParam.value)
+  return packages.value.find(pkg => pkg.slug === slugParam.value)
 })
 
 const relatedPackages = computed(() => {
   const current = currentPackage.value
   if (!current) return []
-  const others = packages.filter(pkg => pkg.slug !== current.slug)
+  const others = packages.value.filter(pkg => pkg.slug !== current.slug)
   const sameLocation = others.filter(pkg => pkg.location === current.location)
   const rest = others.filter(pkg => pkg.location !== current.location)
   return [...sameLocation, ...rest].slice(0, 3)

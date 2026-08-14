@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import type { BlogPost } from '@/features/blog/types/blog.types'
 import blogPostsData from '@/data/blogPosts.json'
+import { getAllBlogPosts } from '@/features/blog/api/blog.api'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import Pill from '@/components/ui/Pill.vue'
 import IconArrowLeft from '@/components/icons/IconArrowLeft.vue'
@@ -26,33 +27,34 @@ const categoryLabels: Record<string, string> = {
 
 const route = useRoute()
 const router = useRouter()
-const allPosts = blogPostsData as BlogPost[]
+const allPosts = ref<BlogPost[]>(blogPostsData as BlogPost[])
+onMounted(async () => { allPosts.value = await getAllBlogPosts() })
 
 const slugParam = computed(() => route.params.slug as string)
 
 const currentPost = computed(() => {
-  return allPosts.find((post) => post.slug === slugParam.value)
+  return allPosts.value.find((post) => post.slug === slugParam.value)
 })
 
 const relatedPosts = computed(() => {
   if (!currentPost.value) return []
-  return allPosts
+  return allPosts.value
     .filter((post) => post.category === currentPost.value!.category && post.slug !== slugParam.value)
     .slice(0, 3)
 })
 
 const currentPostIndex = computed(() => {
-  return allPosts.findIndex((post) => post.slug === slugParam.value)
+  return allPosts.value.findIndex((post) => post.slug === slugParam.value)
 })
 
 const previousPost = computed(() => {
   if (currentPostIndex.value <= 0) return null
-  return allPosts[currentPostIndex.value - 1]
+  return allPosts.value[currentPostIndex.value - 1]
 })
 
 const nextPost = computed(() => {
-  if (currentPostIndex.value >= allPosts.length - 1) return null
-  return allPosts[currentPostIndex.value + 1]
+  if (currentPostIndex.value >= allPosts.value.length - 1) return null
+  return allPosts.value[currentPostIndex.value + 1]
 })
 
 function formatDate(isoDate: string | number | Date) {

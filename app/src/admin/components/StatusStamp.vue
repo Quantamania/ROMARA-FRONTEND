@@ -5,7 +5,7 @@
  * chrome back to the travel/tourism subject without being literal.
  */
 const props = defineProps<{
-  status: string // 'published' | 'draft' | 'pending' | 'approved' | 'confirmed' | 'cancelled' | 'new' | 'responded' | 'closed'
+  status: string // 'published' | 'draft' | 'pending' | 'approved' | 'confirmed' | 'cancelled' | 'new' | 'responded' | 'closed' | 'quoted' | 'completed'
 }>()
 
 const styles: Record<string, string> = {
@@ -13,18 +13,20 @@ const styles: Record<string, string> = {
   confirmed: 'border-romara-green text-romara-green',
   approved: 'border-romara-green text-romara-green',
   responded: 'border-romara-green text-romara-green',
-  draft: 'border-ink-light text-romara-ink/60',
+  completed: 'border-romara-green text-romara-green',
+  draft: 'border-romara-ink/25 text-romara-ink-soft',
   pending: 'border-romara-amber text-romara-amber',
   new: 'border-romara-amber text-romara-amber',
-  cancelled: 'border-romara-amber-dark text-romara-amber',
-  closed: 'border-ink-light text-romara-ink/60',
+  quoted: 'border-romara-amber text-romara-amber',
+  cancelled: 'border-romara-amber-600 text-romara-amber-600',
+  closed: 'border-romara-ink/25 text-romara-ink-soft',
 }
 </script>
 
 <template>
   <span
     class="inline-flex items-center justify-center rounded-full border-2 border-dotted px-3 py-1 text-[11px] font-sans font-bold uppercase tracking-wider -rotate-3 select-none"
-    :class="styles[status] || 'border-ink-light text-romara-ink/60'"
+    :class="styles[status] || 'border-romara-ink/25 text-romara-ink-soft'"
   >
     {{ status }}
   </span>

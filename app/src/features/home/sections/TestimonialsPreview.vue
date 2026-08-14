@@ -1,23 +1,28 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import IconStar from '@/components/icons/IconStar.vue'
 import IconArrowLeft from '@/components/icons/IconArrowLeft.vue'
 import IconArrowRight from '@/components/icons/IconArrowRight.vue'
 import testimonialsData from '@/data/testimonials.json'
+import { getAllTestimonials } from '@/features/testimonials/testimonials.api'
 import type { Testimonial } from '@/types/testimonial.types'
 
-const testimonials = testimonialsData as Testimonial[]
+const testimonials = ref<Testimonial[]>(testimonialsData as Testimonial[])
+onMounted(async () => {
+  const fromDb = await getAllTestimonials()
+  if (fromDb.length) { testimonials.value = fromDb; activeIndex.value = 0 }
+})
 const activeIndex = ref(0)
 
-const active = computed(() => testimonials[activeIndex.value])
+const active = computed(() => testimonials.value[activeIndex.value])
 const counter = computed(() => String(activeIndex.value + 1).padStart(2, '0'))
-const total = computed(() => String(testimonials.length).padStart(2, '0'))
+const total = computed(() => String(testimonials.value.length).padStart(2, '0'))
 
 function next() {
-  activeIndex.value = (activeIndex.value + 1) % testimonials.length
+  activeIndex.value = (activeIndex.value + 1) % testimonials.value.length
 }
 function prev() {
-  activeIndex.value = (activeIndex.value - 1 + testimonials.length) % testimonials.length
+  activeIndex.value = (activeIndex.value - 1 + testimonials.value.length) % testimonials.value.length
 }
 </script>
 

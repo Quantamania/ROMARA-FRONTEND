@@ -1,12 +1,16 @@
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import SectionHeading from '@/components/ui/SectionHeading.vue'
 import IconClock from '@/components/icons/IconClock.vue'
 import IconMapPin from '@/components/icons/IconMapPin.vue'
 import IconArrowRight from '@/components/icons/IconArrowRight.vue'
 import packagesData from '@/data/packages.json'
+import { getAllPackages } from '@/features/safari-packages/api/packages.api'
 import type { SafariPackage } from '@/types/package.types'
 
-const featuredPackages = packagesData as SafariPackage[]
+// Bundled content paints first, then the published tours replace it.
+const featuredPackages = ref<SafariPackage[]>(packagesData as SafariPackage[])
+onMounted(async () => { featuredPackages.value = await getAllPackages() })
 
 // Mirrored asymmetric spans on desktop — wide/narrow, then narrow/wide — so the
 // grid reads editorial rather than four equal boxes.
