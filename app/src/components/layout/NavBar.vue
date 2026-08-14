@@ -78,8 +78,25 @@ const navLinks: NavLink[] = [
 
 const route = useRoute()
 const isMobileMenuOpen = ref(false)
-const openDropdownLabel = ref<string | null>(null)
+
+/**
+ * The bottom tab bar already owns Home, Safaris, Book, Vehicles and Contact.
+ * Repeating them here would make the menu a worse copy of a control the thumb
+ * can already reach, so this sheet carries only what the tab bar cannot.
+ */
+const secondaryLinks = [
+  { label: 'Day Trips', href: '/day-trips' },
+  { label: 'Airport Transfers', href: '/airport-transfers' },
+  { label: 'Destinations', href: '/destinations' },
+  { label: 'Gallery', href: '/gallery' },
+  { label: 'About ROMARA', href: '/about' },
+  { label: 'Guest Reviews', href: '/reviews' },
+  { label: 'Travel Blog', href: '/blog' },
+  { label: 'FAQs', href: '/faq' },
+]
+
 const isNavHidden = ref(false)
+const openDropdownLabel = ref<string | null>(null)
 const isScrolled = ref(false)
 let lastScrollY = 0
 
@@ -140,10 +157,6 @@ onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
   window.removeEventListener('touchstart', handleTouchStart)
 })
-
-function toggleDropdown(label: string) {
-  openDropdownLabel.value = openDropdownLabel.value === label ? null : label
-}
 
 function isActiveLink(href: string) {
   if (href === '/') return route.path === '/'
@@ -331,9 +344,7 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
           <!-- Full-screen sheet rather than a side drawer: on a phone a panel
                that leaves a sliver of page behind it reads as a website overlay,
                a full sheet reads as an app screen. -->
-          <div class="mm-panel absolute inset-0 flex h-full w-full flex-col overflow-hidden bg-green-fade text-white">
-            <div class="pointer-events-none absolute -bottom-16 -left-16 h-56 w-56 rounded-full bg-romara-green-500/40 blur-3xl"></div>
-            <IconCompass class="pointer-events-none absolute -bottom-8 -right-6 h-64 w-64 text-white/[0.04]" />
+          <div class="mm-panel absolute inset-0 flex h-full w-full flex-col overflow-hidden bg-romara-green text-white">
 
             <!-- Header -->
             <div class="relative flex items-center justify-between border-b border-white/10 px-6 py-5">
@@ -356,42 +367,17 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
               </button>
             </div>
 
-            <!-- Links -->
-            <nav class="relative flex-1 overflow-y-auto px-4 py-5">
-              <ul class="flex flex-col gap-1">
-                <li v-for="link in navLinks" :key="link.label">
-                  <div v-if="link.children">
-                    <button
-                      type="button"
-                      class="flex w-full items-center justify-between rounded-xl px-4 py-3.5 text-left font-heading text-base font-semibold transition-colors hover:bg-white/10"
-                      :class="hasActiveChild(link.children) ? 'bg-white/10 text-romara-amber' : 'text-white'"
-                      @click="toggleDropdown(link.label)"
-                    >
-                      {{ link.label }}
-                      <svg class="h-4 w-4 shrink-0 transition-transform duration-300" :class="openDropdownLabel === link.label ? 'rotate-180 text-romara-amber' : 'text-white/60'" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </button>
-                    <transition name="mm-sub">
-                      <ul v-if="openDropdownLabel === link.label" class="ml-4 mt-1 space-y-0.5 border-l border-white/10 pl-4">
-                        <li v-for="child in link.children" :key="child.label">
-                          <a
-                            :href="child.href"
-                            class="flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors"
-                            :class="isActiveLink(child.href) ? 'text-romara-amber' : 'text-white/80 hover:text-white'"
-                            @click="toggleMobileMenu"
-                          >
-                            {{ child.label }}
-                          </a>
-                        </li>
-                      </ul>
-                    </transition>
-                  </div>
+            <!-- Secondary destinations only — Home / Safaris / Book / Vehicles /
+                 Contact live in the bottom tab bar. Plain type, no icons, no
+                 cards, no chevrons: eight links do not need decoration to be
+                 understood, and the decoration was the noise. -->
+            <nav class="relative flex-1 overflow-y-auto px-6 py-4">
+              <ul>
+                <li v-for="link in secondaryLinks" :key="link.href">
                   <a
-                    v-else
                     :href="link.href"
-                    class="block rounded-xl px-4 py-3.5 font-heading text-base font-semibold transition-colors hover:bg-white/10"
-                    :class="isActiveLink(link.href) ? 'bg-white/10 text-romara-amber' : 'text-white'"
+                    class="block border-b border-white/[0.07] py-4 font-heading text-lg transition-colors active:text-romara-amber"
+                    :class="isActiveLink(link.href) ? 'text-romara-amber' : 'text-white'"
                     @click="toggleMobileMenu"
                   >
                     {{ link.label }}
@@ -400,30 +386,16 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
               </ul>
             </nav>
 
-            <!-- Footer: CTA + contact + socials -->
-            <div class="relative space-y-4 border-t border-white/10 px-6 py-5">
-              <BaseButton as="a" href="/book-now" variant="amber" block>Book Now</BaseButton>
-              <div class="flex flex-col gap-2 text-sm text-white/75">
-                <a :href="`tel:${phone.replace(/\s/g, '')}`" class="inline-flex items-center gap-2 hover:text-romara-amber">
-                  <IconPhone class="h-4 w-4 text-romara-amber" />{{ phone }}
-                </a>
-                <a :href="`mailto:${email}`" class="inline-flex items-center gap-2 hover:text-romara-amber">
-                  <IconMail class="h-4 w-4 text-romara-amber" />{{ email }}
-                </a>
-              </div>
-              <div class="flex items-center gap-3 pt-1">
-                <a
-                  v-for="social in socialLinks"
-                  :key="social.name"
-                  :href="social.href"
-                  target="_blank"
-                  rel="noopener"
-                  :aria-label="social.name"
-                  class="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/80 transition-colors hover:border-romara-amber hover:text-romara-amber"
-                >
-                  <component :is="social.icon" class="h-4 w-4" />
-                </a>
-              </div>
+            <div
+              class="relative px-6 pt-4"
+              style="padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px))"
+            >
+              <a
+                :href="`tel:${phone.replace(/\s/g, '')}`"
+                class="inline-flex items-center gap-2.5 text-sm text-white/60 active:text-romara-amber"
+              >
+                <IconPhone class="h-4 w-4 text-romara-amber" />{{ phone }}
+              </a>
             </div>
           </div>
         </div>

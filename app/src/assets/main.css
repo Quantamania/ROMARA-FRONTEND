@@ -72,9 +72,45 @@
     display: none;
   }
 
-  /* Consistent vertical rhythm for full-width sections. */
+  /* Card rows become horizontal swipe shelves on phones — the pattern Airbnb
+     and Booking use. Stacking 4 cards vertically turns a browse into a scroll
+     marathon; a shelf keeps the section one screen tall and makes it obvious
+     there is more sideways.
+
+     The negative margin plus matching padding lets cards bleed to the screen
+     edge as they scroll while the first one still lines up with the page
+     gutter. 82% width leaves the next card peeking, which is what tells a
+     thumb it can swipe. Above `sm` this does nothing and the original grid
+     takes over untouched. */
+  @media (max-width: 639px) {
+    .mobile-shelf {
+      display: flex;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+      scroll-padding-left: 1.25rem;
+      margin-inline: -1.25rem;
+      padding-inline: 1.25rem;
+      padding-bottom: 0.25rem;
+      scrollbar-width: none;
+    }
+    .mobile-shelf::-webkit-scrollbar {
+      display: none;
+    }
+    .mobile-shelf > * {
+      flex: 0 0 82%;
+      scroll-snap-align: start;
+    }
+  }
+
+  /* Consistent vertical rhythm for full-width sections.
+     Mobile gets a tighter rhythm than the web layout: 64px of padding top and
+     bottom is comfortable on a wide screen but on a 375px phone it pushed the
+     landing page to ~8 screens and made every section feel like a separate web
+     page. py-10 keeps the sections distinct while reading as one scrolling app
+     surface. Tablet and desktop are unchanged. */
   .section-y {
-    @apply py-16 sm:py-20 lg:py-24;
+    @apply py-10 sm:py-20 lg:py-24;
   }
 
   /* Frosted-glass surface for chips/controls sitting over imagery. */

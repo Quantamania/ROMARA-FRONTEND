@@ -13,3 +13,8 @@ app.directive('scroll-reveal', vScrollReveal)
 // re-scanned the whole DOM on every class mutation (major scroll/hover jank in
 // production). The v-scroll-reveal directive already handles each element on mount.
 app.mount('#app')
+// Service worker: registered after the app mounts so it never delays first
+// paint. autoUpdate means a new deploy is picked up on the next visit without
+// the user having to hard-refresh.
+import { registerSW } from 'virtual:pwa-register'
+registerSW({ immediate: true })

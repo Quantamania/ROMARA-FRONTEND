@@ -26,7 +26,7 @@ function onImgLoad(event: Event, key: string) {
     <div class="romara-container">
       <SectionHeading eyebrow="Our Fleet" title="ROMARA Vehicle Fleet" />
 
-      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="mobile-shelf gap-6 sm:grid sm:grid-cols-2 lg:grid-cols-4">
         <article
           v-for="(vehicle, index) in fleet"
           :key="vehicle.name"

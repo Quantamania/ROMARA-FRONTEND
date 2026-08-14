@@ -24,7 +24,7 @@ onMounted(async () => { latestPosts.value = (await getAllBlogPosts()).slice(0, 3
         Blog articles are coming soon.
       </p>
 
-      <div v-else class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div v-else class="mobile-shelf gap-6 sm:grid sm:grid-cols-2 lg:grid-cols-3">
         <BlogCard
           v-for="(post, index) in latestPosts"
           :key="post.id"

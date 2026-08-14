@@ -10,7 +10,7 @@ import MobileTabBar from '@/components/layout/MobileTabBar.vue'
     <NavBar />
     <!-- Spacer matches the fixed header height at each breakpoint so content
          starts right below the navbar with no white gap. -->
-    <div class="h-[57px] sm:h-[97px] xl:h-[121px]" />
+    <div class="h-[93px] sm:h-[97px] xl:h-[121px]" />
 
     <main class="flex-1">
       <router-view v-slot="{ Component }">

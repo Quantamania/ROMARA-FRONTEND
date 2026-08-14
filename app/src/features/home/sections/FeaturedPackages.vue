@@ -31,7 +31,7 @@ function formatPrice(amount: number) {
         link-href="/safari-packages"
       />
 
-      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-12">
+      <div class="mobile-shelf gap-5 sm:grid sm:grid-cols-2 lg:grid-cols-12">
         <a
           v-for="(pkg, index) in featuredPackages"
           :key="pkg.id"
