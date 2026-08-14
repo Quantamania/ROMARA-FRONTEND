@@ -45,7 +45,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <section class="relative isolate min-h-[540px] overflow-hidden bg-romara-green text-white sm:min-h-[88vh]">
+  <section class="relative isolate min-h-[calc(100svh-57px)] overflow-hidden bg-romara-green text-white sm:min-h-[88vh]">
     <!-- Slideshow layers -->
     <div class="absolute inset-0">
       <transition-group name="hero-fade">
@@ -67,7 +67,7 @@ onUnmounted(() => {
     <div class="absolute inset-0 bg-scrim-r" />
     <div class="absolute inset-0 bg-gradient-to-t from-romara-green-dark/80 via-transparent to-romara-green-dark/20" />
 
-    <div class="romara-container relative flex min-h-[540px] flex-col justify-center py-16 sm:min-h-[88vh] sm:py-28">
+    <div class="romara-container relative flex min-h-[calc(100svh-57px)] flex-col justify-center py-12 sm:min-h-[88vh] sm:py-28">
       <div class="max-w-3xl">
         <h1
           class="font-heading text-[clamp(2.75rem,8vw,5.5rem)] font-semibold leading-[1.02] tracking-tight text-balance animate-fade-up"

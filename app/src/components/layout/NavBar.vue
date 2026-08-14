@@ -327,13 +327,11 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
     <Teleport to="body">
       <transition name="mm">
         <div v-if="isMobileMenuOpen" class="xl:hidden fixed inset-0 z-[60]">
-          <!-- Backdrop -->
-          <div class="absolute inset-0 bg-romara-green-dark/70 backdrop-blur-sm" @click="toggleMobileMenu"></div>
-
           <!-- Drawer panel -->
-          <div class="mm-panel absolute right-0 top-0 flex h-full w-[88%] max-w-sm flex-col overflow-hidden bg-green-fade text-white shadow-2xl">
-            <!-- Creative background: amber glow, green glow, faint compass watermark -->
-            <div class="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-romara-amber/25 blur-3xl"></div>
+          <!-- Full-screen sheet rather than a side drawer: on a phone a panel
+               that leaves a sliver of page behind it reads as a website overlay,
+               a full sheet reads as an app screen. -->
+          <div class="mm-panel absolute inset-0 flex h-full w-full flex-col overflow-hidden bg-green-fade text-white">
             <div class="pointer-events-none absolute -bottom-16 -left-16 h-56 w-56 rounded-full bg-romara-green-500/40 blur-3xl"></div>
             <IconCompass class="pointer-events-none absolute -bottom-8 -right-6 h-64 w-64 text-white/[0.04]" />
 

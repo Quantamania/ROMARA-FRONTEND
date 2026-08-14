@@ -2,6 +2,7 @@
 import NavBar from '@/components/layout/NavBar.vue'
 import Footer from '@/components/layout/Footer.vue'
 import WhatsAppFloatButton from '@/components/layout/WhatsAppFloatButton.vue'
+import MobileTabBar from '@/components/layout/MobileTabBar.vue'
 </script>
 
 <template>
@@ -9,7 +10,7 @@ import WhatsAppFloatButton from '@/components/layout/WhatsAppFloatButton.vue'
     <NavBar />
     <!-- Spacer matches the fixed header height at each breakpoint so content
          starts right below the navbar with no white gap. -->
-    <div class="h-[93px] sm:h-[97px] xl:h-[121px]" />
+    <div class="h-[57px] sm:h-[97px] xl:h-[121px]" />
 
     <main class="flex-1">
       <router-view v-slot="{ Component }">
@@ -29,7 +30,14 @@ import WhatsAppFloatButton from '@/components/layout/WhatsAppFloatButton.vue'
     </main>
 
     <Footer />
+
+    <!-- Clears the fixed tab bar so the footer is never trapped underneath it.
+         4.5rem, not 3.75rem: the bar measures ~68px once the raised Book button
+         and the top border are counted, so a 60px spacer left 8px covered. -->
+    <div class="h-[4.5rem] lg:hidden" style="padding-bottom: env(safe-area-inset-bottom, 0px)" />
+
     <WhatsAppFloatButton />
+    <MobileTabBar />
   </div>
 </template>
 
