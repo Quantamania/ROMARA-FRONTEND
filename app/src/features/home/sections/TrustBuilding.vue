@@ -12,7 +12,7 @@ interface Feature {
 }
 
 interface Props {
-  /** true (default) = pulled up to overlap the hero's bottom edge (Home, Safari Packages).
+  /** true (default) = pulled up to straddle the hero's bottom edge (Home, Safari Packages).
    *  false = sits below the hero with normal spacing, no overlap (Day Trips). */
   overlap?: boolean
 }
@@ -31,11 +31,21 @@ const features: Feature[] = [
 </script>
 
 <template>
-  <section
-    class="romara-container relative z-10"
-    :class="overlap ? '-mt-14 sm:-mt-16' : 'mt-10 sm:mt-12'"
-  >
-    <div class="grid grid-cols-1 gap-px overflow-hidden rounded-card bg-romara-green/10 shadow-overlap sm:grid-cols-2 lg:grid-cols-5">
+  <section class="romara-container relative z-10" :class="overlap ? '-mt-7 sm:-mt-9 lg:-mt-16' : 'mt-10 sm:mt-12'">
+    <!-- MOBILE / TABLET: static cluster of sharp trust chips -->
+    <div class="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 lg:hidden">
+      <div
+        v-for="feature in features"
+        :key="feature.title"
+        class="flex items-center gap-2 bg-white px-4 py-2.5 shadow-card"
+      >
+        <component :is="feature.icon" class="h-5 w-5 shrink-0 text-romara-amber" />
+        <span class="whitespace-nowrap text-[13px] font-bold text-romara-green sm:text-sm">{{ feature.title }}</span>
+      </div>
+    </div>
+
+    <!-- WEB: original 5-across grid card -->
+    <div class="hidden overflow-hidden rounded-card bg-romara-green/10 shadow-overlap lg:grid lg:grid-cols-5 lg:gap-px">
       <div
         v-for="feature in features"
         :key="feature.title"

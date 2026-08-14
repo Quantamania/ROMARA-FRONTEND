@@ -24,11 +24,7 @@ function onImgLoad(event: Event, key: string) {
 <template>
   <section id="fleet" class="section-y scroll-mt-24 bg-white">
     <div class="romara-container">
-      <SectionHeading
-        eyebrow="Our Fleet"
-        title="ROMARA Vehicle Fleet"
-        description="A reliable, well-maintained fleet for every journey — from game drives to executive transfers. Hire with or without a driver."
-      />
+      <SectionHeading eyebrow="Our Fleet" title="ROMARA Vehicle Fleet" />
 
       <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <article

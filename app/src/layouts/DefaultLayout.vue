@@ -7,7 +7,9 @@ import WhatsAppFloatButton from '@/components/layout/WhatsAppFloatButton.vue'
 <template>
   <div class="flex min-h-screen flex-col">
     <NavBar />
-    <div class="h-[120px]" />
+    <!-- Spacer matches the fixed header height at each breakpoint so content
+         starts right below the navbar with no white gap. -->
+    <div class="h-[93px] sm:h-[97px] xl:h-[121px]" />
 
     <main class="flex-1">
       <router-view v-slot="{ Component }">

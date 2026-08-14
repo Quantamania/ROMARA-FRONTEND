@@ -23,7 +23,6 @@ function formatPrice(amount: number) {
       <SectionHeading
         eyebrow="Curated Journeys"
         title="Popular Safari Packages"
-        description="Hand-crafted itineraries that balance iconic wildlife, comfort and value — ready to book or tailor to you."
         link-text="View All Packages"
         link-href="/safari-packages"
       />

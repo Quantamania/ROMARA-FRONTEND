@@ -157,10 +157,10 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
 </script>
 
 <template>
-  <header class="left-0 right-0 z-40 fixed bg-white border-b transition-[top,opacity,box-shadow] duration-500 ease-in-out will-change-transform" :class="isScrolled ? 'border-transparent shadow-soft' : 'border-black/5'" :style="{ top: isNavHidden ? '-160px' : '0px', opacity: isNavHidden ? 0 : 1, pointerEvents: isNavHidden ? 'none' : 'auto' }">
+  <header class="left-0 right-0 z-40 fixed bg-white border-b transition-[top,opacity,box-shadow] duration-300 ease-out" :class="isScrolled ? 'border-transparent shadow-soft' : 'border-black/5'" :style="{ top: isNavHidden ? '-160px' : '0px', opacity: isNavHidden ? 0 : 1, pointerEvents: isNavHidden ? 'none' : 'auto' }">
     <!-- Contact Bar -->
     <div class="bg-romara-green text-white">
-      <div class="romara-container flex h-10 items-center justify-between text-xs">
+      <div class="romara-container flex h-9 items-center justify-between text-xs sm:h-10">
         <div class="flex items-center gap-3.5 sm:gap-5">
           <a
             :href="`tel:${phone.replace(/\s/g, '')}`"
@@ -203,15 +203,15 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
     </div>
 
     <!-- Navigation Bar -->
-    <nav class="flex justify-between items-center gap-6 h-20 romara-container">
+    <nav class="flex justify-between items-center gap-6 h-14 xl:h-20 romara-container">
       <a href="/" class="flex items-center gap-2.5 shrink-0">
-  <img :src="logoSrc" alt="ROMARA logo" class="w-auto h-16" />
-  <span class="leading-tight">
- <span class="block font-heading font-bold text-romara-green text-lg romara-stretch" style="transform: scaleX(1.25)">ROMARA</span>
- <span class="block font-semibold text-[10px] text-romara-ink/70 romara-stretch" style="transform: scaleX(1.25)">TOURS &amp; TRAVEL</span> 
-  <span class="block font-semibold text-[9px] text-romara-ink/60">Creating Memorable African Journeys</span>
-</span>
-</a>
+        <img :src="logoSrc" alt="ROMARA logo" class="h-10 w-auto sm:h-16" />
+        <span class="leading-tight">
+          <span class="block font-heading text-base font-bold tracking-[0.16em] text-romara-green sm:text-lg">ROMARA</span>
+          <span class="block text-[9px] font-semibold tracking-[0.14em] text-romara-ink/70 sm:text-[10px]">TOURS &amp; TRAVEL</span>
+          <span class="hidden text-[9px] font-semibold text-romara-ink/60 sm:block">Creating Memorable African Journeys</span>
+        </span>
+      </a>
 
       <ul class="hidden xl:flex items-center gap-x-5">
         <li v-for="link in navLinks" :key="link.label" class="group relative whitespace-nowrap">
@@ -314,8 +314,13 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
         <BaseButton as="a" href="/book-now" variant="primary">Book Now</BaseButton>
       </div>
 
-      <button type="button" class="xl:hidden text-romara-green shrink-0" aria-label="Open menu" @click="toggleMobileMenu">
-        <IconMenu class="w-7 h-7" />
+      <button
+        type="button"
+        class="flex shrink-0 items-center justify-center p-1 text-romara-green transition-colors duration-300 hover:text-romara-amber xl:hidden"
+        aria-label="Open menu"
+        @click="toggleMobileMenu"
+      >
+        <IconMenu class="h-7 w-7" />
       </button>
     </nav>
 

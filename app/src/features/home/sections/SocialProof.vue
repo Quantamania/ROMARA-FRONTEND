@@ -89,10 +89,6 @@ onMounted(() => {
       <div class="mx-auto max-w-2xl text-center">
         <p class="eyebrow justify-center text-romara-amber-300">Trusted &amp; Accredited</p>
         <h2 class="mt-3 font-heading text-display-sm font-semibold text-white">Travellers love ROMARA</h2>
-        <p class="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-white/75">
-          A track record built on safe journeys, expert guiding and happy guests — recognised by Kenya's
-          leading tourism bodies.
-        </p>
       </div>
 
       <!-- Social proof stats -->

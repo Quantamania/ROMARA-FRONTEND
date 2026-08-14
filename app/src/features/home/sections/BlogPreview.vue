@@ -13,7 +13,6 @@ const latestPosts = (blogPostsData as BlogPost[]).slice(0, 3)
       <SectionHeading
         eyebrow="Field Notes"
         title="Latest from our travel blog"
-        description="Tips, guides and inspiration to help you plan the perfect Kenyan adventure."
         link-text="View All Articles"
         link-href="/blog"
       />

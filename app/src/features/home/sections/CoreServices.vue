@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import IconArrowRight from '@/components/icons/IconArrowRight.vue'
 import IconBinoculars from '@/components/icons/IconBinoculars.vue'
 import IconCar from '@/components/icons/IconCar.vue'
@@ -9,7 +9,6 @@ const services = [
   {
     icon: IconBinoculars,
     title: 'Safari Tours',
-    tag: 'The adventure',
     desc: 'Expertly guided game drives across the Mara, Amboseli, Tsavo and beyond.',
     image: '/images/home/mara.webp',
     href: '/safari-packages',
@@ -18,7 +17,6 @@ const services = [
   {
     icon: IconCar,
     title: 'Vehicle Hire',
-    tag: 'The freedom',
     desc: 'A premium 4×4 fleet — Land Cruisers, safari vans and more, with or without a driver.',
     image: '/images/fleet/cruiser.webp',
     href: '/vehicle-hire',
@@ -27,7 +25,6 @@ const services = [
   {
     icon: IconPlaneLanding,
     title: 'Airport Transfers',
-    tag: 'The arrival',
     desc: 'Reliable, flight-monitored pick-ups and drop-offs anywhere across Kenya.',
     image: '/images/airport-transfers/airport-van.webp',
     href: '/airport-transfers',
@@ -35,9 +32,37 @@ const services = [
   },
 ]
 
-// Which panel is expanded on desktop. Hover/focus updates it. (Mobile uses the
-// journey layout, where every stage is shown in full.)
+// DESKTOP: which panel is expanded (hover/focus).
 const active = ref(0)
+
+// MOBILE: each rectangle card starts "closed" and opens as it scrolls into view.
+const mobileList = ref<HTMLElement | null>(null)
+const openCards = ref<boolean[]>(services.map(() => false))
+
+onMounted(() => {
+  const el = mobileList.value
+  if (!el) return
+
+  if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    openCards.value = services.map(() => true)
+    return
+  }
+
+  const cards = Array.from(el.querySelectorAll<HTMLElement>('[data-card]'))
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const i = Number((entry.target as HTMLElement).dataset.card)
+          openCards.value[i] = true
+          observer.unobserve(entry.target)
+        }
+      })
+    },
+    { threshold: 0.45, rootMargin: '0px 0px -8% 0px' },
+  )
+  cards.forEach((card) => observer.observe(card))
+})
 </script>
 
 <template>
@@ -56,26 +81,20 @@ const active = ref(0)
     <div class="pointer-events-none absolute -left-24 top-1/3 h-72 w-72 rounded-full bg-romara-amber/15 blur-3xl" aria-hidden="true" />
 
     <div class="romara-container relative">
-      <!-- Header: title left, supporting line right -->
-      <div v-scroll-reveal class="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-        <div class="max-w-xl">
-          <p class="eyebrow text-romara-amber-300">What We Do</p>
-          <h2 class="mt-3 font-heading text-display-sm font-semibold text-white">One Operator for the Whole Journey</h2>
-          <span class="accent-rule mt-4" />
-        </div>
-        <p class="max-w-sm text-sm leading-relaxed text-white/70 sm:pb-1">
-          From the first game drive to the airport run home — ROMARA handles every mile of your Kenyan adventure.
-        </p>
+      <!-- Header -->
+      <div v-scroll-reveal class="max-w-xl">
+        <p class="eyebrow text-romara-amber-300">What We Do</p>
+        <h2 class="mt-3 font-heading text-display-sm font-semibold text-white">One Operator for the Whole Journey</h2>
       </div>
 
-      <!-- DESKTOP: expanding panel gallery -->
+      <!-- DESKTOP: expanding panel gallery (unchanged) -->
       <div v-scroll-reveal="{ delay: 100 }" class="panels mt-10 hidden md:flex md:h-[30rem] md:gap-4">
         <a
           v-for="(service, index) in services"
           :key="service.title"
           :href="service.href"
           :aria-label="`${service.title} — ${service.cta}`"
-          class="panel group relative block h-full overflow-hidden ring-1 ring-white/10"
+          class="panel group relative block h-full overflow-hidden"
           :class="[active === index ? 'panel--active shadow-elevated' : '', index % 2 === 1 ? 'rounded-card-alt' : 'rounded-card']"
           @mouseenter="active = index"
           @focus="active = index"
@@ -105,55 +124,44 @@ const active = ref(0)
         </a>
       </div>
 
-      <!-- MOBILE: vertical journey -->
-      <ol class="relative mt-10 space-y-6 md:hidden">
-        <span
-          class="pointer-events-none absolute bottom-6 left-[21px] top-4 w-px bg-gradient-to-b from-romara-amber/70 via-white/25 to-romara-amber/70"
-          aria-hidden="true"
-        />
-        <li
+      <!-- MOBILE: rectangle cards that open as they scroll into view -->
+      <div ref="mobileList" class="mt-10 space-y-5 md:hidden">
+        <a
           v-for="(service, index) in services"
           :key="service.title"
-          v-scroll-reveal="{ delay: index * 90 }"
-          class="relative pl-14"
+          :data-card="index"
+          :href="service.href"
+          class="group block overflow-hidden rounded-card bg-romara-green-dark/45 shadow-card"
         >
-          <!-- Journey node -->
-          <span class="absolute left-0 top-1 z-10 flex h-[42px] w-[42px] items-center justify-center rounded-full bg-romara-amber text-white shadow-glow-amber ring-4 ring-romara-green-dark">
-            <component :is="service.icon" class="h-5 w-5" />
-          </span>
-
-          <a
-            :href="service.href"
-            class="group block overflow-hidden shadow-card ring-1 ring-white/12"
-            :class="index % 2 === 1 ? 'rounded-card-alt' : 'rounded-card'"
-          >
-            <!-- Image with tag + title -->
-            <div class="relative h-40">
-              <img :src="service.image" :alt="service.title" loading="lazy" class="h-full w-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-105" />
-              <div class="absolute inset-0 bg-gradient-to-t from-romara-green-dark/90 via-romara-green-dark/20 to-transparent" aria-hidden="true" />
-              <div class="absolute inset-x-0 bottom-0 p-4">
-                <h3 class="font-heading text-xl font-semibold text-white">{{ service.title }}</h3>
-              </div>
+          <div class="relative h-44">
+            <img :src="service.image" :alt="service.title" loading="lazy" class="h-full w-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-romara-green-dark/90 via-romara-green-dark/20 to-transparent" aria-hidden="true" />
+            <div class="absolute inset-x-0 bottom-0 p-4">
+              <h3 class="font-heading text-xl font-semibold text-white">{{ service.title }}</h3>
             </div>
+          </div>
 
-            <!-- Detail -->
-            <div class="bg-romara-green-dark/70 p-4">
+          <!-- Detail: collapsed until the card scrolls into view -->
+          <div
+            class="overflow-hidden transition-all duration-500 ease-out-expo"
+            :class="openCards[index] ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'"
+          >
+            <div class="p-4">
               <p class="text-sm leading-relaxed text-white/75">{{ service.desc }}</p>
               <span class="mt-3 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.14em] text-romara-amber-300">
                 {{ service.cta }}
-                <IconArrowRight class="h-4 w-4 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" />
+                <IconArrowRight class="h-4 w-4" />
               </span>
             </div>
-          </a>
-        </li>
-      </ol>
+          </div>
+        </a>
+      </div>
     </div>
   </section>
 </template>
 
 <style scoped>
-/* Desktop: panels share the row and the active one expands. The mobile journey
-   is a separate layout, so no flex sizing is needed below md. */
+/* Desktop: panels share the row and the active one expands. */
 @media (min-width: 768px) {
   .panel {
     flex: 1 1 0%;
