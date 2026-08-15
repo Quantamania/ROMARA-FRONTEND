@@ -221,8 +221,8 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
         <img :src="logoSrc" alt="ROMARA logo" class="h-10 w-auto sm:h-16" />
         <span class="leading-tight">
           <span class="block font-logo text-xl font-bold tracking-[0.12em] text-romara-green sm:text-2xl">ROMARA</span>
-          <span class="block text-[9px] font-semibold tracking-[0.14em] text-romara-ink/70 sm:text-[10px]">TOURS &amp; TRAVEL</span>
-          <span class="hidden text-[9px] font-semibold text-romara-ink/60 sm:block">Creating Memorable African Journeys</span>
+          <span class="block text-[10px] font-bold tracking-[0.14em] text-romara-ink sm:text-xs">TOURS &amp; TRAVEL</span>
+          <span class="block max-w-[13rem] text-[10px] font-semibold leading-tight text-romara-amber">Creating memorable African journeys across Kenya and beyond.</span>
         </span>
       </a>
 
@@ -344,21 +344,21 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
           <!-- Full-screen sheet rather than a side drawer: on a phone a panel
                that leaves a sliver of page behind it reads as a website overlay,
                a full sheet reads as an app screen. -->
-          <div class="mm-panel absolute inset-0 flex h-full w-full flex-col overflow-hidden bg-romara-green text-white">
+          <div class="mm-panel absolute inset-0 flex h-full w-full flex-col overflow-hidden bg-romara-cream text-romara-green">
 
             <!-- Header -->
-            <div class="relative flex items-center justify-between border-b border-white/10 px-6 py-5">
+            <div class="relative flex items-center justify-between border-b border-romara-green/10 px-6 py-5">
               <span class="flex items-center gap-2.5">
                 <img :src="logoSrc" alt="ROMARA logo" class="h-11 w-auto" />
                 <span class="leading-tight">
-                  <span class="block font-logo text-xl font-bold tracking-[0.18em] text-white">ROMARA</span>
+                  <span class="block font-logo text-xl font-bold tracking-[0.18em] text-romara-green">ROMARA</span>
                   <span class="block text-[9px] font-semibold tracking-[0.2em] text-romara-amber">TOURS &amp; TRAVEL</span>
                 </span>
               </span>
               <button
                 type="button"
                 aria-label="Close menu"
-                class="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white transition-colors hover:border-romara-amber hover:text-romara-amber"
+                class="flex h-10 w-10 items-center justify-center rounded-full border border-romara-green/15 text-romara-green transition-colors hover:border-romara-amber hover:text-romara-amber"
                 @click="toggleMobileMenu"
               >
                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -376,8 +376,8 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
                 <li v-for="link in secondaryLinks" :key="link.href">
                   <a
                     :href="link.href"
-                    class="block border-b border-white/[0.07] py-4 font-heading text-lg transition-colors active:text-romara-amber"
-                    :class="isActiveLink(link.href) ? 'text-romara-amber' : 'text-white'"
+                    class="block border-b border-romara-green/10 py-4 font-heading text-lg transition-colors active:text-romara-amber"
+                    :class="isActiveLink(link.href) ? 'text-romara-amber' : 'text-romara-green'"
                     @click="toggleMobileMenu"
                   >
                     {{ link.label }}
@@ -392,7 +392,7 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
             >
               <a
                 :href="`tel:${phone.replace(/\s/g, '')}`"
-                class="inline-flex items-center gap-2.5 text-sm text-white/60 active:text-romara-amber"
+                class="inline-flex items-center gap-2.5 text-sm text-romara-ink/70 active:text-romara-amber"
               >
                 <IconPhone class="h-4 w-4 text-romara-amber" />{{ phone }}
               </a>

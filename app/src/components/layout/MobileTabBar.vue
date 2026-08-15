@@ -1,12 +1,6 @@
 <script setup lang="ts">
 /**
- * App-style bottom tab bar. Mobile and tablet only — hidden from `lg` up, so
- * the desktop header navigation is untouched.
- *
- * Bottom placement is the point: on a phone the top of the screen is the
- * hardest place to reach and the bottom is the easiest, so the five things
- * people actually come here for live under the thumb instead of behind a
- * hamburger menu.
+ * App-style bottom tab bar. Mobile and tablet only — hidden from `lg` up.
  */
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
@@ -22,9 +16,7 @@ interface Tab {
   label: string
   href: string
   icon: typeof IconCompass
-  /** Routes that should also light this tab up. */
   matches?: string[]
-  /** The money action, given the accent treatment. */
   primary?: boolean
 }
 
@@ -48,7 +40,6 @@ const tabs: Tab[] = [
 
 const activeHref = computed(() => {
   const path = route.path
-  // Longest prefix wins, so /safari-packages/:slug lights Safaris rather than Home.
   let best: Tab | null = null
   for (const tab of tabs) {
     const candidates = tab.matches ?? [tab.href]
@@ -62,10 +53,7 @@ const activeHref = computed(() => {
 </script>
 
 <template>
-  <nav
-    class="mobile-tab-bar lg:hidden"
-    aria-label="Primary"
-  >
+  <nav class="mobile-tab-bar lg:hidden" aria-label="Primary">
     <ul class="flex items-stretch justify-around">
       <li v-for="tab in tabs" :key="tab.href" class="flex-1">
         <a
@@ -106,7 +94,6 @@ const activeHref = computed(() => {
   z-index: 45;
   background: theme('colors.romara.green');
   border-top: 1px solid rgb(255 255 255 / 0.08);
-  /* Sits above the iPhone home indicator instead of under it. */
   padding-bottom: env(safe-area-inset-bottom, 0px);
   box-shadow: 0 -8px 24px -12px rgb(0 0 0 / 0.45);
 }

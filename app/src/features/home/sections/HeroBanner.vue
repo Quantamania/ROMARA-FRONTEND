@@ -1,153 +1,62 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
-import IconChevronDown from '@/components/icons/IconChevronDown.vue'
-import IconArrowRight from '@/components/icons/IconArrowRight.vue'
-import IconBinoculars from '@/components/icons/IconBinoculars.vue'
+import IconCalendarCheck from '@/components/icons/IconCalendarCheck.vue'
 import IconCar from '@/components/icons/IconCar.vue'
-
-const slides = [
-  '/images/home/hero-elephants.webp',
-  '/images/home/cruiser.webp',
-  '/images/home/mara.webp',
-  '/images/home/nairobi.webp',
-]
-
-const subheading = 'Two ways to explore Kenya — expertly guided, or behind your own wheel.'
-
-const services = [
-  {
-    icon: IconBinoculars,
-    title: 'Safari Tours',
-    desc: "Guided game drives across Kenya's iconic parks.",
-    href: '/book-now',
-  },
-  {
-    icon: IconCar,
-    title: 'Vehicle Hire',
-    desc: 'Premium 4×4 fleet — with or without a driver.',
-    href: '/vehicle-hire',
-  },
-]
-
-const active = ref(0)
-let timer: number | undefined
-
-function go(index: number) {
-  active.value = (index + slides.length) % slides.length
-}
-
-onMounted(() => {
-  timer = window.setInterval(() => go(active.value + 1), 6500)
-})
-onUnmounted(() => {
-  if (timer) window.clearInterval(timer)
-})
+import IconStar from '@/components/icons/IconStar.vue'
+import IconUsers from '@/components/icons/IconUsers.vue'
+import IconShield from '@/components/icons/IconShield.vue'
 </script>
 
 <template>
-  <section class="relative isolate min-h-[calc(100svh-93px)] overflow-hidden bg-romara-green text-white sm:min-h-[88vh]">
-    <!-- Slideshow layers -->
-    <div class="absolute inset-0">
-      <transition-group name="hero-fade">
-        <img
-          v-for="(src, index) in slides"
-          v-show="index === active"
-          :key="src"
-          :src="src"
-          alt="Safari Tours & Premium Vehicle Hire"
-          decoding="async"
-          :fetchpriority="index === 0 ? 'high' : 'low'"
-          :loading="index === 0 ? 'eager' : 'lazy'"
-          class="ken-burns absolute inset-0 h-full w-full object-cover"
-        />
-      </transition-group>
-    </div>
+  <section class="relative isolate min-h-[400px] overflow-hidden bg-romara-green text-white sm:min-h-[68vh]">
+    <img
+      src="/images/about/hero-safari-vehicle.webp"
+      alt="Safari vehicle crossing the Kenyan savanna"
+      fetchpriority="high"
+      class="ken-burns absolute inset-0 h-full w-full object-cover object-right"
+    />
+    <div class="absolute inset-0 bg-gradient-to-r from-romara-green-dark/95 via-romara-green-dark/60 to-romara-green-dark/15" />
+    <div class="absolute inset-0 bg-scrim-b" />
 
-    <!-- Scrims for legibility + brand tint -->
-    <!-- On phones the copy runs nearly the full width, so a left-to-right fade
-         leaves the end of every line sitting on bare photo (measured 1.65:1
-         contrast). Mobile gets a flat green wash like the About hero; the
-         directional fade returns from `sm` up, where the copy is in a left
-         column and the photo should show through on the right. -->
-    <div class="absolute inset-0 bg-romara-green/80 sm:hidden" />
-    <div class="absolute inset-0 hidden bg-scrim-green-r sm:block" />
-    <div class="absolute inset-0 bg-gradient-to-t from-romara-green-dark/80 via-transparent to-romara-green-dark/20" />
-
-    <div class="romara-container relative flex min-h-[calc(100svh-93px)] flex-col justify-center py-12 sm:min-h-[88vh] sm:py-28">
-      <div class="max-w-3xl">
-        <h1
-          class="font-heading text-[clamp(2.75rem,8vw,5.5rem)] font-semibold leading-[1.02] tracking-tight text-balance animate-fade-up"
-        >
-          Safari Tours <span class="text-romara-amber-400">&amp;</span> Premium Vehicle Hire
+    <div class="romara-container relative flex min-h-[400px] flex-col justify-center py-8 sm:min-h-[68vh] sm:py-16">
+      <div class="max-w-xl">
+        <h1 class="font-heading text-[1.9rem] font-bold leading-[1.08] text-balance sm:text-5xl lg:text-6xl">
+          Safari Tours <span class="text-romara-amber">&amp;</span> Premium Vehicle Hire
         </h1>
 
-        <p
-          class="mt-6 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg animate-fade-up"
-          style="animation-delay: 120ms"
-        >
-          {{ subheading }}
+        <p class="mt-3.5 max-w-md text-sm font-medium leading-snug text-white/85 sm:text-lg">
+          Two ways to explore Kenya — expertly guided, or behind your own wheel.
         </p>
 
-        <!-- Two service pillars  the core business, unmistakable at a glance -->
-        <div class="mt-9 flex flex-wrap gap-3">
+        <div class="mt-5 flex flex-wrap gap-2.5">
           <a
-            v-for="(service, index) in services"
-            :key="service.title"
-            :href="service.href"
-            class="group inline-flex items-center gap-2.5 rounded-md px-5 py-3.5 shadow-card transition-all duration-300 ease-out-expo animate-fade-up hover:-translate-y-0.5 hover:shadow-elevated active:scale-[0.98]"
-            :class="index === 0 ? 'bg-romara-amber text-romara-green' : 'bg-romara-green text-white'"
-            :style="{ animationDelay: `${240 + index * 110}ms` }"
+            href="/book-now"
+            class="flex items-center justify-center gap-2.5 rounded-md bg-romara-amber px-6 py-3 text-sm font-bold uppercase tracking-[0.1em] text-white shadow-card transition-all duration-300 ease-out-expo hover:bg-romara-amber/90 active:scale-[0.98]"
           >
-            <component
-              :is="service.icon"
-              class="h-5 w-5 shrink-0"
-              :class="index === 0 ? 'text-romara-green' : 'text-romara-amber-300'"
-            />
-            <span class="font-heading text-sm font-semibold sm:text-base">{{ service.title }}</span>
-            <IconArrowRight
-              class="h-4 w-4 shrink-0 transition-all duration-300 ease-out-expo group-hover:translate-x-0.5"
-              :class="index === 0 ? 'text-romara-green/70' : 'text-white/70'"
-            />
+            <IconCalendarCheck class="h-5 w-5" />
+            Book Your Safari
+          </a>
+          <a
+            href="/vehicle-hire"
+            class="flex items-center justify-center gap-2.5 rounded-md border-2 border-white/70 px-6 py-3 text-sm font-bold uppercase tracking-[0.1em] text-white transition-all duration-300 ease-out-expo hover:border-romara-amber hover:text-romara-amber active:scale-[0.98]"
+          >
+            <IconCar class="h-5 w-5" />
+            Hire a Vehicle
           </a>
         </div>
-      </div>
-    </div>
 
-    <!-- Scroll hint -->
-    <div class="romara-container pointer-events-none absolute inset-x-0 bottom-24 flex items-center justify-end sm:bottom-28">
-      <div class="pointer-events-auto hidden items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/60 sm:flex">
-        Scroll
-        <IconChevronDown class="scroll-cue h-4 w-4" />
+        <div class="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-[11px] font-semibold sm:text-sm">
+          <span class="flex items-center gap-1.5">
+            <span class="flex text-romara-amber">
+              <IconStar v-for="n in 5" :key="n" class="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+            </span>
+            <span>4.9/5 Rating</span>
+          </span>
+          <span class="h-4 w-px bg-white/30" aria-hidden="true" />
+          <span class="flex items-center gap-1.5"><IconUsers class="h-4 w-4 text-romara-amber" />300+ Happy Clients</span>
+          <span class="h-4 w-px bg-white/30" aria-hidden="true" />
+          <span class="flex items-center gap-1.5"><IconShield class="h-4 w-4 text-romara-amber" />5+ Years Experience</span>
+        </div>
       </div>
     </div>
   </section>
 </template>
-
-<style scoped>
-.hero-fade-enter-active,
-.hero-fade-leave-active {
-  transition: opacity 1.2s ease;
-}
-.hero-fade-enter-from,
-.hero-fade-leave-to {
-  opacity: 0;
-}
-
-/* Gentle, smooth scroll cue — an ease-in-out bob, not a dated bounce. */
-@media (prefers-reduced-motion: no-preference) {
-  .scroll-cue {
-    animation: scroll-cue 1.8s ease-in-out infinite;
-  }
-}
-@keyframes scroll-cue {
-  0%,
-  100% {
-    transform: translateY(0);
-    opacity: 0.65;
-  }
-  50% {
-    transform: translateY(4px);
-    opacity: 1;
-  }
-}
-</style>

@@ -26,7 +26,7 @@ function formatPrice(amount: number) {
       loading="lazy"
       class="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] ease-out-expo group-hover:scale-105"
     />
-    <div class="absolute inset-0 bg-gradient-to-t from-romara-green-dark/92 via-romara-green-dark/25 to-transparent" aria-hidden="true" />
+    <div class="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/30 to-transparent" aria-hidden="true" />
 
     <span
       v-if="props.package.badge"
@@ -35,22 +35,22 @@ function formatPrice(amount: number) {
       {{ props.package.badge }}
     </span>
 
-    <div class="relative p-5 text-white">
-      <div class="flex flex-wrap items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.1em] text-white/85">
-        <span class="inline-flex items-center gap-1.5"><IconClock class="h-3.5 w-3.5 text-romara-amber-300" />{{ props.package.durationDays }} Days</span>
-        <span class="h-3 w-px bg-white/30" aria-hidden="true" />
-        <span class="inline-flex items-center gap-1.5"><IconMapPin class="h-3.5 w-3.5 text-romara-amber-300" />{{ props.package.location }}</span>
+    <div class="relative m-3 rounded-lg bg-white/90 p-4 shadow-sm backdrop-blur-md">
+      <div class="flex flex-wrap items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.1em] text-romara-ink/70">
+        <span class="inline-flex items-center gap-1.5"><IconClock class="h-3.5 w-3.5 text-romara-amber" />{{ props.package.durationDays }} Days</span>
+        <span class="h-3 w-px bg-romara-green/20" aria-hidden="true" />
+        <span class="inline-flex items-center gap-1.5"><IconMapPin class="h-3.5 w-3.5 text-romara-amber" />{{ props.package.location }}</span>
       </div>
 
-      <h3 class="mt-2 font-heading text-xl font-semibold leading-tight text-white">{{ props.package.name }}</h3>
-      <p class="mt-2 line-clamp-2 text-sm leading-relaxed text-white/75">{{ props.package.description }}</p>
+      <h3 class="mt-2 font-heading text-xl font-semibold leading-tight text-romara-green">{{ props.package.name }}</h3>
+      <p class="mt-2 line-clamp-2 text-sm leading-relaxed text-romara-ink/65">{{ props.package.description }}</p>
 
-      <div class="mt-4 flex items-center justify-between gap-3 border-t border-white/15 pt-4">
+      <div class="mt-3 flex items-center justify-between gap-3 border-t border-romara-green/10 pt-3">
         <p class="leading-none">
-          <span class="text-[11px] font-medium uppercase tracking-[0.12em] text-white/60">From</span>
-          <span class="mt-1 block font-heading text-xl font-semibold text-romara-amber-300">KES {{ formatPrice(props.package.priceFromKES) }}</span>
+          <span class="text-[11px] font-medium uppercase tracking-[0.12em] text-romara-ink/55">From</span>
+          <span class="mt-1 block font-heading text-xl font-semibold text-romara-amber">KES {{ formatPrice(props.package.priceFromKES) }}</span>
         </p>
-        <span class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/20 text-white ring-1 ring-white/25 transition-all duration-300 ease-out-expo group-hover:bg-romara-amber group-hover:ring-romara-amber">
+        <span class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-romara-green text-white transition-all duration-300 ease-out-expo group-hover:bg-romara-amber">
           <IconArrowRight class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
         </span>
       </div>

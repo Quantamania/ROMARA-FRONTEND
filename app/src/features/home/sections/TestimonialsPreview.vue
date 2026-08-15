@@ -15,8 +15,6 @@ onMounted(async () => {
 const activeIndex = ref(0)
 
 const active = computed(() => testimonials.value[activeIndex.value])
-const counter = computed(() => String(activeIndex.value + 1).padStart(2, '0'))
-const total = computed(() => String(testimonials.value.length).padStart(2, '0'))
 
 function next() {
   activeIndex.value = (activeIndex.value + 1) % testimonials.value.length
@@ -24,72 +22,64 @@ function next() {
 function prev() {
   activeIndex.value = (activeIndex.value - 1 + testimonials.value.length) % testimonials.value.length
 }
+function goTo(i: number) {
+  activeIndex.value = i
+}
 </script>
 
 <template>
-  <div class="relative flex h-full flex-col overflow-hidden rounded-card bg-green-fade p-8 text-white shadow-elevated sm:p-10">
-    <!-- Oversized decorative quote mark -->
-    <span
-      class="pointer-events-none absolute -right-2 -top-6 select-none font-heading text-[10rem] leading-none text-white/5"
-      aria-hidden="true"
-    >&rdquo;</span>
+  <div class="rounded-card bg-white p-4 shadow-card sm:p-6">
+    <h2 class="text-center font-heading text-xl font-bold text-romara-green sm:text-2xl">What Our Guests Say</h2>
 
-    <!-- Header + arrow controls -->
-    <div class="relative flex items-start justify-between gap-4">
-      <div>
-        <p class="eyebrow text-romara-amber-300">Traveller Stories</p>
-        <h2 class="mt-3 font-heading text-2xl font-semibold text-white">What our clients say</h2>
-      </div>
+    <p v-if="!active" class="mt-6 text-center text-sm text-romara-ink/50">Client reviews are coming soon.</p>
 
-      <div v-if="testimonials.length > 1" class="flex shrink-0 items-center gap-2">
-        <button
-          type="button"
-          aria-label="Previous story"
-          class="flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-white transition-colors duration-300 hover:border-romara-amber hover:bg-romara-amber hover:text-white"
-          @click="prev"
-        >
-          <IconArrowLeft class="h-4 w-4" />
-        </button>
-        <button
-          type="button"
-          aria-label="Next story"
-          class="flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-white transition-colors duration-300 hover:border-romara-amber hover:bg-romara-amber hover:text-white"
-          @click="next"
-        >
-          <IconArrowRight class="h-4 w-4" />
-        </button>
-      </div>
-    </div>
+    <div v-else class="mt-5 flex items-center gap-1.5 sm:gap-3">
+      <button
+        type="button"
+        aria-label="Previous review"
+        class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-romara-green/60 transition-colors hover:bg-romara-bone hover:text-romara-amber"
+        @click="prev"
+      >
+        <IconArrowLeft class="h-5 w-5" />
+      </button>
 
-    <p v-if="!active" class="relative mt-8 text-sm text-white/60">Client reviews are coming soon.</p>
-
-    <!-- Current story (compact) -->
-    <div v-else class="relative mt-8 flex flex-1 flex-col">
-      <div class="mb-4 flex gap-0.5 text-romara-amber">
-        <IconStar v-for="star in active.rating" :key="star" class="h-4 w-4" />
-      </div>
-
-      <p class="font-heading text-lg leading-relaxed text-white/90 line-clamp-4 sm:text-xl">
-        &ldquo;{{ active.quote }}&rdquo;
-      </p>
-
-      <div class="mt-auto flex items-center justify-between gap-4 pt-6">
-        <div class="flex items-center gap-3.5">
+      <div class="min-w-0 flex-1 rounded-lg border border-romara-green/10 bg-romara-bone/40 p-4">
+        <div class="flex gap-3.5">
           <img
             :src="active.avatar"
             :alt="active.name"
-            class="h-12 w-12 shrink-0 rounded-full object-cover ring-2 ring-romara-amber/60"
+            class="h-12 w-12 shrink-0 rounded-full object-cover ring-2 ring-romara-amber/50"
           />
-          <div>
-            <p class="text-sm font-bold text-white">{{ active.name }}</p>
-            <p class="text-xs text-white/60">{{ active.location }}</p>
+          <div class="min-w-0">
+            <div class="flex gap-0.5 text-romara-amber">
+              <IconStar v-for="n in active.rating" :key="n" class="h-4 w-4" />
+            </div>
+            <p class="mt-1.5 text-sm leading-relaxed text-romara-ink/80">&ldquo;{{ active.quote }}&rdquo;</p>
+            <p class="mt-2 text-sm font-bold text-romara-green">&ndash; {{ active.name }}, {{ active.location }}</p>
           </div>
         </div>
-
-        <span v-if="testimonials.length > 1" class="shrink-0 font-heading text-sm font-semibold text-white/40">
-          {{ counter }} <span class="text-white/25">/ {{ total }}</span>
-        </span>
       </div>
+
+      <button
+        type="button"
+        aria-label="Next review"
+        class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-romara-green/60 transition-colors hover:bg-romara-bone hover:text-romara-amber"
+        @click="next"
+      >
+        <IconArrowRight class="h-5 w-5" />
+      </button>
+    </div>
+
+    <div v-if="active && testimonials.length > 1" class="mt-4 flex justify-center gap-2">
+      <button
+        v-for="(t, i) in testimonials"
+        :key="t.id"
+        type="button"
+        :aria-label="`Show review ${i + 1}`"
+        class="h-2 w-2 rounded-full transition-colors duration-300"
+        :class="i === activeIndex ? 'bg-romara-green' : 'bg-romara-green/25 hover:bg-romara-green/50'"
+        @click="goTo(i)"
+      />
     </div>
   </div>
 </template>

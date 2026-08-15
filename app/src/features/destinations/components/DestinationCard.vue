@@ -43,11 +43,8 @@ const typeLabels: Record<DestinationType, string> = {
       class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-105"
     />
 
-    <!-- Layered scrims for legibility -->
-    <div class="absolute inset-0 bg-scrim-b" />
-    <div
-      class="absolute inset-0 bg-gradient-to-t from-romara-green-dark/50 via-transparent to-transparent opacity-70 transition-opacity duration-500 group-hover:opacity-100"
-    />
+    <!-- Subtle top scrim so the kicker chips stay legible -->
+    <div class="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/35 to-transparent" aria-hidden="true" />
 
     <!-- Top row: type kicker + optional featured flag -->
     <div class="absolute inset-x-0 top-0 flex items-start justify-between gap-2 p-4" :class="props.featured ? 'sm:p-6' : ''">
