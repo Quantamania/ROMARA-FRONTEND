@@ -14,6 +14,8 @@ import IconUserCheck from '@/components/icons/IconUserCheck.vue'
 import IconShield from '@/components/icons/IconShield.vue'
 import IconHeadset from '@/components/icons/IconHeadset.vue'
 import IconMedal from '@/components/icons/IconMedal.vue'
+import { ref, onMounted, type Ref } from 'vue'
+import { companyStats } from '@/data/companyStats'
 
 const whyChoose = [
   { icon: IconUserCheck, title: 'Local Experts', desc: 'We know Kenya' },
@@ -22,12 +24,52 @@ const whyChoose = [
   { icon: IconMedal, title: 'Best Value', desc: 'Quality service at fair prices' },
 ]
 
-const stats = [
-  { value: '4.9/5', label: 'Traveller Rating' },
-  { value: '300+', label: 'Happy Clients' },
-  { value: '100+', label: 'Successful Safaris' },
-  { value: 'Kenya-wide', label: 'Coverage' },
-]
+// Stats count up from zero the first time the row scrolls into view.
+const statsRef = ref<HTMLElement | null>(null)
+const rating = ref(0)
+const clients = ref(0)
+const safaris = ref(0)
+
+function countTo(target: Ref<number>, to: number, duration: number, decimals = 0) {
+  const start = performance.now()
+  function tick(now: number) {
+    const p = Math.min(1, (now - start) / duration)
+    const eased = 1 - Math.pow(1 - p, 3) // easeOutCubic
+    target.value = Number((to * eased).toFixed(decimals))
+    if (p < 1) requestAnimationFrame(tick)
+    else target.value = to
+  }
+  requestAnimationFrame(tick)
+}
+
+onMounted(() => {
+  const el = statsRef.value
+  if (!el) return
+  const setFinals = () => {
+    rating.value = companyStats.rating
+    clients.value = companyStats.happyClients
+    safaris.value = companyStats.safarisCompleted
+  }
+  if (
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+    !('IntersectionObserver' in window)
+  ) {
+    setFinals()
+    return
+  }
+  const observer = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting) {
+        countTo(rating, companyStats.rating, 1100, 1)
+        countTo(clients, companyStats.happyClients, 1500)
+        countTo(safaris, companyStats.safarisCompleted, 1500)
+        observer.disconnect()
+      }
+    },
+    { threshold: 0, rootMargin: '0px 0px -12% 0px' },
+  )
+  observer.observe(el)
+})
 
 const members = [
   { acronym: 'TRA', name: 'Tourism Regulatory Authority' },
@@ -60,33 +102,43 @@ const members = [
 
       <section>
         <div class="romara-container">
-          <TestimonialsPreview />
+          <TestimonialsPreview :card="false" />
         </div>
       </section>
 
-      <!-- Stats + accreditation -->
-      <section>
+      <!-- Stats + accreditation — no card, numbers count up on scroll -->
+      <section ref="statsRef" class="pb-1 pt-4">
         <div class="romara-container">
-          <div class="rounded-card bg-green-fade p-5 text-white shadow-card">
-            <dl class="grid grid-cols-2 gap-x-4 gap-y-4 text-center sm:grid-cols-4">
-              <div v-for="stat in stats" :key="stat.label">
-                <dd class="font-heading text-2xl font-bold text-romara-amber">{{ stat.value }}</dd>
-                <dt class="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.1em] text-white/60">{{ stat.label }}</dt>
-              </div>
-            </dl>
+          <dl class="grid grid-cols-2 gap-x-4 gap-y-6 text-center sm:grid-cols-4">
+            <div>
+              <dd class="font-heading text-3xl font-bold leading-none text-romara-green">{{ rating.toFixed(1) }}<span class="text-romara-amber">/5</span></dd>
+              <dt class="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-romara-ink/55">Traveller Rating</dt>
+            </div>
+            <div>
+              <dd class="font-heading text-3xl font-bold leading-none text-romara-green">{{ clients }}<span class="text-romara-amber">+</span></dd>
+              <dt class="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-romara-ink/55">Happy Clients</dt>
+            </div>
+            <div>
+              <dd class="font-heading text-3xl font-bold leading-none text-romara-green">{{ safaris }}<span class="text-romara-amber">+</span></dd>
+              <dt class="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-romara-ink/55">Successful Safaris</dt>
+            </div>
+            <div>
+              <dd class="font-heading text-xl font-bold leading-none text-romara-green">Kenya-wide</dd>
+              <dt class="mt-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-romara-ink/55">Coverage</dt>
+            </div>
+          </dl>
 
-            <div class="mt-5 border-t border-white/10 pt-4">
-              <p class="text-center text-[10px] font-bold uppercase tracking-[0.18em] text-white/45">Proud Members Of</p>
-              <div class="mt-3 flex flex-wrap justify-center gap-2">
-                <span
-                  v-for="m in members"
-                  :key="m.acronym"
-                  :title="m.name"
-                  class="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1.5"
-                >
-                  <span class="font-heading text-xs font-bold tracking-wide text-romara-amber">{{ m.acronym }}</span>
-                </span>
-              </div>
+          <div class="mt-7 border-t border-romara-green/10 pt-4">
+            <p class="text-center text-[10px] font-bold uppercase tracking-[0.18em] text-romara-ink/40">Proud Members Of</p>
+            <div class="mt-3 flex flex-wrap justify-center gap-2">
+              <span
+                v-for="m in members"
+                :key="m.acronym"
+                :title="m.name"
+                class="inline-flex items-center rounded-full border border-romara-green/15 bg-white px-3 py-1.5 shadow-sm"
+              >
+                <span class="font-heading text-xs font-bold tracking-wide text-romara-green">{{ m.acronym }}</span>
+              </span>
             </div>
           </div>
         </div>

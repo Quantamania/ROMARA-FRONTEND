@@ -62,41 +62,41 @@ const typeLabels: Record<DestinationType, string> = {
       </span>
     </div>
 
-    <!-- Content -->
-    <div class="relative p-5 text-white" :class="props.featured ? 'sm:p-7' : ''">
-      <p class="flex items-center gap-1.5 text-white/80" :class="props.featured ? 'text-sm' : 'text-xs'">
-        <IconMapPin :class="props.featured ? 'h-4 w-4' : 'h-3.5 w-3.5'" />
+    <!-- Content on a frosted white panel — readable on any image, image stays visible above -->
+    <div class="relative m-3 rounded-lg bg-white/90 p-4 text-left shadow-sm backdrop-blur-md" :class="props.featured ? 'sm:m-4 sm:p-6' : ''">
+      <p class="flex items-center gap-1.5 text-romara-ink/70" :class="props.featured ? 'text-sm' : 'text-xs'">
+        <IconMapPin class="text-romara-amber" :class="props.featured ? 'h-4 w-4' : 'h-3.5 w-3.5'" />
         {{ props.destination.county }}
       </p>
 
       <h3
-        class="mt-1.5 font-heading font-semibold leading-tight text-balance"
+        class="mt-1 font-heading font-semibold leading-tight text-balance text-romara-green"
         :class="props.featured ? 'text-3xl sm:text-4xl' : 'text-xl'"
       >
         {{ props.destination.name }}
       </h3>
 
       <p
-        class="mt-2 leading-relaxed text-white/75"
+        class="mt-2 leading-relaxed text-romara-ink/65"
         :class="props.featured ? 'max-w-xl text-base line-clamp-3' : 'text-sm line-clamp-2'"
       >
         {{ props.destination.description }}
       </p>
 
       <!-- Editorial meta chips drawn from destination data -->
-      <div class="mt-4 flex flex-wrap items-center gap-2 text-[11px] font-semibold text-white/85">
-        <span class="glass inline-flex items-center gap-1.5 rounded-full px-2.5 py-1">
-          <IconCalendar class="h-3.5 w-3.5" />
+      <div class="mt-3 flex flex-wrap items-center gap-2 text-[11px] font-semibold text-romara-green">
+        <span class="inline-flex items-center gap-1.5 rounded-full bg-romara-green/5 px-2.5 py-1">
+          <IconCalendar class="h-3.5 w-3.5 text-romara-amber" />
           {{ props.destination.bestTimeToVisit }}
         </span>
-        <span class="glass inline-flex items-center gap-1.5 rounded-full px-2.5 py-1">
-          <IconClock class="h-3.5 w-3.5" />
+        <span class="inline-flex items-center gap-1.5 rounded-full bg-romara-green/5 px-2.5 py-1">
+          <IconClock class="h-3.5 w-3.5 text-romara-amber" />
           {{ props.destination.durationSuggestion }}
         </span>
       </div>
 
       <span
-        class="mt-5 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.16em] text-romara-amber-300 transition-colors group-hover:text-romara-amber"
+        class="mt-4 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.16em] text-romara-amber transition-colors group-hover:text-romara-green"
       >
         View details
         <IconArrowRight class="h-4 w-4 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" />

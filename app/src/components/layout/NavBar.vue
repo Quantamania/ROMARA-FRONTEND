@@ -222,7 +222,7 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
         <span class="leading-tight">
           <span class="block font-logo text-xl font-bold tracking-[0.12em] text-romara-green sm:text-2xl">ROMARA</span>
           <span class="block text-[10px] font-bold tracking-[0.14em] text-romara-ink sm:text-xs">TOURS &amp; TRAVEL</span>
-          <span class="block max-w-[13rem] text-[10px] font-semibold leading-tight text-romara-amber">Creating memorable African journeys across Kenya and beyond.</span>
+          <span class="block max-w-[13rem] text-[10px] font-semibold leading-tight text-romara-amber">Explore Kenya with Confidence</span>
         </span>
       </a>
 

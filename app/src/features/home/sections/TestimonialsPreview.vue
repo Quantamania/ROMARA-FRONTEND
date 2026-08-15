@@ -7,6 +7,10 @@ import testimonialsData from '@/data/testimonials.json'
 import { getAllTestimonials } from '@/features/testimonials/testimonials.api'
 import type { Testimonial } from '@/types/testimonial.types'
 
+// `card` wraps the block in a white panel (desktop). Mobile passes card=false
+// so the reviews sit directly on the page background with no outer card.
+const props = withDefaults(defineProps<{ card?: boolean }>(), { card: true })
+
 const testimonials = ref<Testimonial[]>(testimonialsData as Testimonial[])
 onMounted(async () => {
   const fromDb = await getAllTestimonials()
@@ -28,7 +32,7 @@ function goTo(i: number) {
 </script>
 
 <template>
-  <div class="rounded-card bg-white p-4 shadow-card sm:p-6">
+  <div :class="props.card ? 'rounded-card bg-white p-4 shadow-card sm:p-6' : ''">
     <h2 class="text-center font-heading text-xl font-bold text-romara-green sm:text-2xl">What Our Guests Say</h2>
 
     <p v-if="!active" class="mt-6 text-center text-sm text-romara-ink/50">Client reviews are coming soon.</p>
