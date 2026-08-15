@@ -106,10 +106,25 @@ const members = [
         </div>
       </section>
 
-      <!-- Stats + accreditation — no card, numbers count up on scroll -->
+      <!-- Accreditation + stats — members first, numbers count up on scroll -->
       <section ref="statsRef" class="pb-1 pt-4">
         <div class="romara-container">
-          <dl class="grid grid-cols-2 gap-x-4 gap-y-6 text-center sm:grid-cols-4">
+          <div>
+            <p class="text-center text-[10px] font-bold uppercase tracking-[0.18em] text-romara-ink/40">Proud Members Of</p>
+            <div class="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-4">
+              <img
+                v-for="m in members"
+                :key="m.acronym"
+                :src="m.logo"
+                :alt="m.name"
+                :title="m.name"
+                loading="lazy"
+                class="h-14 w-auto object-contain"
+              />
+            </div>
+          </div>
+
+          <dl class="mt-7 grid grid-cols-2 gap-x-4 gap-y-6 border-t border-romara-green/10 pt-6 text-center sm:grid-cols-4">
             <div>
               <dd class="font-heading text-3xl font-bold leading-none text-romara-green">{{ rating.toFixed(1) }}<span class="text-romara-amber">/5</span></dd>
               <dt class="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-romara-ink/55">Traveller Rating</dt>
@@ -127,20 +142,6 @@ const members = [
               <dt class="mt-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-romara-ink/55">Coverage</dt>
             </div>
           </dl>
-
-          <div class="mt-7 border-t border-romara-green/10 pt-4">
-            <p class="text-center text-[10px] font-bold uppercase tracking-[0.18em] text-romara-ink/40">Proud Members Of</p>
-            <div class="mt-3 flex flex-wrap items-center justify-center gap-2.5">
-              <span
-                v-for="m in members"
-                :key="m.acronym"
-                :title="m.name"
-                class="flex h-12 items-center justify-center rounded-lg border border-romara-green/10 bg-white px-3 shadow-sm"
-              >
-                <img :src="m.logo" :alt="m.name" loading="lazy" class="h-8 w-auto object-contain" />
-              </span>
-            </div>
-          </div>
         </div>
       </section>
 

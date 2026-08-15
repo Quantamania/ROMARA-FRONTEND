@@ -220,8 +220,8 @@ const currentYear = new Date().getFullYear()
             :href="action.href"
             class="flex flex-col items-center gap-2 rounded-2xl border border-white/12 bg-white/5 py-4 text-center transition-colors hover:border-romara-amber/50 hover:bg-white/10"
           >
-            <span class="flex h-9 w-9 items-center justify-center rounded-full bg-romara-amber/15 text-romara-amber-300">
-              <component :is="action.icon" class="h-4 w-4" />
+            <span class="flex h-12 w-12 items-center justify-center rounded-full bg-romara-amber/15 text-romara-amber-300">
+              <component :is="action.icon" class="h-6 w-6" />
             </span>
             <span class="text-[11px] font-bold uppercase tracking-[0.12em] text-white/85">{{ action.label }}</span>
           </a>

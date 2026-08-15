@@ -7,9 +7,9 @@ import IconThumbsUp from '@/components/icons/IconThumbsUp.vue'
 import IconCompass from '@/components/icons/IconCompass.vue'
 
 const memberships = [
-  { acronym: 'TRA', name: 'Tourism Regulatory Authority', logo: '/images/logos/TRA.jpeg' },
-  { acronym: 'KATO', name: 'Kenya Association of Tour Operators', logo: '/images/logos/KATO.jpeg' },
-  { acronym: 'KPSGA', name: 'Kenya Professional Safari Guides Association', logo: '/images/logos/KPSGA.jpg' },
+  { acronym: 'TRA', name: 'Tourism Regulatory Authority', logo: '/images/logos/TRA-clear.png' },
+  { acronym: 'KATO', name: 'Kenya Association of Tour Operators', logo: '/images/logos/KATO-clear.png' },
+  { acronym: 'KPSGA', name: 'Kenya Professional Safari Guides Association', logo: '/images/logos/KPSGA-clear.png' },
 ]
 
 // Stats count up from zero the first time the band scrolls into view.
