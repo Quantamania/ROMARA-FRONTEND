@@ -5,8 +5,6 @@ import BaseButton from '@/components/ui/BaseButton.vue'
 import DestinationCard from '@/features/destinations/components/DestinationCard.vue'
 import DestinationDetailModal from '@/features/destinations/components/DestinationDetailModal.vue'
 import DestinationFilters from '@/features/destinations/components/DestinationFilters.vue'
-import IconCalendarCheck from '@/components/icons/IconCalendarCheck.vue'
-import IconCheck from '@/components/icons/IconCheck.vue'
 import IconArrowRight from '@/components/icons/IconArrowRight.vue'
 import destinationsData from '@/data/destinations.json'
 import type { Destination } from '@/features/destinations/types/destination.types'
@@ -34,15 +32,6 @@ const heroTiles = [
   { name: 'Amboseli', image: '/images/destinations/amboseli.webp' },
   { name: 'Lake Nakuru', image: '/images/destinations/lake-nakuru.webp' },
   { name: 'Nairobi', image: '/images/destinations/nairobi.webp' },
-]
-
-const whyVisitPoints = [
-  'Diverse wildlife and national parks',
-  'Beautiful beaches and coastlines',
-  'Stunning landscapes and scenic views',
-  'Year-round travel opportunities',
-  'Vibrant cultures and traditions',
-  'Warm, welcoming people',
 ]
 
 </script>
@@ -194,7 +183,7 @@ const whyVisitPoints = [
         align="center"
         eyebrow="By Interest"
         title="Browse Destinations by Type"
-        description="Whatever moves you — big game, mountain trails, ocean shores or living culture — start with what you love."
+        description="Big game, mountains, coast and culture"
       />
       <div class="mt-4">
         <DestinationFilters />
@@ -214,49 +203,21 @@ const whyVisitPoints = [
     <div class="absolute inset-0 bg-scrim-b" />
 
     <div class="romara-container relative">
-      <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
-        <!-- Editorial quote block -->
-        <div>
-          <p class="eyebrow text-romara-amber-300">
-            
-            Why Visit Kenya?
-          </p>
-          <p class="mt-5 max-w-xl font-heading text-display-sm font-semibold leading-tight text-balance">
-            &ldquo;Kenya is a land of breathtaking landscapes, diverse wildlife, rich cultures and warm
-            hospitality.&rdquo;
-          </p>
-          <p class="mt-5 max-w-lg text-sm leading-relaxed text-white/80 sm:text-base">
-            Whether you are seeking adventure, relaxation, or cultural immersion, Kenya offers experiences like
-            no other.
-          </p>
+      <!-- One statement, one decision. This was a two-column split with glass
+           pill chips on the left and a bordered glass card on the right, each
+           carrying its own icon, heading and paragraph — three competing
+           surfaces saying the same thing. -->
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="eyebrow text-romara-amber-300">Why Visit Kenya?</p>
 
-          <ul class="mt-8 flex flex-wrap gap-2.5">
-            <li
-              v-for="point in whyVisitPoints"
-              :key="point"
-              class="glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold text-white"
-            >
-              <IconCheck class="h-3.5 w-3.5 text-romara-amber-300" />
-              {{ point }}
-            </li>
-          </ul>
-        </div>
+        <p class="mt-5 font-heading text-display-sm font-semibold leading-tight text-balance">
+          &ldquo;Kenya is a land of breathtaking landscapes, diverse wildlife, rich cultures and warm
+          hospitality.&rdquo;
+        </p>
 
-        <!-- CTA card -->
-        <div class="lg:ml-auto lg:max-w-md">
-          <div class="glass rounded-card border border-white/15 p-8 text-center sm:p-10">
-            <div class="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-amber-fade shadow-glow-amber">
-              <IconCalendarCheck class="h-8 w-8 text-white" />
-            </div>
-            <h3 class="font-heading text-2xl font-semibold text-white">Ready to Explore?</h3>
-            <p class="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-white/80">
-              Let ROMARA Tours &amp; Travel help you plan the perfect journey.
-            </p>
-            <div class="mt-7 flex flex-col gap-3">
-              <BaseButton as="a" href="/book-now" variant="amber" size="lg" block>Book Now</BaseButton>
-              <BaseButton as="a" href="/contact" variant="ghost" size="lg" block>Request a Quote</BaseButton>
-            </div>
-          </div>
+        <div class="mt-9 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4">
+          <BaseButton as="a" href="/book-now" variant="amber" size="lg">Book Now</BaseButton>
+          <BaseButton as="a" href="/contact" variant="ghost" size="lg">Request a Quote</BaseButton>
         </div>
       </div>
     </div>

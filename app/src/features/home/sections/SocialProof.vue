@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { companyStats } from '@/data/companyStats'
 import { ref, onMounted, type Ref } from 'vue'
 import IconStar from '@/components/icons/IconStar.vue'
 import IconMapPin from '@/components/icons/IconMapPin.vue'
@@ -30,15 +31,15 @@ function countTo(target: Ref<number>, to: number, duration: number, decimals = 0
 }
 
 function runCounts() {
-  countTo(rating, 5, 1100, 1)
-  countTo(clients, 300, 1500)
-  countTo(safaris, 100, 1500)
+  countTo(rating, companyStats.rating, 1100, 1)
+  countTo(clients, companyStats.happyClients, 1500)
+  countTo(safaris, companyStats.safarisCompleted, 1500)
 }
 
 function setFinals() {
-  rating.value = 5
-  clients.value = 300
-  safaris.value = 100
+  rating.value = companyStats.rating
+  clients.value = companyStats.happyClients
+  safaris.value = companyStats.safarisCompleted
 }
 
 onMounted(() => {

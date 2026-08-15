@@ -36,11 +36,13 @@ export default {
         },
       },
       fontFamily: {
-        // Headings use an editorial high-contrast serif; body copy is a clean sans.
-        // Fraunces gives the "premium travel" feel; Merriweather stays as a safe fallback.
-        heading: ['"Fraunces"', '"Merriweather"', 'Georgia', 'serif'],
-        display: ['"Fraunces"', '"Merriweather"', 'Georgia', 'serif'],
-        sans: ['"Inter"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        // Titles use Roboto, body copy uses Poppins — both sans, so the
+        // fallbacks are sans too (a serif fallback would reflow badly if the
+        // webfont were slow). Roboto carries the weight range the wordmark and
+        // display sizes need, up to 900.
+        heading: ['"Roboto"', 'ui-sans-serif', 'system-ui', 'Helvetica', 'sans-serif'],
+        display: ['"Roboto"', 'ui-sans-serif', 'system-ui', 'Helvetica', 'sans-serif'],
+        sans: ['"Poppins"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         // Editorial display scale (fluid). Used for big hero/section moments.

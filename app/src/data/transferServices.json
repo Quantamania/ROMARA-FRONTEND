@@ -4,8 +4,12 @@
     "slug": "airport-pick-up",
     "name": "Airport Pick-Up",
     "image": "/images/airport-transfers/airport-van.webp",
-    "description": "We'll be there when you land. Enjoy a warm welcome and a comfortable ride to your destination.",
-    "features": ["Flight monitoring", "Meet & greet at arrivals", "Assistance with luggage"],
+    "description": "We meet you as you land and drive you straight to your door.",
+    "features": [
+      "Flight monitoring",
+      "Meet & greet at arrivals",
+      "Assistance with luggage"
+    ],
     "iconName": "plane-landing"
   },
   {
@@ -13,8 +17,12 @@
     "slug": "airport-drop-off",
     "name": "Airport Drop-Off",
     "image": "/images/airport-transfers/airport-van.webp",
-    "description": "Arrive at the airport relaxed and on time. We ensure a smooth and stress-free journey.",
-    "features": ["Punctual pick-up", "Help with luggage", "Timely airport arrival"],
+    "description": "A calm, on-time run to the airport.",
+    "features": [
+      "Punctual pick-up",
+      "Help with luggage",
+      "Timely airport arrival"
+    ],
     "iconName": "plane-takeoff"
   },
   {
@@ -22,8 +30,12 @@
     "slug": "business-transfers",
     "name": "Business Transfers",
     "image": "/images/airport-transfers/airport-van.webp",
-    "description": "Reliable transfers for corporate travellers, executives and business groups.",
-    "features": ["Executive vehicles", "Professional service", "Flexible scheduling"],
+    "description": "Reliable transfers for corporate travel.",
+    "features": [
+      "Executive vehicles",
+      "Professional service",
+      "Flexible scheduling"
+    ],
     "iconName": "car"
   },
   {
@@ -31,8 +43,12 @@
     "slug": "group-transfers",
     "name": "Group Transfers",
     "image": "/images/airport-transfers/airport-van.webp",
-    "description": "Comfortable and convenient transport for families, groups and special events.",
-    "features": ["Various vehicle options", "Spacious & comfortable", "Ideal for groups"],
+    "description": "Room for families, groups and special events.",
+    "features": [
+      "Various vehicle options",
+      "Spacious & comfortable",
+      "Ideal for groups"
+    ],
     "iconName": "users"
   }
 ]

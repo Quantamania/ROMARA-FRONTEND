@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { companyStats, plus } from '@/data/companyStats'
 import IconStar from '@/components/icons/IconStar.vue'
 import IconTripadvisor from '@/components/icons/IconTripadvisor.vue'
 import IconUsers from '@/components/icons/IconUsers.vue'
@@ -8,9 +9,9 @@ interface RatingBreakdown {
   percentage: number
 }
 
-const overallRating = 4.9
-const totalReviews = '450+'
-const recommendPercentage = 100
+const overallRating = companyStats.rating
+const totalReviews = plus(companyStats.happyClients)
+const recommendPercentage = companyStats.satisfactionPercent
 
 const breakdown: RatingBreakdown[] = [
   { stars: 5, percentage: 92 },

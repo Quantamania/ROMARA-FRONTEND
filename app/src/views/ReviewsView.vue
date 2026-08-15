@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { companyStats, plus } from '@/data/companyStats'
 import { computed, ref } from 'vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import IconStar from '@/components/icons/IconStar.vue'
@@ -87,7 +88,7 @@ function loadMoreReviews() {
             <IconStar v-for="n in 5" :key="n" class="h-4 w-4" />
           </span>
           <p class="text-sm text-romara-ink-soft">
-            <span class="font-semibold text-romara-green">4.9</span> from 450+ guest reviews
+            <span class="font-semibold text-romara-green">{{ companyStats.rating.toFixed(1) }}</span> from {{ plus(companyStats.happyClients) }} guest reviews
           </p>
           <a href="#guest-reviews" class="text-xs font-bold uppercase tracking-[0.14em] text-romara-green transition-colors hover:text-romara-amber">
             Read reviews
@@ -230,7 +231,7 @@ function loadMoreReviews() {
           </span>
         </div>
         <p class="mt-3 font-semibold text-white/60 text-xs uppercase tracking-wide">
-          Join 450+ Happy Travellers
+          Join {{ plus(companyStats.happyClients) }} Happy Travellers
         </p>
 
         <h2 class="mt-4 font-heading font-bold text-2xl sm:text-3xl">Ready to Create Your Own Adventure?</h2>

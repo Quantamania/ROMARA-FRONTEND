@@ -12,9 +12,7 @@ import IconMapPin from '@/components/icons/IconMapPin.vue'
 import IconPlaneLanding from '@/components/icons/IconPlaneLanding.vue'
 import IconPlaneTakeoff from '@/components/icons/IconPlaneTakeoff.vue'
 import IconUsers from '@/components/icons/IconUsers.vue'
-import IconCheck from '@/components/icons/IconCheck.vue'
 import IconCheckSquare from '@/components/icons/IconCheckSquare.vue'
-import IconHeadset from '@/components/icons/IconHeadset.vue'
 import IconArrowRight from '@/components/icons/IconArrowRight.vue'
 import transferServicesData from '@/data/transferServices.json'
 import type { TransferService } from '@/features/airport-transfers/types/transfer.types'
@@ -71,82 +69,36 @@ const whyChooseItems: WhyChooseItem[] = [
     <div class="absolute inset-0 bg-scrim-b" />
 
     <div class="romara-container relative py-10 sm:py-16 lg:py-24">
-      <div class="grid items-center gap-6 sm:gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
-        <!-- LEFT: intro + trust points -->
-        <div>
-          <nav
-            class="mb-5 flex flex-wrap items-center gap-2 text-xs font-medium text-white/60"
-            aria-label="Breadcrumb"
-          >
-            <a href="/" class="transition-colors hover:text-romara-amber">Home</a>
-            <span class="text-white/30">/</span>
-            <span class="text-white/85">Airport Transfers</span>
-          </nav>
+      <!-- Just the three steps. The breadcrumb, the trust bullets, the "prefer
+           to talk it through" line and the glass card's own icon + heading +
+           subtitle all came out — the numbered steps say the same thing and say
+           it faster. The h1 stays: it is the page's title for search engines and
+           screen readers, and nothing else on the page provides one. -->
+      <div class="mx-auto max-w-3xl text-center">
+        <h1 class="font-heading text-display-sm font-semibold text-balance">
+          Reliable Transfers. Every Time.
+        </h1>
 
-          <h1 class="max-w-xl font-heading text-display font-semibold text-balance">
-            Reliable Transfers. Every Time.
-          </h1>
-
-
-          <ul class="mt-6 space-y-2.5 sm:mt-8 sm:space-y-3.5">
-            <li
-              v-for="point in [
-                { icon: IconCheck, label: 'On-time, flight-monitored pickups' },
-                { icon: IconShield, label: 'Safe rides with vetted, professional drivers' },
-                { icon: IconHeadset, label: '24/7 availability and support' },
-              ]"
-              :key="point.label"
-              class="flex items-center gap-3 text-sm font-medium text-white/90 sm:text-base"
-            >
-              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/10 text-romara-amber-300 ring-1 ring-white/15">
-                <component :is="point.icon" class="h-4 w-4" />
-              </span>
-              {{ point.label }}
-            </li>
-          </ul>
-
-          <p class="mt-6 text-sm text-white/60 sm:mt-8">
-            Prefer to talk it through?
-            <a href="/contact" class="font-semibold text-romara-amber-300 underline-offset-4 hover:underline">
-              Request a quote
-            </a>
-          </p>
-        </div>
-
-        <!-- RIGHT: how-it-works guide (not a booking form) -->
-        <div class="glass w-full rounded-card p-6 shadow-elevated animate-fade-up sm:p-7">
-          <div class="flex items-center gap-3">
-            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-amber-fade text-white shadow-soft">
-              <IconCar class="h-5 w-5" />
+        <ol class="mt-10 grid gap-8 text-left sm:mt-12 sm:grid-cols-3 sm:gap-6">
+          <li v-for="(step, i) in [
+            { title: 'Share the details', text: 'Your flight number, pickup point and destination.' },
+            { title: 'We confirm everything', text: 'Driver, vehicle and a fixed price.' },
+            { title: 'Meet &amp; greet', text: 'Your driver meets you at arrivals with a name sign.' },
+          ]" :key="step.title" class="flex gap-4 sm:flex-col sm:gap-3">
+            <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-amber-fade text-sm font-bold text-white shadow-soft">
+              {{ i + 1 }}
             </span>
             <div>
-              <p class="font-heading text-lg font-semibold text-white">How it works</p>
-              <p class="text-xs text-white/60">Three simple steps to a smooth transfer.</p>
+              <p class="font-heading text-base font-semibold text-white" v-html="step.title"></p>
+              <p class="mt-1 text-sm leading-relaxed text-white/70" v-html="step.text"></p>
             </div>
-          </div>
+          </li>
+        </ol>
 
-          <ol class="relative mt-6 space-y-4 sm:space-y-6">
-            <span class="pointer-events-none absolute left-[15px] top-2 bottom-2 w-px bg-white/15" aria-hidden="true" />
-            <li v-for="(step, i) in [
-              { title: 'Share the details', text: 'Your flight number, pickup point and destination.' },
-              { title: 'We confirm everything', text: 'Driver, vehicle and a fixed, all-inclusive price — no surprises.' },
-              { title: 'Meet &amp; greet', text: 'Your driver meets you at arrivals with a name sign. Sit back and relax.' },
-            ]" :key="step.title" class="relative flex gap-4">
-              <span class="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-sm font-bold text-romara-green ring-4 ring-romara-green-dark/40">
-                {{ i + 1 }}
-              </span>
-              <div class="pt-0.5">
-                <p class="font-heading text-sm font-semibold text-white" v-html="step.title"></p>
-                <p class="mt-1 text-sm leading-relaxed text-white/70" v-html="step.text"></p>
-              </div>
-            </li>
-          </ol>
-
-          <BaseButton as="a" href="/airport-transfers/book" variant="amber" size="lg" class="mt-6 w-full justify-center">
-            <IconCar class="h-4 w-4" />
-            Book Your Transfer
-          </BaseButton>
-        </div>
+        <BaseButton as="a" href="/airport-transfers/book" variant="amber" size="lg" class="mt-10 w-full justify-center sm:mt-12 sm:w-auto">
+          <IconCar class="h-4 w-4" />
+          Book Your Transfer
+        </BaseButton>
       </div>
     </div>
   </section>
@@ -178,10 +130,10 @@ const whyChooseItems: WhyChooseItem[] = [
         align="center"
         eyebrow="Our Services"
         title="Our Airport Transfer Services"
-        description="Whether you are travelling for business or leisure, we have the right transfer solution for you."
+        description="Business or leisure, we have you covered"
       />
 
-      <div class="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="mobile-shelf mt-4 gap-6 sm:grid sm:grid-cols-2 lg:grid-cols-4">
         <article
           v-for="(service, index) in services"
           :key="service.id"
@@ -238,7 +190,7 @@ const whyChooseItems: WhyChooseItem[] = [
         align="center"
         eyebrow="Why ROMARA"
         title="Why Choose Romara for Your Airport Transfers?"
-        description="Every transfer is handled with the same care, punctuality and professionalism you would expect from a premium travel partner."
+        description="Care, punctuality and professionalism, every time"
       />
 
       <div class="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 lg:grid-cols-6">

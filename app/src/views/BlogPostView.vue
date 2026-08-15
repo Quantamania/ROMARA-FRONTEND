@@ -111,7 +111,7 @@ const contentSections = computed(() => {
 <template>
   <div v-if="currentPost" class="bg-romara-bone">
     <!-- Hero: full-bleed image masthead with a blueprint overlay -->
-    <section class="relative isolate flex min-h-[400px] items-end overflow-hidden bg-romara-green text-white sm:min-h-[480px] lg:min-h-[660px]">
+    <section class="relative isolate flex min-h-[280px] items-end overflow-hidden bg-romara-green text-white sm:min-h-[480px] lg:min-h-[660px]">
       <img
         :src="currentPost.image"
         :alt="currentPost.title"
@@ -349,7 +349,7 @@ const contentSections = computed(() => {
         </div>
 
         <div
-          class="-mx-4 flex snap-x snap-mandatory gap-6 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          class="mobile-shelf gap-6 sm:grid sm:grid-cols-2 lg:grid-cols-3"
         >
           <a
             v-for="(post, index) in relatedPosts"

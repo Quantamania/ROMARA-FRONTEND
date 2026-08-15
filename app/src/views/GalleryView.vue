@@ -64,7 +64,7 @@ function showNextImage() {
 <template>
   <!-- Hero: full-bleed PHOTO-MOSAIC WALL — a wall of gallery photos with the
        page title centered over a dark scrim, like stepping up to a photo wall. -->
-  <section v-scroll-reveal class="isolate relative bg-romara-green min-h-[380px] sm:min-h-[480px] lg:min-h-[80vh] overflow-hidden text-white">
+  <section v-scroll-reveal class="isolate relative bg-romara-green min-h-[260px] sm:min-h-[480px] lg:min-h-[80vh] overflow-hidden text-white">
     <!-- The wall itself: a uniform tile grid (3 / 4 / 6 cols) that fills edge to
          edge. A single slow ken-burns drift across the whole wall is the one
          authored motion moment (auto-disabled under prefers-reduced-motion). -->
@@ -82,7 +82,7 @@ function showNextImage() {
     <div class="absolute inset-0 bg-romara-green-dark/70" />
     <div class="absolute inset-0 bg-gradient-to-t from-romara-green-dark/85 via-romara-green-dark/45 to-romara-green-dark/80" />
 
-    <div class="relative flex flex-col items-center justify-center min-h-[380px] sm:min-h-[480px] lg:min-h-[80vh] pt-20 pb-12 sm:pt-24 sm:pb-14 text-center romara-container">
+    <div class="relative flex flex-col items-center justify-center min-h-[260px] sm:min-h-[480px] lg:min-h-[80vh] pt-20 pb-12 sm:pt-24 sm:pb-14 text-center romara-container">
       <nav class="mb-6 flex flex-wrap items-center justify-center gap-2 text-xs font-medium text-white/70 animate-fade-up" aria-label="Breadcrumb">
         <a href="/" class="transition-colors hover:text-romara-amber">Home</a>
         <span class="text-white/40">/</span>
@@ -106,7 +106,7 @@ function showNextImage() {
       <SectionHeading
         eyebrow="Our Portfolio"
         title="A Journey Through the Lens"
-        description="Browse by category to relive Kenya's wildlife, landscapes and cultures — every frame captured on a real ROMARA journey."
+        description="Wildlife, landscapes and culture"
         align="center"
       />
 

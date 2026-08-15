@@ -13,7 +13,7 @@
   }
 
   body {
-    @apply font-sans text-romara-ink antialiased;
+    @apply font-sans font-medium text-romara-ink antialiased;
     overflow-x: clip;
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -257,7 +257,7 @@
 /* ==========================================================================
    Admin panel theme
    --------------------------------------------------------------------------
-   Same brand DNA as the public site — Fraunces headings, the forest/amber
+   Same brand DNA as the public site — Roboto headings, the forest/amber
    palette, and the signature asymmetric card corners — in a different register.
    The site is editorial and airy; the panel is a working instrument, so it runs
    denser, on a warmer paper surface, and uses amber as rails and underlines
@@ -282,7 +282,7 @@
     @apply text-[0.68rem] uppercase tracking-widest2 text-romara-ink-soft font-semibold;
   }
 
-  /* Page title. Fraunces, but tight and small — this is a tool, not a hero. */
+  /* Page title. Roboto, but tight and small — this is a tool, not a hero. */
   /* mb-6 carries the spacing the amber rule underneath used to provide. */
   .admin-title {
     @apply font-heading text-[1.75rem] leading-tight text-romara-ink tracking-[-0.015em] mb-6;

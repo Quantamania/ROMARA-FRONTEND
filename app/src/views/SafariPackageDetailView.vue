@@ -320,7 +320,7 @@ const excluded = [
           link-text="View all packages"
           link-href="/safari-packages"
         />
-        <div class="-mx-5 flex snap-x snap-mandatory gap-6 overflow-x-auto px-5 pb-2 sm:mx-0 sm:grid sm:snap-none sm:grid-cols-2 sm:px-0 sm:pb-0 lg:grid-cols-3">
+        <div class="mobile-shelf gap-6 sm:grid sm:grid-cols-2 lg:grid-cols-3">
           <div
             v-for="pkg in relatedPackages"
             :key="pkg.id"

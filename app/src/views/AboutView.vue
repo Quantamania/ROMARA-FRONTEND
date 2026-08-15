@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { companyStats, plus } from '@/data/companyStats'
 import IconMapPin from '@/components/icons/IconMapPin.vue'
 import AboutHero from '@/features/about/sections/AboutHero.vue'
 import OurStory from '@/features/about/sections/OurStory.vue'
@@ -29,7 +30,7 @@ const channels = [
     ROMARA started.
   -->
   <section
-    class="relative min-h-[420px] overflow-hidden bg-cover bg-center bg-scroll sm:min-h-[520px] md:min-h-[640px] md:bg-fixed"
+    class="relative min-h-[300px] overflow-hidden bg-cover bg-center bg-scroll sm:min-h-[520px] md:min-h-[640px] md:bg-fixed"
     style="background-image: url('/images/about/cheetah1.webp')"
   >
     <div class="absolute inset-0 bg-romara-green/85"></div>
@@ -64,15 +65,15 @@ const channels = [
           <dl class="divide-y divide-white/10 border-white/20 border-t">
             <div class="group flex justify-between items-baseline py-5">
               <dt class="text-white/60 text-sm">Years of experience</dt>
-              <dd class="font-heading font-semibold text-romara-amber text-4xl">10+</dd>
+              <dd class="font-heading font-semibold text-romara-amber text-4xl">{{ plus(companyStats.yearsExperience) }}</dd>
             </div>
             <div class="group flex justify-between items-baseline py-5">
               <dt class="text-white/60 text-sm">Happy travelers</dt>
-              <dd class="font-heading font-semibold text-romara-amber text-4xl">5000+</dd>
+              <dd class="font-heading font-semibold text-romara-amber text-4xl">{{ plus(companyStats.happyClients) }}</dd>
             </div>
             <div class="group flex justify-between items-baseline py-5">
               <dt class="text-white/60 text-sm">Destinations covered</dt>
-              <dd class="font-heading font-semibold text-romara-amber text-4xl">50+</dd>
+              <dd class="font-heading font-semibold text-romara-amber text-4xl">{{ plus(companyStats.destinations) }}</dd>
             </div>
           </dl>
         </div>

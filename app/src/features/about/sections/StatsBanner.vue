@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { companyStats, plus } from '@/data/companyStats'
 import IconUsers from '@/components/icons/IconUsers.vue'
 import IconMapPin from '@/components/icons/IconMapPin.vue'
 import IconStar from '@/components/icons/IconStar.vue'
@@ -10,9 +11,9 @@ interface Stat {
 }
 
 const stats: Stat[] = [
-  { icon: IconUsers, value: '1000+', label: 'Happy Travellers' },
-  { icon: IconMapPin, value: '50+', label: 'Destinations' },
-  { icon: IconStar, value: '99%', label: 'Customer Satisfaction' },
+  { icon: IconUsers, value: plus(companyStats.happyClients), label: 'Happy Travellers' },
+  { icon: IconMapPin, value: plus(companyStats.destinations), label: 'Destinations' },
+  { icon: IconStar, value: `${companyStats.satisfactionPercent}%`, label: 'Customer Satisfaction' },
 ]
 </script>
 

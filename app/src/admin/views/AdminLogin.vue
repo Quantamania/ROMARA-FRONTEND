@@ -36,7 +36,7 @@ async function handleSubmit() {
   <div class="admin-shell min-h-screen bg-green-fade flex items-center justify-center px-4">
     <div class="w-full max-w-sm">
       <div class="text-center mb-8">
-        <p class="font-heading text-4xl text-romara-cream">ROMARA</p>
+        <p class="font-heading text-4xl font-black text-romara-cream">ROMARA</p>
         <p class="admin-eyebrow !text-romara-cream/55 mt-3">Content Manager</p>
       </div>
 
