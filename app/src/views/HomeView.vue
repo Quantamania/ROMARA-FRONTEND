@@ -95,8 +95,8 @@ const members = [
       </div>
     </section>
 
-    <!-- Body -->
-    <div class="space-y-3 bg-romara-bone pb-4 pt-3">
+    <!-- Body — one consistent rhythm between every block -->
+    <div class="space-y-8 bg-romara-bone pb-10 pt-6">
       <FleetShowcase />
       <PopularDestinations />
 
@@ -107,7 +107,7 @@ const members = [
       </section>
 
       <!-- Accreditation + stats — members first, numbers count up on scroll -->
-      <section ref="statsRef" class="pb-1 pt-4">
+      <section ref="statsRef">
         <div class="romara-container">
           <div>
             <p class="text-center text-[10px] font-bold uppercase tracking-[0.18em] text-romara-ink/40">Proud Members Of</p>
@@ -149,7 +149,7 @@ const members = [
       </section>
 
       <!-- Ready to Explore Kenya? -->
-      <section class="pt-1 text-center">
+      <section class="text-center">
         <div class="romara-container">
           <h2 class="font-heading text-2xl font-bold text-romara-green">Ready to Explore Kenya?</h2>
           <p class="mt-1.5 text-sm text-romara-ink/60">Let's plan your perfect adventure today.</p>

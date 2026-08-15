@@ -62,7 +62,7 @@ const currentYear = new Date().getFullYear()
 
 <template>
   <div class="relative overflow-visible">
-    <footer class="relative z-10 isolate overflow-hidden bg-romara-green-600 text-white">
+    <footer class="relative z-10 isolate overflow-hidden bg-romara-green-dark text-white">
       <!-- Background image + brand overlay (kept heavy so all text stays legible) -->
       <img
         src="/images/home/mara.webp"
@@ -72,7 +72,7 @@ const currentYear = new Date().getFullYear()
         decoding="async"
         class="absolute inset-0 z-0 h-full w-full object-cover opacity-[0.4]"
       />
-      <div class="absolute inset-0 z-0 bg-romara-green-700/70" aria-hidden="true" />
+      <div class="absolute inset-0 z-0 bg-romara-green-dark/80" aria-hidden="true" />
 
       <!-- Giant wordmark watermark. Lives inside the footer on purpose: it used
            to sit above it at z-index -1, which put it behind the page's in-flow
