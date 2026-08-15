@@ -43,6 +43,11 @@ export default {
         heading: ['"Roboto"', 'ui-sans-serif', 'system-ui', 'Helvetica', 'sans-serif'],
         display: ['"Roboto"', 'ui-sans-serif', 'system-ui', 'Helvetica', 'sans-serif'],
         sans: ['"Poppins"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        // The wordmark only. Kept separate from `heading` so the logo can change
+        // without dragging every title with it. Inclusive Sans ships 400 and 700
+        // only — there is no black cut, so the lockup uses 700 and leans on size
+        // and tight tracking for presence.
+        logo: ['"Inclusive Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         // Editorial display scale (fluid). Used for big hero/section moments.

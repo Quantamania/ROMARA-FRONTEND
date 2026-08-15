@@ -263,10 +263,7 @@ const tailorMadePoints: TailorMadePoint[] = [
         <h2 class="font-heading text-display-sm font-semibold text-romara-green">Tailor-Made Safaris</h2>
         <span class="accent-rule mt-4" />
 
-        <p class="mt-5 text-sm leading-relaxed text-romara-ink-soft">
-          Have something specific in mind? Our travel experts will create a custom safari that matches your
-          interests, budget and schedule.
-        </p>
+       
 
         <ul class="mt-7 flex flex-wrap gap-2.5">
           <li

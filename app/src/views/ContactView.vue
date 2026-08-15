@@ -90,11 +90,7 @@ const whyContactItems: WhyContactItem[] = [
 
           <div class="relative">
             <p class="eyebrow text-romara-amber-300">Get in Touch</p>
-            <h2 class="mt-3 font-heading text-display-sm font-semibold text-white">Let's plan your next adventure</h2>
-            <p class="mt-4 max-w-sm text-sm leading-relaxed text-white/75">
-              Prefer to talk it through? Reach us directly — our team replies fast and is happy to help you
-              shape the perfect trip.
-            </p>
+           
 
             <!-- Quick actions -->
             <div class="mt-8 space-y-3">
@@ -140,10 +136,7 @@ const whyContactItems: WhyContactItem[] = [
         <!-- Right: white form -->
         <div class="bg-white p-7 sm:p-10 lg:p-12">
           <p class="eyebrow">Send a Message</p>
-          <h2 class="mt-3 font-heading text-display-sm font-semibold text-romara-green">Start the Conversation</h2>
-          <p class="mt-4 max-w-md text-sm leading-relaxed text-romara-ink-soft">
-            Fill in the form below and a member of our team will get back to you as soon as possible.
-          </p>
+         
 
           <div class="mt-8">
             <ContactForm />

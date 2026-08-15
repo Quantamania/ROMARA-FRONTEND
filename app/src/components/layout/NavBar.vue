@@ -220,14 +220,14 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
       <a href="/" class="flex items-center gap-2.5 shrink-0">
         <img :src="logoSrc" alt="ROMARA logo" class="h-10 w-auto sm:h-16" />
         <span class="leading-tight">
-          <span class="block font-heading text-xl font-black tracking-[0.12em] text-romara-green sm:text-2xl">ROMARA</span>
+          <span class="block font-logo text-xl font-bold tracking-[0.12em] text-romara-green sm:text-2xl">ROMARA</span>
           <span class="block text-[9px] font-semibold tracking-[0.14em] text-romara-ink/70 sm:text-[10px]">TOURS &amp; TRAVEL</span>
           <span class="hidden text-[9px] font-semibold text-romara-ink/60 sm:block">Creating Memorable African Journeys</span>
         </span>
       </a>
 
       <ul class="hidden xl:flex items-center gap-x-5">
-        <li v-for="link in navLinks" :key="link.label" class="group relative whitespace-nowrap">
+        <li v-for="(link, linkIndex) in navLinks" :key="link.label" class="group relative whitespace-nowrap">
           <button
             v-if="link.children"
             type="button"
@@ -261,63 +261,63 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
 
           <div
             v-if="link.children"
-            class="invisible translate-y-2 opacity-0 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 top-full left-1/2 -translate-x-1/2 absolute mt-4 w-[44rem] overflow-hidden rounded-2xl bg-white shadow-elevated ring-1 ring-romara-green/10 transition-all duration-300 ease-out-expo"
+            class="invisible translate-y-2 opacity-0 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 top-full absolute mt-4 w-[44rem] max-w-[calc(100vw-3rem)] overflow-hidden rounded-card bg-white shadow-elevated ring-1 ring-romara-green/10 transition-all duration-300 ease-out-expo"
+            :class="linkIndex >= navLinks.length - 2 ? 'right-0' : 'left-1/2 -translate-x-1/2'"
             @mouseenter="openDropdownLabel = link.label"
             @mouseleave="openDropdownLabel = null"
           >
-            <div class="h-1 w-full bg-amber-fade"></div>
-            <div class="grid grid-cols-2">
-              <!-- Navigation options -->
-              <div class="p-6">
-                <p class="eyebrow mb-4">Explore {{ link.label }}</p>
-                <ul class="space-y-1.5">
+            <div class="grid grid-cols-[1.15fr_0.85fr]">
+              <!-- Links. No icon tiles: every row carried an identical arrow in
+                   a box, which is repetition rather than information. The row
+                   itself is the affordance — a solid green panel wipes in from
+                   the left on hover and the label flips to white. -->
+              <div class="p-3">
+                <ul>
                   <li v-for="child in link.children" :key="child.label">
                     <a
                       :href="child.href"
-                      class="group/mega flex items-center justify-between gap-3 rounded-xl px-3.5 py-3 transition-all duration-300 ease-out-expo hover:bg-romara-cream"
+                      class="group/row flex items-center rounded-card px-5 py-2 transition-colors duration-200 hover:bg-romara-cream"
                       :class="isActiveLink(child.href) ? 'bg-romara-cream' : ''"
                     >
-                      <span class="flex items-center gap-3">
-                        <span
-                          class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-romara-green/5 text-romara-amber transition-colors duration-300 group-hover/mega:bg-romara-green group-hover/mega:text-white"
-                          :class="isActiveLink(child.href) ? 'bg-romara-green text-white' : ''"
-                        >
-                          <IconArrowRight class="h-4 w-4" />
-                        </span>
-                        <span class="font-heading text-sm font-semibold normal-case text-romara-green">{{ child.label }}</span>
+                      <span
+                        class="font-heading text-[1rem] font-semibold normal-case tracking-normal text-romara-green transition-transform duration-200 ease-out-expo group-hover/row:translate-x-1"
+                      >
+                        {{ child.label }}
                       </span>
-                      <IconArrowRight class="h-4 w-4 -translate-x-1 text-romara-amber opacity-0 transition-all duration-300 ease-out-expo group-hover/mega:translate-x-0 group-hover/mega:opacity-100" />
                     </a>
                   </li>
                 </ul>
               </div>
 
-              <!-- Feature image -->
-              <div class="relative m-3 overflow-hidden rounded-xl">
+              <!-- Feature image, bled to the panel edge rather than floated
+                   inside it as a second rounded box. The panel's own asymmetric
+                   corner clips it, which is the signature shape used on cards
+                   across the site. -->
+              <div class="relative min-h-[9rem] overflow-hidden">
                 <img
                   v-if="link.image"
                   :src="link.image"
                   :alt="link.label"
-                  class="h-full min-h-[14rem] w-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-105"
+                  class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-[1.04]"
                 />
-                <div v-else class="flex h-full min-h-[14rem] items-center justify-center bg-green-fade">
-                  <span class="font-heading text-lg font-bold text-white/50">{{ link.label }}</span>
+                <div v-else class="absolute inset-0 flex items-center justify-center bg-green-fade">
+                  <span class="font-heading text-lg font-bold text-white/40">{{ link.label }}</span>
                 </div>
-                <div class="absolute inset-0 bg-gradient-to-t from-romara-green-dark/90 via-romara-green-dark/15 to-transparent"></div>
-                <div class="absolute inset-x-0 bottom-0 p-5">
-                  <p class="eyebrow text-romara-amber-300">Discover</p>
-                  <p class="mt-1.5 font-heading text-lg font-semibold text-white">{{ link.label }}</p>
+                <div class="absolute inset-0 bg-gradient-to-t from-romara-green-dark/92 via-romara-green-dark/25 to-transparent"></div>
+                <div class="absolute inset-x-0 bottom-0 p-4">
+                  <p class="font-heading text-base font-semibold leading-tight text-white">{{ link.label }}</p>
                   <a
                     :href="link.href"
-                    class="mt-3 inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-white transition-colors hover:text-romara-amber-300"
+                    class="group/all mt-1.5 inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-white/80 transition-colors hover:text-white"
                   >
                     View all
-                    <IconArrowRight class="h-3.5 w-3.5" />
+                    <IconArrowRight class="h-3.5 w-3.5 transition-transform duration-300 ease-out-expo group-hover/all:translate-x-1" />
                   </a>
                 </div>
               </div>
             </div>
           </div>
+
         </li>
       </ul>
 
@@ -351,7 +351,7 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
               <span class="flex items-center gap-2.5">
                 <img :src="logoSrc" alt="ROMARA logo" class="h-11 w-auto" />
                 <span class="leading-tight">
-                  <span class="block font-heading text-xl font-black tracking-[0.18em] text-white">ROMARA</span>
+                  <span class="block font-logo text-xl font-bold tracking-[0.18em] text-white">ROMARA</span>
                   <span class="block text-[9px] font-semibold tracking-[0.2em] text-romara-amber">TOURS &amp; TRAVEL</span>
                 </span>
               </span>

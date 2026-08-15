@@ -70,12 +70,6 @@ const currentYear = new Date().getFullYear()
 
 <template>
   <div class="relative overflow-visible">
-    <div class="hidden md:block pointer-events-none absolute left-1/2 -top-56 -translate-x-1/2 z-[-1]">
-      <span class="block text-[10rem] font-heading uppercase tracking-[0.2em] text-romara-green-dark/10 leading-none sm:text-[12rem] md:text-[14rem] lg:text-[16rem] xl:text-[18rem]">
-        ROMARA
-      </span>
-    </div>
-
     <footer class="relative z-10 isolate overflow-hidden bg-romara-green-dark text-white">
       <!-- Background image + brand overlay (kept heavy so all text stays legible) -->
       <img
@@ -87,6 +81,15 @@ const currentYear = new Date().getFullYear()
         class="absolute inset-0 z-0 h-full w-full object-cover opacity-[0.4]"
       />
       <div class="absolute inset-0 z-0 bg-romara-green-dark/80" aria-hidden="true" />
+
+      <!-- Giant wordmark watermark. Lives inside the footer on purpose: it used
+           to sit above it at z-index -1, which put it behind the page's in-flow
+           content and hid it entirely once the preceding section had a solid
+           background. z-0 keeps it above the overlay and below the content. -->
+      <span
+        aria-hidden="true"
+        class="pointer-events-none absolute -top-10 left-1/2 z-0 hidden -translate-x-1/2 select-none whitespace-nowrap font-logo text-[10rem] uppercase leading-none tracking-[0.2em] text-white/[0.06] md:block md:text-[14rem] lg:text-[16rem] xl:text-[18rem]"
+      >ROMARA</span>
       <!-- Colourful accent line along the very top edge -->
 
       <!-- ================= DESKTOP / TABLET (md+) : full footer ================= -->
@@ -98,7 +101,7 @@ const currentYear = new Date().getFullYear()
               <div class="flex items-center gap-3">
                 <img :src="logoSrc" alt="ROMARA logo" class="h-24 w-auto" />
                 <span class="leading-tight">
-                  <span class="block font-heading text-3xl font-black tracking-[0.24em]">ROMARA</span>
+                  <span class="block font-logo text-3xl font-bold tracking-[0.24em]">ROMARA</span>
                   <span class="block text-xs font-semibold tracking-[0.22em] text-romara-amber">TOURS &amp; TRAVEL</span>
                 </span>
               </div>
@@ -202,7 +205,7 @@ const currentYear = new Date().getFullYear()
         <div class="flex items-center gap-2.5">
           <img :src="logoSrc" alt="ROMARA logo" class="h-20 w-auto" />
           <span class="leading-tight">
-            <span class="block font-heading text-2xl font-black tracking-[0.22em]">ROMARA</span>
+            <span class="block font-logo text-2xl font-bold tracking-[0.22em]">ROMARA</span>
             <span class="block text-[11px] font-semibold tracking-[0.2em] text-romara-amber">TOURS &amp; TRAVEL</span>
           </span>
         </div>

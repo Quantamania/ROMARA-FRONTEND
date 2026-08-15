@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import BaseButton from '@/components/ui/BaseButton.vue'
-import CtaAurora from '@/components/ui/CtaAurora.vue'
+import CtaBand from '@/components/ui/CtaBand.vue'
 import SectionHeading from '@/components/ui/SectionHeading.vue'
 import IconClock from '@/components/icons/IconClock.vue'
 import IconUser from '@/components/icons/IconUser.vue'
@@ -213,9 +213,8 @@ const whyChooseItems: WhyChooseItem[] = [
   </section>
 
   <div v-scroll-reveal="{ delay: 75 }">
-    <CtaAurora
-      title="Ready to Book Your Airport Transfer?"
-      subtitle="Enjoy a seamless travel experience from the moment you land."
+    <CtaBand
+      title="Ready to book your transfer?"
       primary-label="Book Now"
       primary-href="/airport-transfers/book"
     />
