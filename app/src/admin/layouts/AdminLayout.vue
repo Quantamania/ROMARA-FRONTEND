@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useAdminAuth } from '@/admin/composables/useAdminAuth'
 import AdminSidebar from '@/admin/components/AdminSidebar.vue'
+import IconMenu from '@/components/icons/IconMenu.vue'
 
 const sidebarOpen = ref(false)
 const { adminName, signOut } = useAdminAuth()
@@ -30,7 +31,7 @@ async function handleSignOut() {
           aria-label="Open menu"
           @click="sidebarOpen = true"
         >
-          ☰
+          <IconMenu class="h-5 w-5" />
         </button>
         <div class="hidden lg:block" />
 

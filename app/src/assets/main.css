@@ -335,7 +335,7 @@
 
   /* Sidebar nav item, with the amber rail marking the active section. */
   .admin-nav-link {
-    @apply relative flex items-center gap-3 pl-4 pr-3 py-2.5 rounded-card text-sm font-medium
+    @apply relative flex items-center gap-2.5 pl-3 pr-3 py-1.5 rounded-card text-sm font-medium
            text-romara-cream/75 transition-colors duration-150
            hover:bg-white/[0.07] hover:text-white
            focus-visible:outline focus-visible:outline-2 focus-visible:outline-romara-amber;

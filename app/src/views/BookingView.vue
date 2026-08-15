@@ -64,36 +64,41 @@ const helpOptions: HelpOption[] = [
 </script>
 
 <template>
-  <!-- Page header — subtle & clean (the booking journey lives in the stepper below) -->
-  <section class="border-b border-romara-green/10 bg-romara-bone">
-    <div class="romara-container py-12 sm:py-16">
-      <nav class="mb-5 flex flex-wrap items-center gap-2 text-xs font-medium text-romara-ink/50" aria-label="Breadcrumb">
+  <!-- Page header — a branded green band; the trust card below straddles its edge -->
+  <section class="relative isolate overflow-hidden bg-green-fade text-white">
+    <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-romara-amber/15 blur-3xl" aria-hidden="true" />
+    <div class="pointer-events-none absolute -bottom-16 -left-20 h-64 w-64 rounded-full bg-white/[0.05] blur-3xl" aria-hidden="true" />
+
+    <div class="romara-container relative pb-24 pt-12 sm:pb-28 sm:pt-16">
+      <nav class="mb-5 flex flex-wrap items-center gap-2 text-xs font-medium text-white/60" aria-label="Breadcrumb">
         <a href="/" class="transition-colors hover:text-romara-amber">Home</a>
-        <span class="text-romara-ink/25">/</span>
-        <span class="text-romara-green">Book Now</span>
+        <span class="text-white/30">/</span>
+        <span class="text-white/85">Book Now</span>
       </nav>
 
-      <h1 class="max-w-2xl font-heading text-display-sm font-semibold text-romara-green sm:text-display">
+      <h1 class="max-w-2xl font-heading text-display-sm font-semibold text-balance animate-fade-up sm:text-display">
         Start Your Adventure Today
       </h1>
-      <p class="mt-4 max-w-xl text-base leading-relaxed text-romara-ink-soft">
-        Fill in your details and let us help you plan your perfect safari or holiday in Kenya.
-      </p>
     </div>
   </section>
 
   <div class="bg-romara-bone">
-    <!-- Trust indicators, overlapping hero bottom -->
-    <div class="romara-container relative z-10 pt-12 sm:pt-14">
+    <!-- Trust indicators — the card lifts up to straddle the green header's edge -->
+    <div class="romara-container relative z-10 -mt-16 sm:-mt-20">
       <div class="grid grid-cols-2 gap-6 rounded-card bg-white p-6 shadow-elevated sm:grid-cols-4 sm:p-8">
-        <div v-for="item in trustIndicators" :key="item.title" class="flex items-start gap-3.5">
+        <div
+          v-for="(item, index) in trustIndicators"
+          :key="item.title"
+          v-scroll-reveal="{ delay: index * 90 }"
+          class="group flex items-start gap-3.5"
+        >
           <span
-            class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-amber-fade text-white shadow-soft"
+            class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-amber-fade text-white shadow-soft transition-transform duration-500 ease-out-expo group-hover:scale-110 group-hover:-rotate-6"
           >
             <component :is="item.icon" class="h-5 w-5" />
           </span>
           <div>
-            <p class="font-heading text-sm font-semibold text-romara-green">{{ item.title }}</p>
+            <p class="font-heading text-sm font-semibold text-romara-green transition-colors duration-300 group-hover:text-romara-amber">{{ item.title }}</p>
             <p class="mt-0.5 text-xs leading-relaxed text-romara-ink-soft">{{ item.description }}</p>
           </div>
         </div>
@@ -131,15 +136,16 @@ const helpOptions: HelpOption[] = [
 
             <div class="mt-6 space-y-3">
               <a
-                v-for="option in helpOptions"
+                v-for="(option, index) in helpOptions"
                 :key="option.label"
+                v-scroll-reveal="{ delay: index * 80 }"
                 :href="option.href"
                 :target="option.external ? '_blank' : undefined"
                 :rel="option.external ? 'noopener' : undefined"
                 class="group flex items-center gap-4 rounded-card border border-romara-green/10 bg-romara-bone p-4 transition-all duration-300 ease-out-expo hover:-translate-y-0.5 hover:border-romara-amber/30 hover:shadow-card"
               >
                 <span
-                  class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-amber-fade text-white shadow-soft transition-transform duration-300 ease-out-expo group-hover:scale-105"
+                  class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-amber-fade text-white shadow-soft transition-transform duration-300 ease-out-expo group-hover:scale-110 group-hover:-rotate-6"
                 >
                   <component :is="option.icon" class="h-5 w-5" />
                 </span>

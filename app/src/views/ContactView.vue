@@ -11,6 +11,8 @@ import IconCompass from '@/components/icons/IconCompass.vue'
 import IconFacebook from '@/components/icons/IconFacebook.vue'
 import IconInstagram from '@/components/icons/IconInstagram.vue'
 import IconTripadvisor from '@/components/icons/IconTripadvisor.vue'
+import IconHeadset from '@/components/icons/IconHeadset.vue'
+import IconMapPin from '@/components/icons/IconMapPin.vue'
 import SectionHeading from '@/components/ui/SectionHeading.vue'
 import ContactForm from '@/features/contact/components/ContactForm.vue'
 import OfficeMap from '@/features/contact/components/OfficeMap.vue'
@@ -72,10 +74,25 @@ const whyContactItems: WhyContactItem[] = [
         <span class="text-white/85">Contact</span>
       </nav>
 
-      <h1 class="max-w-2xl font-heading text-display-sm font-semibold text-balance sm:text-display">
+      <h1 class="max-w-2xl font-heading text-display-sm font-semibold text-balance animate-fade-up sm:text-display">
         We'd Love to Hear From You
       </h1>
-     
+
+      <!-- Functional at-a-glance facts — sets expectations without a marketing sentence -->
+      <div class="mt-6 flex flex-wrap gap-2.5 animate-fade-up" style="animation-delay: 120ms">
+        <span class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-xs font-medium text-white/85 backdrop-blur-sm">
+          <IconHeadset class="h-3.5 w-3.5 text-romara-amber-300" />
+          Replies within 24 hrs
+        </span>
+        <span class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-xs font-medium text-white/85 backdrop-blur-sm">
+          <IconClock class="h-3.5 w-3.5 text-romara-amber-300" />
+          Mon–Sat · 8am–6pm EAT
+        </span>
+        <span class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-xs font-medium text-white/85 backdrop-blur-sm">
+          <IconMapPin class="h-3.5 w-3.5 text-romara-amber-300" />
+          Ngong Road, Nairobi
+        </span>
+      </div>
     </div>
   </section>
 
@@ -95,14 +112,15 @@ const whyContactItems: WhyContactItem[] = [
             <!-- Quick actions -->
             <div class="mt-8 space-y-3">
               <a
-                v-for="action in contactActions"
+                v-for="(action, index) in contactActions"
                 :key="action.label"
+                v-scroll-reveal="{ delay: index * 90 }"
                 :href="action.href"
                 :target="action.external ? '_blank' : undefined"
                 :rel="action.external ? 'noopener' : undefined"
                 class="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm transition-all duration-300 ease-out-expo hover:-translate-y-0.5 hover:border-romara-amber/40 hover:bg-white/10"
               >
-                <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-romara-amber text-white">
+                <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-romara-amber text-white transition-transform duration-300 ease-out-expo group-hover:scale-105 group-hover:-rotate-3">
                   <component :is="action.icon" class="h-5 w-5" />
                 </span>
                 <span class="min-w-0 flex-1">
@@ -164,17 +182,20 @@ const whyContactItems: WhyContactItem[] = [
 
       <div class="mt-4 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
         <div
-          v-for="item in whyContactItems"
+          v-for="(item, index) in whyContactItems"
           :key="item.title"
-          class="group rounded-card border border-romara-green/10 bg-white p-6 text-center transition-all duration-500 ease-out-expo hover:-translate-y-1.5 hover:border-romara-amber/30 hover:shadow-elevated sm:p-8"
+          v-scroll-reveal="{ delay: index * 90 }"
+          class="group relative overflow-hidden rounded-card border border-romara-green/10 bg-white p-6 text-center transition-all duration-500 ease-out-expo hover:-translate-y-1.5 hover:border-romara-amber/30 hover:shadow-elevated sm:p-8"
         >
+          <!-- Amber wash blooms up from the base on hover -->
+          <span class="pointer-events-none absolute inset-x-0 bottom-0 h-0 bg-gradient-to-t from-romara-amber/10 to-transparent transition-all duration-500 ease-out-expo group-hover:h-full" aria-hidden="true" />
           <span
-            class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-amber-fade text-white shadow-soft transition-transform duration-500 ease-out-expo group-hover:scale-105"
+            class="relative mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-amber-fade text-white shadow-soft transition-transform duration-500 ease-out-expo group-hover:scale-110 group-hover:-rotate-6"
           >
             <component :is="item.icon" class="h-6 w-6" />
           </span>
-          <p class="mt-5 font-heading text-lg font-semibold text-romara-green">{{ item.title }}</p>
-          <p class="mt-2 text-xs leading-relaxed text-romara-ink-soft">{{ item.description }}</p>
+          <p class="relative mt-5 font-heading text-lg font-semibold text-romara-green transition-colors duration-300 group-hover:text-romara-amber">{{ item.title }}</p>
+          <p class="relative mt-2 text-xs leading-relaxed text-romara-ink-soft">{{ item.description }}</p>
         </div>
       </div>
     </div>

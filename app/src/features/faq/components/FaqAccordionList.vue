@@ -34,10 +34,11 @@ function toggleFaq(id: string) {
 
   <div v-else class="space-y-3">
     <div
-      v-for="faq in faqs"
+      v-for="(faq, index) in faqs"
       :key="faq.id"
-      class="overflow-hidden rounded-card border bg-white shadow-card transition-colors duration-300"
-      :class="openId === faq.id ? 'border-romara-amber/40' : 'border-romara-green/10'"
+      v-scroll-reveal="{ delay: index * 60 }"
+      class="group/faq overflow-hidden rounded-card border bg-white shadow-card transition-all duration-300 ease-out-expo"
+      :class="openId === faq.id ? 'border-romara-amber/40 shadow-elevated' : 'border-romara-green/10 hover:-translate-y-0.5 hover:border-romara-green/25 hover:shadow-elevated'"
     >
       <button
         type="button"
@@ -45,7 +46,10 @@ function toggleFaq(id: string) {
         :aria-expanded="openId === faq.id"
         @click="toggleFaq(faq.id)"
       >
-        <span class="font-heading text-base font-semibold text-romara-green sm:text-lg">
+        <span
+          class="font-heading text-base font-semibold text-romara-green transition-colors duration-300 sm:text-lg"
+          :class="openId !== faq.id && 'group-hover/faq:text-romara-amber'"
+        >
           {{ faq.question }}
         </span>
         <span

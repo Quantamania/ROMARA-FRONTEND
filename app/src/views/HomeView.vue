@@ -85,11 +85,25 @@ const members = [
   <div class="lg:hidden">
     <!-- Why Choose ROMARA — full-bleed panel that curves out of the hero -->
     <section class="relative z-10 -mt-7 rounded-t-[1.75rem] bg-white px-4 pb-4 pt-5 shadow-[0_-12px_30px_-16px_rgba(0,0,0,0.25)]">
-      <h2 class="text-center font-heading text-lg font-bold text-romara-green">Why Choose ROMARA?</h2>
+      <h2 v-scroll-reveal class="text-center font-heading text-lg font-bold text-romara-green">Why Choose ROMARA?</h2>
       <div class="mt-4 grid grid-cols-4 divide-x divide-romara-green/10">
-        <div v-for="item in whyChoose" :key="item.title" class="flex flex-col items-center gap-2 px-1.5 text-center">
-          <component :is="item.icon" class="h-6 w-6 shrink-0 text-romara-amber" />
-          <p class="text-[12px] font-bold leading-tight text-romara-green">{{ item.title }}</p>
+        <div
+          v-for="(item, index) in whyChoose"
+          :key="item.title"
+          v-scroll-reveal="{ delay: 120 + index * 90 }"
+          class="group flex flex-col items-center gap-2 px-1.5 text-center"
+        >
+          <span class="relative inline-flex h-6 w-6 items-center justify-center">
+            <span
+              class="pointer-events-none absolute inset-0 scale-75 rounded-full bg-romara-amber/25 opacity-0 blur-md transition-all duration-500 ease-out-expo group-hover:scale-150 group-hover:opacity-100 group-active:scale-150 group-active:opacity-100"
+              aria-hidden="true"
+            />
+            <component
+              :is="item.icon"
+              class="relative h-6 w-6 text-romara-amber transition-transform duration-500 ease-out-expo group-hover:-translate-y-0.5 group-hover:scale-110 group-active:scale-110"
+            />
+          </span>
+          <p class="text-[12px] font-bold leading-tight text-romara-green transition-colors duration-300 group-hover:text-romara-amber">{{ item.title }}</p>
         </div>
       </div>
     </section>

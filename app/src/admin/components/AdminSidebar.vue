@@ -1,7 +1,19 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, type Component } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import { useAdminAuth } from '@/admin/composables/useAdminAuth'
+import IconGrid from '@/components/icons/IconGrid.vue'
+import IconMail from '@/components/icons/IconMail.vue'
+import IconSuitcase from '@/components/icons/IconSuitcase.vue'
+import IconCheckSquare from '@/components/icons/IconCheckSquare.vue'
+import IconPlaneLanding from '@/components/icons/IconPlaneLanding.vue'
+import IconCar from '@/components/icons/IconCar.vue'
+import IconCompass from '@/components/icons/IconCompass.vue'
+import IconCamera from '@/components/icons/IconCamera.vue'
+import IconStar from '@/components/icons/IconStar.vue'
+import IconTag from '@/components/icons/IconTag.vue'
+import IconWallet from '@/components/icons/IconWallet.vue'
+import IconUsers from '@/components/icons/IconUsers.vue'
 
 defineProps<{ open: boolean }>()
 defineEmits<{ close: [] }>()
@@ -11,7 +23,7 @@ const { canAny } = useAdminAuth()
 interface NavItem {
   to: string
   label: string
-  icon: string
+  icon: Component
   /** Only the dashboard matches on an exact path; the rest match by prefix. */
   exact?: boolean
   /** Roles that see this item. Omitted means every admin does. */
@@ -23,34 +35,34 @@ interface NavItem {
 const groups: { label: string; items: NavItem[] }[] = [
   {
     label: 'Overview',
-    items: [{ to: '/admin', label: 'Dashboard', icon: '⌂', exact: true }],
+    items: [{ to: '/admin', label: 'Dashboard', icon: IconGrid, exact: true }],
   },
   {
     label: 'Enquiries & bookings',
     items: [
-      { to: '/admin/enquiries', label: 'Enquiries', icon: '✉', roles: ['owner','manager','finance'] },
-      { to: '/admin/bookings', label: 'Bookings', icon: '☰', roles: ['owner','manager','finance'] },
-      { to: '/admin/booking-requests', label: 'Booking Requests', icon: '📋', roles: ['owner','manager','finance'] },
-      { to: '/admin/transfers', label: 'Airport Transfers', icon: '✈', roles: ['owner','manager','finance'] },
-      { to: '/admin/vehicle-hire', label: 'Vehicle Hire', icon: '⛟', roles: ['owner','manager','finance'] },
+      { to: '/admin/enquiries', label: 'Enquiries', icon: IconMail, roles: ['owner','manager','finance'] },
+      { to: '/admin/bookings', label: 'Bookings', icon: IconSuitcase, roles: ['owner','manager','finance'] },
+      { to: '/admin/booking-requests', label: 'Booking Requests', icon: IconCheckSquare, roles: ['owner','manager','finance'] },
+      { to: '/admin/transfers', label: 'Airport Transfers', icon: IconPlaneLanding, roles: ['owner','manager','finance'] },
+      { to: '/admin/vehicle-hire', label: 'Vehicle Hire', icon: IconCar, roles: ['owner','manager','finance'] },
     ],
   },
   {
     label: 'Website content',
     items: [
-      { to: '/admin/tours', label: 'Tour Packages', icon: '✦' },
-      { to: '/admin/blog', label: 'Blog', icon: '✎' },
-      { to: '/admin/testimonials', label: 'Testimonials', icon: '❝' },
-      { to: '/admin/promotions', label: 'Promotions', icon: '◈' },
+      { to: '/admin/tours', label: 'Tour Packages', icon: IconCompass },
+      { to: '/admin/blog', label: 'Blog', icon: IconCamera },
+      { to: '/admin/testimonials', label: 'Testimonials', icon: IconStar },
+      { to: '/admin/promotions', label: 'Promotions', icon: IconTag },
     ],
   },
   {
     label: 'Money',
-    items: [{ to: '/admin/payments', label: 'Payments', icon: '⛁', roles: ['owner','manager','finance'] }],
+    items: [{ to: '/admin/payments', label: 'Payments', icon: IconWallet, roles: ['owner','manager','finance'] }],
   },
   {
     label: 'Settings',
-    items: [{ to: '/admin/team', label: 'Admin Team', icon: '☗', roles: ['owner'] }],
+    items: [{ to: '/admin/team', label: 'Admin Team', icon: IconUsers, roles: ['owner'] }],
   },
 ]
 
@@ -80,16 +92,16 @@ function isActive(path: string, exact?: boolean) {
     :class="open ? 'translate-x-0' : '-translate-x-full'"
   >
     <!-- Wordmark. The amber hairline is the panel's tell: same brand, admin mode. -->
-    <div class="px-5 pt-6 pb-5">
-      <p class="font-logo text-3xl font-bold leading-none text-romara-cream">ROMARA</p>
-      <p class="text-[0.62rem] uppercase tracking-widest2 text-romara-cream/50 mt-2.5">
+    <div class="px-5 pb-4 pt-5">
+      <p class="font-logo text-2xl font-bold leading-none text-romara-cream">ROMARA</p>
+      <p class="mt-2 text-[0.6rem] uppercase tracking-widest2 text-romara-cream/50">
         Content Manager
       </p>
     </div>
 
-    <nav class="flex-1 px-3 pb-4 space-y-5 overflow-y-auto">
+    <nav class="flex-1 space-y-3 overflow-y-auto px-3 pb-3 [scrollbar-width:thin]">
       <div v-for="group in visibleGroups" :key="group.label">
-        <p class="px-4 mb-1.5 text-[0.6rem] uppercase tracking-widest2 text-romara-cream/35 font-semibold">
+        <p class="mb-1 px-3 text-[0.58rem] font-semibold uppercase tracking-widest2 text-romara-cream/35">
           {{ group.label }}
         </p>
         <div class="space-y-0.5">
@@ -97,20 +109,31 @@ function isActive(path: string, exact?: boolean) {
             v-for="item in group.items"
             :key="item.to"
             :to="item.to"
-            class="admin-nav-link"
+            class="admin-nav-link group"
             :class="isActive(item.to, item.exact) && 'admin-nav-link-active'"
             @click="$emit('close')"
           >
-            <span class="text-base w-5 text-center opacity-80" aria-hidden="true">{{ item.icon }}</span>
+            <!-- Active rail: an amber bar slides in on the left edge -->
+            <span
+              class="absolute left-0 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-r-full bg-romara-amber transition-all duration-300 ease-out-expo"
+              :class="isActive(item.to, item.exact) ? 'opacity-100' : 'opacity-0'"
+              aria-hidden="true"
+            />
+            <span
+              class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg transition-colors duration-200"
+              :class="isActive(item.to, item.exact) ? 'bg-romara-amber/20 text-romara-amber-300' : 'bg-white/[0.06] text-romara-cream/70 group-hover:text-white'"
+            >
+              <component :is="item.icon" class="h-[17px] w-[17px]" />
+            </span>
             {{ item.label }}
           </RouterLink>
         </div>
       </div>
     </nav>
 
-    <div class="px-5 py-4 border-t border-white/10">
-      <a href="/" class="text-xs text-romara-cream/60 hover:text-romara-amber transition-colors">
-        ← Back to live site
+    <div class="border-t border-white/10 px-5 py-3">
+      <a href="/" class="inline-flex items-center gap-1.5 text-xs text-romara-cream/60 transition-colors hover:text-romara-amber">
+        <span aria-hidden="true">←</span> Back to live site
       </a>
     </div>
   </aside>
