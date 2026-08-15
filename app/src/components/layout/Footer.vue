@@ -44,13 +44,6 @@ const socialLinks = [
   { name: 'WhatsApp', href: 'https://wa.me/254700123456', icon: IconWhatsapp },
 ]
 
-// Prominent tap actions for the compact mobile footer.
-const contactActions = [
-  { label: 'Call', icon: IconPhone, href: 'tel:+254700123456' },
-  { label: 'WhatsApp', icon: IconWhatsapp, href: 'https://wa.me/254700123456' },
-  { label: 'Email', icon: IconMail, href: 'mailto:info@romaratours.com' },
-]
-
 const newsletterEmail = ref('')
 const isSubscribing = ref(false)
 
@@ -212,21 +205,6 @@ const currentYear = new Date().getFullYear()
           Your trusted travel partner for unforgettable experiences in Kenya and beyond.
         </p>
 
-        <!-- Prominent contact actions -->
-        <div class="mt-6 grid grid-cols-3 gap-2.5">
-          <a
-            v-for="action in contactActions"
-            :key="action.label"
-            :href="action.href"
-            class="flex flex-col items-center gap-2 rounded-2xl border border-white/12 bg-white/5 py-4 text-center transition-colors hover:border-romara-amber/50 hover:bg-white/10"
-          >
-            <span class="flex h-12 w-12 items-center justify-center rounded-full bg-romara-amber/15 text-romara-amber-300">
-              <component :is="action.icon" class="h-6 w-6" />
-            </span>
-            <span class="text-[11px] font-bold uppercase tracking-[0.12em] text-white/85">{{ action.label }}</span>
-          </a>
-        </div>
-
         <!-- Navigation removed on mobile — the bottom tab bar handles it. Keep the address only. -->
         <div class="mt-6 flex items-start gap-2 border-t border-white/12 pt-5 text-sm text-white/75">
           <IconMapPin class="mt-0.5 h-4 w-4 shrink-0 text-romara-amber" />
@@ -255,8 +233,8 @@ const currentYear = new Date().getFullYear()
           </div>
         </form>
 
-        <!-- Social -->
-        <div class="mt-6 flex items-center gap-3">
+        <!-- Social — the primary contact affordance now, so make them prominent -->
+        <div class="mt-7 flex items-center gap-3.5">
           <a
             v-for="social in socialLinks"
             :key="social.name"
@@ -264,9 +242,9 @@ const currentYear = new Date().getFullYear()
             target="_blank"
             rel="noopener"
             :aria-label="social.name"
-            class="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-white/80 transition-colors hover:border-romara-amber hover:text-romara-amber"
+            class="flex h-14 w-14 items-center justify-center rounded-full bg-romara-amber/15 text-romara-amber-300 transition-colors hover:bg-romara-amber hover:text-white"
           >
-            <component :is="social.icon" class="h-4 w-4" />
+            <component :is="social.icon" class="h-7 w-7 [stroke-width:2.4]" />
           </a>
         </div>
       </div>

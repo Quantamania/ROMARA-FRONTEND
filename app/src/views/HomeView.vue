@@ -84,11 +84,11 @@ const members = [
   <!-- ================= MOBILE / TABLET: curated flow ================= -->
   <div class="lg:hidden">
     <!-- Why Choose ROMARA — full-bleed panel that curves out of the hero -->
-    <section class="relative z-10 -mt-7 rounded-t-[1.75rem] bg-white px-4 pb-5 pt-6 shadow-[0_-12px_30px_-16px_rgba(0,0,0,0.25)]">
-      <h2 class="text-center font-heading text-xl font-bold text-romara-green">Why Choose ROMARA?</h2>
-      <div class="mt-5 grid grid-cols-4 divide-x divide-romara-green/10">
+    <section class="relative z-10 -mt-7 rounded-t-[1.75rem] bg-white px-4 pb-4 pt-5 shadow-[0_-12px_30px_-16px_rgba(0,0,0,0.25)]">
+      <h2 class="text-center font-heading text-lg font-bold text-romara-green">Why Choose ROMARA?</h2>
+      <div class="mt-4 grid grid-cols-4 divide-x divide-romara-green/10">
         <div v-for="item in whyChoose" :key="item.title" class="flex flex-col items-center gap-1.5 px-1.5 text-center">
-          <component :is="item.icon" class="h-7 w-7 shrink-0 text-romara-amber" />
+          <component :is="item.icon" class="h-6 w-6 shrink-0 text-romara-amber" />
           <p class="text-[12px] font-bold leading-tight text-romara-green">{{ item.title }}</p>
           <p class="text-[10px] leading-tight text-romara-ink/60">{{ item.desc }}</p>
         </div>
@@ -124,7 +124,7 @@ const members = [
             </div>
           </div>
 
-          <dl class="mt-7 grid grid-cols-2 gap-x-4 gap-y-6 border-t border-romara-green/10 pt-6 text-center sm:grid-cols-4">
+          <dl class="mt-7 grid grid-cols-2 gap-x-4 gap-y-6 text-center sm:grid-cols-4">
             <div>
               <dd class="font-heading text-3xl font-bold leading-none text-romara-green">{{ rating.toFixed(1) }}<span class="text-romara-amber">/5</span></dd>
               <dt class="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-romara-ink/55">Traveller Rating</dt>
@@ -142,6 +142,9 @@ const members = [
               <dt class="mt-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-romara-ink/55">Coverage</dt>
             </div>
           </dl>
+
+          <!-- Divider sits under the stats -->
+          <div class="mt-7 border-t border-romara-green/10" aria-hidden="true" />
         </div>
       </section>
 

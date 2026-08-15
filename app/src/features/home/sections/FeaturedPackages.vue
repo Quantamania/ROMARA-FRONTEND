@@ -47,7 +47,8 @@ function formatPrice(amount: number) {
             loading="lazy"
             class="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-out-expo group-hover:scale-105"
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-romara-green-dark/92 via-romara-green-dark/25 to-transparent" aria-hidden="true" />
+          <!-- Subtle top scrim so the badge stays legible; the photo stays visible. -->
+          <div class="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/30 to-transparent" aria-hidden="true" />
 
           <span
             v-if="pkg.badge"
@@ -56,31 +57,31 @@ function formatPrice(amount: number) {
             {{ pkg.badge }}
           </span>
 
-          <!-- Overlaid content -->
-          <div class="relative p-6">
-            <div class="flex flex-wrap items-center gap-2.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white/85">
-              <span class="inline-flex items-center gap-1.5"><IconClock class="h-3.5 w-3.5 text-romara-amber-300" />{{ pkg.durationDays }} Days</span>
-              <span class="h-3 w-px bg-white/30" aria-hidden="true" />
-              <span class="inline-flex items-center gap-1.5"><IconMapPin class="h-3.5 w-3.5 text-romara-amber-300" />{{ pkg.location }}</span>
+          <!-- Content on a frosted white panel — readable on any image, photo stays visible above. -->
+          <div class="relative m-4 rounded-lg bg-white/90 p-5 shadow-sm backdrop-blur-md">
+            <div class="flex flex-wrap items-center gap-2.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-romara-ink/70">
+              <span class="inline-flex items-center gap-1.5"><IconClock class="h-3.5 w-3.5 text-romara-amber" />{{ pkg.durationDays }} Days</span>
+              <span class="h-3 w-px bg-romara-green/20" aria-hidden="true" />
+              <span class="inline-flex items-center gap-1.5"><IconMapPin class="h-3.5 w-3.5 text-romara-amber" />{{ pkg.location }}</span>
             </div>
 
             <h3
-              class="mt-2.5 font-heading font-semibold leading-tight text-white"
+              class="mt-2.5 font-heading font-semibold leading-tight text-romara-green"
               :class="index === 0 ? 'text-2xl sm:text-3xl' : 'text-xl'"
             >
               {{ pkg.name }}
             </h3>
 
-            <p v-if="index === 0" class="mt-2 max-w-md text-sm leading-relaxed text-white/75 line-clamp-2">
+            <p v-if="index === 0" class="mt-2 max-w-md text-sm leading-relaxed text-romara-ink/65 line-clamp-2">
               {{ pkg.description }}
             </p>
 
             <div class="mt-4 flex items-center justify-between gap-3">
               <p class="leading-none">
-                <span class="text-[11px] font-medium uppercase tracking-[0.12em] text-white/60">From</span>
-                <span class="mt-1 block font-heading text-xl font-semibold text-romara-amber-300">KES {{ formatPrice(pkg.priceFromKES) }}</span>
+                <span class="text-[11px] font-medium uppercase tracking-[0.12em] text-romara-ink/55">From</span>
+                <span class="mt-1 block font-heading text-xl font-semibold text-romara-amber">KES {{ formatPrice(pkg.priceFromKES) }}</span>
               </p>
-              <span class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/20 text-white ring-1 ring-white/25 transition-all duration-300 ease-out-expo group-hover:bg-romara-amber group-hover:ring-romara-amber">
+              <span class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-romara-green text-white transition-all duration-300 ease-out-expo group-hover:bg-romara-amber">
                 <IconArrowRight class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
               </span>
             </div>

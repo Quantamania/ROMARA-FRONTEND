@@ -7,7 +7,7 @@ import IconShield from '@/components/icons/IconShield.vue'
 </script>
 
 <template>
-  <section class="relative isolate min-h-[290px] overflow-hidden bg-romara-green text-white sm:min-h-[50vh]">
+  <section class="relative isolate min-h-[290px] overflow-hidden bg-romara-green text-white sm:min-h-[68vh]">
     <img
       src="/images/home/hero-elephants.webp"
       alt="Elephants on the Kenyan savanna at golden hour"
@@ -17,9 +17,9 @@ import IconShield from '@/components/icons/IconShield.vue'
     <div class="absolute inset-0 bg-gradient-to-r from-romara-green-dark/95 via-romara-green-dark/60 to-romara-green-dark/15" />
     <div class="absolute inset-0 bg-scrim-b" />
 
-    <div class="romara-container relative flex min-h-[290px] flex-col justify-center py-5 sm:min-h-[50vh] sm:py-12">
+    <div class="romara-container relative flex min-h-[290px] flex-col justify-center py-5 sm:min-h-[68vh] sm:py-16">
       <div class="max-w-xl">
-        <h1 class="font-heading text-2xl font-bold leading-tight text-balance sm:text-5xl lg:text-6xl">
+        <h1 class="font-heading text-lg font-bold leading-tight sm:text-2xl lg:text-3xl">
           Safari Tours <span class="text-romara-amber">&amp;</span> Premium Vehicle Hire
         </h1>
 

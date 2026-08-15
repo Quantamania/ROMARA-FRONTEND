@@ -180,7 +180,7 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
             class="group flex items-center gap-2 transition-colors duration-300 hover:text-romara-green-dark"
           >
             <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/20 transition-colors duration-300 group-hover:bg-romara-green-dark group-hover:text-white">
-              <IconPhone class="h-3 w-3" />
+              <IconPhone class="h-3 w-3 [stroke-width:2.6]" />
             </span>
             <span class="font-medium text-white/85 transition-colors duration-300 group-hover:text-current">Call us</span>
             <span class="font-semibold tracking-wide text-white">{{ phone }}</span>
@@ -193,7 +193,7 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
             class="group hidden items-center gap-2 transition-colors duration-300 hover:text-romara-green-dark sm:flex"
           >
             <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/20 transition-colors duration-300 group-hover:bg-romara-green-dark group-hover:text-white">
-              <IconMail class="h-3 w-3" />
+              <IconMail class="h-3 w-3 [stroke-width:2.6]" />
             </span>
             <span class="font-medium tracking-wide text-white">{{ email }}</span>
           </a>
@@ -209,7 +209,7 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
             :aria-label="social.name"
             class="text-white hover:text-romara-green-dark"
           >
-            <component :is="social.icon" class="h-5 w-5" />
+            <component :is="social.icon" class="h-5 w-5 [stroke-width:2.4]" />
           </a>
         </div>
       </div>
