@@ -88,7 +88,7 @@ const members = [
       <h2 class="text-center font-heading text-xl font-bold text-romara-green">Why Choose ROMARA?</h2>
       <div class="mt-5 grid grid-cols-4 divide-x divide-romara-green/10">
         <div v-for="item in whyChoose" :key="item.title" class="flex flex-col items-center gap-1.5 px-1.5 text-center">
-          <component :is="item.icon" class="h-7 w-7 shrink-0 text-romara-green" />
+          <component :is="item.icon" class="h-7 w-7 shrink-0 text-romara-amber" />
           <p class="text-[12px] font-bold leading-tight text-romara-green">{{ item.title }}</p>
           <p class="text-[10px] leading-tight text-romara-ink/60">{{ item.desc }}</p>
         </div>

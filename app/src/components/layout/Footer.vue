@@ -8,7 +8,6 @@ import IconFacebook from '@/components/icons/IconFacebook.vue'
 import IconInstagram from '@/components/icons/IconInstagram.vue'
 import IconTripadvisor from '@/components/icons/IconTripadvisor.vue'
 import IconWhatsapp from '@/components/icons/IconWhatsapp.vue'
-import IconChevronDown from '@/components/icons/IconChevronDown.vue'
 import IconArrowRight from '@/components/icons/IconArrowRight.vue'
 
 const quickLinks = [
@@ -70,7 +69,7 @@ const currentYear = new Date().getFullYear()
 
 <template>
   <div class="relative overflow-visible">
-    <footer class="relative z-10 isolate overflow-hidden bg-romara-green-dark text-white">
+    <footer class="relative z-10 isolate overflow-hidden bg-romara-green-600 text-white">
       <!-- Background image + brand overlay (kept heavy so all text stays legible) -->
       <img
         src="/images/home/mara.webp"
@@ -80,7 +79,7 @@ const currentYear = new Date().getFullYear()
         decoding="async"
         class="absolute inset-0 z-0 h-full w-full object-cover opacity-[0.4]"
       />
-      <div class="absolute inset-0 z-0 bg-romara-green-dark/80" aria-hidden="true" />
+      <div class="absolute inset-0 z-0 bg-romara-green-700/70" aria-hidden="true" />
 
       <!-- Giant wordmark watermark. Lives inside the footer on purpose: it used
            to sit above it at z-index -1, which put it behind the page's in-flow
@@ -228,34 +227,10 @@ const currentYear = new Date().getFullYear()
           </a>
         </div>
 
-        <!-- Collapsible link groups — short by default, tap to expand -->
-        <div class="mt-6 border-y border-white/10">
-          <details class="group border-b border-white/10 last:border-b-0">
-            <summary class="flex cursor-pointer list-none items-center justify-between py-4 text-sm font-bold uppercase tracking-[0.1em] text-romara-amber-300 [&::-webkit-details-marker]:hidden">
-              Explore
-              <IconChevronDown class="h-4 w-4 text-white/50 transition-transform duration-300 group-open:rotate-180" />
-            </summary>
-            <ul class="grid grid-cols-2 gap-x-4 gap-y-3 pb-5 pt-1">
-              <li v-for="link in quickLinks" :key="link.label">
-                <a :href="link.href" class="text-sm text-white/70 transition-colors hover:text-romara-amber">{{ link.label }}</a>
-              </li>
-            </ul>
-          </details>
-
-          <details class="group border-b border-white/10 last:border-b-0">
-            <summary class="flex cursor-pointer list-none items-center justify-between py-4 text-sm font-bold uppercase tracking-[0.1em] text-romara-amber-300 [&::-webkit-details-marker]:hidden">
-              Services
-              <IconChevronDown class="h-4 w-4 text-white/50 transition-transform duration-300 group-open:rotate-180" />
-            </summary>
-            <ul class="grid grid-cols-2 gap-x-4 gap-y-3 pb-5 pt-1">
-              <li v-for="service in services" :key="service" class="text-sm text-white/70">{{ service }}</li>
-            </ul>
-          </details>
-
-          <div class="flex items-start gap-2 py-4 text-sm text-white/70">
-            <IconMapPin class="mt-0.5 h-4 w-4 shrink-0 text-romara-amber" />
-            <span>Ngong Road, Nairobi, Kenya</span>
-          </div>
+        <!-- Navigation removed on mobile — the bottom tab bar handles it. Keep the address only. -->
+        <div class="mt-6 flex items-start gap-2 border-t border-white/12 pt-5 text-sm text-white/75">
+          <IconMapPin class="mt-0.5 h-4 w-4 shrink-0 text-romara-amber" />
+          <span>Ngong Road, Nairobi, Kenya</span>
         </div>
 
         <!-- Compact newsletter -->

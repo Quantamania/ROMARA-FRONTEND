@@ -172,27 +172,27 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
 <template>
   <header class="left-0 right-0 z-40 fixed bg-white border-b transition-[top,opacity,box-shadow] duration-300 ease-out" :class="isScrolled ? 'border-transparent shadow-soft' : 'border-black/5'" :style="{ top: isNavHidden ? '-160px' : '0px', opacity: isNavHidden ? 0 : 1, pointerEvents: isNavHidden ? 'none' : 'auto' }">
     <!-- Contact Bar -->
-    <div class="bg-romara-green text-white">
+    <div class="bg-romara-amber text-romara-green-dark">
       <div class="romara-container flex h-9 items-center justify-between text-xs sm:h-10">
         <div class="flex items-center gap-3.5 sm:gap-5">
           <a
             :href="`tel:${phone.replace(/\s/g, '')}`"
-            class="group flex items-center gap-2 transition-colors duration-300 hover:text-romara-amber"
+            class="group flex items-center gap-2 transition-colors duration-300 hover:text-white"
           >
-            <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/10 transition-colors duration-300 group-hover:bg-romara-amber group-hover:text-romara-green">
+            <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-romara-green-dark/10 transition-colors duration-300 group-hover:bg-romara-green-dark group-hover:text-romara-amber">
               <IconPhone class="h-3 w-3" />
             </span>
-            <span class="font-medium text-white/70 transition-colors duration-300 group-hover:text-current">Call us</span>
+            <span class="font-medium text-romara-green-dark/70 transition-colors duration-300 group-hover:text-current">Call us</span>
             <span class="font-semibold tracking-wide">{{ phone }}</span>
           </a>
 
-          <span class="hidden h-3.5 w-px bg-white/15 sm:block" aria-hidden="true" />
+          <span class="hidden h-3.5 w-px bg-romara-green-dark/20 sm:block" aria-hidden="true" />
 
           <a
             :href="`mailto:${email}`"
-            class="group hidden items-center gap-2 transition-colors duration-300 hover:text-romara-amber sm:flex"
+            class="group hidden items-center gap-2 transition-colors duration-300 hover:text-white sm:flex"
           >
-            <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/10 transition-colors duration-300 group-hover:bg-romara-amber group-hover:text-romara-green">
+            <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-romara-green-dark/10 transition-colors duration-300 group-hover:bg-romara-green-dark group-hover:text-romara-amber">
               <IconMail class="h-3 w-3" />
             </span>
             <span class="font-medium tracking-wide">{{ email }}</span>
@@ -207,7 +207,7 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
             target="_blank"
             rel="noopener"
             :aria-label="social.name"
-            class="text-white/90 hover:text-romara-amber"
+            class="text-romara-green-dark/80 hover:text-white"
           >
             <component :is="social.icon" class="h-5 w-5" />
           </a>

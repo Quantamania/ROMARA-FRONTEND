@@ -38,7 +38,7 @@ const features: Feature[] = [
           :key="feature.title"
           class="flex flex-col items-center gap-2 px-1.5 text-center sm:px-4"
         >
-          <component :is="feature.icon" class="h-7 w-7 shrink-0 text-romara-green sm:h-8 sm:w-8" />
+          <component :is="feature.icon" class="h-7 w-7 shrink-0 text-romara-amber sm:h-8 sm:w-8" />
           <p class="text-[12px] font-bold leading-tight text-romara-green sm:text-sm">{{ feature.title }}</p>
           <p class="text-[10px] leading-tight text-romara-ink/60 sm:text-xs">{{ feature.description }}</p>
         </div>
