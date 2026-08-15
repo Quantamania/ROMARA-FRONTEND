@@ -64,7 +64,13 @@ onUnmounted(() => {
     </div>
 
     <!-- Scrims for legibility + brand tint -->
-    <div class="absolute inset-0 bg-scrim-r" />
+    <!-- On phones the copy runs nearly the full width, so a left-to-right fade
+         leaves the end of every line sitting on bare photo (measured 1.65:1
+         contrast). Mobile gets a flat green wash like the About hero; the
+         directional fade returns from `sm` up, where the copy is in a left
+         column and the photo should show through on the right. -->
+    <div class="absolute inset-0 bg-romara-green/80 sm:hidden" />
+    <div class="absolute inset-0 hidden bg-scrim-green-r sm:block" />
     <div class="absolute inset-0 bg-gradient-to-t from-romara-green-dark/80 via-transparent to-romara-green-dark/20" />
 
     <div class="romara-container relative flex min-h-[calc(100svh-93px)] flex-col justify-center py-12 sm:min-h-[88vh] sm:py-28">
@@ -72,7 +78,7 @@ onUnmounted(() => {
         <h1
           class="font-heading text-[clamp(2.75rem,8vw,5.5rem)] font-semibold leading-[1.02] tracking-tight text-balance animate-fade-up"
         >
-          Safari Tours <span class="text-romara-amber-300">&amp;</span> Premium Vehicle Hire
+          Safari Tours <span class="text-romara-amber-400">&amp;</span> Premium Vehicle Hire
         </h1>
 
         <p
@@ -82,7 +88,7 @@ onUnmounted(() => {
           {{ subheading }}
         </p>
 
-        <!-- Two service pillars — the core business, unmistakable at a glance -->
+        <!-- Two service pillars  the core business, unmistakable at a glance -->
         <div class="mt-9 flex flex-wrap gap-3">
           <a
             v-for="(service, index) in services"

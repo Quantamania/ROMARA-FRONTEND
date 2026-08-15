@@ -98,12 +98,12 @@ const currentYear = new Date().getFullYear()
               <div class="flex items-center gap-3">
                 <img :src="logoSrc" alt="ROMARA logo" class="h-24 w-auto" />
                 <span class="leading-tight">
-                  <span class="block font-heading text-2xl font-black tracking-[0.36em]">ROMARA</span>
+                  <span class="block font-heading text-3xl font-black tracking-[0.24em]">ROMARA</span>
                   <span class="block text-xs font-semibold tracking-[0.22em] text-romara-amber">TOURS &amp; TRAVEL</span>
                 </span>
               </div>
               <p class="mt-6 font-heading text-2xl font-semibold leading-snug text-white text-balance lg:text-[1.75rem]">
-                Creating memorable African journeys — across Kenya and beyond.
+                Creating memorable African journeys across Kenya and beyond.
               </p>
             </div>
 
@@ -202,7 +202,7 @@ const currentYear = new Date().getFullYear()
         <div class="flex items-center gap-2.5">
           <img :src="logoSrc" alt="ROMARA logo" class="h-20 w-auto" />
           <span class="leading-tight">
-            <span class="block font-heading text-xl font-black tracking-[0.32em]">ROMARA</span>
+            <span class="block font-heading text-2xl font-black tracking-[0.22em]">ROMARA</span>
             <span class="block text-[11px] font-semibold tracking-[0.2em] text-romara-amber">TOURS &amp; TRAVEL</span>
           </span>
         </div>

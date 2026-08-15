@@ -220,7 +220,7 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
       <a href="/" class="flex items-center gap-2.5 shrink-0">
         <img :src="logoSrc" alt="ROMARA logo" class="h-10 w-auto sm:h-16" />
         <span class="leading-tight">
-          <span class="block font-heading text-base font-black tracking-[0.16em] text-romara-green sm:text-lg">ROMARA</span>
+          <span class="block font-heading text-xl font-black tracking-[0.12em] text-romara-green sm:text-2xl">ROMARA</span>
           <span class="block text-[9px] font-semibold tracking-[0.14em] text-romara-ink/70 sm:text-[10px]">TOURS &amp; TRAVEL</span>
           <span class="hidden text-[9px] font-semibold text-romara-ink/60 sm:block">Creating Memorable African Journeys</span>
         </span>
@@ -351,7 +351,7 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
               <span class="flex items-center gap-2.5">
                 <img :src="logoSrc" alt="ROMARA logo" class="h-11 w-auto" />
                 <span class="leading-tight">
-                  <span class="block font-heading text-base font-black tracking-[0.28em] text-white">ROMARA</span>
+                  <span class="block font-heading text-xl font-black tracking-[0.18em] text-white">ROMARA</span>
                   <span class="block text-[9px] font-semibold tracking-[0.2em] text-romara-amber">TOURS &amp; TRAVEL</span>
                 </span>
               </span>

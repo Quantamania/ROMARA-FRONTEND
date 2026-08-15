@@ -76,14 +76,6 @@ const whyContactItems: WhyContactItem[] = [
         We'd Love to Hear From You
       </h1>
      
-      <!-- Availability cue: white pulse ring (no amber dot) -->
-      <div class="mt-6 inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/10 px-4 py-2 backdrop-blur-sm">
-        <span class="relative flex h-2.5 w-2.5" aria-hidden="true">
-          <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/70"></span>
-          <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-white"></span>
-        </span>
-        <span class="text-xs font-semibold tracking-wide text-white/90">Typically replies within a few hours</span>
-      </div>
     </div>
   </section>
 

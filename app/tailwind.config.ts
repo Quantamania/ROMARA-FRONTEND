@@ -71,6 +71,10 @@ export default {
       },
       backgroundImage: {
         'scrim-r': 'linear-gradient(90deg, rgb(0 0 0 / 0.68) 0%, rgb(0 0 0 / 0.30) 42%, transparent 78%)',
+        // Green version of scrim-r, for heroes whose copy should sit on the
+        // brand field rather than a neutral black wash.
+        'scrim-green-r':
+          'linear-gradient(90deg, rgb(11 29 18 / 0.94) 0%, rgb(11 29 18 / 0.78) 32%, rgb(22 36 26 / 0.42) 58%, rgb(22 36 26 / 0.12) 78%, transparent 92%)',
         'scrim-b': 'linear-gradient(0deg, rgb(0 0 0 / 0.72) 0%, rgb(0 0 0 / 0.18) 46%, transparent 100%)',
         'green-fade': 'linear-gradient(135deg, #16241A 0%, #0B1D12 100%)',
         'amber-fade': 'linear-gradient(135deg, #D9A05C 0%, #C8863A 100%)',

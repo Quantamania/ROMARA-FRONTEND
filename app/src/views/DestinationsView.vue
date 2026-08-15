@@ -56,12 +56,8 @@ const heroTiles = [
           </nav>
 
           <h1 class="max-w-xl font-heading text-display font-semibold text-balance">
-            Extraordinary Places. Unforgettable Experiences.
+            Extraordinary Places <span class="block text-romara-amber">&</span> Experiences.
           </h1>
-          <p class="mt-5 max-w-lg text-base leading-relaxed text-white/80 sm:text-lg">
-            From world-famous wildlife reserves and scenic landscapes to vibrant cities and cultural
-            landmarks, explore the best destinations Kenya has to offer and beyond.
-          </p>
 
         </div>
 
