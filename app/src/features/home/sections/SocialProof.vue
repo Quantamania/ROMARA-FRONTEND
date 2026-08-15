@@ -7,9 +7,9 @@ import IconThumbsUp from '@/components/icons/IconThumbsUp.vue'
 import IconCompass from '@/components/icons/IconCompass.vue'
 
 const memberships = [
-  { acronym: 'TRA', name: 'Tourism Regulatory Authority' },
-  { acronym: 'KATO', name: 'Kenya Association of Tour Operators' },
-  { acronym: 'KPSGA', name: 'Kenya Professional Safari Guides Association' },
+  { acronym: 'TRA', name: 'Tourism Regulatory Authority', logo: '/images/logos/TRA.jpeg' },
+  { acronym: 'KATO', name: 'Kenya Association of Tour Operators', logo: '/images/logos/KATO.jpeg' },
+  { acronym: 'KPSGA', name: 'Kenya Professional Safari Guides Association', logo: '/images/logos/KPSGA.jpg' },
 ]
 
 // Stats count up from zero the first time the band scrolls into view.
@@ -130,8 +130,8 @@ onMounted(() => {
             :key="body.acronym"
             class="flex w-full items-center gap-3.5 rounded-2xl border border-white/15 bg-white/5 px-4 py-3.5 backdrop-blur-sm sm:w-auto sm:min-w-[150px] sm:max-w-[260px] sm:flex-1"
           >
-            <span class="flex h-11 shrink-0 items-center rounded-lg bg-romara-amber px-3 font-heading text-sm font-bold tracking-wide text-white">
-              {{ body.acronym }}
+            <span class="flex h-11 shrink-0 items-center justify-center rounded-lg bg-white px-2.5">
+              <img :src="body.logo" :alt="body.name" loading="lazy" class="h-8 w-auto object-contain" />
             </span>
             <span class="text-xs font-medium leading-snug text-white/80">{{ body.name }}</span>
           </div>

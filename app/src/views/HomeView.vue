@@ -72,9 +72,9 @@ onMounted(() => {
 })
 
 const members = [
-  { acronym: 'TRA', name: 'Tourism Regulatory Authority' },
-  { acronym: 'KATO', name: 'Kenya Association of Tour Operators' },
-  { acronym: 'KPSGA', name: 'Kenya Professional Safari Guides Association' },
+  { acronym: 'TRA', name: 'Tourism Regulatory Authority', logo: '/images/logos/TRA.jpeg' },
+  { acronym: 'KATO', name: 'Kenya Association of Tour Operators', logo: '/images/logos/KATO.jpeg' },
+  { acronym: 'KPSGA', name: 'Kenya Professional Safari Guides Association', logo: '/images/logos/KPSGA.jpg' },
 ]
 </script>
 
@@ -130,14 +130,14 @@ const members = [
 
           <div class="mt-7 border-t border-romara-green/10 pt-4">
             <p class="text-center text-[10px] font-bold uppercase tracking-[0.18em] text-romara-ink/40">Proud Members Of</p>
-            <div class="mt-3 flex flex-wrap justify-center gap-2">
+            <div class="mt-3 flex flex-wrap items-center justify-center gap-2.5">
               <span
                 v-for="m in members"
                 :key="m.acronym"
                 :title="m.name"
-                class="inline-flex items-center rounded-full border border-romara-green/15 bg-white px-3 py-1.5 shadow-sm"
+                class="flex h-12 items-center justify-center rounded-lg border border-romara-green/10 bg-white px-3 shadow-sm"
               >
-                <span class="font-heading text-xs font-bold tracking-wide text-romara-green">{{ m.acronym }}</span>
+                <img :src="m.logo" :alt="m.name" loading="lazy" class="h-8 w-auto object-contain" />
               </span>
             </div>
           </div>
