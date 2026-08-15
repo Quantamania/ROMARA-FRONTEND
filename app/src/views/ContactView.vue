@@ -160,7 +160,6 @@ const whyContactItems: WhyContactItem[] = [
         align="center"
         eyebrow="Why ROMARA"
         title="Travel Planning, Beautifully Handled"
-        description="We are here to help"
       />
 
       <div class="mt-4 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">

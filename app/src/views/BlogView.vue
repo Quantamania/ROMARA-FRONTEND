@@ -106,9 +106,6 @@ function formatDate(isoDate: string | number | Date) {
         <h1 class="text-balance font-heading text-display font-semibold leading-none">
           Travel Stories &amp; Safari Inspiration
         </h1>
-        <p class="max-w-sm text-sm leading-relaxed text-white/70 sm:text-right">
-          Field notes, destination guides and safari experiences to inspire your next Kenyan adventure.
-        </p>
       </div>
 
       <!-- Slim search bar sits under the masthead line -->
@@ -193,7 +190,6 @@ function formatDate(isoDate: string | number | Date) {
       <SectionHeading
         eyebrow="Editor's Picks"
         title="Featured stories"
-        description="Hand-selected reads worth lingering over."
       />
 
       <div class="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_380px]">

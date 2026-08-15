@@ -130,7 +130,6 @@ const whyChooseItems: WhyChooseItem[] = [
         align="center"
         eyebrow="Our Services"
         title="Our Airport Transfer Services"
-        description="Business or leisure, we have you covered"
       />
 
       <div class="mobile-shelf mt-4 gap-6 sm:grid sm:grid-cols-2 lg:grid-cols-4">
@@ -190,7 +189,6 @@ const whyChooseItems: WhyChooseItem[] = [
         align="center"
         eyebrow="Why ROMARA"
         title="Why Choose Romara for Your Airport Transfers?"
-        description="Care, punctuality and professionalism, every time"
       />
 
       <div class="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 lg:grid-cols-6">

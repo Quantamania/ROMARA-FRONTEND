@@ -7,44 +7,40 @@ import IconShield from '@/components/icons/IconShield.vue'
 </script>
 
 <template>
-  <section class="relative isolate min-h-[290px] overflow-hidden bg-romara-green text-white sm:min-h-[68vh] lg:min-h-[calc(100vh-97px)] xl:min-h-[calc(100vh-121px)]">
+  <section class="relative isolate min-h-[290px] overflow-hidden bg-romara-green text-white sm:min-h-[68vh] lg:min-h-[calc(100vh-209px)] xl:min-h-[calc(100vh-233px)]">
     <img
-      src="/images/home/hero-elephants.webp"
-      alt="Elephants on the Kenyan savanna at golden hour"
+      src="/images/home/mara.webp"
+      alt="A ROMARA-branded safari Land Cruiser with its roof open on a game drive in the Maasai Mara"
       fetchpriority="high"
-      class="ken-burns absolute inset-0 h-full w-full object-cover"
+      class="ken-burns absolute inset-0 h-full w-full object-cover object-center"
     />
     <div class="absolute inset-0 bg-gradient-to-r from-romara-green-dark/95 via-romara-green-dark/60 to-romara-green-dark/15" />
     <div class="absolute inset-0 bg-scrim-b" />
 
-    <div class="romara-container relative flex min-h-[290px] flex-col justify-center py-5 sm:min-h-[68vh] sm:py-16 lg:min-h-[calc(100vh-97px)] xl:min-h-[calc(100vh-121px)]">
+    <div class="romara-container relative flex min-h-[290px] flex-col justify-center py-5 sm:min-h-[68vh] sm:py-16 lg:min-h-[calc(100vh-209px)] xl:min-h-[calc(100vh-233px)]">
       <div class="max-w-xl">
-        <h1 class="font-heading text-lg font-bold leading-tight sm:text-4xl lg:text-5xl xl:text-6xl">
+        <h1 class="font-heading text-xl font-bold leading-tight tracking-tight sm:text-4xl sm:tracking-normal lg:text-5xl xl:text-6xl">
           Safari Tours <span class="text-romara-amber">&amp;</span> Premium Vehicle Hire
         </h1>
 
-        <p class="mt-2.5 max-w-md text-[13px] font-medium leading-snug text-white/85 sm:mt-4 sm:text-lg">
-          Two ways to explore Kenya, expertly guided or behind your own wheel.
-        </p>
-
-        <div class="mt-4 flex flex-nowrap gap-2 sm:mt-6 sm:gap-3">
+        <div class="mt-5 flex flex-nowrap gap-2 sm:mt-10 sm:gap-3 lg:mt-12">
           <a
             href="/book-now"
-            class="flex items-center justify-center gap-1.5 rounded-md bg-romara-amber px-3.5 py-2 text-[11px] font-bold uppercase tracking-[0.05em] text-white shadow-card transition-all duration-300 ease-out-expo hover:bg-romara-amber/90 active:scale-[0.98] sm:gap-2.5 sm:px-6 sm:py-3 sm:text-sm"
+            class="flex items-center justify-center gap-1.5 rounded-md bg-romara-amber px-4 py-2.5 text-xs font-bold uppercase tracking-[0.05em] text-white shadow-card transition-all duration-300 ease-out-expo hover:bg-romara-amber/90 active:scale-[0.98] sm:gap-2.5 sm:px-6 sm:py-3 sm:text-sm"
           >
             <IconCalendarCheck class="h-3.5 w-3.5 sm:h-5 sm:w-5" />
             Book Safari
           </a>
           <a
             href="/vehicle-hire"
-            class="flex items-center justify-center gap-1.5 rounded-md border-2 border-white/70 px-3.5 py-2 text-[11px] font-bold uppercase tracking-[0.05em] text-white transition-all duration-300 ease-out-expo hover:border-romara-amber hover:text-romara-amber active:scale-[0.98] sm:gap-2.5 sm:px-6 sm:py-3 sm:text-sm"
+            class="flex items-center justify-center gap-1.5 rounded-md border-2 border-white/70 px-4 py-2.5 text-xs font-bold uppercase tracking-[0.05em] text-white transition-all duration-300 ease-out-expo hover:border-romara-amber hover:text-romara-amber active:scale-[0.98] sm:gap-2.5 sm:px-6 sm:py-3 sm:text-sm"
           >
             <IconCar class="h-3.5 w-3.5 sm:h-5 sm:w-5" />
             Hire a Vehicle
           </a>
         </div>
 
-        <div class="mt-4 flex flex-nowrap items-center gap-x-2.5 text-[10px] font-semibold text-white/90 sm:gap-x-3 sm:text-sm">
+        <div class="mt-4 flex flex-nowrap items-center gap-x-2 text-[11px] font-semibold text-white/90 sm:mt-9 sm:gap-x-3 sm:text-sm lg:mt-11">
           <span class="flex items-center gap-1 whitespace-nowrap">
             <span class="flex text-romara-amber">
               <IconStar v-for="n in 5" :key="n" class="h-3 w-3 sm:h-4 sm:w-4" />

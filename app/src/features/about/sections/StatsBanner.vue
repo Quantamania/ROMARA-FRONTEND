@@ -36,10 +36,6 @@ const stats: Stat[] = [
           <h2 class="mt-4 font-heading text-display-sm font-semibold text-white">
             We are your travel partner
           </h2>
-          <p class="mt-4 max-w-md text-sm leading-relaxed text-white/80">
-            Whether you are travelling for leisure, business, adventure, or special occasions, ROMARA is dedicated
-            to making your journey smooth, memorable, and truly remarkable.
-          </p>
 
           <dl class="mt-10 grid grid-cols-3 gap-6">
             <div v-for="stat in stats" :key="stat.label" class="border-l border-white/15 pl-4">

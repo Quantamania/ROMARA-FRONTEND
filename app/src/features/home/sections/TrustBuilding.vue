@@ -40,11 +40,10 @@ const features: Feature[] = [
         <div
           v-for="feature in features"
           :key="feature.title"
-          class="flex flex-col items-center gap-1.5 px-1.5 text-center sm:px-4"
+          class="flex flex-col items-center gap-2 px-1.5 text-center sm:px-4"
         >
           <component :is="feature.icon" class="h-6 w-6 shrink-0 text-romara-amber sm:h-7 sm:w-7" />
           <p class="text-[12px] font-bold leading-tight text-romara-green sm:text-sm">{{ feature.title }}</p>
-          <p class="text-[10px] leading-tight text-romara-ink/60 sm:text-xs">{{ feature.description }}</p>
         </div>
       </div>
     </div>

@@ -139,9 +139,6 @@ const heroTiles = [
             <h2 class="mt-3 max-w-xl font-heading text-display-sm font-semibold text-romara-green text-balance">
               Popular Destinations in Kenya
             </h2>
-            <p class="mt-4 max-w-lg text-sm leading-relaxed text-romara-ink-soft sm:text-base">
-              A hand-picked selection of the country's most iconic reserves, coastlines and highland escapes.
-            </p>
           </div>
         </div>
         <a
@@ -179,7 +176,6 @@ const heroTiles = [
         align="center"
         eyebrow="By Interest"
         title="Browse Destinations by Type"
-        description="Big game, mountains, coast and culture"
       />
       <div class="mt-4">
         <DestinationFilters />

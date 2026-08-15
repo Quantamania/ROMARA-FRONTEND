@@ -201,10 +201,6 @@ const currentYear = new Date().getFullYear()
             <span class="block text-[11px] font-semibold tracking-[0.2em] text-romara-amber">TOURS &amp; TRAVEL</span>
           </span>
         </div>
-        <p class="mt-3 text-sm leading-relaxed text-white/65">
-          Your trusted travel partner for unforgettable experiences in Kenya and beyond.
-        </p>
-
         <!-- Navigation removed on mobile — the bottom tab bar handles it. Keep the address only. -->
         <div class="mt-6 flex items-start gap-2 border-t border-white/12 pt-5 text-sm text-white/75">
           <IconMapPin class="mt-0.5 h-4 w-4 shrink-0 text-romara-amber" />

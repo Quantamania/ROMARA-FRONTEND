@@ -140,10 +140,6 @@ const channels = [
         awaits
       </h2>
 
-      <p class="mt-5 max-w-lg text-lg leading-relaxed text-white/80">
-        From the vast savannas of the Maasai Mara to the pristine beaches of the Kenyan coast,
-        let us craft your perfect journey.
-      </p>
 
       <div class="mt-9 flex flex-wrap items-center justify-center gap-4">
         <BaseButton as="a" href="/safari-packages" variant="amber" size="lg" class="rounded-full">

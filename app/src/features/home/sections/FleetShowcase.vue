@@ -42,7 +42,6 @@ const vehicles = [
             <IconChevronRight class="h-4 w-4" />
           </a>
         </div>
-        <p class="mt-1 text-xs text-romara-ink/50">Well maintained • Comfortable • Reliable</p>
 
         <div class="-mx-1 mt-4 flex gap-3 overflow-x-auto px-1 pb-2 snap-x [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <a

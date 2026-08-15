@@ -43,13 +43,6 @@ const destinations = [
             <span class="block text-romara-amber">next adventure.</span>
           </h1>
 
-          <p
-            class="mt-6 max-w-lg text-base leading-relaxed text-white/80 sm:text-lg animate-fade-up"
-            style="animation-delay: 180ms"
-          >
-            A Kenyan travel company passionate about creating memorable, safe,
-            and seamless experiences across Kenya and beyond.
-          </p>
 
           <div class="mt-9 flex flex-wrap items-center gap-4 animate-fade-up" style="animation-delay: 270ms">
             <BaseButton as="a" href="/safari-packages" variant="amber" size="lg">

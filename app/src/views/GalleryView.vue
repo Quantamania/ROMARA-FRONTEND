@@ -93,10 +93,6 @@ function showNextImage() {
         Gallery
       </h1>
 
-      <p class="mx-auto mt-5 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg animate-fade-up" style="animation-delay: 180ms">
-        Explore breathtaking photos from our safaris, day trips, and travel experiences across Kenya. Every
-        image tells a story.
-      </p>
     </div>
   </section>
 
@@ -106,7 +102,6 @@ function showNextImage() {
       <SectionHeading
         eyebrow="Our Portfolio"
         title="A Journey Through the Lens"
-        description="Wildlife, landscapes and culture"
         align="center"
       />
 
@@ -149,7 +144,6 @@ function showNextImage() {
             Start Planning
           </p>
           <h2 class="mt-4 font-heading text-display-sm font-semibold text-balance">Ready for Your Next Adventure?</h2>
-          <p class="mt-4 text-white/80 text-base leading-relaxed">Let us help you turn these moments into your own unforgettable memories.</p>
         </div>
 
         <div class="flex sm:flex-row flex-col gap-4">

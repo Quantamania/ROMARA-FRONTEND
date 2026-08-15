@@ -117,10 +117,6 @@ function resetFilters() {
       <h1 class="max-w-2xl font-heading text-display-sm font-semibold text-balance">
         Kenya's Treasures Await
       </h1>
-      <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
-        Every destination tells a story. From savannas to coastlines, discover the places that make
-        Kenya extraordinary.
-      </p>
     </div>
   </header>
 

@@ -89,10 +89,6 @@ const sectionHeading = computed(function getSectionHeading() {
           <h1 class="text-balance font-heading text-display font-semibold text-romara-green">
             Frequently Asked Questions
           </h1>
-          <p class="mx-auto mt-5 max-w-xl text-base leading-relaxed text-romara-ink-soft sm:text-lg">
-            Find answers to the most common questions about our tours, services and bookings — or search for
-            something specific.
-          </p>
         </div>
 
         <!-- Prominent search. The glass bar reads on a soft green console so it stays legible on the light hero. -->

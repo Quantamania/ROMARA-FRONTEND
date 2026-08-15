@@ -79,9 +79,6 @@ function loadMoreReviews() {
         <h1 class="font-heading text-display-sm font-semibold text-romara-green sm:text-display">
           Memories Shared. Experiences Trusted.
         </h1>
-        <p class="mt-4 max-w-xl text-base leading-relaxed text-romara-ink-soft">
-          See what our guests have to say about their adventures with ROMARA Tours &amp; Travel.
-        </p>
 
         <div class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
           <span class="flex gap-1 text-romara-amber">

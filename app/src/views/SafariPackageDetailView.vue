@@ -316,7 +316,6 @@ const excluded = [
         <SectionHeading
           eyebrow="Keep Exploring"
           title="More Safari Journeys"
-          description="Other curated experiences you may love."
           link-text="View all packages"
           link-href="/safari-packages"
         />

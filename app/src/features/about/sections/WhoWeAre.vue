@@ -93,10 +93,6 @@ onUnmounted(() => {
           <span class="block text-romara-amber">with ROMARA?</span>
         </h2>
         <span class="accent-rule mt-5" />
-        <p class="mt-6 max-w-xs text-romara-ink-soft text-sm leading-relaxed">
-          Six things every ROMARA traveler can count on, from the first itinerary draft to the
-          ride home from the airport.
-        </p>
         <p class="mt-6 text-romara-ink/50 text-xs sm:hidden">Swipe to read all six →</p>
       </div>
 

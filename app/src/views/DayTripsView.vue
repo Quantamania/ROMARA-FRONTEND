@@ -72,12 +72,7 @@ const whyChooseItems: WhyChooseItem[] = [
           Amazing Experiences. Unforgettable Memories.
         </h1>
 
-        <p class="mt-6 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg animate-fade-up" style="animation-delay: 180ms">
-          Short on time? Our day trips are the perfect way to explore Kenya's top attractions in a single day
-          — from wildlife encounters to cultural experiences, adventure and nature.
-        </p>
-
-        <div class="mt-9 flex flex-wrap gap-3 animate-fade-up" style="animation-delay: 270ms">
+        <div class="mt-8 flex flex-wrap gap-3 animate-fade-up" style="animation-delay: 180ms">
           <BaseButton as="a" href="/contact" variant="amber" size="lg">Request a Quote</BaseButton>
         </div>
       </div>
@@ -161,9 +156,6 @@ const whyChooseItems: WhyChooseItem[] = [
           </p>
           <h2 class="font-heading text-display-sm font-semibold text-romara-green">Why Choose Our Day Trips?</h2>
           <span class="accent-rule mt-4" />
-          <p class="mt-4 max-w-xl text-sm leading-relaxed text-romara-ink-soft">
-            Our day trips are thoughtfully planned to give you maximum experience in minimum time.
-          </p>
 
           <div class="gap-6 grid grid-cols-2 sm:grid-cols-5 mt-8">
             <div v-for="(item, index) in whyChooseItems" :key="item.title" v-scroll-reveal="{ delay: index * 75 }">
