@@ -40,8 +40,8 @@ const formData = reactive<VehicleHireFormData>({
   fullName: '',
   email: '',
   phone: '',
-  vehicle: 'cruiser',
-  driverOption: 'chauffeur',
+  vehicle: null,
+  driverOption: null,
   pickupDate: '',
   returnDate: '',
   pickupLocation: '',
@@ -69,7 +69,7 @@ const purposeLabels: Record<string, string> = {
   other: 'Other',
 }
 
-const selectedVehicle = computed(() => fleetByKey[formData.vehicle])
+const selectedVehicle = computed(() => (formData.vehicle ? fleetByKey[formData.vehicle] : null))
 
 const hireDays = computed(function getHireDays() {
   if (!formData.pickupDate || !formData.returnDate) return 1
@@ -80,7 +80,7 @@ const hireDays = computed(function getHireDays() {
 })
 
 const driverPerDay = computed(() => (formData.driverOption === 'chauffeur' ? CHAUFFEUR_PER_DAY : 0))
-const vehicleSubtotal = computed(() => selectedVehicle.value.dailyRate * hireDays.value)
+const vehicleSubtotal = computed(() => (selectedVehicle.value?.dailyRate ?? 0) * hireDays.value)
 const driverSubtotal = computed(() => driverPerDay.value * hireDays.value)
 const estimatedTotal = computed(() => vehicleSubtotal.value + driverSubtotal.value)
 
@@ -92,6 +92,26 @@ const dropoffLabel = computed(() =>
   formData.dropoffSameAsPickup
     ? formData.pickupLocation || 'Same as pick-up'
     : formData.dropoffLocation || 'Not set yet',
+)
+
+const driverLabel = computed(() =>
+  formData.driverOption === 'chauffeur'
+    ? 'With Chauffeur'
+    : formData.driverOption === 'self-drive'
+      ? 'Self-Drive'
+      : null,
+)
+
+// A readable pick-up → return line for the summary (dates come in as YYYY-MM-DD).
+function formatDate(iso: string) {
+  const [, m, d] = iso.split('-')
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  return `${Number(d)} ${months[Number(m) - 1]}`
+}
+const datesLabel = computed(() =>
+  formData.pickupDate && formData.returnDate
+    ? `${formatDate(formData.pickupDate)} → ${formatDate(formData.returnDate)}`
+    : null,
 )
 
 async function handleSubmit() {
@@ -150,30 +170,31 @@ function hireAnother() {
   </div>
 
   <!-- Two-column: form + sticky summary -->
-  <form v-else class="grid grid-cols-1 items-start gap-8 lg:grid-cols-[1fr_320px]" @submit.prevent="handleSubmit">
-    <div class="space-y-8 rounded-card bg-white p-6 shadow-card sm:p-9">
-      <!-- Choose your vehicle -->
-      <div>
-        <p :class="sectionLabelClasses">Choose Your Vehicle</p>
-        <div class="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+  <form v-else class="space-y-8" @submit.prevent="handleSubmit">
+    <!-- Step 1 — the vehicle. Full width so the first decision is big and clear. -->
+    <section class="rounded-card bg-white p-6 shadow-card sm:p-8">
+      <div class="mb-5 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+        <p class="eyebrow">Choose Your Vehicle</p>
+        <span class="text-xs font-medium text-romara-ink-soft">Tap a vehicle to select it</span>
+      </div>
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <button
             v-for="vehicle in fleet"
             :key="vehicle.key"
             type="button"
-            class="group relative flex flex-col overflow-hidden rounded-card text-left transition-all duration-300 ease-out-expo"
+            class="group relative flex flex-col overflow-hidden rounded-card bg-white text-left transition-all duration-300 ease-out-expo"
             :class="formData.vehicle === vehicle.key
-              ? 'border-2 border-romara-amber bg-white shadow-glow-amber sm:-translate-y-0.5'
-              : 'border-2 border-romara-green/12 bg-white opacity-[0.72] hover:opacity-100 hover:border-romara-green/30'"
+              ? 'border-2 border-romara-amber shadow-glow-amber ring-2 ring-romara-amber/25 sm:-translate-y-1'
+              : 'border-2 border-romara-green/12 hover:-translate-y-0.5 hover:border-romara-green/40 hover:shadow-card'"
             :aria-pressed="formData.vehicle === vehicle.key"
             @click="formData.vehicle = vehicle.key"
           >
-            <!-- A word beats a tick: at a glance you can see which one is chosen
-                 without having to compare border colours across four cards. -->
+            <!-- Clear 'Selected' flag so the chosen vehicle is obvious at a glance -->
             <span
               v-if="formData.vehicle === vehicle.key"
               class="absolute right-2.5 top-2.5 z-10 inline-flex items-center gap-1 rounded-full bg-romara-amber px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-soft"
             >
-              <IconCheck class="h-3 w-3" />Selected
+              <IconCheck class="h-3 w-3 [stroke-width:2.5]" />Selected
             </span>
 
             <div class="relative h-44 overflow-hidden bg-romara-bone text-romara-green sm:h-48">
@@ -207,39 +228,14 @@ function hireAnother() {
             </div>
           </button>
         </div>
+    </section>
 
-        <!-- Everything about the vehicle they landed on, in one place, so the
-             choice does not have to be reconstructed from four small cards. -->
-        <div class="mt-4 rounded-card border border-romara-amber/35 bg-romara-amber-100/40 p-4 sm:p-5">
-          <div class="flex flex-wrap items-start justify-between gap-4">
-            <div class="min-w-0">
-              <p class="text-eyebrow text-romara-amber-600">Your vehicle</p>
-              <p class="mt-1 font-heading text-xl text-romara-green">{{ selectedVehicle.name }}</p>
-              <p class="mt-1 text-sm leading-relaxed text-romara-ink-soft">{{ selectedVehicle.desc }}</p>
-            </div>
-            <dl class="grid shrink-0 grid-cols-2 gap-x-6 gap-y-2 text-sm sm:grid-cols-1">
-              <div class="flex items-center justify-between gap-3">
-                <dt class="text-romara-ink-soft">Seats</dt>
-                <dd class="font-medium text-romara-green">{{ selectedVehicle.seats }}</dd>
-              </div>
-              <div class="flex items-center justify-between gap-3">
-                <dt class="text-romara-ink-soft">Per day</dt>
-                <dd class="font-medium text-romara-green">KES {{ formatPrice(selectedVehicle.dailyRate) }}</dd>
-              </div>
-              <div v-if="formData.driverOption === 'chauffeur'" class="flex items-center justify-between gap-3">
-                <dt class="text-romara-ink-soft">Chauffeur</dt>
-                <dd class="font-medium text-romara-green">+ KES {{ formatPrice(CHAUFFEUR_PER_DAY) }}/day</dd>
-              </div>
-            </dl>
-          </div>
-        </div>
-      </div>
-
-      <hr class="border-romara-green/10" />
-
-      <!-- Driver option -->
-      <div>
-        <p :class="sectionLabelClasses">Driver</p>
+    <!-- Step 2 — details on the left, a live summary on the right. -->
+    <div class="grid grid-cols-1 items-start gap-8 lg:grid-cols-[1fr_340px]">
+      <div class="space-y-8 rounded-card bg-white p-6 shadow-card sm:p-9">
+        <!-- Driver option -->
+        <div>
+          <p :class="sectionLabelClasses">Driver</p>
         <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <button
             type="button"
@@ -352,7 +348,7 @@ function hireAnother() {
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
             <label :class="labelClasses">Passengers</label>
-            <input v-model.number="formData.passengers" type="number" min="1" :max="selectedVehicle.seats" :class="inputClasses" />
+            <input v-model.number="formData.passengers" type="number" min="1" :max="selectedVehicle?.seats" :class="inputClasses" />
           </div>
           <div>
             <label :class="labelClasses">Purpose of Hire</label>
@@ -391,7 +387,7 @@ function hireAnother() {
         </div>
 
         <!-- Selected vehicle preview + details -->
-        <div class="border-b border-romara-green/10 bg-romara-bone px-6 py-5 text-romara-green">
+        <div v-if="selectedVehicle" class="border-b border-romara-green/10 bg-romara-bone px-6 py-5 text-romara-green">
           <div class="flex items-center gap-3">
             <img
               v-if="!failedImages.has(selectedVehicle.key)"
@@ -426,33 +422,53 @@ function hireAnother() {
           </dl>
         </div>
 
-        <dl class="space-y-4 px-6 py-6 text-sm">
-          <div class="flex items-start justify-between gap-3">
-            <dt class="text-romara-ink-soft">Driver</dt>
-            <dd class="text-right font-semibold text-romara-green">
-              {{ formData.driverOption === 'chauffeur' ? 'With Chauffeur' : 'Self-Drive' }}
-            </dd>
-          </div>
-          <div class="flex items-start justify-between gap-3">
-            <dt class="text-romara-ink-soft">Pick-Up</dt>
-            <dd class="max-w-[160px] text-right font-semibold text-romara-green">{{ formData.pickupLocation || 'Not set yet' }}</dd>
-          </div>
-          <div class="flex items-start justify-between gap-3">
-            <dt class="text-romara-ink-soft">Drop-Off</dt>
-            <dd class="max-w-[160px] text-right font-semibold text-romara-green">{{ dropoffLabel }}</dd>
-          </div>
-          <div class="flex items-start justify-between gap-3">
-            <dt class="text-romara-ink-soft">Purpose</dt>
-            <dd class="text-right font-semibold text-romara-green">{{ purposeLabels[formData.purpose] }}</dd>
-          </div>
-          <div class="flex items-start justify-between gap-3">
-            <dt class="text-romara-ink-soft">Passengers</dt>
-            <dd class="text-right font-semibold text-romara-green">{{ formData.passengers }}</dd>
-          </div>
-        </dl>
+        <!-- No vehicle chosen yet -->
+        <div v-else class="border-b border-romara-green/10 bg-romara-bone px-6 py-6 text-center">
+          <span class="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-romara-green/5 text-romara-green/50">
+            <IconCar class="h-5 w-5" />
+          </span>
+          <p class="mt-3 text-sm font-semibold text-romara-green">No vehicle selected yet</p>
+          <p class="mt-1 text-xs leading-relaxed text-romara-ink-soft">Choose a vehicle above to see rates and totals.</p>
+        </div>
+
+        <div class="px-6 py-5">
+          <p class="mb-3 text-[11px] font-bold uppercase tracking-[0.14em] text-romara-ink-soft/70">Your trip</p>
+          <dl class="divide-y divide-romara-green/[0.07] text-sm">
+            <div class="flex items-baseline justify-between gap-3 py-2.5">
+              <dt class="shrink-0 text-romara-ink-soft">Driver</dt>
+              <dd class="text-right font-semibold" :class="driverLabel ? 'text-romara-green' : 'font-normal italic text-romara-ink-soft/55'">
+                {{ driverLabel ?? 'Not selected' }}
+              </dd>
+            </div>
+            <div class="flex items-baseline justify-between gap-3 py-2.5">
+              <dt class="shrink-0 text-romara-ink-soft">Dates</dt>
+              <dd class="text-right font-semibold" :class="datesLabel ? 'text-romara-green' : 'font-normal italic text-romara-ink-soft/55'">
+                {{ datesLabel ?? 'Not set yet' }}
+              </dd>
+            </div>
+            <div class="flex items-baseline justify-between gap-3 py-2.5">
+              <dt class="shrink-0 text-romara-ink-soft">Pick-up</dt>
+              <dd class="max-w-[160px] text-right font-semibold" :class="formData.pickupLocation ? 'text-romara-green' : 'font-normal italic text-romara-ink-soft/55'">
+                {{ formData.pickupLocation || 'Not set yet' }}
+              </dd>
+            </div>
+            <div class="flex items-baseline justify-between gap-3 py-2.5">
+              <dt class="shrink-0 text-romara-ink-soft">Drop-off</dt>
+              <dd class="max-w-[160px] text-right font-semibold text-romara-green">{{ dropoffLabel }}</dd>
+            </div>
+            <div class="flex items-baseline justify-between gap-3 py-2.5">
+              <dt class="shrink-0 text-romara-ink-soft">Passengers</dt>
+              <dd class="text-right font-semibold text-romara-green">{{ formData.passengers }}</dd>
+            </div>
+            <div class="flex items-baseline justify-between gap-3 py-2.5">
+              <dt class="shrink-0 text-romara-ink-soft">Purpose</dt>
+              <dd class="text-right font-semibold text-romara-green">{{ purposeLabels[formData.purpose] }}</dd>
+            </div>
+          </dl>
+        </div>
 
         <!-- Rate breakdown -->
-        <div class="space-y-2.5 border-t border-romara-green/10 px-6 py-5 text-sm">
+        <div v-if="selectedVehicle" class="space-y-2.5 border-t border-romara-green/10 px-6 py-5 text-sm">
           <div class="flex items-center justify-between gap-3 text-romara-ink-soft">
             <span>KES {{ formatPrice(selectedVehicle.dailyRate) }} × {{ hireDays }} day{{ hireDays > 1 ? 's' : '' }}</span>
             <span class="font-semibold text-romara-green">KES {{ formatPrice(vehicleSubtotal) }}</span>
@@ -469,13 +485,14 @@ function hireAnother() {
             <p class="text-[11px] font-bold uppercase tracking-[0.14em] text-romara-amber-300">Estimated Total</p>
             <p class="text-[11px] text-white/55">Confirmed before pick-up</p>
           </div>
-          <p class="font-heading text-2xl font-semibold">KES {{ formatPrice(estimatedTotal) }}</p>
+          <p v-if="selectedVehicle" class="font-heading text-2xl font-semibold">KES {{ formatPrice(estimatedTotal) }}</p>
+          <p v-else class="font-heading text-lg font-semibold text-white/50">—</p>
         </div>
 
         <div class="space-y-3 border-t border-romara-green/10 bg-romara-cream/50 px-6 py-6">
-          <BaseButton type="submit" variant="primary" block class="justify-center" :disabled="isSubmitting">
-            {{ isSubmitting ? 'Submitting...' : 'Request This Vehicle' }}
-            <IconArrowRight class="h-4 w-4" />
+          <BaseButton type="submit" variant="primary" block class="justify-center" :disabled="isSubmitting || !selectedVehicle || !formData.driverOption">
+            {{ isSubmitting ? 'Submitting...' : !selectedVehicle ? 'Select a Vehicle First' : !formData.driverOption ? 'Choose a Driver Option' : 'Request This Vehicle' }}
+            <IconArrowRight v-if="selectedVehicle && formData.driverOption" class="h-4 w-4" />
           </BaseButton>
           <BaseButton as="a" href="/contact" variant="outline" block class="justify-center">Request a Quote</BaseButton>
           <p class="pt-1 text-center text-xs text-romara-ink-soft">
@@ -484,5 +501,6 @@ function hireAnother() {
         </div>
       </div>
     </aside>
+    </div>
   </form>
 </template>

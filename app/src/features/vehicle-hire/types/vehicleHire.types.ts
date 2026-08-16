@@ -6,8 +6,10 @@ export interface VehicleHireFormData {
   fullName: string
   email: string
   phone: string
-  vehicle: FleetKey
-  driverOption: DriverOption
+  /** null until the guest picks a vehicle (or arrives via ?vehicle=key). */
+  vehicle: FleetKey | null
+  /** null until the guest chooses chauffeur or self-drive. */
+  driverOption: DriverOption | null
   pickupDate: string
   returnDate: string
   pickupLocation: string

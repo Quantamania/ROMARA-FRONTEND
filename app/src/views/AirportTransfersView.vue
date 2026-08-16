@@ -68,34 +68,18 @@ const whyChooseItems: WhyChooseItem[] = [
     <div class="absolute inset-0 bg-green-fade/90 mix-blend-multiply" />
     <div class="absolute inset-0 bg-scrim-b" />
 
-    <div class="romara-container relative py-10 sm:py-16 lg:py-24">
-      <!-- Just the three steps. The breadcrumb, the trust bullets, the "prefer
-           to talk it through" line and the glass card's own icon + heading +
-           subtitle all came out — the numbered steps say the same thing and say
-           it faster. The h1 stays: it is the page's title for search engines and
-           screen readers, and nothing else on the page provides one. -->
-      <div class="mx-auto max-w-3xl text-center">
+    <div class="romara-container relative py-14 sm:py-20 lg:py-24">
+      <!-- Lean hero: title, one subtle line, and the single action. The 'how it
+           works' detail now lives in its own section below, so the masthead is
+           clean on mobile instead of a crumbled stack of steps. -->
+      <div class="mx-auto max-w-xl text-center">
         <h1 class="font-heading text-display-sm font-semibold text-balance">
           Reliable Transfers. Every Time.
         </h1>
-
-        <ol class="mt-10 grid gap-8 text-left sm:mt-12 sm:grid-cols-3 sm:gap-6">
-          <li v-for="(step, i) in [
-            { title: 'Share the details', text: 'Your flight number, pickup point and destination.' },
-            { title: 'We confirm everything', text: 'Driver, vehicle and a fixed price.' },
-            { title: 'Meet &amp; greet', text: 'Your driver meets you at arrivals with a name sign.' },
-          ]" :key="step.title" class="flex gap-4 sm:flex-col sm:gap-3">
-            <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-amber-fade text-sm font-bold text-white shadow-soft">
-              {{ i + 1 }}
-            </span>
-            <div>
-              <p class="font-heading text-base font-semibold text-white" v-html="step.title"></p>
-              <p class="mt-1 text-sm leading-relaxed text-white/70" v-html="step.text"></p>
-            </div>
-          </li>
-        </ol>
-
-        <BaseButton as="a" href="/airport-transfers/book" variant="amber" size="lg" class="mt-10 w-full justify-center sm:mt-12 sm:w-auto">
+        <p class="mx-auto mt-4 max-w-sm text-sm leading-relaxed text-white/75 sm:text-base">
+          Fixed prices, live flight tracking, and a driver waiting at arrivals.
+        </p>
+        <BaseButton as="a" href="/airport-transfers/book" variant="amber" size="lg" class="mt-8 w-full justify-center sm:w-auto">
           <IconCar class="h-4 w-4" />
           Book Your Transfer
         </BaseButton>
@@ -120,6 +104,34 @@ const whyChooseItems: WhyChooseItem[] = [
           <p class="mt-1 text-xs leading-relaxed text-romara-ink-soft">{{ feature.description }}</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- How it works — the three steps, now in their own clean section -->
+  <section v-scroll-reveal class="section-y bg-white">
+    <div class="romara-container">
+      <div class="mx-auto max-w-xl text-center">
+        <h2 class="font-heading text-display-sm font-semibold text-romara-green">How it works</h2>
+      </div>
+      <ol class="mx-auto mt-10 grid max-w-4xl gap-8 sm:grid-cols-3 sm:gap-6">
+        <li
+          v-for="(step, i) in [
+            { title: 'Share the details', text: 'Your flight number, pickup point and destination.' },
+            { title: 'We confirm everything', text: 'Driver, vehicle and a fixed price.' },
+            { title: 'Meet &amp; greet', text: 'Your driver meets you at arrivals with a name sign.' },
+          ]"
+          :key="step.title"
+          class="flex items-start gap-4 text-left sm:flex-col sm:items-center sm:gap-3 sm:text-center"
+        >
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-fade text-sm font-bold text-white shadow-soft">
+            {{ i + 1 }}
+          </span>
+          <div>
+            <p class="font-heading text-base font-semibold text-romara-green" v-html="step.title"></p>
+            <p class="mt-1 text-sm leading-relaxed text-romara-ink-soft" v-html="step.text"></p>
+          </div>
+        </li>
+      </ol>
     </div>
   </section>
 

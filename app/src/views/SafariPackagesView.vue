@@ -12,7 +12,6 @@ import IconCheckSquare from '@/components/icons/IconCheckSquare.vue'
 import IconCalendarCheck from '@/components/icons/IconCalendarCheck.vue'
 import IconCompass from '@/components/icons/IconCompass.vue'
 import IconClock from '@/components/icons/IconClock.vue'
-import IconMapPin from '@/components/icons/IconMapPin.vue'
 import IconArrowRight from '@/components/icons/IconArrowRight.vue'
 import { usePackagesStore } from '@/features/safari-packages/store/packages.store'
 
@@ -42,64 +41,34 @@ const tailorMadePoints: TailorMadePoint[] = [
 </script>
 
 <template>
-  <!-- Hero: editorial split with overlapping collage -->
-  <section class="relative isolate overflow-hidden bg-gradient-to-br from-romara-green-500 via-romara-green-600 to-romara-green-800 text-white">
-    <!-- soft depth (no dots) — brighter blooms lift the lighter field -->
-    <div class="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-romara-green-100/20 blur-3xl" aria-hidden="true" />
-    <div class="pointer-events-none absolute -right-16 -bottom-16 h-80 w-80 rounded-full bg-romara-amber/15 blur-3xl" aria-hidden="true" />
+  <!-- Hero: full-bleed safari image with an editorial overlay -->
+  <section class="relative isolate min-h-[380px] overflow-hidden bg-romara-green text-white sm:min-h-[58vh]">
+    <img
+      src="/images/safari-packages/maasai-mara.webp"
+      alt="Wildlife on the Maasai Mara plains at golden hour"
+      fetchpriority="high"
+      class="ken-burns absolute inset-0 h-full w-full object-cover object-center"
+    />
+    <!-- Directional scrim: readable on the left, the bright plains show through on the right -->
+    <div class="absolute inset-0 bg-gradient-to-r from-romara-green-dark/92 via-romara-green-dark/55 to-transparent" aria-hidden="true" />
+    <div class="absolute inset-0 bg-scrim-b" aria-hidden="true" />
 
-    <div class="romara-container relative grid items-center gap-6 py-8 sm:gap-12 sm:py-16 lg:grid-cols-2 lg:gap-16 lg:py-24">
-      <!-- Left: editorial column -->
-      <div class="max-w-xl">
-        <nav aria-label="Breadcrumb" class="mb-7 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-white/55">
+    <div class="romara-container relative flex min-h-[380px] flex-col justify-center py-12 sm:min-h-[58vh] sm:py-20">
+      <div class="max-w-2xl">
+        <nav aria-label="Breadcrumb" class="mb-6 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-white/60">
           <a href="/" class="transition-colors duration-300 hover:text-romara-amber-300">Home</a>
-          <span class="text-white/25">/</span>
+          <span class="text-white/30">/</span>
           <span class="text-romara-amber-300">Safari Packages</span>
         </nav>
 
-        <h1 class="font-heading text-display-lg font-semibold leading-[1.02] text-balance">
+        <h1 class="font-heading text-[1.9rem] font-semibold leading-[1.08] text-balance sm:text-5xl lg:text-6xl">
           Unforgettable Journeys. Extraordinary Memories.
         </h1>
 
-
-        <div class="mt-9 flex flex-wrap gap-3.5">
+        <div class="mt-8 flex flex-wrap gap-3.5">
           <BaseButton as="a" href="/book-now" variant="amber" size="lg">Book a Safari</BaseButton>
           <BaseButton as="a" href="/contact" variant="ghost" size="lg">Request a Quote</BaseButton>
         </div>
-      </div>
-
-      <!-- Right: overlapping framed collage -->
-      <div class="relative mx-auto aspect-[4/5] w-full max-w-[185px] sm:max-w-md lg:mx-0 lg:max-w-none lg:aspect-[5/6]">
-        <!-- Main frame -->
-        <div class="absolute right-0 top-0 h-[80%] w-[74%] overflow-hidden rounded-card shadow-elevated ring-1 ring-white/20">
-          <img
-            src="/images/safari-packages/maasai-mara.webp"
-            alt="Wildlife on the Maasai Mara plains"
-            loading="lazy"
-            class="ken-burns h-full w-full object-cover"
-          />
-        </div>
-
-        <!-- Secondary frame (overlaps, bottom-left) -->
-        <div class="absolute bottom-0 left-0 h-[56%] w-[54%] overflow-hidden rounded-card shadow-elevated ring-[5px] ring-romara-green-dark">
-          <img
-            src="/images/safari-packages/amboseli.webp"
-            alt="Elephants beneath Amboseli's skyline"
-            loading="lazy"
-            class="h-full w-full object-cover"
-          />
-        </div>
-
-        <!-- Tertiary frame (tidy cluster only on larger screens) -->
-        <div class="absolute bottom-[7%] right-[4%] hidden h-[38%] w-[40%] overflow-hidden rounded-card shadow-elevated ring-[5px] ring-romara-green-dark sm:block">
-          <img
-            src="/images/safari-packages/kenya-explorer.webp"
-            alt="Safari explorer route across Kenya"
-            loading="lazy"
-            class="h-full w-full object-cover"
-          />
-        </div>
-
       </div>
     </div>
   </section>

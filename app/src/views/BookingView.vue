@@ -67,9 +67,9 @@ const helpOptions: HelpOption[] = [
 
   <!-- The bone sheet curves up out of the green header, echoing the home Why Choose card. -->
   <div class="relative z-10 -mt-8 rounded-t-[2rem] bg-romara-bone sm:-mt-12 sm:rounded-t-[2.75rem]">
-    <!-- Progress indicator -->
-    <section class="romara-container pt-12 sm:pt-16">
-      <div class="rounded-card bg-white p-6 shadow-card sm:p-8">
+    <!-- Progress indicator — a slim strip, not a heavy card -->
+    <section class="romara-container pt-10 sm:pt-12">
+      <div class="mx-auto max-w-2xl rounded-2xl border border-romara-green/10 bg-white px-5 py-4 shadow-soft">
         <BookingProgressIndicator />
       </div>
     </section>
