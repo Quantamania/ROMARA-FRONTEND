@@ -113,15 +113,9 @@ function isActive(path: string, exact?: boolean) {
             :class="isActive(item.to, item.exact) && 'admin-nav-link-active'"
             @click="$emit('close')"
           >
-            <!-- Active rail: an amber bar slides in on the left edge -->
             <span
-              class="absolute left-0 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-r-full bg-romara-amber transition-all duration-300 ease-out-expo"
-              :class="isActive(item.to, item.exact) ? 'opacity-100' : 'opacity-0'"
-              aria-hidden="true"
-            />
-            <span
-              class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg transition-colors duration-200"
-              :class="isActive(item.to, item.exact) ? 'bg-romara-amber/20 text-romara-amber-300' : 'bg-white/[0.06] text-romara-cream/70 group-hover:text-white'"
+              class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white/[0.06] transition-colors duration-200"
+              :class="isActive(item.to, item.exact) ? 'text-romara-amber-300' : 'text-romara-cream/70 group-hover:text-romara-cream'"
             >
               <component :is="item.icon" class="h-[17px] w-[17px]" />
             </span>

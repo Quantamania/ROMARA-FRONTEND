@@ -7,7 +7,7 @@ import { useRoute } from 'vue-router'
 import IconCompass from '@/components/icons/IconCompass.vue'
 import IconBinoculars from '@/components/icons/IconBinoculars.vue'
 import IconCalendarCheck from '@/components/icons/IconCalendarCheck.vue'
-import IconCar from '@/components/icons/IconCar.vue'
+import IconPlaneLanding from '@/components/icons/IconPlaneLanding.vue'
 import IconHeadset from '@/components/icons/IconHeadset.vue'
 
 const route = useRoute()
@@ -30,10 +30,10 @@ const tabs: Tab[] = [
   },
   { label: 'Book', href: '/booking', icon: IconCalendarCheck, primary: true },
   {
-    label: 'Vehicles',
-    href: '/vehicle-hire',
-    icon: IconCar,
-    matches: ['/vehicle-hire', '/airport-transfers'],
+    label: 'Transfers',
+    href: '/airport-transfers',
+    icon: IconPlaneLanding,
+    matches: ['/airport-transfers', '/vehicle-hire'],
   },
   { label: 'Contact', href: '/contact', icon: IconHeadset },
 ]

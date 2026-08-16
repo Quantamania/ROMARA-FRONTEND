@@ -3,10 +3,6 @@ import { watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useBookingStore } from '@/features/booking/store/booking.store'
 import { resolveFromQuery } from '@/features/booking/api/selectedPackage.api'
-import IconShield from '@/components/icons/IconShield.vue'
-import IconHeadset from '@/components/icons/IconHeadset.vue'
-import IconTag from '@/components/icons/IconTag.vue'
-import IconClock from '@/components/icons/IconClock.vue'
 import IconPhone from '@/components/icons/IconPhone.vue'
 import IconMail from '@/components/icons/IconMail.vue'
 import IconWhatsapp from '@/components/icons/IconWhatsapp.vue'
@@ -14,12 +10,6 @@ import BookingProgressIndicator from '@/features/booking/components/BookingProgr
 import BookingForm from '@/features/booking/components/BookingForm.vue'
 import PaymentInfo from '@/features/booking/components/PaymentInfo.vue'
 import PopularExperiences from '@/features/booking/components/PopularExperiences.vue'
-
-interface TrustIndicator {
-  icon: typeof IconShield
-  title: string
-  description: string
-}
 
 interface HelpOption {
   icon: typeof IconPhone
@@ -48,13 +38,6 @@ watch(
   { immediate: true, deep: true },
 )
 
-const trustIndicators: TrustIndicator[] = [
-  { icon: IconShield, title: 'Secure Booking', description: 'Your information is safe with us.' },
-  { icon: IconHeadset, title: 'Expert Support', description: "We're here to help you every step." },
-  { icon: IconTag, title: 'Best Prices', description: 'Competitive rates guaranteed.' },
-  { icon: IconClock, title: 'Quick Response', description: 'We respond within 24 hours.' },
-]
-
 const helpOptions: HelpOption[] = [
   { icon: IconPhone, label: 'Call Us', value: '+254 700 123 456', href: 'tel:+254700123456' },
   { icon: IconMail, label: 'Email Us', value: 'info@romaratours.com', href: 'mailto:info@romaratours.com' },
@@ -69,7 +52,7 @@ const helpOptions: HelpOption[] = [
     <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-romara-amber/15 blur-3xl" aria-hidden="true" />
     <div class="pointer-events-none absolute -bottom-16 -left-20 h-64 w-64 rounded-full bg-white/[0.05] blur-3xl" aria-hidden="true" />
 
-    <div class="romara-container relative pb-24 pt-12 sm:pb-28 sm:pt-16">
+    <div class="romara-container relative pb-16 pt-12 sm:pb-20 sm:pt-16">
       <nav class="mb-5 flex flex-wrap items-center gap-2 text-xs font-medium text-white/60" aria-label="Breadcrumb">
         <a href="/" class="transition-colors hover:text-romara-amber">Home</a>
         <span class="text-white/30">/</span>
@@ -82,36 +65,11 @@ const helpOptions: HelpOption[] = [
     </div>
   </section>
 
-  <div class="bg-romara-bone">
-    <!-- Trust indicators — the card lifts up to straddle the green header's edge -->
-    <div class="romara-container relative z-10 -mt-16 sm:-mt-20">
-      <div class="grid grid-cols-2 gap-6 rounded-card bg-white p-6 shadow-elevated sm:grid-cols-4 sm:p-8">
-        <div
-          v-for="(item, index) in trustIndicators"
-          :key="item.title"
-          v-scroll-reveal="{ delay: index * 90 }"
-          class="group flex items-start gap-3.5"
-        >
-          <span
-            class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-amber-fade text-white shadow-soft transition-transform duration-500 ease-out-expo group-hover:scale-110 group-hover:-rotate-6"
-          >
-            <component :is="item.icon" class="h-5 w-5" />
-          </span>
-          <div>
-            <p class="font-heading text-sm font-semibold text-romara-green transition-colors duration-300 group-hover:text-romara-amber">{{ item.title }}</p>
-            <p class="mt-0.5 text-xs leading-relaxed text-romara-ink-soft">{{ item.description }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
+  <!-- The bone sheet curves up out of the green header, echoing the home Why Choose card. -->
+  <div class="relative z-10 -mt-8 rounded-t-[2rem] bg-romara-bone sm:-mt-12 sm:rounded-t-[2.75rem]">
     <!-- Progress indicator -->
-    <section class="romara-container pt-12 sm:pt-14">
+    <section class="romara-container pt-12 sm:pt-16">
       <div class="rounded-card bg-white p-6 shadow-card sm:p-8">
-        <p class="eyebrow mb-5">
-          
-          Your Booking Journey
-        </p>
         <BookingProgressIndicator />
       </div>
     </section>

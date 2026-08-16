@@ -36,7 +36,12 @@ async function handleSubmit() {
   <div class="admin-shell min-h-screen bg-green-fade flex items-center justify-center px-4">
     <div class="w-full max-w-sm">
       <div class="text-center mb-8">
-        <p class="font-logo text-5xl font-bold text-romara-cream">ROMARA</p>
+        <img
+          src="/images/logos/logo-transparent.webp"
+          alt="ROMARA Tours &amp; Travel"
+          class="mx-auto mb-4 h-20 w-auto drop-shadow-lg"
+        />
+        <p class="font-logo text-5xl font-bold leading-none tracking-[0.04em] text-romara-cream">ROMARA</p>
         <p class="admin-eyebrow !text-romara-cream/55 mt-3">Content Manager</p>
       </div>
 

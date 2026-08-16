@@ -43,10 +43,10 @@ const tailorMadePoints: TailorMadePoint[] = [
 
 <template>
   <!-- Hero: editorial split with overlapping collage -->
-  <section class="relative isolate overflow-hidden bg-green-fade text-white">
-    <!-- soft depth (no dots) -->
-    <div class="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-romara-green-500/25 blur-3xl" aria-hidden="true" />
-    <div class="pointer-events-none absolute -right-16 -bottom-16 h-80 w-80 rounded-full bg-romara-green-700/40 blur-3xl" aria-hidden="true" />
+  <section class="relative isolate overflow-hidden bg-gradient-to-br from-romara-green-500 via-romara-green-600 to-romara-green-800 text-white">
+    <!-- soft depth (no dots) — brighter blooms lift the lighter field -->
+    <div class="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-romara-green-100/20 blur-3xl" aria-hidden="true" />
+    <div class="pointer-events-none absolute -right-16 -bottom-16 h-80 w-80 rounded-full bg-romara-amber/15 blur-3xl" aria-hidden="true" />
 
     <div class="romara-container relative grid items-center gap-6 py-8 sm:gap-12 sm:py-16 lg:grid-cols-2 lg:gap-16 lg:py-24">
       <!-- Left: editorial column -->

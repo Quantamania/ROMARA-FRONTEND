@@ -63,7 +63,7 @@ const whyContactItems: WhyContactItem[] = [
     />
     <div class="absolute inset-0 bg-gradient-to-t from-romara-green-dark/85 via-romara-green/55 to-romara-green/40"></div>
 
-    <div class="romara-container relative py-14 sm:py-16">
+    <div class="romara-container relative pb-20 pt-14 sm:pb-28 sm:pt-16">
       <!-- Breadcrumbs -->
       <nav
         class="mb-5 flex flex-wrap items-center gap-2 text-xs font-medium text-white/60"
@@ -96,8 +96,9 @@ const whyContactItems: WhyContactItem[] = [
     </div>
   </section>
 
-  <!-- Fused split card: green info panel welded to the white form -->
-  <section class="section-y bg-romara-bone">
+  <!-- Fused split card: green info panel welded to the white form.
+       The bone sheet curves up out of the hero, echoing the home Why Choose card. -->
+  <section class="section-y relative z-10 -mt-8 rounded-t-[2rem] bg-romara-bone sm:-mt-12 sm:rounded-t-[2.75rem]">
     <div class="romara-container">
       <div class="grid overflow-hidden rounded-card shadow-elevated lg:grid-cols-[0.92fr_1.08fr]">
         <!-- Left: green editorial panel -->
