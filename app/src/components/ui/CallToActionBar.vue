@@ -13,6 +13,9 @@ interface Props {
   /** Kept for backwards compatibility with existing call sites; the band is
    *  always cinematic now, so this no longer changes the look. */
   theme?: 'cream' | 'green'
+  /** Full-bleed: the band spans edge to edge and sits flush against the footer
+   *  (no rounded corners, no side gutters, no bottom padding). */
+  flush?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -22,6 +25,7 @@ const props = withDefaults(defineProps<Props>(), {
   primaryHref: '/book-now',
   image: '/images/home/hero-elephants.webp',
   theme: 'green',
+  flush: false,
 })
 
 // Unique UI feature: a warm "torchlight" that follows the pointer across the
@@ -59,9 +63,12 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <section class="content-auto romara-container pb-16 sm:pb-20">
+  <section :class="props.flush ? 'content-auto' : 'content-auto romara-container pb-16 sm:pb-20'">
     <div
-      class="cta-band group relative isolate overflow-hidden rounded-[1.75rem] px-6 py-12 shadow-elevated ring-1 ring-white/10 sm:px-12 sm:py-16 lg:px-16 lg:py-[4.5rem]"
+      class="cta-band group relative isolate overflow-hidden shadow-elevated"
+      :class="props.flush
+        ? 'px-6 py-12 sm:py-16 lg:py-[4.5rem]'
+        : 'rounded-[1.75rem] px-6 py-12 ring-1 ring-white/10 sm:px-12 sm:py-16 lg:px-16 lg:py-[4.5rem]'"
       @mousemove="onMove"
       @mouseleave="onLeave"
     >
@@ -82,7 +89,8 @@ onBeforeUnmount(() => {
       <!-- Hairline top accent -->
       <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-romara-amber/60 to-transparent"></div>
 
-      <div class="relative max-w-2xl">
+      <div class="relative" :class="props.flush ? 'romara-container' : 'max-w-2xl'">
+        <div :class="props.flush ? 'max-w-2xl' : ''">
         <h2 class="font-heading text-display font-semibold leading-[1.04] text-white text-balance">
           {{ title }}
         </h2>
@@ -122,6 +130,7 @@ onBeforeUnmount(() => {
             Or request a tailor-made quote
             <IconArrowRight class="h-3.5 w-3.5 text-romara-amber-300 transition-transform duration-300 ease-out-expo group-hover/quote:translate-x-1" />
           </a>
+        </div>
         </div>
       </div>
     </div>

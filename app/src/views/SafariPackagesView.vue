@@ -262,6 +262,7 @@ const tailorMadePoints: TailorMadePoint[] = [
      subtitle="Let ROMARA create memories that last a lifetime."
      image="/images/safari-packages/hero-elephants-jeep.webp"
      theme="green"
+     flush
    />
  </div>
 </template>
