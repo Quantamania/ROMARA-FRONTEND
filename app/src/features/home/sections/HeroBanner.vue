@@ -7,7 +7,7 @@ import IconShield from '@/components/icons/IconShield.vue'
 </script>
 
 <template>
-  <section class="relative isolate min-h-[210px] overflow-hidden bg-romara-green text-white sm:min-h-[68vh] lg:min-h-[calc(100vh-63px)] xl:min-h-[calc(100vh-87px)]">
+  <section class="relative isolate min-h-[250px] overflow-hidden bg-romara-green text-white sm:min-h-[68vh] lg:min-h-[calc(100vh-63px)] xl:min-h-[calc(100vh-87px)]">
     <img
       src="/images/home/mara.webp"
       alt="A ROMARA-branded safari Land Cruiser with its roof open on a game drive in the Maasai Mara"
@@ -17,7 +17,7 @@ import IconShield from '@/components/icons/IconShield.vue'
     <div class="absolute inset-0 bg-gradient-to-r from-romara-green-dark/95 via-romara-green-dark/60 to-romara-green-dark/15" />
     <div class="absolute inset-0 bg-scrim-b" />
 
-    <div class="romara-container relative flex min-h-[210px] flex-col justify-center pb-9 pt-4 sm:min-h-[68vh] lg:min-h-[calc(100vh-63px)] xl:min-h-[calc(100vh-87px)] sm:py-16">
+    <div class="romara-container relative flex min-h-[250px] flex-col justify-center pb-11 pt-8 sm:min-h-[68vh] lg:min-h-[calc(100vh-63px)] xl:min-h-[calc(100vh-87px)] sm:py-16">
       <div class="max-w-xl">
         <h1 class="font-heading text-2xl font-bold leading-tight tracking-tight sm:text-4xl sm:tracking-normal lg:text-5xl xl:text-6xl">
           Safari Tours <span class="text-romara-amber">&amp;</span> Premium Vehicle Hire
