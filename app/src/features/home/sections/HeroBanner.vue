@@ -7,7 +7,7 @@ import IconShield from '@/components/icons/IconShield.vue'
 </script>
 
 <template>
-  <section class="relative isolate min-h-[250px] overflow-hidden bg-romara-green text-white sm:min-h-[68vh] lg:min-h-[calc(100vh-63px)] xl:min-h-[calc(100vh-87px)]">
+  <section class="relative isolate min-h-[250px] overflow-hidden bg-romara-green text-white sm:min-h-[400px] md:min-h-[460px] lg:min-h-[calc(100vh-63px)] xl:min-h-[calc(100vh-87px)]">
     <img
       src="/images/home/mara.webp"
       alt="A ROMARA-branded safari Land Cruiser with its roof open on a game drive in the Maasai Mara"
@@ -17,13 +17,13 @@ import IconShield from '@/components/icons/IconShield.vue'
     <div class="absolute inset-0 bg-gradient-to-r from-romara-green-dark/95 via-romara-green-dark/60 to-romara-green-dark/15" />
     <div class="absolute inset-0 bg-scrim-b" />
 
-    <div class="romara-container relative flex min-h-[250px] flex-col justify-center pb-11 pt-8 sm:min-h-[68vh] lg:min-h-[calc(100vh-63px)] xl:min-h-[calc(100vh-87px)] sm:py-16">
+    <div class="romara-container relative flex min-h-[250px] flex-col justify-center pb-11 pt-8 sm:min-h-[400px] md:min-h-[460px] lg:min-h-[calc(100vh-63px)] xl:min-h-[calc(100vh-87px)] sm:py-10 lg:py-16">
       <div class="max-w-xl">
         <h1 class="font-heading text-2xl font-bold leading-tight tracking-tight sm:text-4xl sm:tracking-normal lg:text-5xl xl:text-6xl">
           Safari Tours <span class="text-romara-amber">&amp;</span> Premium Vehicle Hire
         </h1>
 
-        <div class="mt-5 flex flex-nowrap gap-2 sm:mt-10 sm:gap-3 lg:mt-12">
+        <div class="mt-5 flex flex-nowrap gap-2 sm:mt-7 sm:gap-3 lg:mt-12">
           <a
             href="/book-now"
             class="flex items-center justify-center gap-1.5 rounded-md bg-romara-amber px-4 py-2.5 text-xs font-bold uppercase tracking-[0.05em] text-white shadow-card transition-all duration-300 ease-out-expo hover:bg-romara-amber/90 active:scale-[0.98] sm:gap-2.5 sm:px-6 sm:py-3 sm:text-sm"
@@ -40,7 +40,7 @@ import IconShield from '@/components/icons/IconShield.vue'
           </a>
         </div>
 
-        <div class="mt-4 flex flex-nowrap items-center gap-x-2 text-[11px] font-semibold text-white/90 sm:mt-9 sm:gap-x-3 sm:text-sm lg:mt-11">
+        <div class="mt-4 flex flex-nowrap items-center gap-x-2 text-[11px] font-semibold text-white/90 sm:mt-6 sm:gap-x-3 sm:text-sm lg:mt-11">
           <span class="flex items-center gap-1 whitespace-nowrap">
             <span class="flex text-romara-amber">
               <IconStar v-for="n in 5" :key="n" class="h-3 w-3 sm:h-4 sm:w-4" />
