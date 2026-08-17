@@ -3,6 +3,7 @@ import HeroBanner from '@/features/home/sections/HeroBanner.vue'
 import TrustBuilding from '@/features/home/sections/TrustBuilding.vue'
 import FleetShowcase from '@/features/home/sections/FleetShowcase.vue'
 import PopularDestinations from '@/features/home/sections/PopularDestinations.vue'
+import BlogShelf from '@/features/home/sections/BlogShelf.vue'
 import TestimonialsPreview from '@/features/home/sections/TestimonialsPreview.vue'
 import CoreServices from '@/features/home/sections/CoreServices.vue'
 import FeaturedPackages from '@/features/home/sections/FeaturedPackages.vue'
@@ -115,14 +116,14 @@ const members = [
 
       <section>
         <div class="romara-container">
-          <TestimonialsPreview :card="false" />
+          <TestimonialsPreview />
         </div>
       </section>
 
       <!-- Accreditation + stats — members first, numbers count up on scroll -->
       <section ref="statsRef">
         <div class="romara-container">
-          <div>
+          <div class="rounded-card bg-white p-4 shadow-card sm:p-6">
             <p class="text-center text-[10px] font-bold uppercase tracking-[0.18em] text-romara-ink/40">Proud Members Of</p>
             <div class="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-4">
               <img
@@ -161,18 +162,21 @@ const members = [
         </div>
       </section>
 
-      <!-- Ready to Explore Kenya? -->
-      <section class="text-center">
-        <div class="romara-container">
-          <h2 class="font-heading text-2xl font-bold text-romara-green">Ready to Explore Kenya?</h2>
-          <p class="mt-1.5 text-sm text-romara-ink/60">Let's plan your perfect adventure today.</p>
-          <div class="mt-5 flex flex-wrap justify-center gap-3">
-            <BaseButton as="a" href="/book-now" variant="amber" size="lg">Book Your Safari</BaseButton>
-            <BaseButton as="a" href="/contact" variant="outline" size="lg">Get a Quote</BaseButton>
-          </div>
-        </div>
-      </section>
+      <!-- Latest blog posts -->
+      <BlogShelf />
     </div>
+
+    <!-- Closing CTA — a green band that flows straight into the footer -->
+    <section class="bg-romara-green-dark px-4 pb-7 pt-11 text-center text-white">
+      <div class="romara-container">
+        <h2 class="font-heading text-2xl font-bold">Ready to Explore Kenya?</h2>
+        <p class="mx-auto mt-1.5 max-w-xs text-sm text-white/65">Let's plan your perfect adventure today.</p>
+        <div class="mt-6 flex flex-wrap justify-center gap-3">
+          <BaseButton as="a" href="/book-now" variant="amber" size="md">Book Your Safari</BaseButton>
+          <BaseButton as="a" href="/contact" variant="ghost" size="md">Get a Quote</BaseButton>
+        </div>
+      </div>
+    </section>
   </div>
 
   <!-- ================= DESKTOP: original layout ================= -->
