@@ -84,7 +84,7 @@ const members = [
   <!-- ================= MOBILE / TABLET: curated flow ================= -->
   <div class="lg:hidden">
     <!-- Why Choose ROMARA — full-bleed panel that curves out of the hero -->
-    <section class="relative z-10 -mt-7 rounded-t-[1.75rem] bg-white px-4 pb-4 pt-5 shadow-[0_-12px_30px_-16px_rgba(0,0,0,0.25)]">
+    <section class="relative z-10 -mt-7 rounded-t-[1.75rem] bg-white px-4 pb-4 pt-6 shadow-[0_-12px_30px_-16px_rgba(0,0,0,0.25)]">
       <h2 v-scroll-reveal class="text-center font-heading text-lg font-bold text-romara-green">Why Choose ROMARA?</h2>
       <div class="mt-4 grid grid-cols-4 divide-x divide-romara-green/10">
         <div
