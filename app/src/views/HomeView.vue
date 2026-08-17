@@ -123,22 +123,22 @@ const members = [
       <!-- Accreditation + stats — members first, numbers count up on scroll -->
       <section ref="statsRef">
         <div class="romara-container">
-          <div class="rounded-card bg-white p-4 shadow-card sm:p-6">
-            <p class="text-center text-[10px] font-bold uppercase tracking-[0.18em] text-romara-ink/40">Proud Members Of</p>
-            <div class="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-4">
-              <img
-                v-for="m in members"
-                :key="m.acronym"
-                :src="m.logo"
-                :alt="m.name"
-                :title="m.name"
-                loading="lazy"
-                class="h-14 w-auto object-contain"
-              />
-            </div>
+          <!-- Proud members — sits on the page, not in a card -->
+          <p class="text-center text-[10px] font-bold uppercase tracking-[0.18em] text-romara-ink/40">Proud Members Of</p>
+          <div class="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-4">
+            <img
+              v-for="m in members"
+              :key="m.acronym"
+              :src="m.logo"
+              :alt="m.name"
+              :title="m.name"
+              loading="lazy"
+              class="h-14 w-auto object-contain"
+            />
           </div>
 
-          <dl class="mt-7 grid grid-cols-2 gap-x-4 gap-y-6 text-center sm:grid-cols-4">
+          <!-- Stats — in a card -->
+          <dl class="mt-7 grid grid-cols-2 gap-x-4 gap-y-6 rounded-card bg-white p-5 text-center shadow-card sm:grid-cols-4 sm:p-6">
             <div>
               <dd class="font-heading text-3xl font-bold leading-none text-romara-green">{{ rating.toFixed(1) }}<span class="text-romara-amber">/5</span></dd>
               <dt class="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-romara-ink/55">Traveller Rating</dt>
@@ -156,9 +156,6 @@ const members = [
               <dt class="mt-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-romara-ink/55">Coverage</dt>
             </div>
           </dl>
-
-          <!-- Divider sits under the stats -->
-          <div class="mt-7 border-t border-romara-green/10" aria-hidden="true" />
         </div>
       </section>
 
@@ -166,15 +163,11 @@ const members = [
       <BlogShelf />
     </div>
 
-    <!-- Closing CTA — a green band that flows straight into the footer -->
-    <section class="bg-romara-green-dark px-4 pb-7 pt-11 text-center text-white">
-      <div class="romara-container">
-        <h2 class="font-heading text-2xl font-bold">Ready to Explore Kenya?</h2>
-        <p class="mx-auto mt-1.5 max-w-xs text-sm text-white/65">Let's plan your perfect adventure today.</p>
-        <div class="mt-6 flex flex-wrap justify-center gap-3">
-          <BaseButton as="a" href="/book-now" variant="amber" size="md">Book Your Safari</BaseButton>
-          <BaseButton as="a" href="/contact" variant="ghost" size="md">Get a Quote</BaseButton>
-        </div>
+    <!-- Just the two actions, on a green band that flows into the footer -->
+    <section class="bg-romara-green-dark px-4 pb-6 pt-8">
+      <div class="romara-container flex flex-wrap justify-center gap-3">
+        <BaseButton as="a" href="/book-now" variant="amber" size="md">Book Your Safari</BaseButton>
+        <BaseButton as="a" href="/contact" variant="ghost" size="md">Get a Quote</BaseButton>
       </div>
     </section>
   </div>
