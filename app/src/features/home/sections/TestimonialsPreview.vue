@@ -37,40 +37,47 @@ function goTo(i: number) {
 
     <p v-if="!active" class="mt-6 text-center text-sm text-romara-ink/50">Client reviews are coming soon.</p>
 
-    <div v-else class="mt-5 flex items-center gap-1.5 sm:gap-3">
-      <button
-        type="button"
-        aria-label="Previous review"
-        class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-romara-green/60 transition-colors hover:bg-romara-bone hover:text-romara-amber"
-        @click="prev"
+    <!-- Review card: avatar + stars/name on top, quote below. Arrows on hover. -->
+    <div v-else class="group relative mt-4 sm:mt-5">
+      <div
+        class="rounded-2xl border border-romara-green/10 p-4 sm:p-5"
+        :class="props.card ? 'bg-romara-bone/40' : 'bg-white shadow-soft'"
       >
-        <IconArrowLeft class="h-5 w-5" />
-      </button>
-
-      <div class="min-w-0 flex-1 rounded-lg border border-romara-green/10 bg-romara-bone/40 p-4">
-        <div class="flex gap-3.5">
+        <div class="flex items-center gap-3">
           <img
             :src="active.avatar"
             :alt="active.name"
-            class="h-12 w-12 shrink-0 rounded-full object-cover ring-2 ring-romara-amber/50"
+            class="h-12 w-12 shrink-0 rounded-full object-cover ring-2 ring-romara-amber/40"
           />
           <div class="min-w-0">
             <div class="flex gap-0.5 text-romara-amber">
               <IconStar v-for="n in active.rating" :key="n" class="h-4 w-4" />
             </div>
-            <p class="mt-1.5 text-sm leading-relaxed text-romara-ink/80">&ldquo;{{ active.quote }}&rdquo;</p>
-            <p class="mt-2 text-sm font-bold text-romara-green">&ndash; {{ active.name }}, {{ active.location }}</p>
+            <p class="mt-1 truncate text-sm font-bold text-romara-green">{{ active.name }}, {{ active.location }}</p>
           </div>
         </div>
+
+        <p class="mt-3.5 text-[13px] leading-relaxed text-romara-ink/75 sm:text-sm">&ldquo;{{ active.quote }}&rdquo;</p>
       </div>
 
+      <!-- Prev / next — only revealed while hovering the section -->
       <button
+        v-if="testimonials.length > 1"
+        type="button"
+        aria-label="Previous review"
+        class="absolute -left-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-romara-green/10 bg-white text-romara-green opacity-0 shadow-card transition-all duration-300 ease-out-expo hover:text-romara-amber group-hover:opacity-100 focus-visible:opacity-100 sm:-left-3"
+        @click="prev"
+      >
+        <IconArrowLeft class="h-4 w-4" />
+      </button>
+      <button
+        v-if="testimonials.length > 1"
         type="button"
         aria-label="Next review"
-        class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-romara-green/60 transition-colors hover:bg-romara-bone hover:text-romara-amber"
+        class="absolute -right-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-romara-green/10 bg-white text-romara-green opacity-0 shadow-card transition-all duration-300 ease-out-expo hover:text-romara-amber group-hover:opacity-100 focus-visible:opacity-100 sm:-right-3"
         @click="next"
       >
-        <IconArrowRight class="h-5 w-5" />
+        <IconArrowRight class="h-4 w-4" />
       </button>
     </div>
 

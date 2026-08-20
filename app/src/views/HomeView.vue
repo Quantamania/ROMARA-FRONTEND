@@ -10,13 +10,11 @@ import FeaturedPackages from '@/features/home/sections/FeaturedPackages.vue'
 import WhyChooseUs from '@/features/home/sections/WhyChooseUs.vue'
 import SocialProof from '@/features/home/sections/SocialProof.vue'
 import BlogPreview from '@/features/home/sections/BlogPreview.vue'
-import BaseButton from '@/components/ui/BaseButton.vue'
+import IconArrowRight from '@/components/icons/IconArrowRight.vue'
 import IconUserCheck from '@/components/icons/IconUserCheck.vue'
 import IconShield from '@/components/icons/IconShield.vue'
 import IconHeadset from '@/components/icons/IconHeadset.vue'
 import IconMedal from '@/components/icons/IconMedal.vue'
-import { ref, onMounted, type Ref } from 'vue'
-import { companyStats } from '@/data/companyStats'
 
 const whyChoose = [
   { icon: IconUserCheck, title: 'Local Experts', desc: 'We know Kenya' },
@@ -24,53 +22,6 @@ const whyChoose = [
   { icon: IconHeadset, title: '24/7 Support', desc: "We're here anytime" },
   { icon: IconMedal, title: 'Best Value', desc: 'Quality service at fair prices' },
 ]
-
-// Stats count up from zero the first time the row scrolls into view.
-const statsRef = ref<HTMLElement | null>(null)
-const rating = ref(0)
-const clients = ref(0)
-const safaris = ref(0)
-
-function countTo(target: Ref<number>, to: number, duration: number, decimals = 0) {
-  const start = performance.now()
-  function tick(now: number) {
-    const p = Math.min(1, (now - start) / duration)
-    const eased = 1 - Math.pow(1 - p, 3) // easeOutCubic
-    target.value = Number((to * eased).toFixed(decimals))
-    if (p < 1) requestAnimationFrame(tick)
-    else target.value = to
-  }
-  requestAnimationFrame(tick)
-}
-
-onMounted(() => {
-  const el = statsRef.value
-  if (!el) return
-  const setFinals = () => {
-    rating.value = companyStats.rating
-    clients.value = companyStats.happyClients
-    safaris.value = companyStats.safarisCompleted
-  }
-  if (
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
-    !('IntersectionObserver' in window)
-  ) {
-    setFinals()
-    return
-  }
-  const observer = new IntersectionObserver(
-    (entries) => {
-      if (entries[0].isIntersecting) {
-        countTo(rating, companyStats.rating, 1100, 1)
-        countTo(clients, companyStats.happyClients, 1500)
-        countTo(safaris, companyStats.safarisCompleted, 1500)
-        observer.disconnect()
-      }
-    },
-    { threshold: 0, rootMargin: '0px 0px -12% 0px' },
-  )
-  observer.observe(el)
-})
 
 const members = [
   { acronym: 'TRA', name: 'Tourism Regulatory Authority', logo: '/images/logos/TRA-clear.png' },
@@ -85,7 +36,7 @@ const members = [
   <!-- ================= MOBILE / TABLET: curated flow ================= -->
   <div class="lg:hidden">
     <!-- Why Choose ROMARA — full-bleed panel that curves out of the hero -->
-    <section class="relative z-10 -mt-7 rounded-t-[1.75rem] bg-white px-4 pb-4 pt-6 shadow-[0_-12px_30px_-16px_rgba(0,0,0,0.25)]">
+    <section class="relative z-10 rounded-t-[1.75rem] bg-white px-4 pb-4 pt-6 shadow-[0_-12px_30px_-16px_rgba(0,0,0,0.25)]">
       <h2 v-scroll-reveal class="text-center font-heading text-lg font-bold text-romara-green">Why Choose ROMARA?</h2>
       <div class="mt-4 grid grid-cols-4 divide-x divide-romara-green/10">
         <div
@@ -116,14 +67,13 @@ const members = [
 
       <section>
         <div class="romara-container">
-          <TestimonialsPreview />
+          <TestimonialsPreview :card="false" />
         </div>
       </section>
 
-      <!-- Accreditation + stats — members first, numbers count up on scroll -->
-      <section ref="statsRef">
+      <!-- Accreditation — proud members only (stats moved to the hero) -->
+      <section>
         <div class="romara-container">
-          <!-- Proud members — sits on the page, not in a card -->
           <p class="text-center text-[10px] font-bold uppercase tracking-[0.18em] text-romara-ink/40">Proud Members Of</p>
           <div class="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-4">
             <img
@@ -136,26 +86,6 @@ const members = [
               class="h-14 w-auto object-contain"
             />
           </div>
-
-          <!-- Stats — in a card -->
-          <dl class="mt-7 grid grid-cols-2 gap-x-4 gap-y-6 rounded-card bg-white p-5 text-center shadow-card sm:grid-cols-4 sm:p-6">
-            <div>
-              <dd class="font-heading text-3xl font-bold leading-none text-romara-green">{{ rating.toFixed(1) }}<span class="text-romara-amber">/5</span></dd>
-              <dt class="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-romara-ink/55">Traveller Rating</dt>
-            </div>
-            <div>
-              <dd class="font-heading text-3xl font-bold leading-none text-romara-green">{{ clients }}<span class="text-romara-amber">+</span></dd>
-              <dt class="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-romara-ink/55">Happy Clients</dt>
-            </div>
-            <div>
-              <dd class="font-heading text-3xl font-bold leading-none text-romara-green">{{ safaris }}<span class="text-romara-amber">+</span></dd>
-              <dt class="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-romara-ink/55">Successful Safaris</dt>
-            </div>
-            <div>
-              <dd class="font-heading text-xl font-bold leading-none text-romara-green">Kenya-wide</dd>
-              <dt class="mt-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-romara-ink/55">Coverage</dt>
-            </div>
-          </dl>
         </div>
       </section>
 
@@ -163,11 +93,18 @@ const members = [
       <BlogShelf />
     </div>
 
-    <!-- Just the two actions, on a green band that flows into the footer -->
-    <section class="bg-romara-green-dark px-4 pb-6 pt-8">
-      <div class="romara-container flex flex-wrap justify-center gap-3">
-        <BaseButton as="a" href="/book-now" variant="amber" size="md">Book Your Safari</BaseButton>
-        <BaseButton as="a" href="/contact" variant="ghost" size="md">Get a Quote</BaseButton>
+    <!-- Closing CTA — green gradient card (mockup style) -->
+    <section class="bg-romara-bone px-4 pb-9 pt-2">
+      <div class="relative overflow-hidden rounded-[20px] bg-gradient-to-br from-romara-green-700 to-romara-green-500 p-6 text-white shadow-card">
+        <h2 class="font-heading text-2xl font-bold leading-tight">Ready to Explore Kenya?</h2>
+        <p class="mt-1.5 text-xs leading-relaxed text-white/80">Let's plan your perfect adventure today.</p>
+        <a
+          href="/contact"
+          class="mt-5 inline-flex min-h-[46px] items-center gap-2 rounded-xl bg-white px-5 text-xs font-extrabold uppercase tracking-[0.06em] text-romara-green transition-transform duration-300 ease-out-expo hover:-translate-y-0.5"
+        >
+          Get a Quote
+          <IconArrowRight class="h-4 w-4" />
+        </a>
       </div>
     </section>
   </div>
