@@ -361,3 +361,42 @@
            transition-colors duration-100 hover:bg-romara-amber-100/35;
   }
 }
+
+/* ============================================================================
+   Designed <select> controls, site-wide.
+   Unlayered on purpose so it overrides Tailwind's utility padding/appearance —
+   every native dropdown loses its OS chrome and gains a hand-drawn amber
+   chevron, room for it, and a soft two-tone glow on focus. The chevron nudges
+   down a touch and warms to a deeper amber while the menu is open (:focus),
+   so the control feels alive rather than static.
+   (The browser-rendered option list itself can't be CSS-styled; this designs
+   the control the user actually sees and clicks.)
+   ============================================================================ */
+select:not([multiple]):not([size]) {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23C8863A' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.85rem center;
+  background-size: 1.05rem;
+  padding-right: 2.6rem;
+  transition: background-position 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+select:not([multiple]):not([size]):hover {
+  background-position: right 0.75rem center;
+}
+
+/* Menu open / keyboard focus: chevron darkens + a subtle amber ring. */
+select:not([multiple]):not([size]):focus {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23B5762E' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+}
+
+/* Give the option list a warmer resting look where the browser allows it. */
+select:not([multiple]):not([size]) option {
+  color: #16241a;
+  background-color: #fbfaf7;
+}

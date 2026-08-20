@@ -47,8 +47,18 @@ const helpOptions: HelpOption[] = [
 </script>
 
 <template>
-  <!-- Page header — a branded green band; the trust card below straddles its edge -->
-  <section class="relative isolate overflow-hidden bg-green-fade text-white">
+  <!-- Page header — safari image behind a green scrim; the sheet below straddles its edge -->
+  <section class="relative isolate overflow-hidden bg-romara-green text-white">
+    <img
+      src="/images/booking/maasai-mara-safari.webp"
+      alt=""
+      aria-hidden="true"
+      fetchpriority="high"
+      class="absolute inset-0 h-full w-full object-cover object-center"
+    />
+    <!-- Green scrim keeps the headline legible; the plains show through on the right -->
+    <div class="absolute inset-0 bg-scrim-green-r" aria-hidden="true" />
+    <div class="absolute inset-0 bg-scrim-b" aria-hidden="true" />
     <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-romara-amber/15 blur-3xl" aria-hidden="true" />
     <div class="pointer-events-none absolute -bottom-16 -left-20 h-64 w-64 rounded-full bg-white/[0.05] blur-3xl" aria-hidden="true" />
 
