@@ -182,12 +182,12 @@ const contentSections = computed(() => {
       <!-- Fine blueprint grid, spread down the whole reading body -->
       <div
         aria-hidden="true"
-        class="pointer-events-none absolute inset-0 -z-10 text-romara-green opacity-[0.035] [background-image:linear-gradient(currentColor_1px,transparent_1px),linear-gradient(90deg,currentColor_1px,transparent_1px)] [background-size:38px_38px]"
+        class="pointer-events-none absolute inset-0 -z-10 text-romara-green opacity-[0.06] [background-image:linear-gradient(currentColor_1px,transparent_1px),linear-gradient(90deg,currentColor_1px,transparent_1px)] [background-size:38px_38px]"
       />
       <!-- Major vertical gutter guides -->
       <div
         aria-hidden="true"
-        class="pointer-events-none absolute inset-0 -z-10 text-romara-green opacity-[0.05] [background-image:linear-gradient(90deg,currentColor_1px,transparent_1px)] [background-size:114px_100%]"
+        class="pointer-events-none absolute inset-0 -z-10 text-romara-green opacity-[0.09] [background-image:linear-gradient(90deg,currentColor_1px,transparent_1px)] [background-size:114px_100%]"
       />
 
       <div class="romara-container">

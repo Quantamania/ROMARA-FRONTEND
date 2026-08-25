@@ -7,9 +7,13 @@ import testimonialsData from '@/data/testimonials.json'
 import { getAllTestimonials } from '@/features/testimonials/testimonials.api'
 import type { Testimonial } from '@/types/testimonial.types'
 
-// `card` wraps the block in a white panel (desktop). Mobile passes card=false
-// so the reviews sit directly on the page background with no outer card.
-const props = withDefaults(defineProps<{ card?: boolean }>(), { card: true })
+// `card` wraps the block in a white panel. Mobile passes card=false so the
+// review sits in a light card on the page. `bare` drops every container so the
+// content sits straight on the section background (used in the Why ROMARA grid).
+const props = withDefaults(defineProps<{ card?: boolean; bare?: boolean }>(), {
+  card: true,
+  bare: false,
+})
 
 const testimonials = ref<Testimonial[]>(testimonialsData as Testimonial[])
 onMounted(async () => {
@@ -32,16 +36,29 @@ function goTo(i: number) {
 </script>
 
 <template>
-  <div :class="props.card ? 'rounded-card bg-white p-4 shadow-card sm:p-6' : ''">
-    <h2 class="text-center font-heading text-xl font-bold text-romara-green sm:text-2xl">What Our Guests Say</h2>
+  <div :class="props.bare ? 'flex h-full flex-col' : props.card ? 'flex h-full flex-col rounded-card bg-white p-5 shadow-card sm:p-7' : ''">
+    <h2
+      class="font-heading text-xl font-bold text-romara-green sm:text-2xl"
+      :class="props.bare || props.card ? 'text-center lg:text-left' : 'text-center'"
+    >
+      What Our Guests Say
+    </h2>
+    <span v-if="props.bare || props.card" class="accent-rule mt-4 hidden lg:block" />
 
     <p v-if="!active" class="mt-6 text-center text-sm text-romara-ink/50">Client reviews are coming soon.</p>
 
-    <!-- Review card: avatar + stars/name on top, quote below. Arrows on hover. -->
-    <div v-else class="group relative mt-4 sm:mt-5">
+    <!-- Review: avatar + stars/name on top, quote below. Arrows on hover. -->
+    <div
+      v-else
+      class="group relative"
+      :class="props.bare || props.card ? 'mt-6 flex flex-1 flex-col justify-center' : 'mt-4 sm:mt-5'"
+    >
       <div
-        class="rounded-2xl border border-romara-green/10 p-4 sm:p-5"
-        :class="props.card ? 'bg-romara-bone/40' : 'bg-white shadow-soft'"
+        :class="props.bare
+          ? 'border-t border-romara-green/12 pt-6'
+          : props.card
+            ? 'rounded-2xl border border-romara-green/10 bg-romara-bone/40 p-4 sm:p-5'
+            : 'rounded-2xl border border-romara-green/10 bg-white p-4 shadow-soft sm:p-5'"
       >
         <div class="flex items-center gap-3">
           <img
@@ -57,7 +74,10 @@ function goTo(i: number) {
           </div>
         </div>
 
-        <p class="mt-3.5 text-[13px] leading-relaxed text-romara-ink/75 sm:text-sm">&ldquo;{{ active.quote }}&rdquo;</p>
+        <p
+          class="mt-3.5 leading-relaxed text-romara-ink/75"
+          :class="props.bare || props.card ? 'text-sm lg:text-base' : 'text-[13px] sm:text-sm'"
+        >&ldquo;{{ active.quote }}&rdquo;</p>
       </div>
 
       <!-- Prev / next — only revealed while hovering the section -->
@@ -81,7 +101,11 @@ function goTo(i: number) {
       </button>
     </div>
 
-    <div v-if="active && testimonials.length > 1" class="mt-4 flex justify-center gap-2">
+    <div
+      v-if="active && testimonials.length > 1"
+      class="flex justify-center gap-2"
+      :class="props.bare || props.card ? 'mt-6 lg:justify-start' : 'mt-4'"
+    >
       <button
         v-for="(t, i) in testimonials"
         :key="t.id"

@@ -28,9 +28,9 @@ export default {
           'amber-400': '#D9A05C',
           'amber-300': '#E4B77E',
           'amber-100': '#F3E4CE',
-          cream: '#F7F5F1',        // testimonial box, soft section backgrounds
+          cream: '#F9F8F5',        // testimonial box, soft section backgrounds
           sand: '#EFE9DF',         // warmer neutral layer for alternating sections
-          bone: '#FBFAF7',         // near-white page background with warmth
+          bone: '#FCFCFB',         // near-white page background, lightly warm
           ink: '#1F2A24',          // body copy on light backgrounds
           'ink-soft': '#55605A',   // secondary/muted copy
         },

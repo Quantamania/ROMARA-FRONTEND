@@ -132,13 +132,6 @@ const tailorMadePoints: TailorMadePoint[] = [
           />
           <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
 
-          <span
-            v-if="featuredPackage.badge"
-            class="absolute left-5 top-5 inline-flex items-center rounded-full bg-romara-amber px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.14em] text-white shadow-soft"
-          >
-            {{ featuredPackage.badge }}
-          </span>
-
           <div class="relative mt-auto w-full p-6 sm:p-8 lg:p-10">
             <p class="text-[11px] font-bold uppercase tracking-[0.18em] text-romara-amber-300">
               Featured Journey

@@ -38,10 +38,10 @@ const services = [
 ]
 
 const socialLinks = [
-  { name: 'Facebook', href: 'https://facebook.com', icon: IconFacebook },
-  { name: 'Instagram', href: 'https://instagram.com', icon: IconInstagram },
-  { name: 'TripAdvisor', href: 'https://tripadvisor.com', icon: IconTripadvisor },
-  { name: 'WhatsApp', href: 'https://wa.me/254700123456', icon: IconWhatsapp },
+  { name: 'Facebook', href: 'https://facebook.com', icon: IconFacebook, color: '#1877F2' },
+  { name: 'Instagram', href: 'https://instagram.com', icon: IconInstagram, color: '#E4405F' },
+  { name: 'TripAdvisor', href: 'https://tripadvisor.com', icon: IconTripadvisor, color: '#34E0A1' },
+  { name: 'WhatsApp', href: 'https://wa.me/254700123456', icon: IconWhatsapp, color: '#25D366' },
 ]
 
 const newsletterEmail = ref('')
@@ -111,9 +111,9 @@ const currentYear = new Date().getFullYear()
                   target="_blank"
                   rel="noopener"
                   :aria-label="social.name"
-                  class="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-white/80 transition-colors hover:border-romara-amber hover:bg-romara-amber hover:text-white"
+                  class="inline-flex text-white/80 transition-all duration-300 ease-out-expo hover:-translate-y-0.5 hover:text-romara-amber"
                 >
-                  <component :is="social.icon" class="h-4 w-4" />
+                  <component :is="social.icon" class="h-6 w-6" />
                 </a>
               </div>
               <a
@@ -238,9 +238,9 @@ const currentYear = new Date().getFullYear()
             target="_blank"
             rel="noopener"
             :aria-label="social.name"
-            class="flex h-14 w-14 items-center justify-center rounded-full bg-romara-amber/15 text-romara-amber-300 transition-colors hover:bg-romara-amber hover:text-white"
+            class="inline-flex text-white/80 transition-all duration-300 ease-out-expo hover:-translate-y-0.5 hover:text-romara-amber"
           >
-            <component :is="social.icon" class="h-7 w-7 [stroke-width:2.4]" />
+            <component :is="social.icon" class="h-7 w-7" />
           </a>
         </div>
       </div>

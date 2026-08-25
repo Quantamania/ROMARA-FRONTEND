@@ -143,9 +143,9 @@ const whyContactItems: WhyContactItem[] = [
                   target="_blank"
                   rel="noopener"
                   :aria-label="social.name"
-                  class="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/80 transition-colors hover:border-romara-amber hover:text-romara-amber"
+                  class="inline-flex text-white/80 transition-all duration-300 ease-out-expo hover:-translate-y-0.5 hover:text-romara-amber-300"
                 >
-                  <component :is="social.icon" class="h-4 w-4" />
+                  <component :is="social.icon" class="h-6 w-6" />
                 </a>
               </div>
             </div>

@@ -119,7 +119,7 @@ const members = [
     <section class="content-auto-section section-y bg-romara-sand">
       <div class="romara-container grid grid-cols-1 items-stretch gap-8 lg:grid-cols-2 lg:gap-12">
         <WhyChooseUs />
-        <TestimonialsPreview />
+        <TestimonialsPreview :card="false" bare />
       </div>
     </section>
 

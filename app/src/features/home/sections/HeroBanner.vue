@@ -3,10 +3,8 @@ import { ref, onMounted, type Ref } from 'vue'
 import IconCalendarCheck from '@/components/icons/IconCalendarCheck.vue'
 import IconCar from '@/components/icons/IconCar.vue'
 import IconStar from '@/components/icons/IconStar.vue'
-import IconUsers from '@/components/icons/IconUsers.vue'
-import IconShield from '@/components/icons/IconShield.vue'
 
-// Hero trust stats count up from zero on load (the hero is always in view first).
+// Mobile / tablet trust band stats count up from zero on load.
 const rating = ref(0)
 const clients = ref(0)
 const years = ref(0)
@@ -75,20 +73,6 @@ onMounted(() => {
             <IconCar class="h-3.5 w-3.5 sm:h-5 sm:w-5" />
             Hire a Vehicle
           </a>
-        </div>
-
-        <!-- Inline trust row — desktop only (mobile/tablet get the bottom band below) -->
-        <div class="mt-11 hidden flex-nowrap items-center gap-x-3 text-sm font-semibold text-white/90 lg:flex">
-          <span class="flex items-center gap-1 whitespace-nowrap">
-            <span class="flex text-romara-amber">
-              <IconStar v-for="n in 5" :key="n" class="h-4 w-4" />
-            </span>
-            {{ rating.toFixed(1) }}/5
-          </span>
-          <span class="h-3.5 w-px shrink-0 bg-white/30" aria-hidden="true" />
-          <span class="flex items-center gap-1 whitespace-nowrap"><IconUsers class="h-4 w-4 shrink-0 text-romara-amber" />{{ clients }}+ Clients</span>
-          <span class="h-3.5 w-px shrink-0 bg-white/30" aria-hidden="true" />
-          <span class="flex items-center gap-1 whitespace-nowrap"><IconShield class="h-4 w-4 shrink-0 text-romara-amber" />{{ years }}+ Years</span>
         </div>
       </div>
     </div>

@@ -209,7 +209,7 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
             :aria-label="social.name"
             class="text-white hover:text-romara-green-dark"
           >
-            <component :is="social.icon" class="h-5 w-5 [stroke-width:2.4]" />
+            <component :is="social.icon" class="h-4 w-4 [stroke-width:2.4]" />
           </a>
         </div>
       </div>

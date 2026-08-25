@@ -111,14 +111,7 @@ const excluded = [
             Back to Safari Packages
           </button>
 
-          <span
-            v-if="currentPackage.badge"
-            class="mt-6 inline-flex items-center rounded-full bg-romara-amber px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-white shadow-soft"
-          >
-            {{ currentPackage.badge }}
-          </span>
-
-          <h1 class="mt-5 font-heading text-display font-semibold leading-tight text-balance">
+          <h1 class="mt-7 font-heading text-display font-semibold leading-tight text-balance">
             {{ currentPackage.name }}
           </h1>
 
@@ -147,21 +140,6 @@ const excluded = [
             <p class="mt-6 text-base leading-relaxed text-romara-ink-soft">
               {{ currentPackage.description }} This carefully crafted safari experience offers you the perfect blend of adventure, comfort, and unforgettable wildlife encounters. Our expert guides will ensure you get the most out of your journey through Kenya's most spectacular landscapes.
             </p>
-
-            <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
-              <div class="rounded-card border border-romara-green/10 bg-white p-6 shadow-soft">
-                <p class="text-[11px] font-bold uppercase tracking-[0.14em] text-romara-amber">Duration</p>
-                <p class="mt-3 font-heading text-2xl font-semibold text-romara-green">{{ currentPackage.durationDays }} Days</p>
-              </div>
-              <div class="rounded-card border border-romara-green/10 bg-white p-6 shadow-soft">
-                <p class="text-[11px] font-bold uppercase tracking-[0.14em] text-romara-amber">Location</p>
-                <p class="mt-3 font-heading text-2xl font-semibold text-romara-green">{{ currentPackage.location }}</p>
-              </div>
-              <div class="rounded-card border border-romara-green/10 bg-white p-6 shadow-soft">
-                <p class="text-[11px] font-bold uppercase tracking-[0.14em] text-romara-amber">From</p>
-                <p class="mt-3 font-heading text-2xl font-semibold text-romara-green">KES {{ formatPrice(currentPackage.priceFromKES) }}</p>
-              </div>
-            </div>
           </section>
 
           <!-- Itinerary — numbered vertical timeline -->
