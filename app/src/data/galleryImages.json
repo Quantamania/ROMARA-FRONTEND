@@ -38,5 +38,9 @@
   { "id": "37", "src": "https://res.cloudinary.com/ry9vpche/image/upload/v1785232088/waterbuck_dbqmwo.jpg", "alt": "Waterbuck animal", "category": "wildlife", "caption": "Waterbuck near a lake" },
   { "id": "38", "src": "https://res.cloudinary.com/ry9vpche/image/upload/v1785232088/waterbucks_jc0unj.jpg", "alt": "Waterbuck herd", "category": "wildlife", "caption": "Waterbucks at the waterhole" },
   { "id": "39", "src": "/images/gallery/zebras.webp", "alt": "Zebra herd", "category": "wildlife", "caption": "Striped zebras grazing" },
-  { "id": "40", "src": "/images/gallery/zebras1.webp", "alt": "Another zebra group", "category": "wildlife", "caption": "Zebras on the African plains" }
+  { "id": "40", "src": "/images/gallery/zebras1.webp", "alt": "Another zebra group", "category": "wildlife", "caption": "Zebras on the African plains" },
+  { "id": "41", "src": "/images/gallery/ostrich.webp", "alt": "Ostrich", "category": "wildlife", "caption": "Ostrich" },
+  { "id": "42", "src": "/images/gallery/tall.webp", "alt": "Tall safari scene", "category": "wildlife", "caption": "Tall" },
+  { "id": "43", "src": "/images/gallery/waterbuck.webp", "alt": "Waterbuck", "category": "wildlife", "caption": "Waterbuck" },
+  { "id": "44", "src": "/images/gallery/waterbucks.webp", "alt": "Waterbucks", "category": "wildlife", "caption": "Waterbucks" }
 ]
