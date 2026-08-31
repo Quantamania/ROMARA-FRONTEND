@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import IconUserCheck from '@/components/icons/IconUserCheck.vue'
-import IconHandshake from '@/components/icons/IconHandshake.vue'
 import IconClock from '@/components/icons/IconClock.vue'
-import IconUsers from '@/components/icons/IconUsers.vue'
 import IconPhone from '@/components/icons/IconPhone.vue'
 import IconMail from '@/components/icons/IconMail.vue'
 import IconWhatsapp from '@/components/icons/IconWhatsapp.vue'
@@ -13,7 +11,6 @@ import IconInstagram from '@/components/icons/IconInstagram.vue'
 import IconTripadvisor from '@/components/icons/IconTripadvisor.vue'
 import IconHeadset from '@/components/icons/IconHeadset.vue'
 import IconMapPin from '@/components/icons/IconMapPin.vue'
-import SectionHeading from '@/components/ui/SectionHeading.vue'
 import ContactForm from '@/features/contact/components/ContactForm.vue'
 import OfficeMap from '@/features/contact/components/OfficeMap.vue'
 
@@ -38,18 +35,7 @@ const socialLinks = [
   { name: 'WhatsApp', href: 'https://wa.me/254700123456', icon: IconWhatsapp },
 ]
 
-interface WhyContactItem {
-  icon: typeof IconUserCheck
-  title: string
-  description: string
-}
 
-const whyContactItems: WhyContactItem[] = [
-  { icon: IconUserCheck, title: 'Expert Advice', description: 'Get professional guidance from our travel experts.' },
-  { icon: IconHandshake, title: 'Tailor-Made Tours', description: 'We create personalized itineraries just for you.' },
-  { icon: IconClock, title: 'Quick Response', description: 'We respond to all enquiries within 24 hours.' },
-  { icon: IconUsers, title: 'Customer Support', description: "We're with you before, during and after your trip." },
-]
 </script>
 
 <template>
