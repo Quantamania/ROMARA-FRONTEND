@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import IconUserCheck from '@/components/icons/IconUserCheck.vue'
 import IconClock from '@/components/icons/IconClock.vue'
 import IconPhone from '@/components/icons/IconPhone.vue'
 import IconMail from '@/components/icons/IconMail.vue'
