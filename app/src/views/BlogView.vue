@@ -91,26 +91,26 @@ function formatDate(isoDate: string | number | Date) {
 
 <template>
   <!-- Hero: MAGAZINE MASTHEAD — the featured post is the hero (image + editorial text). -->
-  <section class="bg-romara-green-900 text-white">
+  <section class="bg-white text-romara-green">
     <div class="romara-container py-8 sm:py-14 lg:py-16">
       <!-- Masthead top line: breadcrumbs + journal title -->
       <nav aria-label="Breadcrumb" class="mb-6">
-        <ol class="flex items-center gap-2 text-xs font-medium text-white/55">
-          <li><a href="/" class="transition-colors hover:text-white">Home</a></li>
-          <li aria-hidden="true" class="text-white/30">/</li>
-          <li class="text-white/90">Blog</li>
+        <ol class="flex items-center gap-2 text-xs font-medium text-romara-green/60">
+          <li><a href="/" class="transition-colors hover:text-romara-amber">Home</a></li>
+          <li aria-hidden="true" class="text-romara-green/30">/</li>
+          <li class="text-romara-green/80">Blog</li>
         </ol>
       </nav>
 
-      <div class="flex flex-col gap-5 border-b border-white/10 pb-8 sm:flex-row sm:items-end sm:justify-between">
-        <h1 class="text-balance font-heading text-display font-semibold leading-none">
+      <div class="flex flex-col gap-5 border-b border-romara-green/10 pb-8 sm:flex-row sm:items-end sm:justify-between">
+        <h1 class="text-balance font-heading text-display font-semibold leading-none text-romara-green">
           Travel Stories &amp; Safari Inspiration
         </h1>
       </div>
 
       <!-- Slim search bar sits under the masthead line -->
       <form
-        class="mt-6 flex w-full max-w-md items-center gap-2 rounded-full border border-white/15 bg-white/95 py-1.5 pl-5 pr-1.5 shadow-elevated transition-shadow focus-within:shadow-glow-amber"
+        class="mt-6 flex w-full max-w-md items-center gap-2 rounded-full border border-romara-green/15 bg-white py-1.5 pl-5 pr-1.5 shadow-elevated transition-shadow focus-within:shadow-glow-amber"
         @submit.prevent
       >
         <IconSearch class="h-4 w-4 shrink-0 text-romara-ink/40" />
@@ -124,7 +124,7 @@ function formatDate(isoDate: string | number | Date) {
         />
         <button
           type="submit"
-          class="shrink-0 rounded-full bg-amber-fade px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.14em] text-white shadow-soft transition-all duration-300 ease-out-expo hover:shadow-glow-amber focus:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber/50 focus-visible:ring-offset-1"
+          class="shrink-0 rounded-full bg-romara-green px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.14em] text-white shadow-soft transition-all duration-300 ease-out-expo hover:shadow-glow-amber focus:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber/50 focus-visible:ring-offset-1"
         >
           Search
         </button>
@@ -149,18 +149,18 @@ function formatDate(isoDate: string | number | Date) {
         </div>
 
         <div>
-          <p class="text-xs font-bold uppercase tracking-[0.16em] text-romara-amber-300">Featured story</p>
+          <p class="text-xs font-bold uppercase tracking-[0.16em] text-romara-amber-600">Featured story</p>
           <h2
-            class="mt-3 text-balance font-heading text-2xl font-semibold leading-tight transition-colors group-hover:text-romara-amber-300 sm:mt-4 sm:text-display-sm"
+            class="mt-3 text-balance font-heading text-2xl font-semibold leading-tight transition-colors group-hover:text-romara-amber-300 sm:mt-4 sm:text-display-sm text-romara-green"
           >
             {{ mastheadPost.title }}
           </h2>
-          <p class="mt-3 line-clamp-3 max-w-xl text-base leading-relaxed text-white/70 sm:mt-4">{{ mastheadPost.excerpt }}</p>
-          <div class="mt-4 flex flex-wrap items-center gap-4 text-xs font-medium text-white/60 sm:mt-6">
+          <p class="mt-3 line-clamp-3 max-w-xl text-base leading-relaxed text-romara-ink-soft sm:mt-4">{{ mastheadPost.excerpt }}</p>
+          <div class="mt-4 flex flex-wrap items-center gap-4 text-xs font-medium text-romara-green/60 sm:mt-6">
             <span>{{ formatDate(mastheadPost.publishedAt) }}</span>
           </div>
           <span
-            class="mt-5 inline-flex items-center gap-2 text-sm font-bold uppercase sm:mt-7 tracking-[0.14em] text-white"
+            class="mt-5 inline-flex items-center gap-2 text-sm font-bold uppercase sm:mt-7 tracking-[0.14em] text-romara-green"
           >
             Read article
             <IconArrowRight class="h-4 w-4 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" />

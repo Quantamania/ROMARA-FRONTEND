@@ -42,8 +42,11 @@ function loadMore() {
   visibleCount.value += 6
 }
 
-function openImage(index: number) {
-  activeIndex.value = index
+function openImage(image: GalleryImage) {
+  const index = filteredImages.value.findIndex((item) => item.id === image.id)
+  if (index >= 0) {
+    activeIndex.value = index
+  }
 }
 
 function closeLightbox() {
@@ -52,12 +55,13 @@ function closeLightbox() {
 
 function showPrevImage() {
   if (activeIndex.value === null) return
-  activeIndex.value = activeIndex.value === 0 ? visibleImages.value.length - 1 : activeIndex.value - 1
+  const total = filteredImages.value.length
+  activeIndex.value = activeIndex.value === 0 ? total - 1 : activeIndex.value - 1
 }
 
 function showNextImage() {
   if (activeIndex.value === null) return
-  activeIndex.value = (activeIndex.value + 1) % visibleImages.value.length
+  activeIndex.value = (activeIndex.value + 1) % filteredImages.value.length
 }
 </script>
 
@@ -119,7 +123,7 @@ function showNextImage() {
   </section>
 
   <GalleryLightbox
-    :images="visibleImages"
+    :images="filteredImages"
     :active-index="activeIndex"
     @close="closeLightbox"
     @prev="showPrevImage"
@@ -129,8 +133,8 @@ function showNextImage() {
   <!-- CTA: photo-backed banner, per the brief's "striking lion image" -->
   <section v-scroll-reveal-right class="relative isolate overflow-hidden">
     <img
-      src="https://res.cloudinary.com/ry9vpche/image/upload/v1785232064/lion.jpeg"
-      alt="Lion at sunset"
+      src="/images/gallery/waterbuck.webp"
+      alt="Waterbuck at the waterhole"
       class="ken-burns absolute inset-0 w-full h-full object-cover"
       loading="lazy"
     />

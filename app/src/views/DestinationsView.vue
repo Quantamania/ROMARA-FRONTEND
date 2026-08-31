@@ -40,6 +40,13 @@ const heroTiles = [
   <!-- HERO 1 — Bento Gallery Hero: headline + search beside a bento grid of
        destination tiles, so the places are showcased immediately. -->
   <section class="relative isolate overflow-hidden bg-green-fade text-white">
+    <img
+      src="/images/gallery/giraffes.webp"
+      alt="Giraffes in the savannah"
+      loading="lazy"
+      class="absolute inset-0 h-full w-full object-cover opacity-25"
+    />
+    <div class="absolute inset-0 bg-romara-green/70" aria-hidden="true" />
     <div class="absolute inset-0 bg-scrim-b opacity-40" aria-hidden="true" />
 
     <div class="romara-container relative py-14 sm:py-20 lg:py-24">

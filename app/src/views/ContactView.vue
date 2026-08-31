@@ -171,34 +171,4 @@ const whyContactItems: WhyContactItem[] = [
       <OfficeMap />
     </div>
   </section>
-
-  <!-- Why Contact ROMARA -->
-  <section class="section-y bg-romara-sand">
-    <div class="romara-container">
-      <SectionHeading
-        align="center"
-        eyebrow="Why ROMARA"
-        title="Travel Planning, Beautifully Handled"
-      />
-
-      <div class="mt-4 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
-        <div
-          v-for="(item, index) in whyContactItems"
-          :key="item.title"
-          v-scroll-reveal="{ delay: index * 90 }"
-          class="group relative overflow-hidden rounded-card border border-romara-green/10 bg-white p-6 text-center transition-all duration-500 ease-out-expo hover:-translate-y-1.5 hover:border-romara-amber/30 hover:shadow-elevated sm:p-8"
-        >
-          <!-- Amber wash blooms up from the base on hover -->
-          <span class="pointer-events-none absolute inset-x-0 bottom-0 h-0 bg-gradient-to-t from-romara-amber/10 to-transparent transition-all duration-500 ease-out-expo group-hover:h-full" aria-hidden="true" />
-          <span
-            class="relative mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-amber-fade text-white shadow-soft transition-transform duration-500 ease-out-expo group-hover:scale-110 group-hover:-rotate-6"
-          >
-            <component :is="item.icon" class="h-6 w-6" />
-          </span>
-          <p class="relative mt-5 font-heading text-lg font-semibold text-romara-green transition-colors duration-300 group-hover:text-romara-amber">{{ item.title }}</p>
-          <p class="relative mt-2 text-xs leading-relaxed text-romara-ink-soft">{{ item.description }}</p>
-        </div>
-      </div>
-    </div>
-  </section>
 </template>

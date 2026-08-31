@@ -23,7 +23,7 @@ const props = withDefaults(defineProps<Props>(), {
   subtitle: 'Tell us how you like to travel and our specialists will shape a journey around you.',
   primaryLabel: 'Book Your Safari',
   primaryHref: '/book-now',
-  image: '/images/home/hero-elephants.webp',
+  image: '/images/gallery/elephant5.webp',
   theme: 'green',
   flush: false,
 })

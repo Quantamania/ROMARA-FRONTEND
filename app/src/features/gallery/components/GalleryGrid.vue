@@ -10,12 +10,12 @@ interface Props {
 defineProps<Props>()
 
 const emit = defineEmits<{
-  'open-image': [index: number]
+  'open-image': [image: GalleryImage]
   'load-more': []
 }>()
 
-function openImage(index: number) {
-  emit('open-image', index)
+function openImage(image: GalleryImage) {
+  emit('open-image', image)
 }
 
 function loadMore() {
@@ -35,7 +35,7 @@ function loadMore() {
         type="button"
         class="group relative mb-3 block w-full overflow-hidden rounded-card break-inside-avoid shadow-card ring-1 ring-black/5 transition-shadow duration-500 hover:shadow-elevated focus:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber sm:mb-5"
         v-scroll-reveal="{ delay: (index % 6) * 80 }"
-        @click="openImage(index)"
+        @click="openImage(image)"
       >
         <img :src="image.src" :alt="image.alt" class="w-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-[1.06]" loading="lazy" />
 
