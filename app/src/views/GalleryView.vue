@@ -63,6 +63,14 @@ function showNextImage() {
   if (activeIndex.value === null) return
   activeIndex.value = (activeIndex.value + 1) % filteredImages.value.length
 }
+
+function formatSrc(src: string) {
+  try {
+    return encodeURI(src)
+  } catch (e) {
+    return src
+  }
+}
 </script>
 
 <template>
@@ -72,11 +80,11 @@ function showNextImage() {
     <!-- The wall itself: a uniform tile grid (3 / 4 / 6 cols) that fills edge to
          edge. A single slow ken-burns drift across the whole wall is the one
          authored motion moment (auto-disabled under prefers-reduced-motion). -->
-    <div class="ken-burns absolute inset-0 grid grid-cols-3 auto-rows-fr gap-1 sm:grid-cols-4 sm:gap-1.5 lg:grid-cols-6">
+      <div class="ken-burns absolute inset-0 grid grid-cols-3 auto-rows-fr gap-1 sm:grid-cols-4 sm:gap-1.5 lg:grid-cols-6">
       <img
         v-for="image in mosaicImages"
         :key="image.id"
-        :src="image.src"
+        :src="formatSrc(image.src)"
         :alt="image.alt"
         class="w-full h-full object-cover"
       />

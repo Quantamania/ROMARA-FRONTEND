@@ -21,6 +21,14 @@ function openImage(image: GalleryImage) {
 function loadMore() {
   emit('load-more')
 }
+ 
+function formatSrc(src: string) {
+  try {
+    return encodeURI(src)
+  } catch (e) {
+    return src
+  }
+}
 </script>
 
 <template>
@@ -37,7 +45,7 @@ function loadMore() {
         v-scroll-reveal="{ delay: (index % 6) * 80 }"
         @click="openImage(image)"
       >
-        <img :src="image.src" :alt="image.alt" class="w-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-[1.06]" loading="lazy" />
+        <img :src="formatSrc(image.src)" :alt="image.alt" class="w-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-[1.06]" loading="lazy" />
 
         <!-- Gradient scrim + caption reveal -->
         <div class="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/80 via-black/10 to-transparent p-3 opacity-0 transition-opacity duration-500 group-hover:opacity-100 sm:p-5">

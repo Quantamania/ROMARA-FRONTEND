@@ -33,6 +33,15 @@ function handleKeydown(event: KeyboardEvent) {
   if (event.key === 'ArrowRight') emit('next')
 }
 
+function formatSrc(src: string | undefined | null) {
+  if (!src) return ''
+  try {
+    return encodeURI(src)
+  } catch (e) {
+    return src
+  }
+}
+
 onMounted(function addKeyListener() {
   window.addEventListener('keydown', handleKeydown)
 })
@@ -81,7 +90,7 @@ onBeforeUnmount(function removeKeyListener() {
         </button>
 
         <div class="flex max-h-[88vh] max-w-4xl flex-col">
-          <img :src="activeImage.src" :alt="activeImage.alt" class="max-h-[74vh] w-full rounded-card object-contain shadow-elevated" />
+          <img :src="formatSrc(activeImage.src)" :alt="activeImage.alt" class="max-h-[74vh] w-full rounded-card object-contain shadow-elevated" />
           <div class="mt-5 flex items-center justify-between gap-4 text-white">
             <div class="min-w-0">
               <span class="mb-1.5 inline-flex items-center gap-1.5 text-eyebrow font-bold uppercase tracking-[0.14em] text-romara-amber-300">

@@ -78,6 +78,14 @@ const excluded = [
   'Personal expenses & tips',
   'Drinks not stated in the itinerary',
 ]
+
+function formatSrc(src: string) {
+  try {
+    return encodeURI(src)
+  } catch (e) {
+    return src
+  }
+}
 </script>
 
 <template>
@@ -85,7 +93,7 @@ const excluded = [
     <!-- Hero Section -->
     <section class="relative isolate overflow-hidden bg-romara-green text-white">
       <img
-        :src="currentPackage.image"
+        :src="formatSrc(currentPackage.image)"
         :alt="currentPackage.name"
         class="ken-burns absolute inset-0 h-full w-full object-cover"
       />
@@ -232,7 +240,7 @@ const excluded = [
                 :class="index === 0 ? 'col-span-2 row-span-2 aspect-square md:aspect-auto' : 'aspect-square'"
               >
                 <img
-                  :src="img"
+                  :src="formatSrc(img)"
                   :alt="`${currentPackage.name} gallery image ${index + 1}`"
                   loading="lazy"
                   class="h-full w-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-105"

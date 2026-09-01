@@ -63,6 +63,14 @@ function selectTab(value: ReviewCategory | 'all') {
 function loadMoreReviews() {
   visibleCount.value += 4
 }
+
+function formatSrc(src: string) {
+  try {
+    return encodeURI(src)
+  } catch (e) {
+    return src
+  }
+}
 </script>
 
 <template>
@@ -175,7 +183,7 @@ function loadMoreReviews() {
         class="group block shadow-card rounded-lg w-40 sm:w-48 h-48 sm:h-56 overflow-hidden transition-transform hover:-translate-y-1 shrink-0"
       >
         <img
-          :src="image.src"
+          :src="formatSrc(image.src)"
           :alt="image.alt"
           class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           loading="lazy"
@@ -247,7 +255,7 @@ function loadMoreReviews() {
       </div>
 
       <img
-        :src="guestMoments[0].src"
+        :src="formatSrc(guestMoments[0].src)"
         :alt="guestMoments[0].alt"
         class="hidden lg:block w-full h-full min-h-[280px] object-cover"
       />
