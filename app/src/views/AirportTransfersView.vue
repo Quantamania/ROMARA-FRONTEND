@@ -36,7 +36,6 @@ const trustFeatures: TrustFeature[] = [
   { icon: IconClock, title: 'On-Time Guarantee', description: 'We monitor flights to ensure timely pick-ups and drop-offs.' },
   { icon: IconUser, title: 'Professional Drivers', description: 'Experienced, courteous and knowledgeable drivers.' },
   { icon: IconShield, title: 'Safe & Comfortable', description: 'Well-maintained vehicles for a smooth and secure journey.' },
-  { icon: IconSuitcase, title: 'Meet & Greet Service', description: 'Our driver will meet you at the arrivals hall with a name sign.' },
   { icon: IconDollarCircle, title: 'Transparent Pricing', description: 'No hidden fees. What you see is what you pay.' },
 ]
 
@@ -87,16 +86,16 @@ const whyChooseItems: WhyChooseItem[] = [
     </div>
   </section>
 
-  <!-- Trust strip, below the hero with a rounded mobile/web panel -->
+  <!-- Trust strip, moved below the hero with a rounded safari-style panel -->
   <section v-scroll-reveal class="relative z-10 mt-5 sm:mt-6">
-    <div class="rounded-t-[1.75rem] bg-white px-3 pb-4 pt-5 shadow-[0_-12px_30px_-16px_rgba(0,0,0,0.18)] sm:rounded-[1.75rem] sm:px-6 sm:pb-5 sm:pt-6 lg:rounded-[1.75rem] lg:px-8">
+    <div class="rounded-[1.75rem] border border-romara-green/10 bg-white p-3 shadow-[0_-12px_30px_-16px_rgba(0,0,0,0.18)] sm:rounded-[2rem] sm:p-5 lg:rounded-[2rem] lg:p-6">
       <div class="mx-auto max-w-6xl">
-        <div class="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
+        <div class="grid grid-cols-2 gap-2 sm:grid-cols-2 lg:grid-cols-4">
           <div
             v-for="(feature, index) in trustFeatures"
             :key="feature.title"
             v-scroll-reveal="{ delay: index * 60 }"
-            class="group flex flex-col items-center gap-2 px-2 py-3 text-center"
+            class="group flex flex-col items-center gap-2 rounded-[1.25rem] border border-romara-green/5 bg-white px-2 py-3 text-center shadow-soft transition-all duration-300 ease-out-expo hover:-translate-y-0.5 hover:border-romara-amber/20 hover:shadow-elevated sm:px-3"
           >
             <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-amber-fade text-white shadow-soft">
               <component :is="feature.icon" class="h-5 w-5" />
