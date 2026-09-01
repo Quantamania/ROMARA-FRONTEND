@@ -24,12 +24,12 @@ withDefaults(defineProps<Props>(), {
 })
 
 const reasons: Reason[] = [
-  { icon: IconMedal, title: 'Local Expertise', description: "In-depth knowledge of Kenya's destinations, wildlife and hidden gems." },
-  { icon: IconShield, title: 'Safe & Reliable', description: 'Your safety and comfort are our top priority always.' },
-  { icon: IconUserCheck, title: 'Personalized Service', description: 'Tailor-made itineraries designed around your needs and budget.' },
-  { icon: IconDollarCircle, title: 'Great Value', description: 'Competitive pricing with no hidden costs.' },
-  { icon: IconHeadset, title: '24/7 Support', description: "We're here for you before, during, and after your trip." },
-  { icon: IconThumbsUp, title: 'Trusted Partner', description: 'Committed to delivering exceptional service every step of the way.' },
+  { icon: IconMedal, title: 'Local Expertise', description: 'Deep local knowledge.' },
+  { icon: IconShield, title: 'Safe & Reliable', description: 'Comfort first.' },
+  { icon: IconUserCheck, title: 'Personalized Service', description: 'Tailored to you.' },
+  { icon: IconDollarCircle, title: 'Great Value', description: 'Fair pricing.' },
+  { icon: IconHeadset, title: '24/7 Support', description: 'Always on.' },
+  { icon: IconThumbsUp, title: 'Trusted Partner', description: 'Reliable, always.' },
 ]
 
 const scrollSection = ref<HTMLElement | null>(null)
@@ -142,25 +142,25 @@ onUnmounted(() => {
     micro-label above each icon, title below. Reads like an itinerary
     manifest rather than six identical centered blocks.
   -->
-  <section v-else class="section-y bg-romara-cream">
+  <section v-else class="section-y bg-white">
     <div class="romara-container">
       <div class="flex flex-col items-center text-center">
         <p class="eyebrow mb-3 justify-center">
-          
           Field notes
         </p>
         <h2 class="font-heading font-semibold text-romara-green text-display-sm">Why travel with ROMARA?</h2>
         <span class="accent-rule mx-auto mt-4" />
       </div>
 
-      <div class="gap-y-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 lg:divide-x mt-12 divide-romara-green/15">
-        <div v-for="(reason, i) in reasons" :key="reason.title" class="group flex flex-col items-center px-4 text-center">
-          <span class="font-mono text-romara-amber/70 text-[10px] tracking-[0.2em] uppercase">{{ String(i + 1).padStart(2, '0') }}</span>
-          <span class="mt-3 flex h-12 w-12 items-center justify-center rounded-xl bg-white text-romara-green shadow-soft transition-colors duration-300 ease-out-expo group-hover:bg-romara-green group-hover:text-romara-amber">
-            <component :is="reason.icon" class="w-6 h-6" />
-          </span>
-          <p class="mt-4 font-semibold text-romara-green text-sm">{{ reason.title }}</p>
-          <p class="mt-1.5 max-w-[160px] text-romara-ink-soft text-xs leading-relaxed">{{ reason.description }}</p>
+      <div class="mt-12 overflow-hidden rounded-[2rem] border border-romara-green/10 bg-white p-4 shadow-soft sm:p-5 lg:p-6">
+        <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6 lg:gap-0 lg:divide-x lg:divide-romara-green/10">
+          <div v-for="(reason, i) in reasons" :key="reason.title" class="group flex flex-col items-center rounded-[1.25rem] border border-romara-green/5 bg-white px-3 py-5 text-center transition-all duration-300 ease-out-expo hover:-translate-y-0.5 hover:border-romara-amber/20 hover:shadow-soft sm:px-4 lg:border-0 lg:bg-transparent lg:shadow-none lg:hover:bg-transparent lg:hover:shadow-none">
+            <span class="font-mono text-romara-amber/70 text-[10px] tracking-[0.2em] uppercase">{{ String(i + 1).padStart(2, '0') }}</span>
+            <span class="mt-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-romara-green/5 text-romara-green shadow-soft transition-colors duration-300 ease-out-expo group-hover:bg-romara-green group-hover:text-romara-amber">
+              <component :is="reason.icon" class="w-6 h-6" />
+            </span>
+            <p class="mt-4 font-semibold text-romara-green text-sm leading-tight">{{ reason.title }}</p>
+          </div>
         </div>
       </div>
     </div>
