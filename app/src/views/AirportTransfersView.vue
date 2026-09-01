@@ -87,21 +87,22 @@ const whyChooseItems: WhyChooseItem[] = [
     </div>
   </section>
 
-  <!-- Trust strip, overlapping hero bottom -->
+  <!-- Trust strip, overlapping hero bottom (compact, icon + title only like home hero) -->
   <section v-scroll-reveal class="relative z-10 -mt-14 romara-container sm:-mt-16">
-    <div class="grid grid-cols-1 gap-6 rounded-card bg-white p-6 shadow-elevated sm:grid-cols-2 sm:p-8 lg:grid-cols-5 lg:gap-5">
-      <div
-        v-for="(feature, index) in trustFeatures"
-        :key="feature.title"
-        v-scroll-reveal="{ delay: index * 75 }"
-        class="flex items-start gap-3"
-      >
-        <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-amber-fade text-white shadow-soft">
-          <component :is="feature.icon" class="h-5 w-5" />
-        </span>
-        <div>
-          <p class="font-heading text-sm font-semibold text-romara-green">{{ feature.title }}</p>
-          <p class="mt-1 text-xs leading-relaxed text-romara-ink-soft">{{ feature.description }}</p>
+    <div class="rounded-card bg-white p-4 shadow-elevated">
+      <div class="mx-auto max-w-4xl">
+        <div class="grid grid-cols-4 gap-2 sm:grid-cols-4 lg:grid-cols-5">
+          <div
+            v-for="(feature, index) in trustFeatures"
+            :key="feature.title"
+            v-scroll-reveal="{ delay: index * 60 }"
+            class="group flex flex-col items-center gap-2 px-2 py-3 text-center"
+          >
+            <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-amber-fade text-white">
+              <component :is="feature.icon" class="h-5 w-5" />
+            </span>
+            <p class="text-xs font-heading font-semibold text-romara-green leading-tight">{{ feature.title }}</p>
+          </div>
         </div>
       </div>
     </div>
