@@ -110,7 +110,7 @@ function formatSrc(src: string) {
 
   <!-- Filter + masonry grid -->
   <section v-scroll-reveal-left class="section-y bg-romara-bone">
-    <div class="romara-container">
+      <div class="romara-container">
       <SectionHeading
         eyebrow="Our Portfolio"
         title="A Journey Through the Lens"
@@ -120,13 +120,20 @@ function formatSrc(src: string) {
       <div class="mb-12 mt-2">
         <GalleryCategoryFilter v-model="selectedCategory" />
       </div>
+    </div>
 
-      <GalleryGrid
-        :images="visibleImages"
-        :has-more="hasMore"
-        @open-image="openImage"
-        @load-more="loadMore"
-      />
+    <!-- Full-bleed gallery grid -->
+    <div class="w-full bg-romara-bone">
+      <div class="w-full">
+        <div class="px-4 sm:px-6 lg:px-8">
+          <GalleryGrid
+            :images="visibleImages"
+            :has-more="hasMore"
+            @open-image="openImage"
+            @load-more="loadMore"
+          />
+        </div>
+      </div>
     </div>
   </section>
 

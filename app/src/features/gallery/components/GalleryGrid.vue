@@ -36,16 +36,16 @@ function formatSrc(src: string) {
     <!-- True masonry via CSS columns — items keep their natural aspect ratio
          instead of being cropped into a uniform grid, so the layout has real
          visual variety rather than a flat rows-and-columns feel. -->
-    <div class="columns-2 gap-3 sm:gap-5 lg:columns-3">
+    <div class="columns-2 gap-3 sm:columns-3 md:columns-4 lg:columns-5 xl:columns-6 gap-5">
       <button
         v-for="(image, index) in images"
         :key="image.id"
         type="button"
-        class="group relative mb-3 block w-full overflow-hidden rounded-card break-inside-avoid shadow-card ring-1 ring-black/5 transition-shadow duration-500 hover:shadow-elevated focus:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber sm:mb-5"
+        class="group relative mb-3 block w-full overflow-hidden break-inside-avoid transition-transform duration-300 hover:scale-[1.01] focus:outline-none sm:mb-5"
         v-scroll-reveal="{ delay: (index % 6) * 80 }"
         @click="openImage(image)"
       >
-        <img :src="formatSrc(image.src)" :alt="image.alt" class="w-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-[1.06]" loading="lazy" />
+        <img :src="formatSrc(image.src)" :alt="image.alt" class="w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
 
         <!-- Gradient scrim + caption reveal -->
         <div class="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/80 via-black/10 to-transparent p-3 opacity-0 transition-opacity duration-500 group-hover:opacity-100 sm:p-5">
