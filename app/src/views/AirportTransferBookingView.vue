@@ -37,11 +37,7 @@ const reassurances: Reassurance[] = [
           <p class="eyebrow mb-3">Airport Transfer</p>
           <h1 class="font-heading text-display-sm font-semibold text-romara-green">Book Your Transfer</h1>
           <span class="accent-rule mt-4" />
-          <p class="mt-4 text-sm leading-relaxed text-romara-ink-soft">
-            Fill in the details below and a travel consultant will confirm your reservation promptly — your live
-            summary updates as you go.
-          </p>
-
+        
           <div class="mt-6 flex flex-wrap gap-2.5">
             <div
               v-for="item in reassurances"
