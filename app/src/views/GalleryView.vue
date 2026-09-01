@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, ref, onMounted, onBeforeUnmount } from 'vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import SectionHeading from '@/components/ui/SectionHeading.vue'
 import IconWhatsapp from '@/components/icons/IconWhatsapp.vue'
-import GalleryCategoryFilter from '@/features/gallery/components/GalleryCategoryFilter.vue'
+// no filter UI — show all photos
 import GalleryGrid from '@/features/gallery/components/GalleryGrid.vue'
 import GalleryLightbox from '@/features/gallery/components/GalleryLightbox.vue'
 import galleryImagesData from '@/data/galleryImages.json'
@@ -14,14 +14,11 @@ const allImages = galleryImagesData as GalleryImage[]
 // at 3 / 4 / 6 columns (mobile / tablet / desktop) with no ragged last row.
 const mosaicImages = allImages.slice(0, 12)
 
-const selectedCategory = ref<GalleryCategory | 'all'>('all')
-const visibleCount = ref(9)
+const visibleCount = ref(12)
 const activeIndex = ref<number | null>(null)
 
-const filteredImages = computed(function getFilteredImages() {
-  if (selectedCategory.value === 'all') return allImages
-  return allImages.filter((image) => image.category === selectedCategory.value)
-})
+// No filters — show all images
+const filteredImages = computed(() => allImages)
 
 const visibleImages = computed(function getVisibleImages() {
   return filteredImages.value.slice(0, visibleCount.value)
@@ -31,11 +28,23 @@ const hasMore = computed(function checkHasMore() {
   return visibleCount.value < filteredImages.value.length
 })
 
-// Changing category starts the grid fresh and closes any open lightbox,
-// since the previously-open image may no longer be in the filtered set.
-watch(selectedCategory, function resetOnCategoryChange() {
-  visibleCount.value = 9
-  activeIndex.value = null
+// Infinite scroll: observe a sentinel at the bottom and increase `visibleCount`
+const loadMoreSentinel = ref<HTMLElement | null>(null)
+let _observer: IntersectionObserver | null = null
+onMounted(() => {
+  _observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting && hasMore.value) {
+        // load next batch
+        loadMore()
+      }
+    })
+  }, { root: null, rootMargin: '300px', threshold: 0.1 })
+  if (loadMoreSentinel.value) _observer.observe(loadMoreSentinel.value)
+})
+onBeforeUnmount(() => {
+  if (_observer && loadMoreSentinel.value) _observer.unobserve(loadMoreSentinel.value)
+  _observer = null
 })
 
 function loadMore() {
@@ -44,9 +53,7 @@ function loadMore() {
 
 function openImage(image: GalleryImage) {
   const index = filteredImages.value.findIndex((item) => item.id === image.id)
-  if (index >= 0) {
-    activeIndex.value = index
-  }
+  if (index >= 0) activeIndex.value = index
 }
 
 function closeLightbox() {
@@ -116,11 +123,7 @@ function formatSrc(src: string) {
         title="A Journey Through the Lens"
         align="center"
       />
-
-      <div class="mb-12 mt-2">
-        <GalleryCategoryFilter v-model="selectedCategory" />
       </div>
-    </div>
 
     <!-- Full-bleed gallery grid -->
     <div class="w-full bg-romara-bone">
@@ -128,6 +131,13 @@ function formatSrc(src: string) {
         <div class="px-4 sm:px-6 lg:px-8">
           <GalleryGrid
             :images="visibleImages"
+            :has-more="hasMore"
+            @open-image="openImage"
+          />
+        </div>
+      </div>
+      <div ref="loadMoreSentinel" class="h-8"></div>
+    </div>
             :has-more="hasMore"
             @open-image="openImage"
             @load-more="loadMore"
