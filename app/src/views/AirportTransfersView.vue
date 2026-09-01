@@ -87,21 +87,21 @@ const whyChooseItems: WhyChooseItem[] = [
     </div>
   </section>
 
-  <!-- Trust strip, overlapping hero bottom (compact, icon + title only like home hero) -->
-  <section v-scroll-reveal class="relative z-10 -mt-14 romara-container sm:-mt-16">
-    <div class="rounded-card bg-white p-4 shadow-elevated">
-      <div class="mx-auto max-w-4xl">
-        <div class="grid grid-cols-4 gap-2 sm:grid-cols-4 lg:grid-cols-5">
+  <!-- Trust strip, below the hero with a rounded mobile/web panel -->
+  <section v-scroll-reveal class="relative z-10 mt-5 sm:mt-6">
+    <div class="rounded-t-[1.75rem] bg-white px-3 pb-4 pt-5 shadow-[0_-12px_30px_-16px_rgba(0,0,0,0.18)] sm:rounded-[1.75rem] sm:px-6 sm:pb-5 sm:pt-6 lg:rounded-[1.75rem] lg:px-8">
+      <div class="mx-auto max-w-6xl">
+        <div class="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
           <div
             v-for="(feature, index) in trustFeatures"
             :key="feature.title"
             v-scroll-reveal="{ delay: index * 60 }"
             class="group flex flex-col items-center gap-2 px-2 py-3 text-center"
           >
-            <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-amber-fade text-white">
+            <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-amber-fade text-white shadow-soft">
               <component :is="feature.icon" class="h-5 w-5" />
             </span>
-            <p class="text-xs font-heading font-semibold text-romara-green leading-tight">{{ feature.title }}</p>
+            <p class="text-[11px] font-heading font-semibold leading-tight text-romara-green sm:text-xs lg:text-sm">{{ feature.title }}</p>
           </div>
         </div>
       </div>
