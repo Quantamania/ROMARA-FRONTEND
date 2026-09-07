@@ -18,13 +18,13 @@ function formatPrice(amount: number) {
 <template>
   <!-- Full-bleed editorial card: photo fills the frame, content sits over a scrim. -->
   <article
-    class="group relative flex min-h-[360px] flex-col justify-end overflow-hidden rounded-card shadow-card ring-1 ring-romara-green/10 transition-all duration-500 ease-out-expo hover:-translate-y-1.5 hover:shadow-elevated even:rounded-card-alt"
+    class="group relative flex min-h-[360px] flex-col justify-end overflow-hidden rounded-card shadow-card ring-1 ring-romara-green/10 even:rounded-card-alt"
   >
     <img
       :src="props.package.image"
       :alt="props.package.name"
       loading="lazy"
-      class="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] ease-out-expo group-hover:scale-105"
+      class="absolute inset-0 h-full w-full object-cover"
     />
     <div class="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/30 to-transparent" aria-hidden="true" />
 
@@ -35,7 +35,7 @@ function formatPrice(amount: number) {
       {{ props.package.badge }}
     </span>
 
-    <div class="relative m-3 rounded-lg bg-white/90 p-4 shadow-sm backdrop-blur-md">
+    <div class="relative m-3 rounded-lg bg-white/90 p-4 shadow-sm backdrop-blur-md transition-all duration-300 ease-out-expo group-hover:-translate-y-1 group-hover:shadow-lg">
       <div class="flex flex-wrap items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.1em] text-romara-ink/70">
         <span class="inline-flex items-center gap-1.5"><IconClock class="h-3.5 w-3.5 text-romara-amber" />{{ props.package.durationDays }} Days</span>
         <span class="h-3 w-px bg-romara-green/20" aria-hidden="true" />
@@ -50,8 +50,8 @@ function formatPrice(amount: number) {
           <span class="text-[11px] font-medium uppercase tracking-[0.12em] text-romara-ink/55">From</span>
           <span class="mt-1 block font-heading text-xl font-semibold text-romara-amber">KES {{ formatPrice(props.package.priceFromKES) }}</span>
         </p>
-        <span class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-romara-green text-white transition-all duration-300 ease-out-expo group-hover:bg-romara-amber">
-          <IconArrowRight class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+        <span class="inline-flex items-center justify-center text-romara-green transition-colors duration-300 group-hover:text-romara-amber">
+          <IconArrowRight class="h-5 w-5 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" />
         </span>
       </div>
     </div>

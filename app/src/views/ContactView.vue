@@ -85,18 +85,25 @@ const socialLinks = [
        The bone sheet curves up out of the hero, echoing the home Why Choose card. -->
   <section class="section-y relative z-10 -mt-8 rounded-t-[2rem] bg-romara-bone sm:-mt-12 sm:rounded-t-[2.75rem]">
     <div class="romara-container">
-      <div class="grid overflow-hidden rounded-card shadow-elevated lg:grid-cols-[0.92fr_1.08fr]">
+      <div class="grid overflow-hidden rounded-2xl shadow-elevated lg:grid-cols-[0.92fr_1.08fr]">
         <!-- Left: green editorial panel -->
-        <div class="relative overflow-hidden bg-green-fade p-7 text-white sm:p-10 lg:p-12">
-          <div class="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-romara-amber/20 blur-3xl"></div>
-          <IconCompass class="pointer-events-none absolute -bottom-8 -right-8 h-56 w-56 text-white/[0.05]" />
+        <div class="relative flex flex-col justify-center overflow-hidden bg-romara-green-dark p-7 text-white sm:p-10 lg:p-12">
+          <!-- One warm hairline along the top edge — the only flourish, in place of the old glow. -->
+          <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-romara-amber/40 to-transparent" aria-hidden="true"></div>
+          <IconCompass class="pointer-events-none absolute -bottom-10 -right-10 h-48 w-48 text-white/[0.04]" aria-hidden="true" />
 
           <div class="relative">
             <p class="eyebrow text-romara-amber-300">Get in Touch</p>
+            <h2 class="mt-3 font-heading text-2xl font-semibold leading-tight text-white sm:text-3xl">
+              Let's plan your journey
+            </h2>
+            <p class="mt-3 max-w-sm text-sm leading-relaxed text-white/60">
+              Reach us however's easiest — we'd love to help shape your Kenyan adventure.
+            </p>
            
 
-            <!-- Quick actions -->
-            <div class="mt-8 space-y-3">
+            <!-- Quick actions — clean rows separated by hairlines rather than chunky cards -->
+            <div class="mt-8 divide-y divide-white/10 border-y border-white/10">
               <a
                 v-for="(action, index) in contactActions"
                 :key="action.label"
@@ -104,16 +111,16 @@ const socialLinks = [
                 :href="action.href"
                 :target="action.external ? '_blank' : undefined"
                 :rel="action.external ? 'noopener' : undefined"
-                class="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm transition-all duration-300 ease-out-expo hover:-translate-y-0.5 hover:border-romara-amber/40 hover:bg-white/10"
+                class="group flex items-center gap-4 py-4 transition-colors duration-300"
               >
-                <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-romara-amber text-white transition-transform duration-300 ease-out-expo group-hover:scale-105 group-hover:-rotate-3">
-                  <component :is="action.icon" class="h-5 w-5" />
+                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/[0.06] text-romara-amber-300 ring-1 ring-white/10 transition-colors duration-300 ease-out-expo group-hover:bg-romara-amber group-hover:text-white group-hover:ring-transparent">
+                  <component :is="action.icon" class="h-[18px] w-[18px]" />
                 </span>
                 <span class="min-w-0 flex-1">
                   <span class="block text-[11px] font-bold uppercase tracking-[0.14em] text-white/55">{{ action.label }}</span>
                   <span class="mt-0.5 block truncate font-heading text-base font-semibold text-white">{{ action.value }}</span>
                 </span>
-                <IconArrowRight class="h-4 w-4 shrink-0 text-romara-amber-300 transition-transform duration-300 ease-out-expo group-hover:translate-x-1" />
+                <IconArrowRight class="h-4 w-4 shrink-0 text-white/30 transition-all duration-300 ease-out-expo group-hover:translate-x-1 group-hover:text-romara-amber-300" />
               </a>
             </div>
 
