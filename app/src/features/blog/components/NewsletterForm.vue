@@ -1,22 +1,26 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { subscribeToNewsletter } from '@/features/newsletter/newsletter.api'
 
 const email = ref('')
 const isSubmitting = ref(false)
 const isSubscribed = ref(false)
+const errorMessage = ref('')
 
-function handleSubmit() {
-  if (!email.value) return
+async function handleSubmit() {
+  if (!email.value || isSubmitting.value) return
   isSubmitting.value = true
+  errorMessage.value = ''
 
-  // No newsletter endpoint exists yet — this stub just simulates the round
-  // trip so the success state can be built and tested now. Swap this for a
-  // real POST call once the backend endpoint exists.
-  window.setTimeout(function markSubscribed() {
-    isSubmitting.value = false
+  const result = await subscribeToNewsletter(email.value, 'blog')
+
+  isSubmitting.value = false
+  if (result.ok) {
     isSubscribed.value = true
     email.value = ''
-  }, 500)
+  } else {
+    errorMessage.value = result.error ?? 'Something went wrong. Please try again.'
+  }
 }
 </script>
 
@@ -60,4 +64,8 @@ function handleSubmit() {
       {{ isSubmitting ? 'Subscribing...' : 'Subscribe' }}
     </button>
   </form>
+
+  <p v-if="errorMessage" class="mt-2 text-xs font-medium text-red-600" role="alert">
+    {{ errorMessage }}
+  </p>
 </template>

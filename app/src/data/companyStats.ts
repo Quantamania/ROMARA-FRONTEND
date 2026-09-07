@@ -12,7 +12,7 @@
  */
 export const companyStats = {
   /** Average review score, out of 5. */
-  rating: 5,
+  rating: 4.9,
   /** People who have travelled with ROMARA. */
   happyClients: 300,
   /** Safaris run to completion. */
@@ -22,7 +22,7 @@ export const companyStats = {
   /** Share of guests who say they would recommend ROMARA. */
   satisfactionPercent: 99,
   /** Years operating. */
-  yearsExperience: 10,
+  yearsExperience: 5,
 } as const
 
 /** "300" -> "300+" for the display style the marketing sections use. */

@@ -30,7 +30,7 @@ const channels = [
     ROMARA started.
   -->
   <section
-    class="relative min-h-[300px] overflow-hidden bg-cover bg-center bg-scroll sm:min-h-[520px] md:min-h-[640px] md:bg-fixed"
+    class="relative min-h-[300px] overflow-hidden bg-cover bg-center bg-scroll sm:min-h-[520px] md:min-h-[640px]"
     style="background-image: url('/images/about/cheetah1.webp')"
   >
     <div class="absolute inset-0 bg-romara-green/85"></div>

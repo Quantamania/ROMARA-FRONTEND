@@ -53,10 +53,17 @@ onMounted(load)
 
 const awaiting = (r: any) => r.status === 'completed' && !r.verified_at
 
+// Three ways a payment ends up not paid, and all three belong on one tab.
+// 'failed' and 'cancelled' are what Safaricom told us; 'expired' means we never
+// got an answer at all. Without grouping them, an expired payment would appear
+// on no tab except "All".
+const unsuccessful = (r: any) => ['failed', 'cancelled', 'expired'].includes(r.status)
+
 const visible = computed(() => {
   if (filter.value === 'all') return rows.value
   if (filter.value === 'awaiting') return rows.value.filter(awaiting)
   if (filter.value === 'completed') return rows.value.filter((r) => r.status === 'completed' && r.verified_at)
+  if (filter.value === 'failed') return rows.value.filter(unsuccessful)
   return rows.value.filter((r) => r.status === filter.value)
 })
 
@@ -109,7 +116,7 @@ const counts = computed(() => ({
   awaiting: rows.value.filter(awaiting).length,
   completed: rows.value.filter((r) => r.status === 'completed' && r.verified_at).length,
   pending: rows.value.filter((r) => r.status === 'pending').length,
-  failed: rows.value.filter((r) => r.status === 'failed' || r.status === 'cancelled').length,
+  failed: rows.value.filter(unsuccessful).length,
 }))
 
 function openRow(row: any) {

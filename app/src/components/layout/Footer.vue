@@ -9,6 +9,7 @@ import IconInstagram from '@/components/icons/IconInstagram.vue'
 import IconTripadvisor from '@/components/icons/IconTripadvisor.vue'
 import IconWhatsapp from '@/components/icons/IconWhatsapp.vue'
 import IconArrowRight from '@/components/icons/IconArrowRight.vue'
+import { subscribeToNewsletter } from '@/features/newsletter/newsletter.api'
 
 const quickLinks = [
   { label: 'Home', href: '/' },
@@ -46,15 +47,23 @@ const socialLinks = [
 
 const newsletterEmail = ref('')
 const isSubscribing = ref(false)
+const newsletterSubscribed = ref(false)
+const newsletterError = ref('')
 
-function handleNewsletterSubmit() {
-  if (!newsletterEmail.value) return
+async function handleNewsletterSubmit() {
+  if (!newsletterEmail.value || isSubscribing.value) return
   isSubscribing.value = true
-  // Wire this up to features/blog/api/blog.api.ts once the backend endpoint exists
-  window.setTimeout(function resetSubscribeState() {
-    isSubscribing.value = false
+  newsletterError.value = ''
+
+  const result = await subscribeToNewsletter(newsletterEmail.value, 'footer')
+
+  isSubscribing.value = false
+  if (result.ok) {
+    newsletterSubscribed.value = true
     newsletterEmail.value = ''
-  }, 600)
+  } else {
+    newsletterError.value = result.error ?? 'Something went wrong. Please try again.'
+  }
 }
 
 const currentYear = new Date().getFullYear()
@@ -185,6 +194,12 @@ const currentYear = new Date().getFullYear()
                     {{ isSubscribing ? '…' : 'Join' }}
                   </button>
                 </form>
+                <p v-if="newsletterSubscribed" class="mt-3 text-sm font-medium text-romara-amber-300" role="status">
+                  You're subscribed — watch your inbox for safari inspiration.
+                </p>
+                <p v-else-if="newsletterError" class="mt-3 text-sm font-medium text-red-300" role="alert">
+                  {{ newsletterError }}
+                </p>
               </div>
             </div>
           </div>
@@ -227,6 +242,12 @@ const currentYear = new Date().getFullYear()
               <IconArrowRight class="h-4 w-4" />
             </button>
           </div>
+          <p v-if="newsletterSubscribed" class="mt-2.5 text-sm font-medium text-romara-amber-300" role="status">
+            You're subscribed — watch your inbox.
+          </p>
+          <p v-else-if="newsletterError" class="mt-2.5 text-sm font-medium text-red-300" role="alert">
+            {{ newsletterError }}
+          </p>
         </form>
 
         <!-- Social — the primary contact affordance now, so make them prominent -->

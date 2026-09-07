@@ -57,7 +57,10 @@ export default defineConfig({
             // Never cache anything that moves money or takes a submission —
             // a replayed payment or a silently-cached booking would be worse
             // than an honest failure.
-            urlPattern: /\/(functions\/v1|rest\/v1\/(payments|bookings|enquiries|booking_requests|transfer_bookings|vehicle_hire_requests))/,
+            // rpc/ is in the list because book_tour_seats, submit_vehicle_hire
+            // and lookup_payable all live there. Workbox does not cache POSTs,
+            // so this is belt and braces — but the rule should say what it means.
+            urlPattern: /\/(functions\/v1|rest\/v1\/(rpc|payments|bookings|enquiries|booking_requests|transfer_bookings|vehicle_hire_requests))/,
             handler: 'NetworkOnly',
           },
         ],

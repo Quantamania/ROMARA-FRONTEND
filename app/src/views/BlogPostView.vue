@@ -15,6 +15,7 @@ import IconTag from '@/components/icons/IconTag.vue'
 import IconFacebook from '@/components/icons/IconFacebook.vue'
 import IconX from '@/components/icons/IconX.vue'
 import IconMapPinRoute from '@/components/icons/IconMapPinRoute.vue'
+import IconCheck from '@/components/icons/IconCheck.vue'
 
 const categoryLabels: Record<string, string> = {
   'safari-tips': 'Safari Tips',
@@ -63,6 +64,39 @@ function formatDate(isoDate: string | number | Date) {
 
 function goBack() {
   router.push('/blog')
+}
+
+// Share actions — a dead "#" link is a broken promise, so these do the real thing.
+const linkCopied = ref(false)
+
+function shareUrl() {
+  return typeof window !== 'undefined' ? window.location.href : ''
+}
+
+function openShare(url: string) {
+  if (typeof window === 'undefined') return
+  window.open(url, '_blank', 'noopener,noreferrer,width=600,height=520')
+}
+
+function shareOnFacebook() {
+  openShare(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl())}`)
+}
+
+function shareOnX() {
+  const text = currentPost.value?.title ?? 'ROMARA Travel Journal'
+  openShare(
+    `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl())}&text=${encodeURIComponent(text)}`,
+  )
+}
+
+async function copyLink() {
+  try {
+    await navigator.clipboard.writeText(shareUrl())
+    linkCopied.value = true
+    window.setTimeout(() => { linkCopied.value = false }, 2000)
+  } catch {
+    // Clipboard blocked (insecure context / permissions) — leave state unchanged.
+  }
 }
 
 // Mock content sections for demonstration
@@ -270,21 +304,28 @@ const contentSections = computed(() => {
             </div>
             <div class="flex items-center gap-3">
               <span class="text-xs font-bold uppercase tracking-[0.14em] text-romara-ink-soft">Share</span>
-              <a
-                href="#"
+              <button
+                type="button"
                 aria-label="Share on Facebook"
+                @click="shareOnFacebook"
                 class="flex h-11 w-11 items-center justify-center rounded-full border border-romara-green/15 bg-white text-romara-green shadow-soft transition-all hover:-translate-y-0.5 hover:bg-romara-green hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber/40"
-              ><IconFacebook class="h-4 w-4" /></a>
-              <a
-                href="#"
+              ><IconFacebook class="h-4 w-4" /></button>
+              <button
+                type="button"
                 aria-label="Share on X"
+                @click="shareOnX"
                 class="flex h-11 w-11 items-center justify-center rounded-full border border-romara-green/15 bg-white text-romara-green shadow-soft transition-all hover:-translate-y-0.5 hover:bg-romara-green hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber/40"
-              ><IconX class="h-4 w-4" /></a>
-              <a
-                href="#"
-                aria-label="Copy link"
-                class="flex h-11 w-11 items-center justify-center rounded-full border border-romara-green/15 bg-white text-romara-green shadow-soft transition-all hover:-translate-y-0.5 hover:bg-romara-green hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber/40"
-              ><IconMapPinRoute class="h-4 w-4" /></a>
+              ><IconX class="h-4 w-4" /></button>
+              <button
+                type="button"
+                :aria-label="linkCopied ? 'Link copied' : 'Copy link'"
+                @click="copyLink"
+                class="flex h-11 items-center justify-center gap-2 rounded-full border border-romara-green/15 bg-white px-4 text-romara-green shadow-soft transition-all hover:-translate-y-0.5 hover:bg-romara-green hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber/40"
+                :class="linkCopied ? 'text-romara-green' : ''"
+              >
+                <component :is="linkCopied ? IconCheck : IconMapPinRoute" class="h-4 w-4" />
+                <span class="text-xs font-bold uppercase tracking-[0.12em]">{{ linkCopied ? 'Copied' : 'Copy link' }}</span>
+              </button>
             </div>
           </div>
 

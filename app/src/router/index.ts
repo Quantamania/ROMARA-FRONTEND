@@ -30,6 +30,9 @@ const router = createRouter({
         { path: 'book-now', redirect: '/booking' },
         { path: 'vehicle-hire', name: 'vehicle-hire', component: () => import('@/views/VehicleHireView.vue') },
         { path: 'hire-a-vehicle', redirect: '/vehicle-hire' },
+        // Where the "pay for your booking" links in our emails land. ?ref=
+        // pre-fills the reference; the customer still confirms with their email.
+        { path: 'pay', name: 'pay', component: () => import('@/views/PayView.vue') },
       ],
     },
     ...adminRoutes,

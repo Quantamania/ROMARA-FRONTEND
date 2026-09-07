@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { ref, onMounted, type Ref } from 'vue'
+import { companyStats } from '@/data/companyStats'
 import IconCalendarCheck from '@/components/icons/IconCalendarCheck.vue'
 import IconCar from '@/components/icons/IconCar.vue'
 import IconStar from '@/components/icons/IconStar.vue'
 
-// Mobile / tablet trust band stats count up from zero on load.
+// Mobile / tablet trust band stats count up from zero on load. Figures come
+// from the single source of truth so the hero can never drift from the About
+// and Reviews pages again.
 const rating = ref(0)
 const clients = ref(0)
 const years = ref(0)
@@ -23,17 +26,17 @@ function countTo(target: Ref<number>, to: number, duration: number, decimals = 0
 
 onMounted(() => {
   const setFinals = () => {
-    rating.value = 4.9
-    clients.value = 300
-    years.value = 5
+    rating.value = companyStats.rating
+    clients.value = companyStats.happyClients
+    years.value = companyStats.yearsExperience
   }
   if (typeof window === 'undefined' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     setFinals()
     return
   }
-  countTo(rating, 4.9, 1100, 1)
-  countTo(clients, 300, 1500)
-  countTo(years, 5, 1200)
+  countTo(rating, companyStats.rating, 1100, 1)
+  countTo(clients, companyStats.happyClients, 1500)
+  countTo(years, companyStats.yearsExperience, 1200)
 })
 </script>
 

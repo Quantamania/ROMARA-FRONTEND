@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { companyStats, plus } from '@/data/companyStats'
 import IconUsers from '@/components/icons/IconUsers.vue'
-import IconMapPin from '@/components/icons/IconMapPin.vue'
+import IconShield from '@/components/icons/IconShield.vue'
 import IconStar from '@/components/icons/IconStar.vue'
 
 interface Stat {
@@ -10,10 +10,11 @@ interface Stat {
   label: string
 }
 
+// Mirror the home hero's trust band exactly, from the shared source of truth.
 const stats: Stat[] = [
-  { icon: IconUsers, value: plus(companyStats.happyClients), label: 'Happy Travellers' },
-  { icon: IconMapPin, value: plus(companyStats.destinations), label: 'Destinations' },
-  { icon: IconStar, value: `${companyStats.satisfactionPercent}%`, label: 'Customer Satisfaction' },
+  { icon: IconStar, value: `${companyStats.rating.toFixed(1)}/5`, label: 'Guest Rating' },
+  { icon: IconUsers, value: plus(companyStats.happyClients), label: 'Happy Clients' },
+  { icon: IconShield, value: plus(companyStats.yearsExperience), label: 'Years of Experience' },
 ]
 </script>
 

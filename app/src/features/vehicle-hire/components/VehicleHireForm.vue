@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, reactive, ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { RouterLink, useRoute } from 'vue-router'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import IconCar from '@/components/icons/IconCar.vue'
 import IconUsers from '@/components/icons/IconUsers.vue'
@@ -8,7 +8,6 @@ import IconUserCheck from '@/components/icons/IconUserCheck.vue'
 import IconCheck from '@/components/icons/IconCheck.vue'
 import IconCheckSquare from '@/components/icons/IconCheckSquare.vue'
 import IconArrowRight from '@/components/icons/IconArrowRight.vue'
-import PaymentPanel from '@/features/payments/components/PaymentPanel.vue'
 import { fleet, fleetByKey, CHAUFFEUR_PER_DAY, type FleetKey } from '@/data/fleet'
 import { submitVehicleHire } from '@/features/vehicle-hire/api/vehicleHire.api'
 import type { VehicleHireFormData } from '@/features/vehicle-hire/types/vehicleHire.types'
@@ -31,8 +30,14 @@ function onImgError(key: string) {
 function onImgLoad(event: Event, key: string) {
   if ((event.target as HTMLImageElement).naturalWidth === 0) failedImages.value.add(key)
 }
-// 'form' → fill in details, 'payment' → choose how to pay, 'done' → confirmed
-const stage = ref<'form' | 'payment' | 'done'>('form')
+// 'form' → fill in details, 'done' → request received.
+//
+// There is no payment step here on purpose. The total on this form is an
+// estimate built from day rates; the real price depends on availability and
+// extras, so a consultant confirms it first. The backend refuses to charge a
+// hire until an admin has set a quote, and the customer pays from /pay once
+// they have it — charging the estimate would be charging a guess.
+const stage = ref<'form' | 'done'>('form')
 
 const today = new Date().toISOString().slice(0, 10)
 
@@ -114,52 +119,57 @@ const datesLabel = computed(() =>
     : null,
 )
 
+// Kept so the confirmation screen can show the customer their reference — it is
+// what they quote when they come back to pay after we've priced the hire.
+const bookingReference = ref<string | null>(null)
+const submitError = ref('')
+
 async function handleSubmit() {
   isSubmitting.value = true
+  submitError.value = ''
   try {
-    await submitVehicleHire(formData)
+    const result = await submitVehicleHire(formData)
+    bookingReference.value = result.bookingReference
+    stage.value = 'done'
   } catch (err) {
-    // Non-blocking: the hire request is still captured and a consultant follows
-    // up. Don't strand the guest on the form if the DB write hiccups.
+    // Surfaced rather than swallowed: previously a failed write still showed
+    // "your vehicle is reserved", so a guest could walk away believing they had
+    // booked something that was never recorded.
     console.error('Vehicle hire request failed to persist:', err)
+    submitError.value =
+      'We could not submit your request just now. Please check your details and try again, or call us.'
   } finally {
     isSubmitting.value = false
-    stage.value = 'payment'
   }
 }
 
-function onPaymentDone() {
-  stage.value = 'done'
-}
-
 function hireAnother() {
+  bookingReference.value = null
+  submitError.value = ''
   stage.value = 'form'
 }
 </script>
 
 <template>
-  <!-- Payment state — choose how to pay after the request is submitted -->
-  <div v-if="stage === 'payment'" class="mx-auto max-w-2xl">
-    <PaymentPanel
-      :amount="estimatedTotal"
-      :phone="formData.phone"
-      reference="Vehicle Hire"
-      @complete="onPaymentDone"
-      @skip="onPaymentDone"
-    />
-  </div>
-
   <!-- Confirmation state -->
-  <div v-else-if="stage === 'done'" class="mx-auto max-w-xl rounded-card bg-white p-8 text-center shadow-elevated sm:p-12">
+  <div v-if="stage === 'done'" class="mx-auto max-w-xl rounded-card bg-white p-8 text-center shadow-elevated sm:p-12">
     <span class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-amber-fade text-white shadow-soft">
       <IconCheckSquare class="h-8 w-8" />
     </span>
-    <h2 class="mt-6 font-heading text-2xl font-semibold text-romara-green">Your vehicle is reserved.</h2>
+    <h2 class="mt-6 font-heading text-2xl font-semibold text-romara-green">Request received.</h2>
     <span class="accent-rule mx-auto mt-4" />
-    <p class="mx-auto mt-4 max-w-md text-sm leading-relaxed text-romara-ink-soft">
-      Thank you for choosing ROMARA Tours &amp; Travel. Your hire request has been received — a consultant
-      will confirm availability, driver details and the final rate shortly.
+
+    <div v-if="bookingReference" class="mx-auto mt-6 inline-block rounded-card bg-romara-bone px-6 py-4">
+      <p class="text-[11px] font-bold uppercase tracking-[0.14em] text-romara-ink-soft">Your reference</p>
+      <p class="mt-1 font-heading text-xl font-semibold text-romara-green">{{ bookingReference }}</p>
+    </div>
+
+    <p class="mx-auto mt-5 max-w-md text-sm leading-relaxed text-romara-ink-soft">
+      A consultant will confirm availability, driver details and your final rate — then email you a
+      link to pay. Keep your reference; you can also pay any time from
+      <RouterLink to="/pay" class="font-semibold text-romara-green underline hover:text-romara-amber">the payment page</RouterLink>.
     </p>
+
     <button
       type="button"
       class="mt-6 text-sm font-semibold text-romara-green underline hover:text-romara-amber"
@@ -490,6 +500,9 @@ function hireAnother() {
         </div>
 
         <div class="space-y-3 border-t border-romara-green/10 bg-romara-cream/50 px-6 py-6">
+          <p v-if="submitError" class="rounded-lg bg-red-50 px-3 py-2 text-xs font-medium text-red-700">
+            {{ submitError }}
+          </p>
           <BaseButton type="submit" variant="primary" block class="justify-center" :disabled="isSubmitting || !selectedVehicle || !formData.driverOption">
             {{ isSubmitting ? 'Submitting...' : !selectedVehicle ? 'Select a Vehicle First' : !formData.driverOption ? 'Choose a Driver Option' : 'Request This Vehicle' }}
             <IconArrowRight v-if="selectedVehicle && formData.driverOption" class="h-4 w-4" />

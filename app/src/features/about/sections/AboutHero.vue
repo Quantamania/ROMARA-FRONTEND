@@ -19,6 +19,7 @@ const destinations = [
     <img
       src="/images/about/hero-safari-vehicle.webp"
       alt="ROMARA safari vehicle crossing the Maasai Mara at sunset"
+      fetchpriority="high"
       class="ken-burns absolute inset-0 h-full w-full object-cover"
     />
 
