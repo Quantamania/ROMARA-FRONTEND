@@ -48,16 +48,6 @@ const displayedFaqs = computed(function getDisplayedFaqs() {
   return result
 })
 
-// Read-only shortcuts into the existing category filter — presentation only.
-const popularTopics: { value: FaqCategory; label: string }[] = [
-  { value: 'booking', label: 'Booking' },
-  { value: 'safari-packages', label: 'Safari Packages' },
-  { value: 'airport-transfers', label: 'Airport Transfers' },
-  { value: 'payments', label: 'Payments' },
-  { value: 'destinations', label: 'Destinations' },
-  { value: 'safety', label: 'Travel & Safety' },
-]
-
 const sectionHeading = computed(function getSectionHeading() {
   if (!hasActiveFilter.value) return 'Top Questions'
   if (selectedCategory.value && !searchQuery.value.trim()) return categoryLabels[selectedCategory.value]
@@ -73,9 +63,23 @@ const sectionHeading = computed(function getSectionHeading() {
     <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-romara-green-100/50 blur-3xl" aria-hidden="true" />
     <div class="pointer-events-none absolute -left-24 top-1/3 h-64 w-64 rounded-full bg-romara-amber-100/40 blur-3xl" aria-hidden="true" />
 
-    <div class="romara-container relative py-14 sm:py-20 lg:py-24">
+    <!-- Oversized ROMARA wordmark. Bleeds off the edge (clipped by the section's
+         overflow-hidden) and stays behind the content. On mobile it tucks into
+         the top-right corner (clear of the search bar below); on lg+ it grows
+         and centres down the right side. -->
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute right-0 top-0 flex items-start justify-end overflow-hidden lg:inset-y-0 lg:top-auto lg:w-1/2 lg:items-center"
+    >
+      <div class="relative pr-3 pt-2 text-right leading-none sm:pr-5 lg:pr-2 lg:pt-0">
+        <span class="block font-logo text-[3.5rem] font-bold uppercase tracking-[0.06em] text-romara-green/[0.08] sm:text-[4.75rem] lg:text-[7rem] lg:text-romara-green/[0.07] xl:text-[9rem]">ROMARA</span>
+        <span class="mt-1 hidden pr-1 text-sm font-semibold uppercase tracking-[0.5em] text-romara-amber/25 lg:block">Tours &amp; Travel</span>
+      </div>
+    </div>
+
+    <div class="romara-container relative py-10 sm:py-14 lg:py-16">
       <!-- Breadcrumbs -->
-      <nav aria-label="Breadcrumb" class="mb-8 flex justify-center">
+      <nav aria-label="Breadcrumb" class="mb-7 flex">
         <ol class="flex items-center gap-2 text-xs font-medium text-romara-ink-soft">
           <li><a href="/" class="transition-colors hover:text-romara-green">Home</a></li>
           <li aria-hidden="true" class="text-romara-green/30">/</li>
@@ -85,36 +89,16 @@ const sectionHeading = computed(function getSectionHeading() {
 
       <!-- One authored motion moment: the whole help-desk block settles in on load -->
       <div class="animate-fade-up">
-        <div class="mx-auto max-w-2xl text-center">
-          <h1 class="text-balance font-heading text-display font-semibold text-romara-green">
+        <div class="max-w-2xl">
+          <h1 class="text-balance font-heading text-3xl font-semibold text-romara-green sm:text-4xl">
             Frequently Asked Questions
           </h1>
         </div>
 
         <!-- Prominent search. The glass bar reads on a soft green console so it stays legible on the light hero. -->
-        <div class="mx-auto mt-8 w-full max-w-xl">
-          <div class="rounded-full bg-green-fade p-2 shadow-elevated">
+        <div class="mt-6 w-full max-w-lg">
+          <div class="rounded-full bg-green-fade p-1.5 shadow-card">
             <FaqSearchBar v-model="searchQuery" />
-          </div>
-        </div>
-
-        <!-- Popular topics — chip row scrolls horizontally on mobile, wraps + centers on desktop -->
-        <div class="mx-auto mt-7 max-w-2xl">
-          <p class="mb-3 text-center text-xs font-semibold uppercase tracking-[0.16em] text-romara-ink-soft">
-            Popular topics
-          </p>
-          <div
-            class="-mx-5 flex gap-2.5 overflow-x-auto px-5 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:justify-center sm:overflow-visible sm:px-0 [&::-webkit-scrollbar]:hidden"
-          >
-            <button
-              v-for="topic in popularTopics"
-              :key="topic.value"
-              type="button"
-              class="inline-flex min-h-[44px] shrink-0 items-center rounded-full border border-romara-green/15 bg-white px-4 py-2.5 text-sm font-medium text-romara-green shadow-soft transition-all duration-300 ease-out-expo hover:border-romara-green/30 hover:bg-romara-green hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-romara-amber/40"
-              @click="selectedCategory = topic.value"
-            >
-              {{ topic.label }}
-            </button>
           </div>
         </div>
       </div>

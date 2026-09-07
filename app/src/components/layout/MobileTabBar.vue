@@ -5,6 +5,7 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import IconCompass from '@/components/icons/IconCompass.vue'
+import IconHome from '@/components/icons/IconHome.vue'
 import IconBinoculars from '@/components/icons/IconBinoculars.vue'
 import IconCalendarCheck from '@/components/icons/IconCalendarCheck.vue'
 import IconPlaneLanding from '@/components/icons/IconPlaneLanding.vue'
@@ -21,7 +22,7 @@ interface Tab {
 }
 
 const tabs: Tab[] = [
-  { label: 'Home', href: '/', icon: IconCompass },
+  { label: 'Home', href: '/', icon: IconHome },
   {
     label: 'Safaris',
     href: '/safari-packages',

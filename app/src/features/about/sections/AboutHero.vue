@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import BaseButton from '@/components/ui/BaseButton.vue'
+import Breadcrumbs from '@/components/ui/Breadcrumbs.vue'
 import IconArrowRight from '@/components/icons/IconArrowRight.vue'
 import IconMapPin from '@/components/icons/IconMapPin.vue'
 
@@ -31,8 +32,13 @@ const destinations = [
     <div class="relative z-10 flex min-h-[560px] sm:min-h-screen items-center">
       <div class="romara-container">
         <div class="max-w-xl">
+          <Breadcrumbs
+            class="mb-6 animate-fade-up"
+            :items="[{ label: 'Home', to: '/' }, { label: 'About' }]"
+          />
+
           <p class="eyebrow text-romara-amber-300 animate-fade-up">
-            
+
             About ROMARA
           </p>
 

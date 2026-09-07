@@ -5,6 +5,19 @@ import { adminRoutes, adminAuthGuard } from '@/admin/router/adminRoutes'
 
 const router = createRouter({
   history: createWebHistory(),
+  // Always land somewhere sensible after a navigation:
+  //  - back / forward restores the exact position the user left,
+  //  - an in-page #hash scrolls to that element (offset for the fixed nav),
+  //  - changing only the query on the SAME page (filters, wizard steps) holds
+  //    position so the page doesn't jump under the user,
+  //  - every other navigation starts at the top so a new page (or a form the
+  //    user was sent to) begins at the beginning, not wherever they last were.
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) return savedPosition
+    if (to.hash) return { el: to.hash, top: 80, behavior: 'smooth' }
+    if (to.path === from.path) return {}
+    return { top: 0, left: 0 }
+  },
   routes: [
     {
       path: '/',

@@ -3,6 +3,7 @@ import { computed, ref, watchEffect } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getDayTripBySlug } from '@/features/day-trips/api/dayTrips.api'
 import CtaTicket from '@/components/ui/CtaTicket.vue'
+import Breadcrumbs from '@/components/ui/Breadcrumbs.vue'
 import IconChevronRight from '@/components/icons/IconChevronRight.vue'
 import IconClock from '@/components/icons/IconClock.vue'
 import IconMapPin from '@/components/icons/IconMapPin.vue'
@@ -105,8 +106,12 @@ function goBack() {
           </button>
 
           <div class="mt-16 max-w-3xl">
+            <Breadcrumbs
+              class="mb-5"
+              :items="[{ label: 'Home', to: '/' }, { label: 'Day Trips', to: '/day-trips' }, { label: trip.name }]"
+            />
             <p class="eyebrow text-romara-amber-300">
-              
+
               Day Trip &middot; {{ trip.category }}
             </p>
             <h1 class="mt-4 font-heading text-display-lg font-semibold text-balance">

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import BaseButton from '@/components/ui/BaseButton.vue'
+import Breadcrumbs from '@/components/ui/Breadcrumbs.vue'
 import CtaBand from '@/components/ui/CtaBand.vue'
 import SectionHeading from '@/components/ui/SectionHeading.vue'
 import IconClock from '@/components/icons/IconClock.vue'
@@ -71,6 +72,11 @@ const whyChooseItems: WhyChooseItem[] = [
            works' detail now lives in its own section below, so the masthead is
            clean on mobile instead of a crumbled stack of steps. -->
       <div class="mx-auto max-w-xl text-center">
+        <Breadcrumbs
+          class="mb-6"
+          align="center"
+          :items="[{ label: 'Home', to: '/' }, { label: 'Airport Transfers' }]"
+        />
         <h1 class="font-heading text-display-sm font-semibold text-balance">
           Reliable Transfers. Every Time.
         </h1>

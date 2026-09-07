@@ -75,8 +75,8 @@ const tailorMadePoints: TailorMadePoint[] = [
 
   <TrustBuilding />
 
-  <!-- Sticky filter / search bar (chip strip on mobile, sticky rail on desktop) -->
-  <div class="sticky top-16 z-30 border-y border-romara-green/10 bg-romara-bone/90 backdrop-blur-md">
+  <!-- Sticky filter / search bar — desktop only; hidden on mobile per request -->
+  <div class="sticky top-16 z-30 hidden border-y border-romara-green/10 bg-romara-bone/90 backdrop-blur-md lg:block">
     <div class="romara-container flex flex-col gap-3 py-4 lg:flex-row lg:items-center lg:justify-between lg:gap-6">
       <div class="w-full lg:max-w-xs">
         <PackageSearchBar />

@@ -18,9 +18,9 @@ function handleInput(event: Event) {
 
 <template>
   <div
-    class="glass flex items-center gap-3 rounded-full px-6 py-4 shadow-elevated transition-colors duration-300 focus-within:border-romara-amber/60 focus-within:bg-white/15"
+    class="glass flex items-center gap-2.5 rounded-full px-5 py-2.5 transition-colors duration-300 focus-within:border-romara-amber/60 focus-within:bg-white/15"
   >
-    <IconSearch class="h-5 w-5 shrink-0 text-romara-amber-300" />
+    <IconSearch class="h-4 w-4 shrink-0 text-romara-amber-300" />
     <input
       :value="modelValue"
       type="search"

@@ -503,7 +503,7 @@ function hireAnother() {
           <p v-if="submitError" class="rounded-lg bg-red-50 px-3 py-2 text-xs font-medium text-red-700">
             {{ submitError }}
           </p>
-          <BaseButton type="submit" variant="primary" block class="justify-center" :disabled="isSubmitting || !selectedVehicle || !formData.driverOption">
+          <BaseButton type="submit" variant="amber" block class="justify-center" :disabled="isSubmitting || !selectedVehicle || !formData.driverOption">
             {{ isSubmitting ? 'Submitting...' : !selectedVehicle ? 'Select a Vehicle First' : !formData.driverOption ? 'Choose a Driver Option' : 'Request This Vehicle' }}
             <IconArrowRight v-if="selectedVehicle && formData.driverOption" class="h-4 w-4" />
           </BaseButton>

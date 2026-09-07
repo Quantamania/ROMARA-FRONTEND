@@ -5,6 +5,7 @@ import type { BlogPost } from '@/features/blog/types/blog.types'
 import blogPostsData from '@/data/blogPosts.json'
 import { getAllBlogPosts } from '@/features/blog/api/blog.api'
 import BaseButton from '@/components/ui/BaseButton.vue'
+import Breadcrumbs from '@/components/ui/Breadcrumbs.vue'
 import Pill from '@/components/ui/Pill.vue'
 import IconArrowLeft from '@/components/icons/IconArrowLeft.vue'
 import IconArrowRight from '@/components/icons/IconArrowRight.vue'
@@ -180,6 +181,10 @@ const contentSections = computed(() => {
 
       <div class="romara-container relative pb-12 pt-24 sm:pb-16 sm:pt-32 lg:pb-20">
         <div class="max-w-3xl">
+          <Breadcrumbs
+            class="mb-5"
+            :items="[{ label: 'Home', to: '/' }, { label: 'Blog', to: '/blog' }, { label: currentPost.title }]"
+          />
           <h1 class="font-heading text-display font-semibold leading-[1.05] text-balance">
             {{ currentPost.title }}
           </h1>

@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import BaseButton from '@/components/ui/BaseButton.vue'
+import Breadcrumbs from '@/components/ui/Breadcrumbs.vue'
 import IconShield from '@/components/icons/IconShield.vue'
 import PaymentPanel from '@/features/payments/components/PaymentPanel.vue'
 import { lookupPayable, type Payable } from '@/features/payments/api/payments.api'
@@ -57,6 +58,12 @@ onMounted(() => {
   <section class="bg-romara-cream/40 py-14 sm:py-20">
     <div class="mx-auto max-w-xl px-5 sm:px-6">
       <div class="text-center">
+        <Breadcrumbs
+          class="mb-5"
+          align="center"
+          tone="onLight"
+          :items="[{ label: 'Home', to: '/' }, { label: 'Pay' }]"
+        />
         <p class="eyebrow">Secure Payment</p>
         <h1 class="mt-2 font-heading text-3xl font-semibold text-romara-green sm:text-display-sm">
           Pay for your trip

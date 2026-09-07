@@ -6,7 +6,8 @@ import IconChevronDown from '@/components/icons/IconChevronDown.vue'
 import IconMenu from '@/components/icons/IconMenu.vue'
 import IconArrowRight from '@/components/icons/IconArrowRight.vue'
 import IconCompass from '@/components/icons/IconCompass.vue'
-import IconHandshake from '@/components/icons/IconHandshake.vue'
+import IconHome from '@/components/icons/IconHome.vue'
+import IconUsers from '@/components/icons/IconUsers.vue'
 import IconBinoculars from '@/components/icons/IconBinoculars.vue'
 import IconMapPinRoute from '@/components/icons/IconMapPinRoute.vue'
 import IconCamera from '@/components/icons/IconCamera.vue'
@@ -39,8 +40,8 @@ const socialLinks = [
 ]
 
 const navLinks: NavLink[] = [
-  { label: 'Home', href: '/', icon: IconCompass },
-  { label: 'About Romara', href: '/about', icon: IconHandshake },
+  { label: 'Home', href: '/', icon: IconHome },
+  { label: 'About Romara', href: '/about', icon: IconUsers },
   {
     label: 'Experiences',
     href: '/safari-packages',
@@ -167,6 +168,12 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
   if (!children) return false
   return children.some(child => isActiveLink(child.href))
 }
+
+// A top-level nav item counts as active when you're on its own page OR on any
+// page nested under its dropdown — so the parent stays marked from a child route.
+function isNavItemActive(link: NavLink) {
+  return isActiveLink(link.href) || hasActiveChild(link.children)
+}
 </script>
 
 <template>
@@ -238,8 +245,8 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
           >
             <component
               :is="link.icon"
-              class="h-3.5 w-3.5 shrink-0 text-romara-amber/60 transition-all duration-300 ease-out-expo group-hover:-translate-y-0.5 group-hover:scale-110 group-hover:text-romara-amber"
-              :class="(isActiveLink(link.href) || hasActiveChild(link.children)) ? 'text-romara-amber' : ''"
+              class="h-[18px] w-[18px] shrink-0 text-romara-green/70 transition-all duration-300 ease-out-expo group-hover:-translate-y-0.5 group-hover:scale-110 group-hover:text-romara-green"
+              :class="(isActiveLink(link.href) || hasActiveChild(link.children)) ? 'text-romara-green' : ''"
             />
             {{ link.label }}
             <IconChevronDown class="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-180" />
@@ -253,11 +260,20 @@ function hasActiveChild(children?: { label: string; href: string }[]) {
           >
             <component
               :is="link.icon"
-              class="h-3.5 w-3.5 shrink-0 text-romara-amber/60 transition-all duration-300 ease-out-expo group-hover:-translate-y-0.5 group-hover:scale-110 group-hover:text-romara-amber"
-              :class="isActiveLink(link.href) ? 'text-romara-amber' : ''"
+              class="h-[18px] w-[18px] shrink-0 text-romara-green/70 transition-all duration-300 ease-out-expo group-hover:-translate-y-0.5 group-hover:scale-110 group-hover:text-romara-green"
+              :class="isActiveLink(link.href) ? 'text-romara-green' : ''"
             />
             {{ link.label }}
           </a>
+
+          <!-- Active marker: a full amber underline whenever this section — or a
+               page nested under its dropdown — is the current route; a soft
+               preview slides in on hover. -->
+          <span
+            aria-hidden="true"
+            class="pointer-events-none absolute -bottom-1 left-0 h-[3px] rounded-full bg-romara-amber transition-all duration-300 ease-out-expo"
+            :class="isNavItemActive(link) ? 'w-full opacity-100' : 'w-0 opacity-0 group-hover:w-full group-hover:opacity-50'"
+          />
 
           <div
             v-if="link.children"
