@@ -246,31 +246,54 @@ function hireAnother() {
         <p class="eyebrow">Step 1 · Choose Your Route</p>
         <span class="text-xs font-medium text-romara-ink-soft">Per day · vehicle, fuel, driver &amp; park entry included</span>
       </div>
-      <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        <button
-          v-for="rate in routeOptions"
-          :key="rate.route"
-          type="button"
-          class="group flex items-center justify-between gap-4 rounded-xl border p-4 text-left transition-all duration-300 ease-out-expo hover:-translate-y-0.5"
-          :class="selectedRoute === rate.route
-            ? 'border-romara-amber bg-romara-amber/[0.05] shadow-card'
-            : 'border-romara-green/12 bg-white hover:border-romara-amber/40 hover:shadow-card'"
-          :aria-pressed="selectedRoute === rate.route"
-          @click="selectRoute(rate.route)"
-        >
-          <span class="min-w-0">
-            <span v-if="rate.from" class="text-xs font-medium text-romara-ink-soft">{{ rate.from }} →</span>
-            <span class="mt-0.5 block font-heading text-[15px] font-semibold leading-snug text-romara-green">{{ rate.to }}</span>
+      <!-- Once chosen, the long list collapses to a compact bar so the page stays short. -->
+      <div
+        v-if="selectedRoute && selectedRouteData"
+        class="flex items-center justify-between gap-3 rounded-xl border border-romara-amber/40 bg-romara-amber/[0.06] p-4"
+      >
+        <span class="min-w-0">
+          <span class="block text-[10px] font-bold uppercase tracking-[0.14em] text-romara-ink-soft">Your route</span>
+          <span class="mt-0.5 block truncate font-heading text-sm font-semibold text-romara-green">{{ selectedRoute }}</span>
+        </span>
+        <span class="flex shrink-0 items-center gap-3">
+          <span class="text-right leading-none">
+            <span class="block font-heading text-sm font-semibold text-romara-amber">KES {{ formatPrice(selectedRouteData.priceKES) }}</span>
+            <span class="mt-0.5 block text-[9px] font-medium uppercase tracking-[0.1em] text-romara-ink-soft">per day</span>
           </span>
-          <span class="shrink-0 text-right leading-none">
-            <span class="block font-heading text-base font-semibold text-romara-amber">KES {{ formatPrice(rate.priceKES) }}</span>
-            <span class="mt-1 block text-[10px] font-medium uppercase tracking-[0.1em] text-romara-ink-soft">per day</span>
-          </span>
-        </button>
+          <button
+            type="button"
+            class="rounded-lg border border-romara-green/15 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.08em] text-romara-green transition-colors hover:border-romara-amber hover:text-romara-amber"
+            @click="selectedRoute = null"
+          >Change</button>
+        </span>
       </div>
-      <p class="mt-4 text-xs leading-relaxed text-romara-ink-soft">
-        Rates are indicative averages and may shift with fuel and other economic factors — a consultant confirms your exact price before booking.
-      </p>
+
+      <template v-else>
+        <!-- On mobile the list is a bounded scroll area so 12 routes never take over the page. -->
+        <div class="-mx-1 max-h-[52vh] overflow-y-auto px-1 py-1 sm:mx-0 sm:max-h-none sm:overflow-visible sm:p-0">
+          <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <button
+              v-for="rate in routeOptions"
+              :key="rate.route"
+              type="button"
+              class="group flex items-center justify-between gap-4 rounded-xl border border-romara-green/12 bg-white p-4 text-left transition-all duration-300 ease-out-expo hover:-translate-y-0.5 hover:border-romara-amber/40 hover:shadow-card"
+              @click="selectRoute(rate.route)"
+            >
+              <span class="min-w-0">
+                <span v-if="rate.from" class="text-xs font-medium text-romara-ink-soft">{{ rate.from }} →</span>
+                <span class="mt-0.5 block font-heading text-[15px] font-semibold leading-snug text-romara-green">{{ rate.to }}</span>
+              </span>
+              <span class="shrink-0 text-right leading-none">
+                <span class="block font-heading text-base font-semibold text-romara-amber">KES {{ formatPrice(rate.priceKES) }}</span>
+                <span class="mt-1 block text-[10px] font-medium uppercase tracking-[0.1em] text-romara-ink-soft">per day</span>
+              </span>
+            </button>
+          </div>
+        </div>
+        <p class="mt-4 text-xs leading-relaxed text-romara-ink-soft">
+          Rates are indicative averages and may shift with fuel and other economic factors — a consultant confirms your exact price before booking.
+        </p>
+      </template>
     </section>
 
     <!-- Step 2 — the vehicle. Revealed once a route is chosen; scrolled to on route click. -->
@@ -303,13 +326,13 @@ function hireAnother() {
               <IconCheck class="h-3 w-3 [stroke-width:2.5]" />Selected
             </span>
 
-            <div class="relative h-44 overflow-hidden bg-romara-bone text-romara-green sm:h-48">
+            <div class="relative h-56 overflow-hidden bg-romara-bone text-romara-green sm:h-64">
               <img
                 v-if="!failedImages.has(vehicle.key)"
                 :src="vehicle.image"
                 :alt="vehicle.name"
                 loading="lazy"
-                class="h-full w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-105"
+                class="h-full w-full object-contain p-3 transition-transform duration-500 ease-out-expo group-hover:scale-105"
                 @error="onImgError(vehicle.key)"
                 @load="onImgLoad($event, vehicle.key)"
               />
@@ -331,7 +354,7 @@ function hireAnother() {
 
     <!-- Step 3 — booking details on the left, a live summary on the right. Revealed once a vehicle is picked. -->
     <div
-      v-if="selectedVehicle"
+      v-if="selectedRoute && selectedVehicle"
       ref="detailsSection"
       class="scroll-mt-24 grid grid-cols-1 items-start gap-8 lg:grid-cols-[1fr_340px]"
     >
