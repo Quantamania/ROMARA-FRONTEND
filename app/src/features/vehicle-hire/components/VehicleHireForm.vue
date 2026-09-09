@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, reactive, ref, onMounted } from 'vue'
+import { computed, nextTick, reactive, ref, onMounted } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import IconCar from '@/components/icons/IconCar.vue'
@@ -9,6 +9,7 @@ import IconCheck from '@/components/icons/IconCheck.vue'
 import IconCheckSquare from '@/components/icons/IconCheckSquare.vue'
 import IconArrowRight from '@/components/icons/IconArrowRight.vue'
 import { fleet, fleetByKey, CHAUFFEUR_PER_DAY, type FleetKey } from '@/data/fleet'
+import { vehicleHireRates } from '@/data/vehicleHireRates'
 import { submitVehicleHire } from '@/features/vehicle-hire/api/vehicleHire.api'
 import type { VehicleHireFormData } from '@/features/vehicle-hire/types/vehicleHire.types'
 
@@ -46,7 +47,8 @@ const formData = reactive<VehicleHireFormData>({
   email: '',
   phone: '',
   vehicle: null,
-  driverOption: null,
+  // Every route rate includes a professional chauffeur, so this is fixed.
+  driverOption: 'chauffeur',
   pickupDate: '',
   returnDate: '',
   pickupLocation: '',
@@ -60,7 +62,7 @@ const formData = reactive<VehicleHireFormData>({
 // Deep-link from the fleet cards: /vehicle-hire?vehicle=cruiser
 onMounted(function preselectVehicle() {
   const requested = route.query.vehicle
-  if (typeof requested === 'string' && requested in fleetByKey) {
+  if (typeof requested === 'string' && (MAIN_VEHICLE_KEYS as string[]).includes(requested)) {
     formData.vehicle = requested as FleetKey
   }
 })
@@ -76,6 +78,50 @@ const purposeLabels: Record<string, string> = {
 
 const selectedVehicle = computed(() => (formData.vehicle ? fleetByKey[formData.vehicle] : null))
 
+// Vehicle hire leads with the two safari workhorses. The full fleet still lives
+// in fleet.ts for the rest of the site.
+const MAIN_VEHICLE_KEYS: FleetKey[] = ['cruiser', 'van']
+const mainVehicles = computed(() => fleet.filter((v) => MAIN_VEHICLE_KEYS.includes(v.key)))
+
+// The tourist picks an all-inclusive route once a vehicle is chosen. Route rates
+// already cover vehicle, fuel, driver and park entry, so a selected route drives
+// the estimate directly (no separate vehicle/driver lines added on top).
+const selectedRoute = ref<string | null>(null)
+const selectedRouteData = computed(
+  () => vehicleHireRates.find((r) => r.route === selectedRoute.value) ?? null,
+)
+
+// Split "Nairobi → Destination" into an origin + destination so the cards can
+// read like a journey. Routes without an arrow (e.g. the day trip) keep the
+// whole label as the destination.
+const routeOptions = computed(() =>
+  vehicleHireRates.map((r) => {
+    const i = r.route.indexOf('→')
+    return {
+      route: r.route,
+      priceKES: r.priceKES,
+      from: i === -1 ? '' : r.route.slice(0, i).trim(),
+      to: i === -1 ? r.route : r.route.slice(i + 1).trim(),
+    }
+  }),
+)
+
+// The route leads the page. Picking one reveals the vehicles and scrolls to them;
+// picking a vehicle reveals the booking details and scrolls there.
+const vehicleSection = ref<HTMLElement | null>(null)
+const detailsSection = ref<HTMLElement | null>(null)
+
+function selectRoute(routeName: string) {
+  selectedRoute.value = routeName
+  // nextTick so the (v-if) vehicle section is in the DOM before we scroll to it.
+  nextTick(() => vehicleSection.value?.scrollIntoView({ behavior: 'smooth', block: 'start' }))
+}
+
+function selectVehicle(key: FleetKey) {
+  formData.vehicle = key
+  nextTick(() => detailsSection.value?.scrollIntoView({ behavior: 'smooth', block: 'start' }))
+}
+
 const hireDays = computed(function getHireDays() {
   if (!formData.pickupDate || !formData.returnDate) return 1
   const start = new Date(formData.pickupDate).getTime()
@@ -87,7 +133,11 @@ const hireDays = computed(function getHireDays() {
 const driverPerDay = computed(() => (formData.driverOption === 'chauffeur' ? CHAUFFEUR_PER_DAY : 0))
 const vehicleSubtotal = computed(() => (selectedVehicle.value?.dailyRate ?? 0) * hireDays.value)
 const driverSubtotal = computed(() => driverPerDay.value * hireDays.value)
-const estimatedTotal = computed(() => vehicleSubtotal.value + driverSubtotal.value)
+const estimatedTotal = computed(() =>
+  selectedRouteData.value
+    ? selectedRouteData.value.priceKES * hireDays.value
+    : vehicleSubtotal.value + driverSubtotal.value,
+)
 
 function formatPrice(amount: number) {
   return new Intl.NumberFormat('en-KE').format(amount)
@@ -128,7 +178,16 @@ async function handleSubmit() {
   isSubmitting.value = true
   submitError.value = ''
   try {
-    const result = await submitVehicleHire(formData)
+    // Fold the chosen route into the notes so the consultant sees it — the
+    // submit RPC has no dedicated route field.
+    const payload = { ...formData }
+    if (selectedRouteData.value) {
+      const routeNote = `Route: ${selectedRouteData.value.route} — KES ${formatPrice(selectedRouteData.value.priceKES)}/day (all-inclusive).`
+      payload.additionalRequests = payload.additionalRequests
+        ? `${routeNote}\n${payload.additionalRequests}`
+        : routeNote
+    }
+    const result = await submitVehicleHire(payload)
     bookingReference.value = result.bookingReference
     stage.value = 'done'
   } catch (err) {
@@ -181,15 +240,52 @@ function hireAnother() {
 
   <!-- Two-column: form + sticky summary -->
   <form v-else class="space-y-8" @submit.prevent="handleSubmit">
-    <!-- Step 1 — the vehicle. Full width so the first decision is big and clear. -->
+    <!-- Step 1 — the ROUTE leads: picking one sets the all-inclusive price and reveals the vehicles. -->
     <section class="rounded-card bg-white p-6 shadow-card sm:p-8">
       <div class="mb-5 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-        <p class="eyebrow">Choose Your Vehicle</p>
-        <span class="text-xs font-medium text-romara-ink-soft">Tap a vehicle to select it</span>
+        <p class="eyebrow">Step 1 · Choose Your Route</p>
+        <span class="text-xs font-medium text-romara-ink-soft">Per day · vehicle, fuel, driver &amp; park entry included</span>
       </div>
-      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <button
+          v-for="rate in routeOptions"
+          :key="rate.route"
+          type="button"
+          class="group flex items-center justify-between gap-4 rounded-xl border p-4 text-left transition-all duration-300 ease-out-expo hover:-translate-y-0.5"
+          :class="selectedRoute === rate.route
+            ? 'border-romara-amber bg-romara-amber/[0.05] shadow-card'
+            : 'border-romara-green/12 bg-white hover:border-romara-amber/40 hover:shadow-card'"
+          :aria-pressed="selectedRoute === rate.route"
+          @click="selectRoute(rate.route)"
+        >
+          <span class="min-w-0">
+            <span v-if="rate.from" class="text-xs font-medium text-romara-ink-soft">{{ rate.from }} →</span>
+            <span class="mt-0.5 block font-heading text-[15px] font-semibold leading-snug text-romara-green">{{ rate.to }}</span>
+          </span>
+          <span class="shrink-0 text-right leading-none">
+            <span class="block font-heading text-base font-semibold text-romara-amber">KES {{ formatPrice(rate.priceKES) }}</span>
+            <span class="mt-1 block text-[10px] font-medium uppercase tracking-[0.1em] text-romara-ink-soft">per day</span>
+          </span>
+        </button>
+      </div>
+      <p class="mt-4 text-xs leading-relaxed text-romara-ink-soft">
+        Rates are indicative averages and may shift with fuel and other economic factors — a consultant confirms your exact price before booking.
+      </p>
+    </section>
+
+    <!-- Step 2 — the vehicle. Revealed once a route is chosen; scrolled to on route click. -->
+    <section
+      v-if="selectedRoute"
+      ref="vehicleSection"
+      class="scroll-mt-24 rounded-card bg-white p-6 shadow-card sm:p-8"
+    >
+      <div class="mb-5 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+        <p class="eyebrow">Step 2 · Choose Your Vehicle</p>
+        <span class="text-xs font-medium text-romara-ink-soft">Your route rate covers the vehicle — pick the one you prefer</span>
+      </div>
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <button
-            v-for="vehicle in fleet"
+            v-for="vehicle in mainVehicles"
             :key="vehicle.key"
             type="button"
             class="group relative flex flex-col overflow-hidden rounded-card bg-white text-left transition-all duration-300 ease-out-expo"
@@ -197,7 +293,7 @@ function hireAnother() {
               ? 'border-2 border-romara-amber shadow-glow-amber ring-2 ring-romara-amber/25 sm:-translate-y-1'
               : 'border-2 border-romara-green/12 hover:-translate-y-0.5 hover:border-romara-green/40 hover:shadow-card'"
             :aria-pressed="formData.vehicle === vehicle.key"
-            @click="formData.vehicle = vehicle.key"
+            @click="selectVehicle(vehicle.key)"
           >
             <!-- Clear 'Selected' flag so the chosen vehicle is obvious at a glance -->
             <span
@@ -226,68 +322,35 @@ function hireAnother() {
             </div>
 
             <div class="flex flex-1 flex-col gap-1 p-4">
-              <div class="flex items-start justify-between gap-2">
-                <span class="font-heading text-base font-semibold text-romara-green">{{ vehicle.name }}</span>
-                <span class="shrink-0 text-right leading-none">
-                  <span class="block text-[10px] font-medium uppercase tracking-[0.1em] text-romara-ink-soft">From</span>
-                  <span class="mt-0.5 block font-heading text-sm font-semibold text-romara-green">KES {{ formatPrice(vehicle.dailyRate) }}</span>
-                  <span class="block text-[10px] text-romara-ink-soft">per day</span>
-                </span>
-              </div>
+              <span class="font-heading text-base font-semibold text-romara-green">{{ vehicle.name }}</span>
               <p class="text-xs leading-relaxed text-romara-ink-soft">{{ vehicle.desc }}</p>
             </div>
           </button>
         </div>
     </section>
 
-    <!-- Step 2 — details on the left, a live summary on the right. -->
-    <div class="grid grid-cols-1 items-start gap-8 lg:grid-cols-[1fr_340px]">
+    <!-- Step 3 — booking details on the left, a live summary on the right. Revealed once a vehicle is picked. -->
+    <div
+      v-if="selectedVehicle"
+      ref="detailsSection"
+      class="scroll-mt-24 grid grid-cols-1 items-start gap-8 lg:grid-cols-[1fr_340px]"
+    >
       <div class="space-y-8 rounded-card bg-white p-6 shadow-card sm:p-9">
         <!-- Driver option -->
         <div>
           <p :class="sectionLabelClasses">Driver</p>
-        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          <button
-            type="button"
-            class="flex items-center gap-3.5 rounded-2xl border p-4 text-left transition-all duration-300 ease-out-expo"
-            :class="formData.driverOption === 'chauffeur'
-              ? 'border-romara-amber bg-romara-amber/5 ring-1 ring-romara-amber'
-              : 'border-romara-green/12 bg-white hover:border-romara-green/30 hover:bg-romara-bone'"
-            :aria-pressed="formData.driverOption === 'chauffeur'"
-            @click="formData.driverOption = 'chauffeur'"
+        <div class="grid grid-cols-1 gap-3">
+          <div
+            class="flex items-center gap-3.5 rounded-2xl border border-romara-amber bg-romara-amber/5 p-4 ring-1 ring-romara-amber"
           >
-            <span
-              class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-colors"
-              :class="formData.driverOption === 'chauffeur' ? 'bg-romara-amber text-white' : 'bg-romara-green/5 text-romara-green'"
-            >
+            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-romara-amber text-white">
               <IconUserCheck class="h-5 w-5" />
             </span>
             <span class="min-w-0">
               <span class="block font-heading text-sm font-semibold text-romara-green">With Chauffeur</span>
-              <span class="mt-0.5 block text-xs text-romara-ink-soft">Professional driver + fuel guidance</span>
+              <span class="mt-0.5 block text-xs text-romara-ink-soft">A professional driver is included in every route rate.</span>
             </span>
-          </button>
-
-          <button
-            type="button"
-            class="flex items-center gap-3.5 rounded-2xl border p-4 text-left transition-all duration-300 ease-out-expo"
-            :class="formData.driverOption === 'self-drive'
-              ? 'border-romara-amber bg-romara-amber/5 ring-1 ring-romara-amber'
-              : 'border-romara-green/12 bg-white hover:border-romara-green/30 hover:bg-romara-bone'"
-            :aria-pressed="formData.driverOption === 'self-drive'"
-            @click="formData.driverOption = 'self-drive'"
-          >
-            <span
-              class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-colors"
-              :class="formData.driverOption === 'self-drive' ? 'bg-romara-amber text-white' : 'bg-romara-green/5 text-romara-green'"
-            >
-              <IconCar class="h-5 w-5" />
-            </span>
-            <span class="min-w-0">
-              <span class="block font-heading text-sm font-semibold text-romara-green">Self-Drive</span>
-              <span class="mt-0.5 block text-xs text-romara-ink-soft">Drive yourself, licence required</span>
-            </span>
-          </button>
+          </div>
         </div>
       </div>
 
@@ -410,9 +473,7 @@ function hireAnother() {
             <div v-else class="h-12 w-16 shrink-0" v-html="selectedVehicle.svg" />
             <div class="min-w-0">
               <p class="font-heading text-sm font-semibold text-romara-green">{{ selectedVehicle.name }}</p>
-              <p class="text-xs text-romara-ink-soft">
-                From <span class="font-semibold text-romara-green">KES {{ formatPrice(selectedVehicle.dailyRate) }}</span> / day
-              </p>
+              <p class="text-xs text-romara-ink-soft">{{ selectedVehicle.capacity }}</p>
             </div>
           </div>
 
@@ -444,6 +505,12 @@ function hireAnother() {
         <div class="px-6 py-5">
           <p class="mb-3 text-[11px] font-bold uppercase tracking-[0.14em] text-romara-ink-soft/70">Your trip</p>
           <dl class="divide-y divide-romara-green/[0.07] text-sm">
+            <div class="flex items-baseline justify-between gap-3 py-2.5">
+              <dt class="shrink-0 text-romara-ink-soft">Route</dt>
+              <dd class="max-w-[175px] text-right font-semibold" :class="selectedRoute ? 'text-romara-green' : 'font-normal italic text-romara-ink-soft/55'">
+                {{ selectedRoute ?? 'Not selected' }}
+              </dd>
+            </div>
             <div class="flex items-baseline justify-between gap-3 py-2.5">
               <dt class="shrink-0 text-romara-ink-soft">Driver</dt>
               <dd class="text-right font-semibold" :class="driverLabel ? 'text-romara-green' : 'font-normal italic text-romara-ink-soft/55'">
@@ -479,14 +546,23 @@ function hireAnother() {
 
         <!-- Rate breakdown -->
         <div v-if="selectedVehicle" class="space-y-2.5 border-t border-romara-green/10 px-6 py-5 text-sm">
-          <div class="flex items-center justify-between gap-3 text-romara-ink-soft">
-            <span>KES {{ formatPrice(selectedVehicle.dailyRate) }} × {{ hireDays }} day{{ hireDays > 1 ? 's' : '' }}</span>
-            <span class="font-semibold text-romara-green">KES {{ formatPrice(vehicleSubtotal) }}</span>
-          </div>
-          <div v-if="driverPerDay > 0" class="flex items-center justify-between gap-3 text-romara-ink-soft">
-            <span>Chauffeur × {{ hireDays }} day{{ hireDays > 1 ? 's' : '' }}</span>
-            <span class="font-semibold text-romara-green">KES {{ formatPrice(driverSubtotal) }}</span>
-          </div>
+          <template v-if="selectedRouteData">
+            <div class="flex items-center justify-between gap-3 text-romara-ink-soft">
+              <span>KES {{ formatPrice(selectedRouteData.priceKES) }}/day × {{ hireDays }} day{{ hireDays > 1 ? 's' : '' }}</span>
+              <span class="font-semibold text-romara-green">KES {{ formatPrice(selectedRouteData.priceKES * hireDays) }}</span>
+            </div>
+            <p class="text-[11px] leading-relaxed text-romara-ink-soft/70">All-inclusive — vehicle, fuel, driver &amp; park entry.</p>
+          </template>
+          <template v-else>
+            <div class="flex items-center justify-between gap-3 text-romara-ink-soft">
+              <span>KES {{ formatPrice(selectedVehicle.dailyRate) }} × {{ hireDays }} day{{ hireDays > 1 ? 's' : '' }}</span>
+              <span class="font-semibold text-romara-green">KES {{ formatPrice(vehicleSubtotal) }}</span>
+            </div>
+            <div v-if="driverPerDay > 0" class="flex items-center justify-between gap-3 text-romara-ink-soft">
+              <span>Chauffeur × {{ hireDays }} day{{ hireDays > 1 ? 's' : '' }}</span>
+              <span class="font-semibold text-romara-green">KES {{ formatPrice(driverSubtotal) }}</span>
+            </div>
+          </template>
         </div>
 
         <!-- Estimated total -->
@@ -503,9 +579,9 @@ function hireAnother() {
           <p v-if="submitError" class="rounded-lg bg-red-50 px-3 py-2 text-xs font-medium text-red-700">
             {{ submitError }}
           </p>
-          <BaseButton type="submit" variant="amber" block class="justify-center" :disabled="isSubmitting || !selectedVehicle || !formData.driverOption">
-            {{ isSubmitting ? 'Submitting...' : !selectedVehicle ? 'Select a Vehicle First' : !formData.driverOption ? 'Choose a Driver Option' : 'Request This Vehicle' }}
-            <IconArrowRight v-if="selectedVehicle && formData.driverOption" class="h-4 w-4" />
+          <BaseButton type="submit" variant="amber" block class="justify-center" :disabled="isSubmitting || !selectedVehicle || !selectedRoute || !formData.driverOption">
+            {{ isSubmitting ? 'Submitting...' : !selectedVehicle ? 'Select a Vehicle First' : !selectedRoute ? 'Choose a Route' : !formData.driverOption ? 'Choose a Driver Option' : 'Request This Vehicle' }}
+            <IconArrowRight v-if="selectedVehicle && selectedRoute && formData.driverOption" class="h-4 w-4" />
           </BaseButton>
           <BaseButton as="a" href="/contact" variant="outline" block class="justify-center">Request a Quote</BaseButton>
           <p class="pt-1 text-center text-xs text-romara-ink-soft">
