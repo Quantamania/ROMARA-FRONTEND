@@ -4,6 +4,7 @@ import { useRoute, useRouter } from 'vue-router'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import SectionHeading from '@/components/ui/SectionHeading.vue'
 import PackageCard from '@/features/safari-packages/components/PackageCard.vue'
+import DirectBookingPanel from '@/features/booking/components/DirectBookingPanel.vue'
 import IconCheck from '@/components/icons/IconCheck.vue'
 import IconX from '@/components/icons/IconX.vue'
 import IconArrowLeft from '@/components/icons/IconArrowLeft.vue'
@@ -20,10 +21,22 @@ onMounted(async () => { packages.value = await getAllPackages() })
 
 const slugParam = computed(() => route.params.slug as string)
 
-// Carry the chosen safari into the wizard so step 1 arrives already filled in.
+// Two journeys, and they are not interchangeable.
+//
+// "Book this safari" reserves seats on this fixed-price package and goes
+// straight to payment — it creates a real, payable booking.
+//
+// "Request a quote" carries the safari into the multi-step wizard for anyone
+// wanting the trip tailored. That path deliberately takes no money: until a
+// consultant prices it there is no figure to charge.
 const bookingHref = computed(() => `/booking?package=${encodeURIComponent(slugParam.value)}`)
 function goToBooking() {
   router.push({ path: '/booking', query: { package: slugParam.value } })
+}
+
+const bookingPanel = ref<HTMLElement | null>(null)
+function scrollToBooking() {
+  bookingPanel.value?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
 const currentPackage = computed(() => {
@@ -128,8 +141,8 @@ function formatSrc(src: string) {
           </p>
 
           <div class="mt-9 flex flex-wrap gap-3.5">
-            <BaseButton as="a" :href="bookingHref" variant="amber" size="lg">Book this Safari</BaseButton>
-            <BaseButton as="a" href="/contact" variant="ghost" size="lg">Request a Quote</BaseButton>
+            <BaseButton variant="amber" size="lg" @click="scrollToBooking()">Book this Safari</BaseButton>
+            <BaseButton as="a" :href="bookingHref" variant="ghost" size="lg">Request a Quote</BaseButton>
           </div>
         </div>
       </div>
@@ -273,8 +286,8 @@ function formatSrc(src: string) {
               </div>
 
               <div class="mt-6 space-y-3">
-                <BaseButton block variant="amber" size="lg" @click="goToBooking()">Book Now</BaseButton>
-                <BaseButton block variant="ghost" size="lg" @click="router.push('/contact')">Contact Us</BaseButton>
+                <BaseButton block variant="amber" size="lg" @click="scrollToBooking()">Book Now</BaseButton>
+                <BaseButton block variant="ghost" size="lg" @click="goToBooking()">Request a Quote</BaseButton>
               </div>
             </div>
           </div>
@@ -297,6 +310,15 @@ function formatSrc(src: string) {
     </main>
 
     <!-- Related packages — horizontal scroller on mobile, grid on desktop -->
+    <!-- Reserve seats and pay. Every "Book" button on the page scrolls here. -->
+    <section ref="bookingPanel" class="scroll-mt-24 border-t border-romara-green/10 bg-romara-cream/40">
+      <div class="romara-container section-y">
+        <div class="mx-auto max-w-2xl">
+          <DirectBookingPanel :pkg="currentPackage" />
+        </div>
+      </div>
+    </section>
+
     <section v-if="relatedPackages.length" class="border-t border-romara-green/10 bg-white">
       <div class="romara-container section-y">
         <SectionHeading
@@ -326,7 +348,7 @@ function formatSrc(src: string) {
             KES {{ formatPrice(currentPackage.priceFromKES) }}
           </p>
         </div>
-        <BaseButton variant="amber" size="lg" @click="goToBooking()">Book Now</BaseButton>
+        <BaseButton variant="amber" size="lg" @click="scrollToBooking()">Book Now</BaseButton>
       </div>
     </div>
   </div>

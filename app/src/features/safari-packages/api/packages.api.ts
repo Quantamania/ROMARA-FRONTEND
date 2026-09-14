@@ -24,6 +24,11 @@ function toSafariPackage(row: Record<string, any>): SafariPackage {
     description: row.description || '',
     priceFromKES: Number(row.price) || 0,
     badge: row.badge || undefined,
+    // Set only here. Bundled fallback packages carry ids that mean a different
+    // tour in the database, so they must never become bookable — see
+    // package.types.ts.
+    tourId: Number(row.id),
+    availableSlots: Number(row.available_slots ?? 0),
   }
 }
 
@@ -32,7 +37,7 @@ export async function getAllPackages(): Promise<SafariPackage[]> {
 
   const { data, error } = await supabase
     .from('tour_packages')
-    .select('id, slug, name, description, price, duration, destination, image_url, badge')
+    .select('id, slug, name, description, price, duration, destination, image_url, badge, available_slots')
     .eq('is_published', true)
     .order('created_at', { ascending: true })
 
